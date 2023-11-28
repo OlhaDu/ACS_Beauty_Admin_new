@@ -1,0 +1,46 @@
+@import "/src/styles/variables.scss";
+@import "/src/styles/mixins.scss";
+
+.container {
+  width: 629px;
+  height: 654px;
+  border-radius: 12px;
+  border: $default-border;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 22px 38px 31px 37px;
+  .heading {
+    display: flex;
+    justify-content: space-between;
+    h3 {
+      @extend .Roboto500-20-23;
+    }
+  }
+  .form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    .optionName {
+      @extend .Roboto700-16-18;
+    }
+    input {
+      width: 554px;
+      height: 44px;
+      border-radius: 4px;
+      border: $default-border;
+    }
+    input:focus {
+      border: $active-field-border;
+      outline: none;
+    }
+    .descriptionInput {
+      height: 158px;
+    }
+  }
+  .violetButton {
+    align-self: center;
+  }
+}

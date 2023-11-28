@@ -1,0 +1,33 @@
+@import "/src/styles/variables.scss";
+@import "/src/styles/mixins.scss";
+
+.container {
+  height: inherit;
+  margin: auto 80px 40px 20px;
+  padding-top: 28px;
+  h3 {
+    @extend .Roboto500-24-28;
+    margin-bottom: 34px;
+  }
+  .dashboards {
+    width: 1064px;
+    height: 428px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-content: space-between;
+    margin-bottom: 32px;
+  }
+  .orders {
+    h4 {
+      @extend .Roboto500-24-28;
+      margin-bottom: 16px;
+    }
+    .table {
+      width: 1064px;
+      height: 417px;
+      background-color: rgb(253, 227, 232);
+      margin-top: 36px;
+    }
+  }
+}
