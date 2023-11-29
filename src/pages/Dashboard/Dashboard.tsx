@@ -1,5 +1,6 @@
 import DashboardCard from "src/components/DashboardCard/DashboardCard";
-import ProductsIcon from "src/images/svg/ProductsIcon";
+
+import ProdIcon from "src/images/svg/ProdIcon.svg";
 
 import styles from "./Dashboard.module.scss";
 
@@ -15,6 +16,7 @@ const Dashboard = () => {
           totalItemQuantity={"2356"}
           itemIncrease={"10"}
         />
+        <ProdIcon />
         {/* <DashboardCard
           itemHeading={"Надходження на місяць"}
           itemQuantity={"12567₴"}

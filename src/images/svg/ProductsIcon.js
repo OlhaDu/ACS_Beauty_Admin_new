@@ -1,6 +1,6 @@
 import React from "react";
 
-const ProductsIcon = ({color}) => {
+const ProductsIcon = ({ color }) => {
   return (
     <svg
       width="20"
