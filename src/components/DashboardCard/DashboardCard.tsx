@@ -1,5 +1,5 @@
-import React from "react";
-import ArrowToTopIcon from "../../../svgs/ArrowToTopIcon";
+// import ArrowToTopIcon from "src/images/svg/ArrowToTopIcon";
+
 import styles from "./DashboardCard.module.scss";
 
 const DashboardCard = ({
@@ -20,15 +20,13 @@ const DashboardCard = ({
       </div>
       <div className={styles.bottomInfoContainer}>
         <h5>
-          Всього: {totalItemQuantity ? `${totalItemQuantity}` : 'Дані відсутні'}
+          Всього: {totalItemQuantity ? `${totalItemQuantity}` : "Дані відсутні"}
         </h5>
         <h6>
           {itemIncrease ? (
-            <>
-              {itemIncrease}% <ArrowToTopIcon />
-            </>
+            <>{/* {itemIncrease}% <ArrowToTopIcon /> */}</>
           ) : (
-            'Дані відсутні'
+            "Дані відсутні"
           )}
         </h6>
       </div>

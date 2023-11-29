@@ -1,19 +1,19 @@
-@import "/src/styles/variables.scss";
-@import "/src/styles/mixins.scss";
+// @import "/src/styles/variables.scss";
+// @import "/src/styles/mixins.scss";
 
-.container {
-  .heading {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin: auto 80px 44px auto;
-    h3 {
-      @extend .Roboto500-24-28;
-    }
-  }
-  .collapses {
-    > * {
-      margin-bottom: 32px;
-    }
-  }
-}
+// .container {
+//   .heading {
+//     display: flex;
+//     justify-content: space-between;
+//     align-items: center;
+//     margin: auto 80px 44px auto;
+//     h3 {
+//       @extend .Roboto500-24-28;
+//     }
+//   }
+//   .collapses {
+//     > * {
+//       margin-bottom: 32px;
+//     }
+//   }
+// }

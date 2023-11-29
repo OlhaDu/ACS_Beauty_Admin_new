@@ -1,9 +1,5 @@
-import ToolsPanel from "src/components/ToolsPanel/ToolsPanel";
 import DashboardCard from "src/components/DashboardCard/DashboardCard";
-import ProductIcon from "src/svgs/ProductsIcon";
-import IncomeIcon from "src/svgs/IncomeIcon";
-import LoginIcon from "src/svgs/LoginIcon";
-import ReviewsIcon from "src/svgs/ReviewsIcon";
+import ProductsIcon from "src/images/svg/ProductsIcon";
 
 import styles from "./Dashboard.module.scss";
 
@@ -15,11 +11,11 @@ const Dashboard = () => {
         <DashboardCard
           itemHeading={"Замовлення на місяць"}
           itemQuantity={"12"}
-          itemIcon={<ProductIcon color={"#5C5E60"} />}
+          // itemIcon={<ProductsIcon color={"#5C5E60"} />}
           totalItemQuantity={"2356"}
           itemIncrease={"10"}
         />
-        <DashboardCard
+        {/* <DashboardCard
           itemHeading={"Надходження на місяць"}
           itemQuantity={"12567₴"}
           itemIcon={<IncomeIcon color={"#5C5E60"} />}
@@ -39,13 +35,13 @@ const Dashboard = () => {
           itemIcon={<ReviewsIcon color={"#5C5E60"} />}
           totalItemQuantity={"1200"}
           itemIncrease={"10"}
-        />
+        /> */}
       </div>
-      <div className={styles.orders}>
+      {/* <div className={styles.orders}>
         <h4>Останні замовлення</h4>
         <ToolsPanel />
         <div className={styles.table}>Тут будет таблица</div>
-      </div>
+      </div> */}
     </div>
   );
 };
