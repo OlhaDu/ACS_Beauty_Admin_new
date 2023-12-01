@@ -1,0 +1,40 @@
+import React from "react";
+import styles from "./ToolsPanel.module.scss";
+import SearchInput from "./SearchInput/SearchInput";
+import Select from "./Select/Select";
+import FilterIcon from "../../svgs/FilterIcon";
+import ActionsIcon from "../../svgs/ActionsIcon";
+import ExportFileIcon from "../../svgs/ExportFileIcon";
+import RowListIcon from "../../svgs/RowListIcon";
+
+const ToolsPanel = () => {
+  const options = ["Option 1", "Option 2", "Option 3"];
+  return (
+    <div>
+      <SearchInput />
+      <div className={styles.tools}>
+        <section>
+          <Select
+            options={options}
+            icon={<FilterIcon />}
+            toolName={"Фільтрувати"}
+          />
+          <Select options={options} icon={<ActionsIcon />} toolName={"Дії"} />
+          <Select
+            options={options}
+            icon={<ExportFileIcon />}
+            toolName={"Експортувати"}
+          />
+        </section>
+        <Select
+          options={options}
+          icon={<RowListIcon />}
+          toolName={"Рядків на сторінці: 10"}
+          style={{ width: "261px" }}
+        />
+      </div>
+    </div>
+  );
+};
+
+export default ToolsPanel;
