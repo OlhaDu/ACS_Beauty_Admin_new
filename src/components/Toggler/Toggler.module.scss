@@ -1,0 +1,45 @@
+@import "/src/styles/variables.scss";
+@import "/src/styles/mixins.scss";
+
+.container {
+  width: 162px;
+  height: 63px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  h5 {
+    @extend .Roboto700-16-18;
+  }
+  .toggle {
+    width: inherit;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: $toggler-off-color;
+    border-radius: 100px;
+    cursor: pointer;
+    border: none;
+    position: relative;
+    transition: background-color 0.3s;
+    @extend .Roboto400-16-18;
+    .toggleCircle {
+      width: 24px;
+      height: 24px;
+      background-color: white;
+      border-radius: 50%;
+      position: absolute;
+      transition: left 0.3s, background-color 0.3s;
+      left: 6px;
+    }
+  }
+  .toggleActive {
+    background-color: $main-color;
+    color: white;
+    .toggleCircle {
+      left: calc(100% - 30px);
+      background-color: #7D35DA;
+    }
+  }
+}

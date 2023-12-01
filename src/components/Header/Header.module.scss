@@ -1,0 +1,30 @@
+@import "/src/styles/variables.scss";
+@import "/src//styles/mixins.scss";
+
+.container {
+  width: inherit;
+  height: $header-height;
+  position: fixed;
+  top: 0;
+  background-color: $main-color;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 80px;
+}
+.headerLogo {
+  @extend .Roboto700-24-28;
+  color: white;
+}
+.headerMenu {
+  width: 80px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.icon {
+  cursor: pointer;
+}
+.popup {
+  position: absolute;
+}

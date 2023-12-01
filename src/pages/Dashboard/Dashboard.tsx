@@ -1,8 +1,8 @@
+// import ProdIcon from "src/images/svg/ProdIcon.svg";
+
 import DashboardCard from "src/components/DashboardCard/DashboardCard";
-
-import ProdIcon from "src/images/svg/ProdIcon.svg";
-
 import styles from "./Dashboard.module.scss";
+import ProductsIcon from "src/images/svg/ProductsIcon";
 
 const Dashboard = () => {
   return (
@@ -12,11 +12,12 @@ const Dashboard = () => {
         <DashboardCard
           itemHeading={"Замовлення на місяць"}
           itemQuantity={"12"}
-          // itemIcon={<ProductsIcon color={"#5C5E60"} />}
+          itemIcon={<ProductsIcon color={"#5C5E60"} />}
           totalItemQuantity={"2356"}
           itemIncrease={"10"}
         />
-        <ProdIcon />
+        {/* <ProdIcon /> */}
+
         {/* <DashboardCard
           itemHeading={"Надходження на місяць"}
           itemQuantity={"12567₴"}
