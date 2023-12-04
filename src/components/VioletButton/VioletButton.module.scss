@@ -1,0 +1,9 @@
+@import "/src/styles/variables.scss";
+@import "/src/styles/mixins.scss";
+
+.buttonContainer {
+    @extend .Violet-button-styles;
+}
+.buttonContainer:disabled {
+    @extend .Disabled-button-styles;
+}
