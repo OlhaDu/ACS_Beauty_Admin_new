@@ -1,0 +1,30 @@
+@import "/src/styles/variables.scss";
+@import "/src/styles/mixins.scss";
+
+.container {
+    border: $default-border;
+  .collaps {
+    width: 628px;
+    height: 76px;
+    @extend .Roboto400-20-23;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 16px;
+    section {
+      display: flex;
+      .openMoreArrow {
+        @extend .Icon-main-style;
+        width: 24px;
+        height: 24px;
+        background-color: transparent;
+      }
+    }
+    .icon {
+      @extend .Icon-main-style;
+      margin: 0 3px;
+    }
+  }
+  .content {
+  }
+}

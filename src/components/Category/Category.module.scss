@@ -1,0 +1,49 @@
+@import "/src/styles/variables.scss";
+@import "/src/styles/mixins.scss";
+
+.container {
+  width: 1062px;
+  border: $default-border;
+  border-radius: 4px;
+  .collapsContainer {
+    width: inherit;
+    height: 133px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-right: 26px;
+    .categoryName {
+      width: 180px;
+      height: 92px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      h2 {
+        @extend .Roboto500-24-28;
+        align-self: center;
+        white-space: nowrap;
+        text-transform: uppercase;
+      }
+      .actions {
+        display: flex;
+        justify-content: space-between;
+        .icon {
+          @extend .Icon-main-style;
+        }
+      }
+    }
+    .openSubcategoriesArrow {
+      @extend .Icon-main-style;
+      width: 48px;
+      height: 48px;
+      background-color: transparent;
+    }
+  }
+  .content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 200px;
+  }
+}
