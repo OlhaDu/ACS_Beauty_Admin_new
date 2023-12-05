@@ -1,6 +1,8 @@
-import React from "react";
+import { FC } from "react";
 
-const ArrowToBottomIcon = ({iconSize}) => {
+import IProps from "src/interface/icons";
+
+const ArrowToBottomIcon: FC<IProps> = ({ iconSize }) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

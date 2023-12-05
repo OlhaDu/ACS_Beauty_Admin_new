@@ -1,12 +1,14 @@
-import React from "react";
+import { FC } from "react";
 
-const ArrowToRight = ({iconSize}) => {
+import IProps from "src/interface/icons";
+
+const ArrowToRight: FC<IProps> = ({ iconSize }) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width={iconSize || 48}
       height={iconSize || 48}
-      viewBox = '0 0 48 48'
+      viewBox="0 0 48 48"
       fill="none"
     >
       <path
