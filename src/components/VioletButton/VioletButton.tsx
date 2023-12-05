@@ -2,10 +2,10 @@ import styles from "./VioletButton.module.scss";
 
 interface IVioletButtonProps {
   buttonText: string;
-  radius: string;
   onClickFunction: () => void;
-  type: "button" | "submit" | "reset";
-  disabled: boolean;
+  type?: "button" | "submit" | "reset";
+  radius?: string;
+  disabled?: boolean;
 }
 
 const VioletButton = ({
