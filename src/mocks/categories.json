@@ -1,0 +1,27 @@
+[
+  {
+    "id": 1,
+    "name": "Догляд",
+    "image": "path/to/care.jpg"
+  },
+  {
+    "id": 2,
+    "name": "Макіяж",
+    "image": "path/to/makeup.jpg"
+  },
+  {
+    "id": 3,
+    "name": "Волосся",
+    "image": "path/to/hair.jpg"
+  },
+  {
+    "id": 4,
+    "name": "Тіло",
+    "image": "path/to/body.jpg"
+  },
+  {
+    "id": 5,
+    "name": "Аксесуари",
+    "image": "path/to/accessories.jpg"
+  }
+]
