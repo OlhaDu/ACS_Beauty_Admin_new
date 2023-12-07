@@ -1,6 +1,6 @@
 import { FC } from "react";
 
-import IProps from "src/interface/icons";
+import IProps from "src/interfaces/icons";
 
 const ArrowToRight: FC<IProps> = ({ iconSize }) => {
   return (
