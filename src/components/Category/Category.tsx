@@ -1,9 +1,7 @@
 import { useState } from "react";
 
 // import Subcategory from "../Subcategory/Subcategory";
-import ChangeIcon from "src/images/svg/ChangeIcon";
-import DeleteIcon from "src/images/svg/DeleteIcon";
-import AddIcon from "src/images/svg/AddIcon";
+
 import ArrowToBottomIcon from "src/images/svg/ArrowToBottomIcon";
 import ArrowToRight from "src/images/svg/ArrowToRight";
 // import AddSubcategoryPopup from "../Popups/AddSubcategoryPopup/AddSubcategoryPopup";
@@ -11,6 +9,7 @@ import ArrowToRight from "src/images/svg/ArrowToRight";
 import ICategory from "src/interfaces/categories";
 
 import styles from "./Category.module.scss";
+import ActionMenu from "../ActionMenu/ActionMenu";
 
 // import subcategories from "src/mocks/subcategories.json";
 
@@ -28,18 +27,18 @@ const Category = ({
   setActiveCategoryId,
 }: ICategoryProps) => {
   const [isCollapsed, setIsCollapsed] = useState(false);
-  const [addSubcategoryActive, addSubcategorySetActive] = useState(false);
+  const [isAddingSubcategory, setIsAddingSubcategory] = useState(false);
 
   const { name, id } = category;
 
   const toggleCollapse = () => {
     setIsCollapsed(!isCollapsed);
-    addSubcategorySetActive(false);
+    setIsAddingSubcategory(false);
   };
 
   const showAddSubcategoryPopup = () => {
     setIsCollapsed(true);
-    addSubcategorySetActive(true);
+    setIsAddingSubcategory(true);
   };
 
   return (
@@ -49,30 +48,12 @@ const Category = ({
           <div className={styles.categoryName}>
             <h2>{name}</h2>
 
-            {/* меню экшенов */}
-            <div className={styles.actions}>
-              <div
-                className={styles.icon}
-                onClick={() => {
-                  setActive(true);
-                  setActiveCategoryId(id);
-                }}
-              >
-                <ChangeIcon />
-              </div>
-              <div
-                className={styles.icon}
-                // onClick={() => delCategoryRequest(id)} // удаление категории по id
-              >
-                <DeleteIcon />
-              </div>
-              {!addSubcategoryActive && (
-                <div className={styles.icon} onClick={showAddSubcategoryPopup}>
-                  <AddIcon color={"#FFF"} />
-                </div>
-              )}
-            </div>
-            {/* меню экшенов */}
+            <ActionMenu
+              setActive={setActive}
+              setActiveCategoryId={setActiveCategoryId}
+              isAddingSubcategory={isAddingSubcategory}
+              showAddSubcategoryPopup={showAddSubcategoryPopup}
+            />
           </div>
           <div
             className={styles.openSubcategoriesArrow}
@@ -82,7 +63,7 @@ const Category = ({
           </div>
         </div>
 
-        {/* {isCollapsed && !addSubcategoryActive && (
+        {/* {isCollapsed && !isAddingSubcategory && (
           <div className={styles.content}>
             {subcategories.length
               ? subcategories.map((subcategories) => (
@@ -94,10 +75,10 @@ const Category = ({
               : null}
           </div>
         )} */}
-        {/* {addSubcategoryActive && (
+        {/* {isAddingSubcategory && (
           <div className={styles.content}>
             <AddSubcategoryPopup
-              setActive={addSubcategorySetActive}
+              setActive={setIsAddingSubcategory}
               categoryId={id}
             />
           </div>
