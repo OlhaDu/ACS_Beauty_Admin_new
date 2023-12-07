@@ -1,20 +1,24 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 // import { connect } from "react-redux";
 // import actionCreators from "../../store/actions/actionCreators";
 // import { UNKNOWN } from "../../constants";
 
+import Category from "src/components/Category/Category";
 import VioletButton from "src/components/VioletButton/VioletButton";
 
 import styles from "./Categories.module.scss";
 
-export const Categories = () => {
+import categories from "src/mocks/categories.json";
+
+type CategoryId = number | null;
+
+const Categories = () => {
   const [active, setActive] = useState(false);
-  const [activeCategoryId, setActiveCategoryId] = useState(null);
+  const [activeCategoryId, setActiveCategoryId] = useState<CategoryId>(null);
+  console.log(`🚀 ~ Categories ~ activeCategoryId:`, activeCategoryId);
 
-  const categories: any = [];
-
-  // здесь сделать запрос на получение категорий с бека или он будет в общем стейте
+  // здесь получение всех категорий
   // useEffect(() => {}, []);
 
   // if (!categories) {
@@ -37,21 +41,23 @@ export const Categories = () => {
         <div className={styles.collapses}>
           {categories.map((category) => (
             <Category
-              data={category}
-              key={category.categoryId}
+              category={category}
+              key={category.id}
               setActive={setActive}
               setActiveCategoryId={setActiveCategoryId}
             />
           ))}
         </div>
       </div>
-      {active && (
+      {/* {active && (
         <AddCategoryPopup
           setActive={setActive}
           setActiveCategoryId={setActiveCategoryId}
           activeCategoryId={activeCategoryId}
         />
-      )}
+      )} */}
     </>
   );
 };
+
+export default Categories;

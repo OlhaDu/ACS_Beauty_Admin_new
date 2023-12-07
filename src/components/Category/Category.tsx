@@ -1,27 +1,42 @@
-import React, { useState } from "react";
-import styles from "./Category.module.scss";
-import ArrowToRight from "../../../svgs/ArrowToRight";
-import ChangeIcon from "../../../svgs/ChangeIcon";
-import DeleteIcon from "../../../svgs/DeleteIcon";
-import AddIcon from "../../../svgs/AddIcon";
-import Subcategory from "../Subcategory/Subcategory";
-import AddSubcategoryPopup from "../../../components/Popups/AddSubcategoryPopup/AddSubcategoryPopup";
-import ArrowToBottomIcon from "../../../svgs/ArrowToBottomIcon";
-import { connect } from "react-redux";
-import actionCreators from "../../../store/actions/actionCreators";
+import { useState } from "react";
 
-const Category = (props) => {
+// import Subcategory from "../Subcategory/Subcategory";
+import ChangeIcon from "src/images/svg/ChangeIcon";
+import DeleteIcon from "src/images/svg/DeleteIcon";
+import AddIcon from "src/images/svg/AddIcon";
+import ArrowToBottomIcon from "src/images/svg/ArrowToBottomIcon";
+import ArrowToRight from "src/images/svg/ArrowToRight";
+// import AddSubcategoryPopup from "../Popups/AddSubcategoryPopup/AddSubcategoryPopup";
+
+import ICategory from "src/interfaces/categories";
+
+import styles from "./Category.module.scss";
+
+// import subcategories from "src/mocks/subcategories.json";
+
+interface ICategoryProps {
+  category: ICategory;
+  setActive: (active: boolean) => void;
+  setActiveCategoryId: (categoryId: number) => void;
+  key?: number;
+  // activeCategoryId: () => void;
+}
+
+const Category = ({
+  category,
+  setActive,
+  setActiveCategoryId,
+}: ICategoryProps) => {
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [addSubcategoryActive, addSubcategorySetActive] = useState(false);
-  const { name, categoryId, subcategories } = props.data;
-  const { delCategoryRequest } = props;
-  const { setActive, setActiveCategoryId, activeCategoryId } = props;
 
-  // console.log(activeCategoryId)
+  const { name, id } = category;
+
   const toggleCollapse = () => {
     setIsCollapsed(!isCollapsed);
     addSubcategorySetActive(false);
   };
+
   const showAddSubcategoryPopup = () => {
     setIsCollapsed(true);
     addSubcategorySetActive(true);
@@ -30,23 +45,24 @@ const Category = (props) => {
   return (
     <>
       <div className={styles.container}>
-        <div className={styles.collapsContainer}>
-          <div></div>
+        <div className={styles.collapseContainer}>
           <div className={styles.categoryName}>
             <h2>{name}</h2>
+
+            {/* меню экшенов */}
             <div className={styles.actions}>
               <div
                 className={styles.icon}
                 onClick={() => {
                   setActive(true);
-                  setActiveCategoryId(categoryId);
+                  setActiveCategoryId(id);
                 }}
               >
                 <ChangeIcon />
               </div>
               <div
                 className={styles.icon}
-                onClick={() => delCategoryRequest(categoryId)}
+                // onClick={() => delCategoryRequest(id)} // удаление категории по id
               >
                 <DeleteIcon />
               </div>
@@ -56,6 +72,7 @@ const Category = (props) => {
                 </div>
               )}
             </div>
+            {/* меню экшенов */}
           </div>
           <div
             className={styles.openSubcategoriesArrow}
@@ -64,39 +81,30 @@ const Category = (props) => {
             {isCollapsed ? <ArrowToBottomIcon /> : <ArrowToRight />}
           </div>
         </div>
-        {isCollapsed && !addSubcategoryActive && (
+
+        {/* {isCollapsed && !addSubcategoryActive && (
           <div className={styles.content}>
             {subcategories.length
               ? subcategories.map((subcategories) => (
                   <Subcategory
                     subcategories={subcategories}
-                    key={subcategories.subcategoryId}
+                    key={subcategories.id}
                   />
                 ))
               : null}
           </div>
-        )}
-        {addSubcategoryActive && (
+        )} */}
+        {/* {addSubcategoryActive && (
           <div className={styles.content}>
             <AddSubcategoryPopup
               setActive={addSubcategorySetActive}
-              categoryId={categoryId}
+              categoryId={id}
             />
           </div>
-        )}
+        )} */}
       </div>
     </>
   );
 };
 
-const mapDispatchToProps = (dispatch) => ({
-  delCategoryRequest: (id) => dispatch(actionCreators.delCategoryRequest(id)),
-});
-
-const mapStateToProps = (state) => {
-  return {
-    categories: state.categoriesReducer,
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Category);
+export default Category;
