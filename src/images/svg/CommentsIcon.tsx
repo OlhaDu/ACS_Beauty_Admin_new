@@ -1,6 +1,8 @@
-import React from "react";
+import { FC } from "react";
 
-const CommentsIcon = ({ color }) => {
+import IProps from "src/interfaces/icons";
+
+const CommentsIcon: FC<IProps> = ({ color }) => {
   return (
     <svg
       width="22"

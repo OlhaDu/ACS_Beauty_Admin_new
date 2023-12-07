@@ -1,6 +1,8 @@
-import React from "react";
+import { FC } from "react";
 
-const NewsIcon = ({ color }) => {
+import IProps from "src/interfaces/icons";
+
+const NewsIcon: FC<IProps> = ({ color }) => {
   return (
     <svg
       width="20"

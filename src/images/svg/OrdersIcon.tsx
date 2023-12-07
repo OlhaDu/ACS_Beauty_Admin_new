@@ -1,6 +1,8 @@
-import React from "react";
+import { FC } from "react";
 
-const OrdersIcon = ({color}) => {
+import IProps from "src/interfaces/icons";
+
+const OrdersIcon: FC<IProps> = ({ color }) => {
   return (
     <svg
       width="18"

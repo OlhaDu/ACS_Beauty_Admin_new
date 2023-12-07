@@ -1,6 +1,8 @@
-import React from "react";
+import { FC } from "react";
 
-const ListIcon = ({ color }) => {
+import IProps from "src/interfaces/icons";
+
+const ListIcon: FC<IProps> = ({ color }) => {
   return (
     <svg
       width="20"

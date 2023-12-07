@@ -1,6 +1,8 @@
-import React from "react";
+import { FC } from "react";
 
-const LoginIcon = ({color}) => {
+import IProps from "src/interfaces/icons";
+
+const LoginIcon: FC<IProps> = ({ color }) => {
   return (
     <svg
       width="16"

@@ -1,6 +1,8 @@
-import React from "react";
+import { FC } from "react";
 
-const SearchIcon = ({ className, style }) => {
+import IProps from "src/interfaces/icons";
+
+const SearchIcon: FC<IProps> = ({ className, style }) => {
   return (
     <svg
       className={className}
