@@ -1,6 +1,8 @@
-import React from "react";
+import { FC } from "react";
 
-const DeleteIcon = () => {
+import IProps from "src/interfaces/icons";
+
+const DeleteIcon: FC<IProps> = () => {
   return (
     <svg
       width="14"
