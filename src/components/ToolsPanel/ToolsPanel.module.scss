@@ -1,9 +1,8 @@
 .tools {
   display: flex;
   justify-content: space-between;
-  section {
-    width: 644px;
-    display: flex;
-    justify-content: space-between;
-  }
+}
+.leftSideTools {
+  display: flex;
+  gap: 20px;
 }

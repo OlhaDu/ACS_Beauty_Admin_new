@@ -1,0 +1,27 @@
+@import "/src/styles/variables.scss";
+@import "/src/styles/mixins.scss";
+
+.searchInputContainer {
+  position: relative;
+  width: 414px;
+  height: 44px;
+  margin-bottom: 16px;
+}
+
+.searchInput {
+  width: inherit;
+  height: inherit;
+  outline: none;
+  font-size: 36px;
+  border: $default-border;
+}
+
+.searchInput:focus {
+  border: $active-field-border;
+}
+
+.searchIcon {
+  position: absolute;
+  left: 11px;
+  top: 13px;
+}

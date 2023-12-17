@@ -1,45 +1,36 @@
-// @import '/src/styles/variables.scss';
-// @import '/src/styles/mixins.scss';
+@import "/src/styles/variables.scss";
+@import "/src/styles/mixins.scss";
 
-// .container {
-//   width: 520px;
-//   height: 200px;
-//   border: $default-border;
-//   padding: 24px 24px 24px 12px;
-//   display: flex;
-//   flex-direction: column;
-//   justify-content: space-between;
-//   h5 {
-//     @extend .Roboto400-20-23;
-//   }
-//   h2 {
-//     @extend .Roboto700-48-56;
-//   }
-//   h6 {
-//     @extend .Roboto500-20-23;
-//   }
-//   .topInfoContainer {
-//     display: flex;
-//     flex-direction: row;
-//     justify-content: space-between;
-//     section {
-//       height: 105px;
-//       display: flex;
-//       flex-direction: column;
-//       justify-content: space-between;
-//     }
-//     .iconContainer {
-//       background-color: #948ad0;
-//       width: 52px;
-//       height: 52px;
-//       border-radius: 50%;
-//       display: flex;
-//       justify-content: center;
-//       align-items: center;
-//     }
-//   }
-//   .bottomInfoContainer {
-//     display: flex;
-//     justify-content: space-between;
-//   }
-// }
+.cardContainer {
+  width: 522px;
+  height: 202px;
+  flex-shrink: 0;
+  border: $default-border;
+  border-radius: 4px;
+  padding: 24px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.leftContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: start;
+  @include font-style(20px);
+}
+
+.monthsQuantity {
+  @include font-style(48px, 600);
+}
+
+.rightContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  @include font-style(20px, 500);
+}
+
+.iconContainer {
+  @extend .Icon-main-style;
+}

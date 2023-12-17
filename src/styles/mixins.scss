@@ -1,48 +1,8 @@
-.Roboto400-14 {
-  font-weight: 400;
-  font-size: 14px;
-  line-height: normal;
+@mixin font-style($size: 14px, $weight: 400){
+  font-size: $size;
+  font-weight: $weight;
 }
-.Roboto400-16-18 {
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 18.75px;
-}
-.Roboto400-20-23 {
-  font-weight: 400;
-  font-size: 20px;
-  line-height: 23.44px;
-}
-.Roboto500-16-18 {
-  font-weight: 500;
-  font-size: 16px;
-  line-height: 18.75px;
-}
-.Roboto500-20-23 {
-  font-weight: 500;
-  font-size: 20px;
-  line-height: 23.44px;
-}
-.Roboto500-24-28 {
-  font-weight: 500;
-  font-size: 24px;
-  line-height: 28.13px;
-}
-.Roboto700-16-18 {
-  font-weight: 700;
-  font-size: 16px;
-  line-height: 18.75px;
-}
-.Roboto700-24-28 {
-  font-weight: 700;
-  font-size: 24px;
-  line-height: 28px;
-}
-.Roboto700-48-56 {
-  font-weight: 700;
-  font-size: 48px;
-  line-height: 56px;
-}
+
 .Icon-main-style {
   width: 52px;
   height: 52px;
@@ -53,6 +13,7 @@
   align-items: center;
   cursor: pointer;
 }
+
 .Violet-button-styles {
   width: 197px;
   height: 43px;
@@ -63,11 +24,12 @@
   justify-content: center;
   align-items: center;
   color: #fff;
-  @extend .Roboto500-16-18;
+  @include font-style(16px, 500px);
   letter-spacing: 1px;
   text-transform: uppercase;
   cursor: pointer;
 }
+
 .Disabled-button-styles {
   opacity: 0.5;
   cursor: not-allowed;
