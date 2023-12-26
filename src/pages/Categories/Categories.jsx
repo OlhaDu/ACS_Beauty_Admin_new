@@ -1,73 +1,74 @@
-import React, { useEffect, useRef, useState } from "react";
-import styles from "./Categories.module.scss";
-import Category from "./Category/Category";
-import VioletButton from "../../components/VioletButton/VioletButton";
-import AddCategoryPopup from "../../components/Popups/AddCategoryPopup/AddCategoryPopup";
-import { connect } from "react-redux";
-import actionCreators from "../../store/actions/actionCreators";
-import { UNKNOWN } from "../../constants";
+import React, { useEffect, useState } from "react";
+import s from "./Categories.module.scss";
+import VioletButton from "src/components/VioletButton/VioletButton";
+import Category from "src/components/Category/Category";
+import { api } from "src/api";
+// import Category from "./Category/Category";
+// import AddCategoryPopup from "../../components/Popups/AddCategoryPopup/AddCategoryPopup";
+// import { connect } from "react-redux";
+// import actionCreators from "../../store/actions/actionCreators";
+// import { UNKNOWN } from "../../constants";
 
 const Categories = (props) => {
   const [active, setActive] = useState(false);
-  const [activeCategoryId, setActiveCategoryId] = useState(null);
-  const {
-    getCategoriesRequest,
-    categories: { isFetching, categories, error },
-  } = props;
+  const [categories, setCategories] = useState(null);
+  // const [activeCategoryId, setActiveCategoryId] = useState(null);
+  // const {
+  //   getCategoriesRequest,
+  //   categories: { isFetching, categories, error },
+  // } = props;
+  // const { categories } = props;
 
+  // useEffect(() => {
+  //   if (!categories.length) {
+  //     getCategoriesRequest();
+  //   }
+  // }, []);
   useEffect(() => {
-    if (!categories.length) {
-      getCategoriesRequest();
-    }
+    const getCategories = async () => {
+      const res = await api.getCategories();
+      setCategories(res.data);
+    };
+    getCategories();
   }, []);
-
   return (
     <>
-      <div
-        className={styles.container}
-        style={{ display: active ? "none" : "" }}
-      >
-        <div className={styles.heading}>
+      <div className={s.container} style={{ display: active ? "none" : "" }}>
+        <div className={s.heading}>
           <h3>Категорії</h3>
           <VioletButton
             buttonText={"ДОДАТИ КАТЕГОРІЮ"}
-            onClickFunction={() => setActive(true)}
+            // onClickFunction={() => setActive(true)}
           />
         </div>
-        <div className={styles.collapses}>
-          {categories.length
+        <ul className={s.collapses}>
+          {categories
             ? categories.map((category) =>
-                category.name !== UNKNOWN ? (
-                  <Category
-                    data={category}
-                    key={category.categoryId}
-                    setActive={setActive}
-                    setActiveCategoryId={setActiveCategoryId}
-                  />
-                ) : null
+                category ? <Category data={category} key={category.id} /> : null
               )
             : null}
-        </div>
+        </ul>
       </div>
-      {active && (
+      {/* {active && (
         <AddCategoryPopup
           setActive={setActive}
           setActiveCategoryId={setActiveCategoryId}
           activeCategoryId={activeCategoryId}
         />
-      )}
+      )} */}
     </>
   );
 };
 
-const mapDispatchToProps = (dispatch) => ({
-  getCategoriesRequest: () => dispatch(actionCreators.getCategoriesRequest()),
-});
+// const mapDispatchToProps = (dispatch) => ({
+//   getCategoriesRequest: () => dispatch(actionCreators.getCategoriesRequest()),
+// });
 
-const mapStateToProps = (state) => {
-  return {
-    categories: state.categoriesReducer,
-  };
-};
+// const mapStateToProps = (state) => {
+//   return {
+//     categories: state.categoriesReducer,
+//   };
+// };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Categories);
+// export default connect(mapStateToProps, mapDispatchToProps)(Categories);
+export default Categories;
