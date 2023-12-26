@@ -1,0 +1,25 @@
+@import "/src/styles/variables.scss";
+@import "/src/styles/mixins.scss";
+
+.container {
+  display: flex;
+  padding: 22px 26px 19px 0;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 367px;
+  flex-shrink: 0;
+  border-radius: 4px;
+  border: $default-border;
+
+  h4 {
+    @extend .Roboto500-24-28;
+    color: $main-text-color;
+    text-transform: uppercase;
+  }
+
+  .iconsContainer {
+    display: flex;
+    margin-top: 12px;
+    gap: 12px;
+  }
+}
