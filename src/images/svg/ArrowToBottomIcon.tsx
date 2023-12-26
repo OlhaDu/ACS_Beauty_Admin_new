@@ -1,6 +1,10 @@
 import React from "react";
 
-const ArrowToBottomIcon = ({iconSize}) => {
+export interface IconSizeProps {
+  iconSize: number;
+}
+
+const ArrowToBottomIcon: React.FC<IconSizeProps> = ({ iconSize }) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

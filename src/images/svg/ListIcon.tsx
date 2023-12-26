@@ -1,6 +1,7 @@
 import React from "react";
+import { IconsProps } from "./BoardIcon";
 
-const ListIcon = ({ color }) => {
+const ListIcon: React.FC<IconsProps> = ({ color }) => {
   return (
     <svg
       width="20"

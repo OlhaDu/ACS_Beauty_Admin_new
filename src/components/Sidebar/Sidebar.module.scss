@@ -5,6 +5,7 @@
   height: calc(100vh - #{$header-height});
   position: fixed;
   top: $header-height;
+  left: 0;
   border: $default-border;
   border-left: none;
 }

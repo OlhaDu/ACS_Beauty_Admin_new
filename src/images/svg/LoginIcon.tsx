@@ -1,6 +1,7 @@
 import React from "react";
+import { IconsProps } from "./BoardIcon";
 
-const LoginIcon = ({color}) => {
+const LoginIcon: React.FC<IconsProps> = ({ color }) => {
   return (
     <svg
       width="16"

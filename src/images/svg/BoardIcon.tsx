@@ -1,6 +1,10 @@
 import React from "react";
 
-const BoardIcon = ({ color }) => {
+export interface IconsProps {
+  color: string;
+}
+
+const BoardIcon: React.FC<IconsProps> = ({ color }) => {
   return (
     <svg
       width="20"

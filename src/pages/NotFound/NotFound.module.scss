@@ -1,0 +1,20 @@
+$theme-breakpoints-md: 768px;
+
+.textError {
+  color: #9A9292;
+}
+
+.notFoundWrapper {
+  width: 95%;
+  margin: 20px auto;
+  position: relative;
+}
+
+.notFound {
+  display: flex;
+  flex-direction: column !important;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width: 70%;
+}
