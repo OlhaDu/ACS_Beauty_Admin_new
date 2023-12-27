@@ -1,50 +1,35 @@
-// import ProdIcon from "src/images/svg/ProdIcon.svg";
-
+import s from "./Dashboard.module.scss";
 import DashboardCard from "src/components/DashboardCard/DashboardCard";
-import styles from "./Dashboard.module.scss";
-import ProductsIcon from "src/images/svg/ProductsIcon";
+import { dashboardData } from "./DashboardData";
+import ToolsPanel from "src/components/ToolsPanel/ToolsPanel";
+import { OrdersFilterData } from "src/components/Filter/FilterData";
+import { OrdersActionsData } from "src/components/Actions/OrdersActionsData";
+import { RowsOnPageFilterData } from "src/components/RowsOnPageFilter/RowsOnPageFilterData";
 
 const Dashboard = () => {
   return (
-    <div className={styles.container}>
-      <h3>З поверненням, Оля!</h3>
-      <div className={styles.dashboards}>
-        <DashboardCard
-          itemHeading={"Замовлення на місяць"}
-          itemQuantity={"12"}
-          itemIcon={<ProductsIcon color={"#5C5E60"} />}
-          totalItemQuantity={"2356"}
-          itemIncrease={"10"}
-        />
-        {/* <ProdIcon /> */}
+    <div className={s.container}>
 
-        {/* <DashboardCard
-          itemHeading={"Надходження на місяць"}
-          itemQuantity={"12567₴"}
-          itemIcon={<IncomeIcon color={"#5C5E60"} />}
-          totalItemQuantity={"3456890₴"}
-          itemIncrease={"10"}
-        />
-        <DashboardCard
-          itemHeading={"Відвідувачів на місяць"}
-          itemQuantity={"3878"}
-          itemIcon={<LoginIcon color={"#5C5E60"} />}
-          totalItemQuantity={"3456906"}
-          itemIncrease={"10"}
-        />
-        <DashboardCard
-          itemHeading={"Відгуків на місяць"}
-          itemQuantity={"70"}
-          itemIcon={<ReviewsIcon color={"#5C5E60"} />}
-          totalItemQuantity={"1200"}
-          itemIncrease={"10"}
-        /> */}
+      <div className={s.greeting}>З поверненням, Оля!</div>
+
+      <div className={s.dashboardCards}>
+        {dashboardData.map((data, index) => (
+          <DashboardCard key={index} {...data} />
+        ))}
       </div>
-      {/* <div className={styles.orders}>
-        <h4>Останні замовлення</h4>
-        <ToolsPanel />
-        <div className={styles.table}>Тут будет таблица</div>
-      </div> */}
+
+      <div className={s.ordersContainer}>
+        <div className={s.orders}>Останні замовлення</div>
+
+        <ToolsPanel
+          filterOptions={{ options: OrdersFilterData }}
+          actionOptions={{ actions: OrdersActionsData }}
+          rowsOptions={{ rows: RowsOnPageFilterData }}
+        />
+
+        <div className={s.table}>Тут будет таблица</div>
+
+      </div>
     </div>
   );
 };

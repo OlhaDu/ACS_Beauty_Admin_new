@@ -1,37 +1,48 @@
-// import ArrowToTopIcon from "src/images/svg/ArrowToTopIcon";
-
+import { ReactNode, FC } from "react";
 import styles from "./DashboardCard.module.scss";
+import ArrowToTopWithTailIcon from "src/images/svg/ArrowToTopWithTailIcon";
 
-const DashboardCard = ({
+// определиться какой тип данных ожидаем
+type DashboardCardProps = {
+  itemHeading: string;
+  itemQuantity: string | number;
+  itemIcon: ReactNode;
+  totalItemQuantity: string | number;
+  itemIncrease: string | number;
+};
+
+const DashboardCard: FC<DashboardCardProps> = ({
   itemHeading,
   itemQuantity,
   itemIcon,
   totalItemQuantity,
   itemIncrease,
-}) => {
-  return (
-    <div className={styles.container}>
-      <div className={styles.topInfoContainer}>
-        <section>
-          <h5>{itemHeading ? `${itemHeading}` : "Місячний приріст"}</h5>
-          <h2>{itemQuantity ? `${itemQuantity}` : "Дані відсутні"}</h2>
-        </section>
-        <div className={styles.iconContainer}>{itemIcon}</div>
+}) => (
+  <div className={styles.cardContainer}>
+    
+    <div className={styles.leftContainer}>
+      <div>{itemHeading ? itemHeading : "Місячний приріст"}</div>
+      <div className={styles.monthsQuantity}>
+        {itemQuantity ? itemQuantity : "Дані відсутні"}
       </div>
-      <div className={styles.bottomInfoContainer}>
-        <h5>
-          Всього: {totalItemQuantity ? `${totalItemQuantity}` : "Дані відсутні"}
-        </h5>
-        <h6>
-          {itemIncrease ? (
-            <>{/* {itemIncrease}% <ArrowToTopIcon /> */}</>
-          ) : (
-            "Дані відсутні"
-          )}
-        </h6>
+      <div>
+        Всього: {totalItemQuantity ? totalItemQuantity : "Дані відсутні"}
       </div>
     </div>
-  );
-};
+
+    <div className={styles.rightContainer}>
+      <div className={styles.iconContainer}>{itemIcon}</div>
+      <div className={styles.increaseInfo}>
+        {itemIncrease ? (
+          <>
+            {itemIncrease}% <ArrowToTopWithTailIcon />
+          </>
+        ) : (
+          "Дані відсутні"
+        )}
+      </div>
+    </div>
+  </div>
+);
 
 export default DashboardCard;
