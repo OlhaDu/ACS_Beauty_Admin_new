@@ -33,20 +33,19 @@ const Categories = (props) => {
   }, []);
   return (
     <>
-      <div className={s.container} style={{ display: active ? "none" : "" }}>
+      <div className={s.page} style={{ display: active ? "none" : "" }}>
         <div className={s.heading}>
           <h3>Категорії</h3>
           <VioletButton
-            buttonText={"ДОДАТИ КАТЕГОРІЮ"}
+            title={"ДОДАТИ КАТЕГОРІЮ"}
             // onClickFunction={() => setActive(true)}
           />
         </div>
         <ul className={s.collapses}>
-          {categories
-            ? categories.map((category) =>
-                category ? <Category data={category} key={category.id} /> : null
-              )
-            : null}
+          {categories &&
+            categories.map((category) => (
+              <Category data={category} key={category.id} />
+            ))}
         </ul>
       </div>
       {/* {active && (

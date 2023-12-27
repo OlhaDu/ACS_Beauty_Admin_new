@@ -1,24 +1,24 @@
 @import "/src/styles/variables.scss";
 @import "/src/styles/mixins.scss";
 
-.container {
-  width: $page-width - 276px;
+.page {
+  width: $page-width - $sidebar-width;
   padding-left: 22px;
   padding-right: 80px;
-  .heading {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    h3 {
-      @extend .Roboto500-24-28;
-      color: $main-text-color;
-    }
-  }
-  .collapses {
-    margin-top: 29px;
+}
+.heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+h3 {
+  @extend .Roboto500-24-28;
+  color: $main-text-color;
+}
+.collapses {
+  margin-top: 29px;
 
-    > *:not(:last-child) {
-      margin-bottom: 32px;
-    }
+  > *:not(:last-child) {
+    margin-bottom: 32px;
   }
 }
