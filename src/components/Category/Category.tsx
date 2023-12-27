@@ -8,15 +8,17 @@ const Category = ({ data }) => {
   const { name } = data;
   return (
     <li className={s.container}>
-      <div className={s.tools}>
-        <h4 className={s.groupName}>{name}</h4>
+      <div className={s.categoryTools}>
+        <h4 className={s.categoryName}>{name}</h4>
         <div className={s.iconsContainer}>
           <EditIcon />
           <DeleteIcon />
           <AddIcon />
         </div>
       </div>
-      <ArrowToRight iconSize={48} />
+      <div>
+        <ArrowToRight iconSize={48} />
+      </div>
     </li>
   );
 };
