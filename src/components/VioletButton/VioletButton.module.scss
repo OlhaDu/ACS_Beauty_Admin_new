@@ -1,0 +1,6 @@
+@import "/src/styles/variables.scss";
+@import "/src/styles/mixins.scss";
+
+.button {
+  @extend .Violet-button-styles;
+}
