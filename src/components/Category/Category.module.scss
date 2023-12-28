@@ -1,0 +1,30 @@
+@import "/src/styles/variables.scss";
+@import "/src/styles/mixins.scss";
+
+.item {
+  border: $default-border;
+  border-radius: 4px;
+}
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  padding: 22px 26px 19px 0;
+}
+.categoryTools {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-grow: 1;
+}
+.categoryName {
+  @extend .Roboto500-24-28;
+  color: $main-text-color;
+  text-transform: uppercase;
+}
+.iconsContainer {
+  display: flex;
+  margin-top: 12px;
+  gap: 12px;
+}
