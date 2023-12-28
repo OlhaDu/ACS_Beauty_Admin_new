@@ -3,10 +3,12 @@ import s from "./Category.module.scss";
 import DeleteIcon from "src/images/svg/DeleteIcon";
 import AddIcon from "src/images/svg/AddIcon";
 import ArrowToRight from "src/images/svg/ArrowToRight";
+import { FC } from "react";
+import { ICategory } from "src/types";
 // import SubCategory from "../SubCategory/SubCategory";
 
-const Category = ({ data }) => {
-  const { name } = data;
+const Category: FC<ICategory> = (props) => {
+  const { name } = props;
   return (
     <li className={s.item}>
       <div className={s.container}>
