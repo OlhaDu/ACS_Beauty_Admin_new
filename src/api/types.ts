@@ -2,7 +2,7 @@ export interface IAddCategory {
   name: string;
 }
 
-export interface IAddSubcategory {
+export interface IAddUpdateSubcategory {
   name: string;
   CategoryId: string;
 }
@@ -10,9 +10,4 @@ export interface IAddSubcategory {
 export interface IUpdateCategory {
   name: string;
   slug: string;
-}
-
-export interface IUpdateSubcategory {
-  name: string;
-  CategoryId: string;
 }

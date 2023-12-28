@@ -1,10 +1,5 @@
 import axios from "axios";
-import {
-  IAddCategory,
-  IAddSubcategory,
-  IUpdateCategory,
-  IUpdateSubcategory,
-} from "./types";
+import { IAddCategory, IAddUpdateSubcategory, IUpdateCategory } from "./types";
 
 const http = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL, //заменить адрес на константу (.env)
@@ -14,14 +9,15 @@ export const api = {
 
   addCategory: (data: IAddCategory) => http.post("/api/category", data),
 
-  addSubcategory: (data: IAddSubcategory) => http.post("subcategory", data),
+  addSubcategory: (data: IAddUpdateSubcategory) =>
+    http.post("/api/subcategory", data),
 
-  updateCategory: (data: IUpdateCategory) => http.patch("category", data),
+  updateCategory: (data: IUpdateCategory) => http.patch("/api/category", data),
 
-  updateSubcategory: (data: IUpdateSubcategory) =>
-    http.patch("subcategory", data),
+  updateSubcategory: (data: IAddUpdateSubcategory) =>
+    http.patch("/api/subcategory", data),
 
-  deleteCategory: (id: number) => http.delete(`category/${id}`),
+  deleteCategory: (id: number) => http.delete(`/api/category/${id}`),
 
-  deleteSubcategory: (id: number) => http.delete(`subcategory/${id}`),
+  deleteSubcategory: (id: number) => http.delete(`/api/subcategory/${id}`),
 };

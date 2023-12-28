@@ -1,6 +1,6 @@
-import React from "react";
+import { IArrowToRight } from "./types";
 
-const ArrowToRight = ({ iconSize }) => {
+const ArrowToRight = ({ iconSize, styles }: IArrowToRight) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -8,6 +8,7 @@ const ArrowToRight = ({ iconSize }) => {
       height={iconSize || 48}
       viewBox="0 0 48 48"
       fill="none"
+      className={styles}
     >
       <path
         d="M16.5902 33.18L19.4102 36L31.4102 24L19.4102 12L16.5902 14.82L25.7502 24L16.5902 33.18Z"
