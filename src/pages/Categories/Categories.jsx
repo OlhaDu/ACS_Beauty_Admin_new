@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import s from "./Categories.module.scss";
 import VioletButton from "src/components/VioletButton/VioletButton";
 import Category from "src/components/Category/Category";

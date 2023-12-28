@@ -1,8 +1,8 @@
 export interface IEditIcon {
-  styles?: string;
+  className?: string;
 }
 
 export interface IArrowToRight {
+  className?: string;
   iconSize?: number;
-  styles?: string;
 }

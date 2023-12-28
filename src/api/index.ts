@@ -7,15 +7,17 @@ const http = axios.create({
 export const api = {
   getCategories: () => http.get("/api/category"),
 
-  addCategory: (data: IAddCategory) => http.post("/api/category", data),
+  addCategory: (newCategory: IAddCategory) =>
+    http.post("/api/category", newCategory),
 
-  addSubcategory: (data: IAddUpdateSubcategory) =>
-    http.post("/api/subcategory", data),
+  addSubcategory: (newSubCategory: IAddUpdateSubcategory) =>
+    http.post("/api/subcategory", newSubCategory),
 
-  updateCategory: (data: IUpdateCategory) => http.patch("/api/category", data),
+  updateCategory: (updatedCategory: IUpdateCategory) =>
+    http.patch("/api/category", updatedCategory),
 
-  updateSubcategory: (data: IAddUpdateSubcategory) =>
-    http.patch("/api/subcategory", data),
+  updateSubcategory: (updatedSubCategory: IAddUpdateSubcategory) =>
+    http.patch("/api/subcategory", updatedSubCategory),
 
   deleteCategory: (id: number) => http.delete(`/api/category/${id}`),
 
