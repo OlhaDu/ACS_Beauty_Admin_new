@@ -3,10 +3,12 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import routes from "./Routes";
 import Sidebar from "./components/Sidebar/Sidebar";
 import CircleLoading from "./components/Loadings/CircleLoading";
+import Header from "./components/Header/Header";
 
 function App() {
   return (
     <BrowserRouter>
+        <Header />
         <Sidebar />
         <div style={{ left: '280px', position: 'relative' }}>
           <Routes>

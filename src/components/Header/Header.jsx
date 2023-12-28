@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import styles from "./Header.module.scss";
 import { Link } from "react-router-dom";
-import LoginIcon from "../../../svgs/LoginIcon";
-import NotificationIcon from "../../../svgs/NotificationIcon";
-import NotificationPopup from "../../../components/Popups/NotificationPopup/NotificationPopup";
-import ProfilePopup from "../../../components/Popups/ProfilePopup/ProfilePopup";
+import LoginIcon from "../../images/svg/LoginIcon";
+import NotificationIcon from "../../images/svg/NotificationIcon";
+import NotificationPopup from "../../components/Popups/NotificationPopup/NotificationPopup";
+import ProfilePopup from "../../components/Popups/ProfilePopup/ProfilePopup";
 
 const Header = () => {
   const [notificationPopupVisible, setNotificationPopupVisible] =

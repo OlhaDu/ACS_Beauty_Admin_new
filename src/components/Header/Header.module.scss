@@ -2,7 +2,7 @@
 @import "/src//styles/mixins.scss";
 
 .container {
-  width: inherit;
+  width: 90%;
   height: $header-height;
   position: fixed;
   top: 0;
@@ -27,4 +27,5 @@
 }
 .popup {
   position: absolute;
+  right: 2px;
 }

@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./NotificationPopup.module.scss";
-import CommentsIcon from "../../../svgs/CommentsIcon";
-import NewOrderIcon from "../../../svgs/NewOrderIcon";
+import CommentsIcon from "../../../images/svg/CommentsIcon";
+import NewOrderIcon from "../../../images/svg/NewOrderIcon";
 
 const NotificationPopup = () => {
   return (

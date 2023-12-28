@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./ProfilePopup.module.scss";
-import MyProfileDataIcon from "../../../svgs/MyProfileDataIcon";
-import LogoutIcon from "../../../svgs/LogoutIcon";
+import MyProfileDataIcon from "../../../images/svg/MyProfileDataIcon";
+import LogoutIcon from "../../../images/svg/LogoutIcon";
 
 const ProfilePopup = () => {
   return (
