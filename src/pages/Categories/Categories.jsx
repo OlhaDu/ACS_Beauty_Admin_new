@@ -37,7 +37,7 @@ const Categories = (props) => {
         <div className={s.heading}>
           <h3>Категорії</h3>
           <VioletButton
-            title={"ДОДАТИ КАТЕГОРІЮ"}
+            title="ДОДАТИ КАТЕГОРІЮ"
             // onClickFunction={() => setActive(true)}
           />
         </div>

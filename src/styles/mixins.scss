@@ -1,24 +1,20 @@
 @import "/src/styles/variables.scss";
 
 .Roboto400-14 {
-  font-weight: 400;
   font-size: 14px;
   line-height: normal;
 }
 .Roboto400-16-18 {
-  font-weight: 400;
-  font-size: 16px;
   line-height: 18.75px;
 }
 .Roboto400-20-23 {
-  font-weight: 400;
+  // in use
   font-size: 20px;
   line-height: 23.44px;
 }
 .Roboto600-16-18 {
   // in use
   font-weight: 600;
-  font-size: 16px;
   line-height: 18.75px;
 }
 .Roboto500-20-23 {
@@ -35,7 +31,6 @@
 }
 .Roboto700-16-18 {
   font-weight: 700;
-  font-size: 16px;
   line-height: 18.75px;
 }
 .Roboto700-24-28 {

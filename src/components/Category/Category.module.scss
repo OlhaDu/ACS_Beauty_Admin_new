@@ -1,14 +1,16 @@
 @import "/src/styles/variables.scss";
 @import "/src/styles/mixins.scss";
 
+.item {
+  border: $default-border;
+  border-radius: 4px;
+}
 .container {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-shrink: 0;
   padding: 22px 26px 19px 0;
-  border: $default-border;
-  border-radius: 4px;
 }
 .categoryTools {
   display: flex;

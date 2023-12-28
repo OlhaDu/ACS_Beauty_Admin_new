@@ -1,4 +1,6 @@
-const EditIcon = ({ styles }: { styles?: string }) => (
+import { IEditIcon } from "./types";
+
+const EditIcon = ({ styles }: IEditIcon) => (
   <svg
     width="52"
     height="52"
