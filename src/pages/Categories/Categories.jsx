@@ -3,6 +3,8 @@ import s from "./Categories.module.scss";
 import VioletButton from "src/components/VioletButton/VioletButton";
 import Category from "src/components/Category/Category";
 import { api } from "src/api";
+import AdminLayout from "src/layouts/AdminLayout";
+
 // import Category from "./Category/Category";
 // import AddCategoryPopup from "../../components/Popups/AddCategoryPopup/AddCategoryPopup";
 // import { connect } from "react-redux";
@@ -32,7 +34,7 @@ const Categories = (props) => {
     getCategories();
   }, []);
   return (
-    <>
+    <AdminLayout>
       <div className={s.page} style={{ display: active ? "none" : "" }}>
         <div className={s.heading}>
           <h3>Категорії</h3>
@@ -55,7 +57,7 @@ const Categories = (props) => {
           activeCategoryId={activeCategoryId}
         />
       )} */}
-    </>
+    </AdminLayout>
   );
 };
 

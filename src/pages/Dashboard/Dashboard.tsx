@@ -10,11 +10,11 @@ const Dashboard = () => {
       <h3>З поверненням, Оля!</h3>
       <div className={styles.dashboards}>
         <DashboardCard
-          itemHeading={"Замовлення на місяць"}
-          itemQuantity={"12"}
+          itemHeading="Замовлення на місяць"
+          itemQuantity={12}
           itemIcon={<ProductsIcon color={"#5C5E60"} />}
-          totalItemQuantity={"2356"}
-          itemIncrease={"10"}
+          totalItemQuantity={2356}
+          itemIncrease={10}
         />
         {/* <ProdIcon /> */}
 
