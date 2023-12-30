@@ -1,8 +1,6 @@
 import { useEffect } from "react";
 import styles from "./Users.module.scss";
-import Sidebar from "src/components/Sidebar/Sidebar";
-// import AccountIcon from "src/images/svg/Accounticon";
-import NoticesIcon from "src/images/svg/NoticesIcon";
+
 import Select from "src/components/ToolsPanel/Select/Select";
 import SearchInput from "src/components/ToolsPanel/SearchInput/SearchInput";
 import FilterIcon from "../../images/svg/FilterIcon";
@@ -48,7 +46,7 @@ const Users = () => {
 
   const rows = [
     {
-      // id: 1,
+      id: 1,
       fullName: "John Doe",
       email: "john@example.com",
       phone_number: 123456789,
@@ -56,7 +54,7 @@ const Users = () => {
       addition_date: "2023-01-01",
     },
     {
-      // id: 2,
+      id: 2,
       fullName: "John Doe",
       email: "john@example.com",
       phone_number: 123456789,
@@ -64,7 +62,7 @@ const Users = () => {
       addition_date: "2023-01-01",
     },
     {
-      // id: 2,
+      id: 3,
       fullName: "John Doe",
       email: "john@example.com",
       phone_number: 123456789,
@@ -75,23 +73,7 @@ const Users = () => {
 
   return (
     <AdminLayout>
-      {/* <header className={styles.header}>
-        <div className={styles.header__container}>
-          <div className={styles.header__logo}>
-            <h1 className={styles.logo}>ACS Beauty</h1>
-          </div>
-          <div className={styles.header__body}>
-            <NoticesIcon className={styles.icon} />
-            <AccountIcon className={styles.icon} />
-          </div>
-        </div>
-      </header> */}
-
       <main className={styles.main}>
-        {/* <div className={styles.sidebar}>
-          <Sidebar />
-        </div> */}
-
         <section className={styles.main__section}>
           <div className={styles.main__title}>
             <h2 className={styles.main__title_text}>Користувачі</h2>

@@ -11,40 +11,28 @@
   margin-left: 260px;
 }
 
-// .sidebar {
-//   width: $sidebar-width;
-// }
-
 .main__section {
   padding-top: 37px;
   padding-left: 20px;
   flex: 1;
-
-  .main__title_text {
-    padding-bottom: 48px;
-    color: #5c5e60;
-    @extend .Roboto500-24-28;
-  }
 }
 
-.main__user_search {
-  @media (max-width: 804px) {
-    max-width: 0;
-    overflow: visible;
-    padding-left: 0;
-  }
+.main__title_text {
+  padding-bottom: 48px;
+  color: #5c5e60;
+  @extend .Roboto500-24-28;
 }
 
 .features {
   padding-bottom: 22px;
+}
 
-  .tools {
+.tools {
+  display: flex;
+  justify-content: space-between;
+  section {
+    width: 644px;
     display: flex;
     justify-content: space-between;
-    section {
-      width: 644px;
-      display: flex;
-      justify-content: space-between;
-    }
   }
 }

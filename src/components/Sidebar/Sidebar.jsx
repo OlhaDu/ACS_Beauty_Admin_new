@@ -1,25 +1,16 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import styles from "./Sidebar.module.scss";
-// import BoardIcon from "../../../svgs/BoardIcon";
+
 import BoardIcon from "src/images/svg/BoardIcon";
-// import CategoriesIcon from "../../../svgs/CategoriesIcon.js";
 import CategoriesIcon from "src/images/svg/CategoriesIcon";
-// import CommentsIcon from "../../../svgs/CommentsIcon";
 import CommentsIcon from "src/images/svg/CommentsIcon";
-// import ListIcon from "../../../svgs/ListIcon";
 import ListIcon from "src/images/svg/ListIcon";
-// import NewsIcon from "../../../svgs/NewsIcon";
 import NewsIcon from "src/images/svg/NewsIcon";
-// import OrdersIcon from "../../../svgs/OrdersIcon";
 import OrdersIcon from "src/images/svg/OrdersIcon";
-// import ProductsIcon from "../../../svgs/ProductsIcon";
 import ProductsIcon from "src/images/svg/ProductsIcon";
-// import ReviewsIcon from "../../../svgs/ReviewsIcon";
 import ReviewsIcon from "src/images/svg/ReviewsIcon";
-// import SlidesIcon from "../../../svgs/SlidesIcon";
 import SlidesIcon from "src/images/svg/SlidesIcon";
-// import UsersIcon from "../../../svgs/UsersIcon";
 import UsersIcon from "src/images/svg/UsersIcon";
 
 const Sidebar = () => {

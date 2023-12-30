@@ -1,4 +1,4 @@
-import styles from "./Table.module.scss";
+import s from "./Table.module.scss";
 
 import * as React from "react";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
@@ -20,35 +20,17 @@ interface DataTableProps {
 }
 
 const DataTable: React.FC<DataTableProps> = ({ columns, rows }) => {
-  const tableColumns: GridColDef[] = columns.map((column) => ({
-    field: column.field,
-    headerName: column.headerName,
-    type: column.type,
-    width: column.width,
-  }));
-
-  // const tableRows = rows.map((row) =>
-  //   columns.map((column) => ({
-  //     [column.field]: row[column.field],
-  //   }))
-  // );
-
-  const tableRows = rows.map((row, index) => ({
-    id: index + 1,
-    ...row,
-  }));
-
   return (
-    <div style={{ height: 400, width: "100%" }}>
+    <div className={s.table}>
       <DataGrid
-        rows={tableRows}
-        columns={tableColumns}
+        rows={rows}
+        columns={columns}
         initialState={{
           pagination: {
-            paginationModel: { page: 0, pageSize: 5 },
+            paginationModel: { page: 0, pageSize: 10 },
           },
         }}
-        pageSizeOptions={[5, 10]}
+        pageSizeOptions={[10, 25, 50, 100]}
         checkboxSelection
       />
     </div>

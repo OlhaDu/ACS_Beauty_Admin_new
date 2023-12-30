@@ -32,15 +32,20 @@ const Header = () => {
       <div className={s.headerMenu}>
         <div className={s.icon} onClick={toggleNotificationPopup}>
           <NotificationIcon />
-          <div className={s.popup}>
-            {notificationPopupVisible && <NotificationPopup />}
-          </div>
+          {notificationPopupVisible && (
+            <div className={s.popup}>
+              <NotificationPopup />
+            </div>
+          )}
         </div>
         <div className={s.icon} onClick={toggleProfilePopup}>
-          <LoginIcon color={"white"} />
-          <div className={s.popup}>
-            {profilePopupVisible && <ProfilePopup />}
-          </div>
+          <LoginIcon color="white" />
+
+          {profilePopupVisible && (
+            <div className={s.popup}>
+              <ProfilePopup />
+            </div>
+          )}
         </div>
       </div>
     </div>
