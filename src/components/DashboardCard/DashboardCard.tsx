@@ -2,7 +2,15 @@
 
 import styles from "./DashboardCard.module.scss";
 
-const DashboardCard = ({
+interface Props {
+  itemHeading: string;
+  itemQuantity: number;
+  itemIcon: React.ReactNode;
+  totalItemQuantity: number;
+  itemIncrease: number;
+}
+
+const DashboardCard: React.FC<Props> = ({
   itemHeading,
   itemQuantity,
   itemIcon,

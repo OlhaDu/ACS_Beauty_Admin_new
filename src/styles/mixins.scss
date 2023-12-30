@@ -1,23 +1,20 @@
 @import "/src/styles/variables.scss";
 
 .Roboto400-14 {
-  font-weight: 400;
   font-size: 14px;
   line-height: normal;
 }
 .Roboto400-16-18 {
-  font-weight: 400;
-  font-size: 16px;
   line-height: 18.75px;
 }
 .Roboto400-20-23 {
-  font-weight: 400;
+  // in use
   font-size: 20px;
   line-height: 23.44px;
 }
-.Roboto500-16-18 {
-  font-weight: 500;
-  font-size: 16px;
+.Roboto600-16-18 {
+  // in use
+  font-weight: 600;
   line-height: 18.75px;
 }
 .Roboto500-20-23 {
@@ -25,14 +22,15 @@
   font-size: 20px;
   line-height: 23.44px;
 }
+
 .Roboto500-24-28 {
+  // in use
   font-weight: 500;
   font-size: 24px;
   line-height: 28.13px;
 }
 .Roboto700-16-18 {
   font-weight: 700;
-  font-size: 16px;
   line-height: 18.75px;
 }
 .Roboto700-24-28 {
@@ -56,16 +54,15 @@
   cursor: pointer;
 }
 .Violet-button-styles {
-  width: 197px;
-  height: 43px;
+  @extend .Roboto600-16-18;
+  padding: 12px 9px;
   background-color: $main-color;
   border: none;
   border-radius: 4px;
   display: flex;
   justify-content: center;
   align-items: center;
-  color: #fff;
-  @extend .Roboto500-16-18;
+  color: $second-text-color;
   letter-spacing: 1px;
   text-transform: uppercase;
   cursor: pointer;
