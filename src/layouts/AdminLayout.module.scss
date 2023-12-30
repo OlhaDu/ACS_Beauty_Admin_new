@@ -1,0 +1,51 @@
+@import "/src/styles/mixins.scss";
+@import "/src/styles/variables.scss";
+
+.header {
+  background-color: $main-color;
+  height: 80px;
+}
+
+.header__container {
+  max-width: 1276px;
+  padding-left: 15px;
+  padding-right: 15px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: inherit;
+}
+
+.header__logo {
+  max-width: $sidebar-width;
+  display: flex;
+  align-items: center;
+  padding-left: 74px;
+  padding-right: 74px;
+  width: 128px;
+}
+
+.logo {
+  margin: 0;
+  color: #ffffff;
+  @extend .Roboto700-24-28;
+}
+
+.header__body {
+  width: 72px;
+  height: 24px;
+  gap: 31px;
+
+  display: flex;
+  align-items: center;
+}
+
+.icon {
+  width: 24px;
+  height: 24px;
+}
+
+.sidebar {
+  width: $sidebar-width;
+}

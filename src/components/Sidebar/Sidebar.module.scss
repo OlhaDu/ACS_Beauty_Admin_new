@@ -27,4 +27,8 @@
       margin-right: 10px;
     }
   }
+  a:hover,
+  a:focus {
+    color: $main-color;
+  }
 }

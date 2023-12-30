@@ -4,7 +4,6 @@ import { IAddCategory, IAddUpdateSubcategory, IUpdateCategory } from "./types";
 const http = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL, //заменить адрес на константу (.env)
 });
-
 export const api = {
   getCategories: () => http.get("/api/category"),
 

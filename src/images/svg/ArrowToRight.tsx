@@ -1,5 +1,4 @@
-import React from "react";
-import { IArrowToRight } from "src/types";
+import { IArrowToRight } from "./types";
 
 const ArrowToRight = ({ iconSize, className }: IArrowToRight) => {
   return (
