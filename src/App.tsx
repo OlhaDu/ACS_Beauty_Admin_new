@@ -1,4 +1,5 @@
 import { Suspense } from "react";
+import "./App.css";
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import routes from "./Routes";
 import Sidebar from "./components/Sidebar/Sidebar";
@@ -10,7 +11,7 @@ function App() {
     <BrowserRouter>
         <Header />
         <Sidebar />
-        <div style={{ left: '280px', position: 'relative' }}>
+        <div className="routerWrapper" style={{ left: '280px', position: 'absolute' }}>
           <Routes>
             {routes.map(({ path, component: Component }) => (
               <Route

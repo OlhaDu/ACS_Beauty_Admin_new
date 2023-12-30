@@ -1,12 +1,12 @@
 import error from '../../images/404.jpg';
-import style from '../NotFound/NotFound.module.scss';
+import '../NotFound/NotFound.module.scss';
 
 function PageNotFound() {
 	return (
-		<div className={style.notFoundWrapper}>
-			<div className={style.notFound}>
+		<div className="notFoundWrapper">
+			<div className="notFound">
 				<img width="100%" src={error} alt="404" loading="lazy" />
-				<span className={style.textError}>
+				<span className="textError">
 					Щось пішло не так...
 					<br />
 					Ви ввели неправильну адресу, або ця сторінка на сайті більше не доступна.
