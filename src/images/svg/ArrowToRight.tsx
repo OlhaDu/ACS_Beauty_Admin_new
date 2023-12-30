@@ -1,7 +1,7 @@
 import React from "react";
-import { IconSizeProps } from "./ArrowToBottomIcon";
+import { IArrowToRight } from "./types";
 
-const ArrowToRight: React.FC<IconSizeProps> = ({ iconSize }) => {
+const ArrowToRight = ({ iconSize, className }: IArrowToRight) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
