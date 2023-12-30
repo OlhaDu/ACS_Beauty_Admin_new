@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import styles from "./Users.module.scss";
 import Sidebar from "src/components/Sidebar/Sidebar";
-import AccountIcon from "src/images/svg/Accounticon";
+// import AccountIcon from "src/images/svg/Accounticon";
 import NoticesIcon from "src/images/svg/NoticesIcon";
 import Select from "src/components/ToolsPanel/Select/Select";
 import SearchInput from "src/components/ToolsPanel/SearchInput/SearchInput";
@@ -11,25 +11,26 @@ import ExportFileIcon from "../../images/svg/ExportFileIcon";
 import RowListIcon from "../../images/svg/RowListIcon";
 import DataTable from "src/components/Table/Table";
 import axios from "axios";
+import AdminLayout from "src/layouts/AdminLayout";
 
 const Users = () => {
-  useEffect(() => {
-    const getUsers = async () => {
-      const apiUrl = "https://jsonplaceholder.typicode.com/posts/1";
+  // useEffect(() => {
+  //   const getUsers = async () => {
+  //     const apiUrl = "https://jsonplaceholder.typicode.com/posts/1";
 
-      try {
-        const response = await axios.get(apiUrl);
+  //     try {
+  //       const response = await axios.get(apiUrl);
 
-        const users = response.json();
+  //       const users = response.json();
 
-        console.log("users:", users);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
+  //       console.log("users:", users);
+  //     } catch (error) {
+  //       console.error("Error fetching data:", error);
+  //     }
+  //   };
 
-    getUsers();
-  }, []);
+  //   getUsers();
+  // }, []);
 
   const filteringOptions = ["Option 1", "Option 2", "Option 3"];
   const actionOptions = ["Редагувати", "Видалити"];
@@ -73,8 +74,8 @@ const Users = () => {
   ];
 
   return (
-    <>
-      <header className={styles.header}>
+    <AdminLayout>
+      {/* <header className={styles.header}>
         <div className={styles.header__container}>
           <div className={styles.header__logo}>
             <h1 className={styles.logo}>ACS Beauty</h1>
@@ -84,12 +85,12 @@ const Users = () => {
             <AccountIcon className={styles.icon} />
           </div>
         </div>
-      </header>
+      </header> */}
 
       <main className={styles.main}>
-        <div className={styles.sidebar}>
+        {/* <div className={styles.sidebar}>
           <Sidebar />
-        </div>
+        </div> */}
 
         <section className={styles.main__section}>
           <div className={styles.main__title}>
@@ -128,7 +129,7 @@ const Users = () => {
           <DataTable columns={columns} rows={rows} />
         </section>
       </main>
-    </>
+    </AdminLayout>
   );
 };
 
