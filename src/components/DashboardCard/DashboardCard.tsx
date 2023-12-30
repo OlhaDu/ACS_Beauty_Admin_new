@@ -1,6 +1,6 @@
 // import ArrowToTopIcon from "src/images/svg/ArrowToTopIcon";
 
-import styles from "./DashboardCard.module.scss";
+import s from "./DashboardCard.module.scss";
 
 interface Props {
   itemHeading: string;
@@ -18,15 +18,15 @@ const DashboardCard: React.FC<Props> = ({
   itemIncrease,
 }) => {
   return (
-    <div className={styles.container}>
-      <div className={styles.topInfoContainer}>
+    <div className={s.container}>
+      <div className={s.topInfoContainer}>
         <section>
           <h5>{itemHeading ? `${itemHeading}` : "Місячний приріст"}</h5>
           <h2>{itemQuantity ? `${itemQuantity}` : "Дані відсутні"}</h2>
         </section>
-        <div className={styles.iconContainer}>{itemIcon}</div>
+        <div className={s.iconContainer}>{itemIcon}</div>
       </div>
-      <div className={styles.bottomInfoContainer}>
+      <div className={s.bottomInfoContainer}>
         <h5>
           Всього: {totalItemQuantity ? `${totalItemQuantity}` : "Дані відсутні"}
         </h5>

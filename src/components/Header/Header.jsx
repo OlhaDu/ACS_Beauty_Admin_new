@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import styles from "./Header.module.scss";
+import s from "./Header.module.scss";
 import { Link } from "react-router-dom";
 // import LoginIcon from "../../../svgs/LoginIcon";
 import LoginIcon from "src/images/svg/LoginIcon";
@@ -25,20 +25,20 @@ const Header = () => {
     setNotificationPopupVisible(false);
   };
   return (
-    <div className={styles.container}>
-      <Link to="/" className={styles.headerLogo}>
+    <div className={s.container}>
+      <Link to="/" className={s.headerLogo}>
         ACS Beauty
       </Link>
-      <div className={styles.headerMenu}>
-        <div className={styles.icon} onClick={toggleNotificationPopup}>
+      <div className={s.headerMenu}>
+        <div className={s.icon} onClick={toggleNotificationPopup}>
           <NotificationIcon />
-          <div className={styles.popup}>
+          <div className={s.popup}>
             {notificationPopupVisible && <NotificationPopup />}
           </div>
         </div>
-        <div className={styles.icon} onClick={toggleProfilePopup}>
+        <div className={s.icon} onClick={toggleProfilePopup}>
           <LoginIcon color={"white"} />
-          <div className={styles.popup}>
+          <div className={s.popup}>
             {profilePopupVisible && <ProfilePopup />}
           </div>
         </div>
