@@ -11,7 +11,7 @@ function App() {
     <BrowserRouter>
         <Header />
         <Sidebar />
-        <div className="routerWrapper" style={{ left: '280px', position: 'absolute' }}>
+        <div className="routerWrapper">
           <Routes>
             {routes.map(({ path, component: Component }) => (
               <Route

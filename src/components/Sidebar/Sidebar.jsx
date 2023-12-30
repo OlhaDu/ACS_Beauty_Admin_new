@@ -18,7 +18,7 @@ const Sidebar = () => {
   return (
     <div className={styles.container}>
       <div className={styles.wrapper}>
-        <Link to="/dashboard" className={styles.sidebarLink}>
+        <Link to="/" className={styles.sidebarLink}>
           <div className={styles.icon}>
             <BoardIcon color={mainColor} />
           </div>{" "}

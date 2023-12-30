@@ -1,13 +1,19 @@
 #root {
   /* max-width: 1280px; */
   text-align: center;
-} */
+} 
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   list-style: none;
+}
+
+.routerWrapper {
+  top: 10%;
+  position: absolute;
+  left: 280px;
 }
 
 /* .logo {
@@ -23,20 +29,17 @@
   filter: drop-shadow(0 0 2em #61dafbaa);
 }
 
-.routerWrapper {
-  top: 10%;
-}
 
-/* @keyframes logo-spin {
+@keyframes logo-spin {
   from {
     transform: rotate(0deg);
   }
   to {
     transform: rotate(360deg);
   }
-} */
+} 
 
-/* @media (prefers-reduced-motion: no-preference) {
+@media (prefers-reduced-motion: no-preference) {
   a:nth-of-type(2) .logo {
     animation: logo-spin infinite 20s linear;
   }

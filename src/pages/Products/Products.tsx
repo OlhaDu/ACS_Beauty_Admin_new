@@ -22,7 +22,6 @@ const Products = () => {
     baseURL: import.meta.env.VITE_API_BASE_URL,
   });
 
-  console.log(api);
   useEffect(() => {
     const fetchProducts = async () => {
       try {

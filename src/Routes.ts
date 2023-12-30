@@ -2,6 +2,7 @@ import React from 'react';
 
 const Dashboard = React.lazy(() => import('../src/pages/Dashboard/Dashboard'));
 const Categories = React.lazy(() => import('../src/pages/Categories/Categories'));
+const Users = React.lazy(() => import('../src/pages/Users/Users'));
 const Products = React.lazy(() => import('../src/pages/Products/Products'));
 const NotFound = React.lazy(() => import('../src/pages/NotFound/NotFound'));
 
@@ -17,6 +18,10 @@ const routes = [
     {
 		path: '/products',
 		component: Products,
+	},
+	{
+		path: '/users',
+		component: Users,
 	},
 	{
 		path: '*',
