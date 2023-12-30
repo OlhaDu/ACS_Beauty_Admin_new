@@ -1,4 +1,4 @@
-import { IEditIcon } from "./types";
+import { IEditIcon } from "src/types";
 
 const EditIcon = ({ className }: IEditIcon) => (
   <svg

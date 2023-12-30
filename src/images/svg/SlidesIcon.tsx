@@ -1,7 +1,6 @@
 import React from "react";
-import { IconsProps } from "./BoardIcon";
 
-const SlidesIcon: React.FC<IconsProps> = ({ color }) => {
+const SlidesIcon = ({ color }: {color: string}) => {
   return (
     <svg
       width="18"

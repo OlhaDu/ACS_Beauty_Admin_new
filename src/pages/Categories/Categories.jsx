@@ -27,6 +27,7 @@ const Categories = (props) => {
   useEffect(() => {
     const getCategories = async () => {
       const res = await api.getCategories();
+      console.log("res", res);
       setCategories(res.data);
     };
     getCategories();

@@ -17,7 +17,7 @@ const Category: FC<ICategory> = (props) => {
           <div className={s.iconsContainer}>
             <EditIcon />
             <DeleteIcon />
-            <AddIcon />
+            <AddIcon color={"#5c5e60"} />
           </div>
         </div>
         <ArrowToRight />

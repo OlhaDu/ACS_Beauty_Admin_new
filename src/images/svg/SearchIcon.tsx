@@ -1,6 +1,7 @@
 import React from "react";
+import { IconsPropsStyle } from "src/types/ISvg";
 
-const SearchIcon = ({ className, style }) => {
+const SearchIcon: React.FC<IconsPropsStyle> = ({ className, style }) => {
   return (
     <svg
       className={className}

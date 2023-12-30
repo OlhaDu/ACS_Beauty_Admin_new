@@ -1,7 +1,4 @@
-interface IPropsSvg {
-  color?: string;
-  size?: string;
-}
+import { IPropsSvg } from "src/types";
 
 const ProductsIcon = ({ color }: IPropsSvg) => {
   return (
