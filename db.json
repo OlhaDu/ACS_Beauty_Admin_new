@@ -1,0 +1,7 @@
+{
+    "reviews": [
+      { "id": 1, "text": "Great product", "rating": 5 },
+      { "id": 2, "text": "Nice service", "rating": 4 }
+     
+    ]
+  }

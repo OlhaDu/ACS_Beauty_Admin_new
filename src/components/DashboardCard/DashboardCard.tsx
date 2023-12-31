@@ -2,13 +2,21 @@
 
 import styles from "./DashboardCard.module.scss";
 
+interface DashboardCardProps {
+  itemHeading: string | undefined;
+  itemQuantity: string | undefined;
+  itemIcon: React.ReactNode; // або інший тип, який представляє вашу іконку
+  totalItemQuantity: string | undefined;
+  itemIncrease: boolean | undefined;
+}
+
 const DashboardCard = ({
   itemHeading,
   itemQuantity,
   itemIcon,
   totalItemQuantity,
   itemIncrease,
-}) => {
+}: DashboardCardProps) =>{
   return (
     <div className={styles.container}>
       <div className={styles.topInfoContainer}>
