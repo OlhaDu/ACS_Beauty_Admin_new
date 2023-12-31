@@ -63,7 +63,9 @@ ul {
   padding: 0;
   margin: 0;
 }
-
+li {
+  list-style: none;
+}
 button:hover {
   border-color: #646cff;
 }

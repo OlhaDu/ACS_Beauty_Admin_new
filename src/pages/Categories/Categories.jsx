@@ -9,9 +9,11 @@ import { api } from "src/api";
 // import actionCreators from "../../store/actions/actionCreators";
 // import { UNKNOWN } from "../../constants";
 
-const Categories = (props) => {
-  const [active, setActive] = useState(false);
+const Categories = () => {
+  const [isCategoryActive, setIsCategoryActive] = useState(false);
   const [categories, setCategories] = useState(null);
+  const [activeCategoryName, setActiveCategoryName] = useState(null);
+  const [activeSubcategories, setActiveSubcaterories] = useState(null);
   // const [activeCategoryId, setActiveCategoryId] = useState(null);
   // const {
   //   getCategoriesRequest,
@@ -33,7 +35,10 @@ const Categories = (props) => {
   }, []);
   return (
     <>
-      <div className={s.page} style={{ display: active ? "none" : "" }}>
+      <div
+        className={s.page}
+        style={{ display: isCategoryActive ? "none" : "" }}
+      >
         <div className={s.heading}>
           <h3>Категорії</h3>
           <VioletButton
@@ -43,18 +48,28 @@ const Categories = (props) => {
         </div>
         <ul className={s.collapses}>
           {categories &&
-            categories.map((category) => (
-              <Category data={category} key={category.id} />
+            categories.map(({ id, name, subcategories }) => (
+              <Category
+                name={name}
+                key={id}
+                subcategories={subcategories}
+                isCategoryActive={isCategoryActive}
+                setIsCategoryActive={setIsCategoryActive}
+                setActiveCategoryName={setActiveCategoryName}
+                setActiveSubcaterories={setActiveSubcaterories}
+              />
             ))}
         </ul>
       </div>
-      {/* {active && (
-        <AddCategoryPopup
-          setActive={setActive}
-          setActiveCategoryId={setActiveCategoryId}
-          activeCategoryId={activeCategoryId}
-        />
-      )} */}
+      {isCategoryActive && (
+        <div className={s.page}>
+          <Category
+            name={activeCategoryName}
+            subcategories={activeSubcategories}
+            isCategoryActive={isCategoryActive}
+          />
+        </div>
+      )}
     </>
   );
 };

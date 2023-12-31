@@ -5,10 +5,24 @@ import AddIcon from "src/images/svg/AddIcon";
 import ArrowToRight from "src/images/svg/ArrowToRight";
 import { FC } from "react";
 import { ICategory } from "src/types";
-// import SubCategory from "../SubCategory/SubCategory";
+import SubCategories from "../SubCategories/SubCategories";
 
 const Category: FC<ICategory> = (props) => {
-  const { name } = props;
+  const {
+    name,
+    subcategories,
+    isCategoryActive,
+    setIsCategoryActive,
+    setActiveCategoryName,
+    setActiveSubcaterories,
+  } = props;
+
+  const arrowRightBtnClickHandler = () => {
+    setIsCategoryActive(!isCategoryActive);
+    setActiveCategoryName(name);
+    setActiveSubcaterories(subcategories);
+  };
+
   return (
     <li className={s.item}>
       <div className={s.container}>
@@ -20,9 +34,13 @@ const Category: FC<ICategory> = (props) => {
             <AddIcon />
           </div>
         </div>
-        <ArrowToRight />
+        {!isCategoryActive && (
+          <button onClick={arrowRightBtnClickHandler}>
+            <ArrowToRight />
+          </button>
+        )}
       </div>
-      {/* <SubCategory /> */}
+      {isCategoryActive && <SubCategories subcategories={subcategories} />}
     </li>
   );
 };
