@@ -1,7 +1,7 @@
 import s from "./Table.module.scss";
 
 import * as React from "react";
-import { DataGrid, GridColDef } from "@mui/x-data-grid";
+import { DataGrid } from "@mui/x-data-grid";
 
 interface Column {
   field: string;
