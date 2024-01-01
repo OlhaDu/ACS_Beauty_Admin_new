@@ -17,7 +17,7 @@ import {
   GridRowEditStopReasons,
 } from "@mui/x-data-grid";
 
-interface Column {
+interface IColumn {
   field: string;
   headerName: string;
   width?: number;
@@ -28,12 +28,12 @@ interface Column {
   valueOptions?: string[];
 }
 
-interface DataTableProps {
-  columns: Column[];
+interface IDataTableProps {
+  columns: IColumn[];
   rows: GridRowsProp;
 }
 
-export const FullFeaturedCrudGrid: React.FC<DataTableProps> = ({
+export const FullFeaturedCrudGrid: React.FC<IDataTableProps> = ({
   columns,
   rows,
 }) => {
