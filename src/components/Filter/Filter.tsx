@@ -9,10 +9,9 @@ export interface FilterProps {
     optionName: string;
     suboptions: string[];
   }[];
-};
+}
 
 const Filter: FC<FilterProps> = ({ options }) => {
-
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const handleToggle = () => {
@@ -48,7 +47,6 @@ const Filter: FC<FilterProps> = ({ options }) => {
 
   return (
     <div className={s.container}>
-
       <div className={s.fieldContainer} onClick={handleToggle}>
         <div className={s.icon}>
           <FilterIcon />
@@ -63,11 +61,9 @@ const Filter: FC<FilterProps> = ({ options }) => {
         className={s.optionListContainer}
         style={!isOpen ? { borderTop: "none" } : {}}
       >
-
         {isOpen && (
           <>
             {options.map((option, idx) => (
-
               <ul key={idx}>
                 <div
                   onClick={() => handleOptionClick(option.optionName)}
@@ -92,10 +88,8 @@ const Filter: FC<FilterProps> = ({ options }) => {
                 </div>
 
                 {expandedOptions[option.optionName] && (
-
                   <ul>
                     {option.suboptions.map((suboption, subIdx) => (
-
                       <li
                         key={subIdx}
                         onClick={() =>
@@ -115,18 +109,13 @@ const Filter: FC<FilterProps> = ({ options }) => {
                         {selectedOptions[option.optionName] === suboption &&
                           "✔"}
                       </li>
-
                     ))}
                   </ul>
-
                 )}
-                
               </ul>
-              
             ))}
           </>
         )}
-
       </div>
     </div>
   );
