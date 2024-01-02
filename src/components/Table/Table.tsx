@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/DeleteOutlined";
@@ -31,11 +31,13 @@ interface IColumn {
 interface IDataTableProps {
   columns: IColumn[];
   rows: GridRowsProp;
+  onExternalDataUpdate: (updatedRowData: any) => void;
 }
 
 export const FullFeaturedCrudGrid: React.FC<IDataTableProps> = ({
   columns,
   rows,
+  onExternalDataUpdate,
 }) => {
   const [gridRows, setGridRows] = useState(rows);
   const [rowModesModel, setRowModesModel] = useState<GridRowModesModel>({});
@@ -78,6 +80,10 @@ export const FullFeaturedCrudGrid: React.FC<IDataTableProps> = ({
     setGridRows(
       gridRows.map((row) => (row.id === newRow.id ? updatedRow : row))
     );
+
+    // Call the callback function to pass the updatedRowData to another file
+    onExternalDataUpdate(updatedRow);
+
     return updatedRow;
   };
 
@@ -161,6 +167,13 @@ export const FullFeaturedCrudGrid: React.FC<IDataTableProps> = ({
         slotProps={{
           toolbar: { setRows: setGridRows, setRowModesModel },
         }}
+        initialState={{
+          pagination: {
+            paginationModel: { page: 0, pageSize: 10 },
+          },
+        }}
+        pageSizeOptions={[10, 25, 50, 100]}
+        checkboxSelection
       />
     </Box>
   );
