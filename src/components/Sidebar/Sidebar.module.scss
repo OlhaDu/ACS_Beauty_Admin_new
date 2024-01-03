@@ -3,7 +3,10 @@
 .container {
   width: $sidebar-width;
   height: calc(100vh - #{$header-height});
-  position: fixed;
+
+  // Changed fixed to sticky to prevent vertical scrolling
+  position: sticky;
+
   top: $header-height;
   border: $default-border;
   border-left: none;

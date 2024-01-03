@@ -83,7 +83,7 @@ const Filter: FC<FilterProps> = ({ options }) => {
                       display: "inline-block",
                     }}
                   >
-                    <ArrowToBottomIcon size="24" />
+                    <ArrowToBottomIcon iconSize="24" />
                   </span>
                 </div>
 

@@ -1,5 +1,10 @@
 import axios from "axios";
-import { IAddCategory, IAddUpdateSubcategory, IUpdateCategory } from "./types";
+import {
+  IAddCategory,
+  IAddUpdateSubcategory,
+  IUpdateCategory,
+  IUpdateUsers,
+} from "./types";
 
 const http = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL, //заменить адрес на константу (.env)
@@ -22,4 +27,7 @@ export const api = {
   deleteCategory: (id: number) => http.delete(`/api/category/${id}`),
 
   deleteSubcategory: (id: number) => http.delete(`/api/subcategory/${id}`),
+
+  updateUsers: (updatedUsers: IUpdateUsers) =>
+    http.patch(`/api/user/${updatedUsers.id}`, updatedUsers),
 };

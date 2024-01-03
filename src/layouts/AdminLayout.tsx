@@ -1,7 +1,6 @@
 import React from "react";
 import s from "./AdminLayout.module.scss";
 import NoticesIcon from "src/images/svg/NoticesIcon";
-// import AccountIcon from "src/images/svg/Accounticon";
 import AccountIcon from "src/images/svg/AccountIcon";
 
 import Sidebar from "src/components/Sidebar/Sidebar";
@@ -28,15 +27,14 @@ const AdminLayout: React.FC<Props> = ({ children }) => {
               </div>
             </div>
           </div>
+          <div className={s.sidebar}>
+            <Sidebar />
+          </div>
         </header>
-        <div className={s.sidebar}>
-          <Sidebar />
-        </div>
       </div>
 
       <div>{children}</div>
     </>
   );
 };
-
 export default AdminLayout;
