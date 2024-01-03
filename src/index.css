@@ -1,3 +1,5 @@
+@import-normalize;
+
 :root {
   font-family: "Roboto", sans-serif, system-ui;
   line-height: 1.5;
@@ -43,39 +45,17 @@ h6 {
 }
 
 button {
-  /* border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a; */
+  background-color: transparent;
+  color: inherit;
+  border-width: 0;
+  padding: 0;
   cursor: pointer;
-  border: none;
-  /* transition: border-color 0.25s; */
 }
-/* button:hover {
-  border-color: #646cff;
-} */
-/* button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-} */
-
 ul {
   list-style: none;
   padding: 0;
   margin: 0;
 }
-
-/* button:hover {
-  border-color: #646cff;
-}  */
-
-/* button:focus,
-button:focus-visible {
-  outline: 1px auto -webkit-focus-ring-color;
-} */
 
 /* @media (prefers-color-scheme: light) {
   :root {

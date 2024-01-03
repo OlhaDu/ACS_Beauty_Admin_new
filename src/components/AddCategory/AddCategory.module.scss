@@ -1,0 +1,39 @@
+@import "/src/styles/variables.scss";
+@import "/src/styles/mixins.scss";
+
+.borderOuter {
+  margin-top: 44px;
+  padding: 24px;
+}
+.head {
+  display: flex;
+  justify-content: center;
+}
+h4 {
+  @extend .Roboto500-20-23;
+  color: $main-text-color;
+  display: flex;
+  justify-content: center;
+  flex-grow: 1;
+}
+.borderAddImg {
+  margin-top: 24px;
+  padding-top: 120px;
+  padding-bottom: 100px;
+  p {
+    @extend .Roboto600-16-18;
+    margin-top: 27px;
+    text-align: center;
+    color: $main-text-color;
+  }
+}
+.addIcon {
+  display: block;
+  margin: auto;
+  circle {
+    fill: $second-color;
+  }
+  path {
+    fill: $second-icon-color;
+  }
+}

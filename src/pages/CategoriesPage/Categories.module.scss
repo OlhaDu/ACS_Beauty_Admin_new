@@ -4,8 +4,7 @@
 .page {
   width: $page-width - $sidebar-width;
   padding: 32px 80px 47px 20px;
-  // padding-left: 20px;
-  // padding-right: 80px;
+  margin-left: $sidebar-width;
 }
 .heading {
   display: flex;
@@ -16,10 +15,6 @@ h3 {
   @extend .Roboto500-24-28;
   color: $main-text-color;
 }
-.collapses {
+.categoryWrap {
   margin-top: 29px;
-
-  > *:not(:last-child) {
-    margin-bottom: 32px;
-  }
 }
