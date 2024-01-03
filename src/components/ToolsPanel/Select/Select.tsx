@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import s from "./Select.module.scss";
 import DropdownArrow from "src/images/svg/DropdownArrow";
+import useOnClickOutside from "src/hooks/useOnClickOutside";
 
 type SelectProps = {
   options: string[];
@@ -12,10 +13,13 @@ type SelectProps = {
 const Select: React.FC<SelectProps> = ({ options, icon, toolName, style }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedValue, setSelectedValue] = useState("");
+  const ref = useRef(null);
 
   const handleToggle = () => {
     setIsOpen(!isOpen);
   };
+
+  useOnClickOutside(ref, handleToggle);
 
   const handleOptionClick = (option: string) => {
     setSelectedValue(option);
@@ -36,7 +40,8 @@ const Select: React.FC<SelectProps> = ({ options, icon, toolName, style }) => {
         style={!isOpen ? { borderTop: "none" } : {}}
       >
         {isOpen && (
-          <ul>
+          // <div>
+          <ul ref={ref}>
             {options.map((option, index) => (
               <li
                 className={s.option}
@@ -47,6 +52,7 @@ const Select: React.FC<SelectProps> = ({ options, icon, toolName, style }) => {
               </li>
             ))}
           </ul>
+          // </div>
         )}
       </div>
     </div>
