@@ -13,5 +13,5 @@ export interface ProductElem {
   
 export interface ProductsResponse {
     count: number;
-    products: ProductElem[];
+    rows: ProductElem[];
   }

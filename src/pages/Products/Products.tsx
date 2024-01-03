@@ -13,6 +13,7 @@ const Products = () => {
   });
 
   useEffect(() => {
+    if (!productsArray?.length) {
     const fetchProducts = async () => {
       try {
         const response = await api.get("/api/product?page=1&pageSize=25&availability=true&discount=true&category=23&lookup=subcategory7");
@@ -22,7 +23,7 @@ const Products = () => {
         }
 
         const productsRes: ProductsResponse = response.data;
-        setProductsArray(productsRes.products);
+        setProductsArray(productsRes.rows);
       } catch (error) {
         if (error instanceof Error) {
           console.error('Error fetching products:', error.message);
@@ -33,6 +34,7 @@ const Products = () => {
     };
 
     fetchProducts();
+  }
   }, []); 
 
   const columns: GridColDef[] = [
@@ -49,7 +51,8 @@ const Products = () => {
     <>
       <ToolsPanel />
       <div className={styles.products_table}>
-      <DataGrid
+        {productsArray ? 
+        <DataGrid
         rows={productsArray}
         columns={columns}
         initialState={{
@@ -58,7 +61,7 @@ const Products = () => {
           },
         }}
         pageSizeOptions={[10, 15, 20]}
-      />
+      /> : <div>Oops!</div>}
     </div>
     </>
   );
