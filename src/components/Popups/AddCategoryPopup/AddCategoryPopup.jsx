@@ -1,9 +1,9 @@
 import React from "react";
 import s from "./AddCategoryPopup.module.scss";
 import Toggler from "../../Toggler/Toggler";
-import AddIcon from "../../../svgs/AddIcon";
+import AddIcon from "src/images/svg/AddIcon";
 import VioletButton from "../../VioletButton/VioletButton";
-import CloseIcon from "../../../svgs/CloseIcon";
+import CloseIcon from "src/images/svg/CloseIcon";
 import { Formik, Form, Field } from "formik";
 import { connect } from "react-redux";
 import actionCreators from "../../../store/actions/actionCreators";

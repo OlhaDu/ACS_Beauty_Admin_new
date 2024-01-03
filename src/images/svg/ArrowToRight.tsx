@@ -1,4 +1,4 @@
-import { IArrowToRight } from "./types";
+import { IArrowToRight } from "src/types";
 
 const ArrowToRight = ({ iconSize, className }: IArrowToRight) => {
   return (

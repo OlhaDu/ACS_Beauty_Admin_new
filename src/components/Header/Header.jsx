@@ -1,13 +1,9 @@
 import React, { useState } from "react";
 import s from "./Header.module.scss";
 import { Link } from "react-router-dom";
-// import LoginIcon from "../../../svgs/LoginIcon";
 import LoginIcon from "src/images/svg/LoginIcon";
-// import NotificationIcon from "../../../svgs/NotificationIcon";
 import NotificationIcon from "src/images/svg/NotificationIcon";
-// import NotificationPopup from "../../../components/Popups/NotificationPopup/NotificationPopup";
 import NotificationPopup from "../Popups/NotificationPopup/NotificationPopup";
-// import ProfilePopup from "../../../components/Popups/ProfilePopup/ProfilePopup";
 import ProfilePopup from "../Popups/ProfilePopup/ProfilePopup";
 
 const Header = () => {

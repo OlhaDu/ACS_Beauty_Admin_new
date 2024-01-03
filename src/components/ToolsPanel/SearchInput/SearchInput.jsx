@@ -1,10 +1,13 @@
 import React, { useState } from "react";
 import styles from "./SearchInput.module.scss";
-// import SearchIcon from "../../../svgs/SearchIcon";
 import SearchIcon from "src/images/svg/SearchIcon";
+// import { useLocation } from 'react-router-dom';
 
 const SearchInput = () => {
   const [isInputFocused, setInputFocused] = useState(false);
+  // const location = useLocation();
+  // const pathArray = location.pathname !== '/' ? location.pathname.split('/').filter((crumb) => crumb) : null;
+  // const pageName = pathArray ? pathArray[0] : null;  
 
   const handleInputFocus = () => {
     setInputFocused(true);

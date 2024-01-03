@@ -9,6 +9,7 @@ import ExportFileIcon from "../../images/svg/ExportFileIcon";
 import RowListIcon from "../../images/svg/RowListIcon";
 import DataTable from "src/components/Table/Table";
 import axios from "axios";
+import AdminLayout from "src/layouts/AdminLayout";
 
 const Users = () => {
   // useEffect(() => {
@@ -72,6 +73,7 @@ const Users = () => {
 
   return (
     <>
+     {/* <AdminLayout> */}
       <main className={styles.main}>
         <section className={styles.main__section}>
           <div className={styles.main__title}>
@@ -110,6 +112,7 @@ const Users = () => {
           <DataTable columns={columns} rows={rows} />
         </section>
       </main>
+    {/* </AdminLayout> */}
     </>
   );
 };

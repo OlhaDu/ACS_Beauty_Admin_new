@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import styles from "./Select.module.scss";
-// import DropdownArrow from "../../../svgs/DropdownArrow";
 import DropdownArrow from "src/images/svg/DropdownArrow";
 
 const Select = ({ options, toolName, icon, style }) => {
