@@ -1,6 +1,7 @@
+import { FC } from "react";
 import { IArrowToRight } from "./types";
 
-const ArrowToRight = ({ iconSize, className }: IArrowToRight) => {
+const ArrowToRight: FC<IArrowToRight> = ({ iconSize, className }) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
