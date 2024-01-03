@@ -4,12 +4,53 @@ import { fetchReviews } from "../api/getReviews";
 import s from "./ReviewsList.module.scss";
 import { Formik, Field, Form } from "formik";
 import { GoSearch } from "react-icons/go";
+import FilterIcon from "src/assets/filter-variant.svg";
+import GestureIcon from "src/assets/gesture-double.svg";
+import ArrowIcon from "src/assets/menu-arrow.svg";
+import ExportIcon from "src/assets/file-export.svg";
+import NavigateIcon from "src/assets/navigate.svg";
 
 const ReviewsList: React.FC = () => {
   const [data, setData] = useState(null);
   const [status, setStatus] = useState<"pending" | "fulfilled" | "rejected">(
     "pending"
   );
+  const [filterOpen, setFilterOpen] = useState(false);
+  const [actionOpen, setActionOpen] = useState(false);
+  const [exportOpen, setExportOpen] = useState(false);
+  const [statusOpen, setStatusOpen] = useState(false);
+  const [ratingOpen, setRatingOpen] = useState(false);
+
+  const toggleFilter = () => {
+    
+    setFilterOpen(!filterOpen);
+  };
+  console.log("filterOpen", filterOpen);
+  console.log("actionOpen", actionOpen);
+  console.log("exportOpen", exportOpen);
+  console.log("statusOpen", statusOpen);
+  console.log("ratingOpen", ratingOpen);
+
+  
+  const toggleAction = () => {
+   
+    setActionOpen(!actionOpen);
+  };
+  
+  const toggleExport = (event: React.MouseEvent<HTMLSpanElement>) => {
+    event.stopPropagation();
+    setExportOpen((prevExportOpen) => !prevExportOpen);
+  };
+  
+  const toggleStatus = (event: React.MouseEvent<HTMLSpanElement>) => {
+    event.stopPropagation();
+    setStatusOpen((prevStatusOpen) => !prevStatusOpen);
+  };
+  
+  const toggleRating = (event: React.MouseEvent<HTMLSpanElement>) => {
+    event.stopPropagation();
+    setRatingOpen((prevRatingOpen) => !prevRatingOpen);
+  };
 
   useEffect(() => {
     (async () => {
@@ -45,73 +86,132 @@ const ReviewsList: React.FC = () => {
       <nav className={s.menu}>
         <ul className={s.menu_list}>
           <li>
-            <li>
-              <a href="" className={s.menu_link}>
-                Статус
-              </a>
+            <FilterIcon />
+            Фільтрувати
+            <span
+              className={`${s.menu_arrow} 
+              ${
+                filterOpen ? s.menu_arrow_rotated : ""
+              }`}
+              onClick={toggleFilter}
+            >
+              <ArrowIcon />
+            </span>
+            {filterOpen && (
               <ul className={s.sub_menu_list}>
                 <li>
                   <a href="" className={s.sub_menu_link}>
-                    Опубліковано
+                    Статус
                   </a>
-                </li>
+                  <span
+                    className={`${s.menu_arrow_span} 
+                    ${
+                      filterOpen ? s.menu_arrow_rotated : ""
+                    }`}
+                    onClick={toggleStatus}
+                  >
+                    <NavigateIcon />
+                  </span>                  
+                    {statusOpen && (
+                      <ul className={s.sub_sub_menu_list}>
+                        <li>
+                          <a href="" className={s.sub_sub_menu_link}>
+                            Опубліковано
+                          </a>
+                        </li>
+                        <li>
+                          <a href="" className={s.sub_sub_menu_link}>
+                            Очікує публікації
+                          </a>
+                        </li>
+                        <li>
+                          <a href="" className={s.sub_sub_menu_link}>
+                            На перевірці
+                          </a>
+                        </li>
+                        <li>
+                          <a href="" className={s.sub_sub_menu_link}>
+                            Видалений
+                          </a>
+                        </li>
+                      </ul>
+                    )}
+                </li>                
                 <li>
-                  <a href="" className={s.sub_menu_link}>
-                    Очікує публікації
+                  <a href="" className={s.menu_link}>
+                    Рейтинг
                   </a>
-                </li>
-                <li>
-                  <a href="" className={s.sub_menu_link}>
-                    На перевірці
-                  </a>
-                </li>
-                <li>
-                  <a href="" className={s.sub_menu_link}>
-                    Видалений
-                  </a>
+                  <span
+                     className={`${s.menu_arrow_span} 
+                     ${
+                       filterOpen ? s.menu_arrow_rotated : ""
+                     }`}
+                    onClick={toggleRating}
+                  >
+                    <NavigateIcon />
+                  </span>
+                  {ratingOpen && (
+                    <ul className={s.sub_sub_menu_list}>
+                      <li>
+                        <a href="" className={s.sub_sub_menu_link}>
+                          Позитивні
+                        </a>
+                      </li>
+                      <li>
+                        <a href="" className={s.sub_sub_menu_link}>
+                          Нейтральні
+                        </a>
+                      </li>
+                      <li>
+                        <a href="" className={s.sub_sub_menu_link}>
+                          Негативні
+                        </a>
+                      </li>
+                    </ul>
+                  )}
+                  <ul></ul>
                 </li>
               </ul>
-            </li>
-            <li>
-              <a href="" className={s.menu_list}>
-                Рейтинг
-              </a>
-              <ul className={s.sub_menu_list}>
-                <li>
-                  <a href="" className={s.sub_menu_link}>
-                    Позитивні
-                  </a>
-                </li>
-                <li>
-                  <a href="" className={s.sub_menu_link}>
-                    Нейтральні
-                  </a>
-                </li>
-                <li>
-                  <a href="" className={s.sub_menu_link}>
-                    Негативні
-                  </a>
-                </li>
-              </ul>
-              <ul></ul>
-            </li>
+            )}
           </li>
           <li>
-            <ul className={s.menu_list}>
+            <GestureIcon />
+            Дії
+            <span
+              className={`${s.menu_arrow} ${
+                actionOpen ? s.menu_arrow_rotated : ""
+              }`}
+              onClick={toggleAction}
+            >
+              <ArrowIcon />
+            </span>
+            {actionOpen && (
+              <ul className={s.sub_menu_list}>
                 <li>
-                <a href="" className={s.menu_link}>
-                Змінити статус
-              </a>
+                  <a href="" className={s.sub_menu_link}>
+                    Змінити статус
+                  </a>
                 </li>
                 <li>
-                <a href="" className={s.menu_link}>
-                Видалити
-              </a> 
+                  <a href="" className={s.sub_menu_link}>
+                    Видалити
+                  </a>
                 </li>
-                
-            </ul>
+              </ul>
+            )}
           </li>
-          <li></li>
+          <li>
+            <ExportIcon />
+            Експортувати
+            <span
+              className={`${s.menu_arrow} ${
+                exportOpen ? s.menu_arrow_rotated : ""
+              }`}
+              onClick={toggleExport}
+            >
+              <ArrowIcon />
+            </span>
+          </li>
         </ul>
       </nav>
       {/* <label htmlFor="searchInput" title="Search for reviews"></label>
