@@ -21,7 +21,7 @@ const ToolsPanel: FC<ToolsPanelProps> = ({
   rowsOptions,
 }) => {
   return (
-    <div>
+    <>
       <SearchInput />
       <div className={s.tools}>
         <div className={s.leftSideTools}>
@@ -31,7 +31,7 @@ const ToolsPanel: FC<ToolsPanelProps> = ({
         </div>
         <RowsOnPageFilter {...rowsOptions} />
       </div>
-    </div>
+    </>
   );
 };
 

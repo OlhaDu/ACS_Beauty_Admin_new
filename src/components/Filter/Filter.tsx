@@ -1,31 +1,33 @@
 import { useState, FC } from "react";
+import cn from "classnames";
 import s from "./Filter.module.scss";
 import DropdownArrow from "src/images/svg/DropdownArrow";
 import FilterIcon from "src/images/svg/FilterIcon";
 import ArrowToBottomIcon from "src/images/svg/ArrowToBottomIcon";
 
-export interface FilterProps {
-  options: {
-    optionName: string;
-    suboptions: string[];
-  }[];
+type Option = {
+  optionName: string;
+  suboptions: string[];
 };
 
-const Filter: FC<FilterProps> = ({ options }) => {
+export interface FilterProps {
+  options: Option[];
+}
 
+const Filter: FC<FilterProps> = ({ options }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const handleToggle = () => {
     setIsOpen(!isOpen);
   };
 
-  const [selectedOptions, setSelectedOptions] = useState<{
-    [key: string]: string;
-  }>({});
+  const [selectedOptions, setSelectedOptions] = useState<
+    Record<string, string>
+  >({});
 
-  const [expandedOptions, setExpandedOptions] = useState<{
-    [key: string]: boolean;
-  }>({});
+  const [expandedOptions, setExpandedOptions] = useState<
+    Record<string, boolean>
+  >({});
 
   const handleOptionClick = (optionName: string) => {
     setExpandedOptions((prevOptions) => {
@@ -48,7 +50,6 @@ const Filter: FC<FilterProps> = ({ options }) => {
 
   return (
     <div className={s.container}>
-
       <div className={s.fieldContainer} onClick={handleToggle}>
         <div className={s.icon}>
           <FilterIcon />
@@ -56,26 +57,22 @@ const Filter: FC<FilterProps> = ({ options }) => {
         <div className={s.dropdownArrow}>
           <DropdownArrow />
         </div>
-        <div className={s.heading}> {"Фільтрувати"}</div>
+        <div className={s.heading}>Фільтрувати</div>
       </div>
-
-      <div
-        className={s.optionListContainer}
-        style={!isOpen ? { borderTop: "none" } : {}}
-      >
-
-        {isOpen && (
+      {isOpen && (
+        <div
+          className={s.optionListContainer}
+          style={isOpen ? { borderTop: "none" } : {}}
+        >
           <>
             {options.map((option, idx) => (
-
               <ul key={idx}>
                 <div
                   onClick={() => handleOptionClick(option.optionName)}
-                  className={`${
-                    idx === options.length - 1
-                      ? `${s.lastOption} ${s.option}`
-                      : s.option
-                  }`}
+                  className={cn({
+                    [s.lastOption]: idx === options.length - 1,
+                    [s.option]: true,
+                  })}
                 >
                   {option.optionName}
 
@@ -92,42 +89,33 @@ const Filter: FC<FilterProps> = ({ options }) => {
                 </div>
 
                 {expandedOptions[option.optionName] && (
-
                   <ul>
                     {option.suboptions.map((suboption, subIdx) => (
-
                       <li
                         key={subIdx}
                         onClick={() =>
                           handleSuboptionClick(option.optionName, suboption)
                         }
-                        className={`${
-                          subIdx === option.suboptions.length - 1
-                            ? `${s.lastSuboption} ${s.suboption}`
-                            : s.suboption
-                        } ${
-                          selectedOptions[option.optionName] === suboption
-                            ? s.clicked
-                            : ""
-                        }`}
+                        className={cn({
+                          [s.lastSuboption]:
+                            subIdx === option.suboptions.length - 1,
+                          [s.suboption]: true,
+                          [s.clicked]:
+                            selectedOptions[option.optionName] === suboption,
+                        })}
                       >
                         {suboption}{" "}
                         {selectedOptions[option.optionName] === suboption &&
                           "✔"}
                       </li>
-
                     ))}
                   </ul>
-
                 )}
-                
               </ul>
-              
             ))}
           </>
-        )}
-
-      </div>
+        </div>
+      )}
     </div>
   );
 };

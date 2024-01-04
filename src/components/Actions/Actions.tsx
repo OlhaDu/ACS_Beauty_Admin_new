@@ -27,22 +27,24 @@ const Actions: FC<ActionsProps> = ({ actions }) => {
 
   return (
     <div className={s.container}>
-
-      <div className={s.fieldContainer} onClick={handleToggle}>
+      <div
+        className={s.fieldContainer}
+        onClick={handleToggle}
+        style={isOpen ? { borderBottom: "none" } : {}}
+      >
         <div className={s.icon}>
           <ActionsIcon />
         </div>
         <div className={s.dropdownArrow}>
           <DropdownArrow />
         </div>
-        <div className={s.heading}> {"Дії"}</div>
+        <div className={s.heading}>Дії</div>
       </div>
-      
-      <div
-        className={s.optionListContainer}
-        style={!isOpen ? { borderTop: "none" } : {}}
-      >
-        {isOpen && (
+      {isOpen && (
+        <div
+          className={s.optionListContainer}
+          style={!isOpen ? { borderTop: "none" } : {}}
+        >
           <>
             <ul className={s.list}>
               {actions.map((action, idx) => (
@@ -56,8 +58,8 @@ const Actions: FC<ActionsProps> = ({ actions }) => {
               ))}
             </ul>
           </>
-        )}
-      </div>
+        </div>
+      )}
     </div>
   );
 };

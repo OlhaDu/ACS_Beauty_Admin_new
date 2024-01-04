@@ -1,9 +1,9 @@
 import { useState, FC } from "react";
 import s from "./ExportToFile.module.scss";
 import DropdownArrow from "src/images/svg/DropdownArrow";
-import ExportFileIcon from 'src/images/svg/ExportFileIcon';
+import ExportFileIcon from "src/images/svg/ExportFileIcon";
 
-const ExportToFile: FC = ({ }) => {
+const ExportToFile: FC = ({}) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const handleToggle = () => {
@@ -12,27 +12,27 @@ const ExportToFile: FC = ({ }) => {
 
   return (
     <div className={s.container}>
-
-      <div className={s.fieldContainer} onClick={handleToggle}>
+      <div
+        className={s.fieldContainer}
+        onClick={handleToggle}
+        style={isOpen ? { borderBottom: "none" } : {}}
+      >
         <div className={s.icon}>
           <ExportFileIcon />
         </div>
         <div className={s.dropdownArrow}>
           <DropdownArrow />
         </div>
-        <div className={s.heading}> {"Експортувати"}</div>
+        <div className={s.heading}>Експортувати</div>
       </div>
-      
-      <div
-        className={s.optionListContainer}
-        style={!isOpen ? { borderTop: "none" } : {}}
-      >
-        {isOpen && (
-          <>
-          
-          </>
-        )}
-      </div>
+      {isOpen && (
+        <div
+          className={s.optionListContainer}
+          style={!isOpen ? { borderTop: "none" } : {}}
+        >
+          <></>
+        </div>
+      )}
     </div>
   );
 };
