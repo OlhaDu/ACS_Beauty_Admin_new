@@ -3,7 +3,7 @@ import styles from "./Select.module.scss";
 // import DropdownArrow from "../../../svgs/DropdownArrow";
 import DropdownArrow from "src/images/svg/DropdownArrow";
 
-const Select = ({ options, toolName, icon, style }) => {
+const Select = ({ options, toolName, icon, style, itemsPerPage }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedValue, setSelectedValue] = useState("");
 
@@ -12,7 +12,8 @@ const Select = ({ options, toolName, icon, style }) => {
   };
 
   const handleOptionClick = (option) => {
-    setSelectedValue(option);
+    setSelectedValue(`Рядків на сторінці: ${option}`);
+    itemsPerPage(option);
     setIsOpen(false);
   };
 

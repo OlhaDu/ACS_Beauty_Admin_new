@@ -54,7 +54,10 @@
   cursor: pointer;
 }
 .Violet-button-styles {
+  // in use
   @extend .Roboto600-16-18;
+  width: 197px;
+  height: 43px;
   padding: 12px 9px;
   background-color: $main-color;
   border: none;

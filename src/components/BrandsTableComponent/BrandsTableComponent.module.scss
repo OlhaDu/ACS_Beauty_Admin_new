@@ -1,0 +1,22 @@
+.tablePaper {
+  border-radius: 4px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-bottom: none;
+
+  .tableHead {
+    background-color: #f8f0fb;
+  }
+
+  .tableCell {
+    color: #5c5e60;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    // vertical-align: top;
+  }
+
+  .descriptionCell {
+    color: #5a5757;
+  }
+}

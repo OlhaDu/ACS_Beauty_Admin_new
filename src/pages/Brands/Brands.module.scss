@@ -1,0 +1,39 @@
+@import "/src/styles/mixins.scss";
+@import "/src/styles/variables.scss";
+
+.main {
+  padding: 32px 80px 26px 20px;
+
+  display: flex;
+  margin-left: 276px;
+}
+
+.main__section {
+  flex: 1;
+}
+
+.main__title {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 28px;
+}
+
+.main__title_text {
+  color: #5c5e60;
+  @extend .Roboto500-24-28;
+}
+
+.features {
+  padding-bottom: 22px;
+}
+
+.tools {
+  display: flex;
+  justify-content: space-between;
+}
+
+.tools__actions {
+  display: flex;
+  gap: 20px;
+}
