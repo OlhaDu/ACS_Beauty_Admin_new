@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./AddCategoryPopup.module.scss";
+import s from "./AddCategoryPopup.module.scss";
 import Toggler from "../../Toggler/Toggler";
 import AddIcon from "../../../svgs/AddIcon";
 import VioletButton from "../../VioletButton/VioletButton";
@@ -25,14 +25,14 @@ const AddCategoryPopup = ({ setActive, ...props }) => {
   );
   const dataField = categoriesArray[activeCategoryIndex];
   return (
-    <div className={styles.container}>
+    <div className={s.container}>
       {activeCategoryId ? (
         <h3>Категорії/Редагувати категорію</h3>
       ) : (
         <h3>Категорії/Додати категорію</h3>
       )}
-      <div className={styles.popupBody}>
-        <div className={styles.heading}>
+      <div className={s.popupBody}>
+        <div className={s.heading}>
           <div></div>
           {activeCategoryId ? (
             <h4>РЕДАГУВАТИ КАТЕГОРІЮ</h4>
@@ -40,7 +40,7 @@ const AddCategoryPopup = ({ setActive, ...props }) => {
             <h4>ДОДАТИ КАТЕГОРІЮ</h4>
           )}
           <div
-            className={styles.closeIcon}
+            className={s.closeIcon}
             onClick={() => {
               setActive(false);
               setActiveCategoryId(null);
@@ -49,8 +49,8 @@ const AddCategoryPopup = ({ setActive, ...props }) => {
             <CloseIcon />
           </div>
         </div>
-        <div className={styles.addImageField}>
-          <div className={styles.icon}>
+        <div className={s.addImageField}>
+          <div className={s.icon}>
             <AddIcon color={"#5c5e60"} />
           </div>
           {activeCategoryId ? (
@@ -97,40 +97,47 @@ const AddCategoryPopup = ({ setActive, ...props }) => {
             setActive(false);
           }}
         >
-          {({ errors, touched, handleChange, handleSubmit, isValid, values }) => (
+          {({
+            errors,
+            touched,
+            handleChange,
+            handleSubmit,
+            isValid,
+            values,
+          }) => (
             <Form>
               <div>
                 <label htmlFor="name">
-                  <h6 className={styles.optionName}>Назва категорії</h6>
+                  <h6 className={s.optionName}>Назва категорії</h6>
                 </label>
                 <Field
                   name="name"
                   type="text"
-                  className={styles.field}
+                  className={s.field}
                   onChange={handleChange}
                 />
                 {touched.name && errors.name && (
-                  <div className={styles.error}>{errors.name}</div>
+                  <div className={s.error}>{errors.name}</div>
                 )}
               </div>
               <div>
                 <label htmlFor="linkKey">
-                  <h6 className={styles.optionName}>URL</h6>
+                  <h6 className={s.optionName}>URL</h6>
                 </label>
                 <Field
                   name="linkKey"
                   type="text"
-                  className={styles.field}
+                  className={s.field}
                   onChange={handleChange}
                 />
                 {touched.linkKey && errors.linkKey && (
-                  <div className={styles.error}>{errors.linkKey}</div>
+                  <div className={s.error}>{errors.linkKey}</div>
                 )}
               </div>
-              <div className={styles.togglerContainer}>
+              <div className={s.togglerContainer}>
                 <Toggler />
               </div>
-              <div className={styles.violetButton}>
+              <div className={s.violetButton}>
                 <VioletButton
                   onClickFunction={handleSubmit}
                   type={"submit"}
