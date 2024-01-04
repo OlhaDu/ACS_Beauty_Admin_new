@@ -1,19 +1,18 @@
+@import "/src/styles/mixins.scss";
+@import "/src/styles/variables.scss";
+
 .tablePaper {
   border-radius: 4px;
-  border: 1px solid rgba(0, 0, 0, 0.1);
+  border: $default-border;
   border-bottom: none;
 
   .tableHead {
-    background-color: #f8f0fb;
+    background-color: $second-color;
   }
 
   .tableCell {
-    color: #5c5e60;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-    // vertical-align: top;
+    color: $main-text-color;
+    @extend .Roboto400-16;
   }
 
   .descriptionCell {

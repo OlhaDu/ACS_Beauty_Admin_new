@@ -1,3 +1,6 @@
+@import "/src/styles/mixins.scss";
+@import "/src/styles/variables.scss";
+
 .pagination_container {
   display: flex;
   justify-content: center;
@@ -5,17 +8,13 @@
 
   padding: 58px 0 36px;
   border-radius: 4px;
-  border: 1px solid rgba(0, 0, 0, 0.1);
+  border: $default-border;
   border-top: none;
 }
 
 .pagination_info {
-  color: #5c5e60;
-
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
+  color: $main-text-color;
+  @extend .Roboto400-16;
 }
 
 .arrow_to__left {

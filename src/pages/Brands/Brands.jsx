@@ -13,7 +13,7 @@ import RowListIcon from "src/images/svg/RowListIcon";
 import ExportFileIcon from "src/images/svg/ExportFileIcon";
 
 import { temporaryBrands } from "./temporaryBrands";
-import CustomPagination from "src/components/Table/CustomPagination";
+import CustomPagination from "src/components/CustomPagination";
 
 const Brands = () => {
   const filteringOptions = ["Option 1", "Option 2", "Option 3"];
