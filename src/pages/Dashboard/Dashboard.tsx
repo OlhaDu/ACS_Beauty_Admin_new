@@ -6,15 +6,25 @@ import { OrdersFilterData } from "src/components/Filter/FilterData";
 import { OrdersActionsData } from "src/components/Actions/OrdersActionsData";
 import { RowsOnPageFilterData } from "src/components/RowsOnPageFilter/RowsOnPageFilterData";
 
+function modifyData(data) {
+  if (data.itemHeading === 'Надходження на місяць') {
+    return {
+      ...data,
+      itemQuantity: `${data.itemQuantity} ₴`,
+      totalItemQuantity: `${data.totalItemQuantity} ₴`,
+    };
+  }
+  return data;
+}
+
 const Dashboard = () => {
   return (
     <div className={s.container}>
-
       <div className={s.greeting}>З поверненням, Оля!</div>
 
       <div className={s.dashboardCards}>
         {dashboardData.map((data, index) => (
-          <DashboardCard key={index} {...data} />
+          <DashboardCard key={index} {...modifyData(data)} />
         ))}
       </div>
 
@@ -28,10 +38,10 @@ const Dashboard = () => {
         />
 
         <div className={s.table}>Тут будет таблица</div>
-
       </div>
     </div>
   );
 };
+
 
 export default Dashboard;

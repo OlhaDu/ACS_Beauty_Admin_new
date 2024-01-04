@@ -6,30 +6,30 @@ import ReviewsIcon from 'src/images/svg/ReviewsIcon';
 export const dashboardData = [
     {
       itemHeading: "Замовлення на місяць",
-      itemQuantity: "12",
+      itemQuantity: 12,
       itemIcon: <ProductsIcon color={"#5C5E60"} />,
-      totalItemQuantity: "2356",
+      totalItemQuantity: 2356,
       itemIncrease: "10",
     },
     {
       itemHeading: "Надходження на місяць",
-      itemQuantity: "12567₴",
+      itemQuantity: 12567,
       itemIcon: <IncomeIcon />,
-      totalItemQuantity: "3456890₴",
+      totalItemQuantity: 3456890,
       itemIncrease: "10",
     },
     {
       itemHeading: "Відвідувачів на місяць",
-      itemQuantity: "3878",
+      itemQuantity: 3878,
       itemIcon: <LoginIcon color={"#5C5E60"} />,
-      totalItemQuantity: "3456906",
+      totalItemQuantity: 3456906,
       itemIncrease: "10",
     },
     {
       itemHeading: "Відгуків на місяць",
-      itemQuantity: "70",
+      itemQuantity: 70,
       itemIcon: <ReviewsIcon color={"#5C5E60"} />,
-      totalItemQuantity: "1200",
+      totalItemQuantity: 1200,
       itemIncrease: "10",
     },
   ];
