@@ -1,13 +1,13 @@
 import { ReactNode, FC } from "react";
-import styles from "./DashboardCard.module.scss";
+import s from "./DashboardCard.module.scss";
 import ArrowToTopWithTailIcon from "src/images/svg/ArrowToTopWithTailIcon";
 
 // определиться какой тип данных ожидаем
 type DashboardCardProps = {
   itemHeading: string;
-  itemQuantity: string | number;
+  itemQuantity: number;
   itemIcon: ReactNode;
-  totalItemQuantity: string | number;
+  totalItemQuantity: number;
   itemIncrease: string | number;
 };
 
@@ -18,21 +18,21 @@ const DashboardCard: FC<DashboardCardProps> = ({
   totalItemQuantity,
   itemIncrease,
 }) => (
-  <div className={styles.cardContainer}>
+  <div className={s.cardContainer}>
     
-    <div className={styles.leftContainer}>
+    <div className={s.leftContainer}>
       <div>{itemHeading ? itemHeading : "Місячний приріст"}</div>
-      <div className={styles.monthsQuantity}>
+      <div className={s.monthsQuantity}>
         {itemQuantity ? itemQuantity : "Дані відсутні"}
       </div>
       <div>
-        Всього: {totalItemQuantity ? totalItemQuantity : "Дані відсутні"}
+        Всього: {totalItemQuantity || "Дані відсутні"}
       </div>
     </div>
 
-    <div className={styles.rightContainer}>
-      <div className={styles.iconContainer}>{itemIcon}</div>
-      <div className={styles.increaseInfo}>
+    <div className={s.rightContainer}>
+      <div className={s.iconContainer}>{itemIcon}</div>
+      <div>
         {itemIncrease ? (
           <>
             {itemIncrease}% <ArrowToTopWithTailIcon />
