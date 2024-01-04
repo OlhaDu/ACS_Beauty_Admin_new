@@ -15,7 +15,7 @@
     "@emotion/styled": "^11.11.0",
     "@mui/material": "^5.15.2",
     "@mui/x-data-grid": "^6.18.6",
-    "@types/react-redux": "^7.1.31",
+    "@types/react-redux": "^7.1.33",
     "axios": "^1.6.3",
     "formik": "^2.4.5",
     "path": "^0.12.7",
