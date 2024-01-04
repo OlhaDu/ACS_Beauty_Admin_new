@@ -24,7 +24,7 @@
   justify-content: center;
   align-items: center;
   color: #fff;
-  @include font-style(16px, 500px);
+  font-weight: 500;
   letter-spacing: 1px;
   text-transform: uppercase;
   cursor: pointer;
@@ -33,4 +33,48 @@
 .Disabled-button-styles {
   opacity: 0.5;
   cursor: not-allowed;
+}
+
+@mixin optionsForToolsPanel {
+    width: 197px;
+    position: relative;
+    cursor: pointer;
+  
+  .fieldContainer {
+    position: relative;
+    width: inherit;
+    height: 44px;
+    border: $default-border;
+    border-bottom: none;
+    display: flex;
+    align-items: center;
+  }
+  
+  .icon {
+    position: absolute;
+    top: 10px;
+    left: 8px;
+  }
+  
+  .dropdownArrow {
+    position: absolute;
+    width: 44px;
+    height: 44px;
+    background-color: $gray-dropdown-color;
+    top: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .heading {
+    margin-left: 40px;
+  }
+  
+  .optionListContainer {
+    border: $default-border;
+    position: absolute;
+    width: inherit;
+  }
 }

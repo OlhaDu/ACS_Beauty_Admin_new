@@ -2,56 +2,13 @@
 @import "/src/styles/mixins.scss";
 
 .container {
-  width: 197px;
-  position: relative;
-  @include font-style(16px);
-  cursor: pointer;
-}
-
-.fieldContainer {
-  position: relative;
-  width: inherit;
-  height: 44px;
-  border: $default-border;
-  border-bottom: none;
-  display: flex;
-  align-items: center;
-}
-
-.icon {
-  position: absolute;
-  top: 10px;
-  left: 8px;
-}
-
-.dropdownArrow {
-  position: absolute;
-  width: 44px;
-  height: 44px;
-  background-color: $gray-dropdown-color;
-  top: 0px;
-  right: 0px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.heading {
-  margin-left: 40px;
-}
-
-.optionListContainer {
-  border: $default-border;
-  position: absolute;
-  width: inherit;
-  background-color: white;
+  @include optionsForToolsPanel;
 }
 
 .option {
   height: 24px;
   padding: 16px 0 16px 18px;
-}
-
-.option:hover {
-  background-color: $optionHover;
+  &:hover {
+    background-color: $optionHover;
+  }
 }
