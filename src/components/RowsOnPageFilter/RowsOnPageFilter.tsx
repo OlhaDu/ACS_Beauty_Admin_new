@@ -1,8 +1,9 @@
-import { useState, FC } from "react";
+import { useState, FC, useRef } from "react";
 import cn from "classnames";
 import s from "./RowsOnPageFilter.module.scss";
 import DropdownArrow from "src/images/svg/DropdownArrow";
 import RowListIcon from "src/images/svg/RowListIcon";
+import useOnClickOutside from 'use-onclickoutside';
 
 interface Row {
   rowName: string;
@@ -16,6 +17,7 @@ export interface RowsProps {
 const RowsOnPageFilter: FC<RowsProps> = ({ rows }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [selectedRow, setSelectedRow] = useState<Row | null>(null);
+  const containerRef = useRef<HTMLDivElement | null>(null);
 
   const handleToggle = () => {
     setIsOpen(!isOpen);
@@ -25,8 +27,14 @@ const RowsOnPageFilter: FC<RowsProps> = ({ rows }) => {
     setSelectedRow(row);
   };
 
+  const handleClose = () => {
+    setIsOpen(false);
+  };
+
+  useOnClickOutside(containerRef, handleClose);
+
   return (
-    <div className={s.container}>
+    <div ref={containerRef} className={s.container}>
       <div
         className={s.fieldContainer}
         onClick={handleToggle}

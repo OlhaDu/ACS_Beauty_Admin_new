@@ -1,9 +1,10 @@
-import { useState, FC } from "react";
+import { useState, FC, useRef } from "react";
 import cn from "classnames";
 import s from "./Filter.module.scss";
 import DropdownArrow from "src/images/svg/DropdownArrow";
 import FilterIcon from "src/images/svg/FilterIcon";
 import ArrowToBottomIcon from "src/images/svg/ArrowToBottomIcon";
+import useOnClickOutside from 'use-onclickoutside';
 
 type Option = {
   optionName: string;
@@ -16,6 +17,7 @@ export interface FilterProps {
 
 const Filter: FC<FilterProps> = ({ options }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const containerRef = useRef<HTMLDivElement | null>(null);
 
   const handleToggle = () => {
     setIsOpen(!isOpen);
@@ -48,8 +50,14 @@ const Filter: FC<FilterProps> = ({ options }) => {
     });
   };
 
+  const handleClose = () => {
+    setIsOpen(false);
+  };
+
+  useOnClickOutside(containerRef, handleClose);
+
   return (
-    <div className={s.container}>
+    <div ref={containerRef} className={s.container}>
       <div className={s.fieldContainer} onClick={handleToggle}>
         <div className={s.icon}>
           <FilterIcon />

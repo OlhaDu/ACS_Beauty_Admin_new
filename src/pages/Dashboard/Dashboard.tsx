@@ -7,7 +7,7 @@ import { OrdersActionsData } from "src/components/Actions/OrdersActionsData";
 import { RowsOnPageFilterData } from "src/components/RowsOnPageFilter/RowsOnPageFilterData";
 
 function modifyData(data) {
-  if (data.itemHeading === 'Надходження на місяць') {
+  if (data.itemHeading === 'Надходження за місяць') {
     return {
       ...data,
       itemQuantity: `${data.itemQuantity} ₴`,

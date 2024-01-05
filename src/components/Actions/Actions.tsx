@@ -1,7 +1,8 @@
-import { useState, FC } from "react";
+import { useState, FC, useRef } from "react";
 import s from "./Actions.module.scss";
 import DropdownArrow from "src/images/svg/DropdownArrow";
 import ActionsIcon from "src/images/svg/ActionsIcon";
+import useOnClickOutside from 'use-onclickoutside';
 
 interface Action {
   actionName: string;
@@ -14,6 +15,7 @@ export interface ActionsProps {
 
 const Actions: FC<ActionsProps> = ({ actions }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const containerRef = useRef<HTMLDivElement | null>(null);
 
   const handleToggle = () => {
     setIsOpen(!isOpen);
@@ -25,8 +27,14 @@ const Actions: FC<ActionsProps> = ({ actions }) => {
     }
   };
 
+  const handleClose = () => {
+    setIsOpen(false);
+  };
+
+  useOnClickOutside(containerRef, handleClose);
+
   return (
-    <div className={s.container}>
+    <div ref={containerRef} className={s.container}>
       <div
         className={s.fieldContainer}
         onClick={handleToggle}

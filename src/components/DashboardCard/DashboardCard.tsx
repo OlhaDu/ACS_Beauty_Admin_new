@@ -2,7 +2,6 @@ import { ReactNode, FC } from "react";
 import s from "./DashboardCard.module.scss";
 import ArrowToTopWithTailIcon from "src/images/svg/ArrowToTopWithTailIcon";
 
-// определиться какой тип данных ожидаем
 type DashboardCardProps = {
   itemHeading: string;
   itemQuantity: number;
