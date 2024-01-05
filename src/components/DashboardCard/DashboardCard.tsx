@@ -1,14 +1,24 @@
-import { ReactNode, FC } from "react";
-import s from "./DashboardCard.module.scss";
-import ArrowToTopWithTailIcon from "src/images/svg/ArrowToTopWithTailIcon";
+import { ReactNode, FC } from "react"
+import s from "./DashboardCard.module.scss"
+import ArrowToTopWithTailIcon from "src/images/svg/ArrowToTopWithTailIcon"
 
 type Props = {
-  itemHeading: string;
-  itemQuantity: number;
-  itemIcon: ReactNode;
-  totalItemQuantity: number;
-  itemIncrease: number;
-};
+  itemHeading: string
+  itemQuantity: number
+  itemIcon: ReactNode
+  totalItemQuantity: number
+  itemIncrease: number
+}
+
+const getLabel = (itemQuantity:number, itemHeading: string) => {
+  if (itemQuantity) {
+    if (itemHeading === "Надходження за місяць") {
+      return `${itemQuantity} ₴`
+    }
+    return itemQuantity
+  }
+  return "Дані відсутні"
+}
 
 const DashboardCard: FC<Props> = ({
   itemHeading,
@@ -18,22 +28,14 @@ const DashboardCard: FC<Props> = ({
   itemIncrease,
 }) => (
   <div className={s.cardContainer}>
-    
     <div className={s.leftContainer}>
       <div>{itemHeading ? itemHeading : "Місячний приріст"}</div>
       <div className={s.monthsQuantity}>
-        {itemQuantity 
-        ? itemHeading === 'Надходження за місяць' 
-          ? `${itemQuantity} ₴` 
-          : itemQuantity
-        : "Дані відсутні"}
+        {getLabel(itemQuantity, itemHeading)}
       </div>
       <div>
-        Всього: {totalItemQuantity 
-        ? itemHeading === 'Надходження за місяць'
-          ? `${totalItemQuantity} ₴`
-          : totalItemQuantity
-        : "Дані відсутні"}
+        Всього:{" "}
+        {getLabel(totalItemQuantity, itemHeading)}
       </div>
     </div>
 
@@ -50,6 +52,6 @@ const DashboardCard: FC<Props> = ({
       </div>
     </div>
   </div>
-);
+)
 
-export default DashboardCard;
+export default DashboardCard
