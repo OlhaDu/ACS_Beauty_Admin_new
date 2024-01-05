@@ -2,15 +2,15 @@ import { ReactNode, FC } from "react";
 import s from "./DashboardCard.module.scss";
 import ArrowToTopWithTailIcon from "src/images/svg/ArrowToTopWithTailIcon";
 
-type DashboardCardProps = {
+type Props = {
   itemHeading: string;
   itemQuantity: number;
   itemIcon: ReactNode;
   totalItemQuantity: number;
-  itemIncrease: string | number;
+  itemIncrease: number;
 };
 
-const DashboardCard: FC<DashboardCardProps> = ({
+const DashboardCard: FC<Props> = ({
   itemHeading,
   itemQuantity,
   itemIcon,
@@ -22,10 +22,18 @@ const DashboardCard: FC<DashboardCardProps> = ({
     <div className={s.leftContainer}>
       <div>{itemHeading ? itemHeading : "Місячний приріст"}</div>
       <div className={s.monthsQuantity}>
-        {itemQuantity ? itemQuantity : "Дані відсутні"}
+        {itemQuantity 
+        ? itemHeading === 'Надходження за місяць' 
+          ? `${itemQuantity} ₴` 
+          : itemQuantity
+        : "Дані відсутні"}
       </div>
       <div>
-        Всього: {totalItemQuantity || "Дані відсутні"}
+        Всього: {totalItemQuantity 
+        ? itemHeading === 'Надходження за місяць'
+          ? `${totalItemQuantity} ₴`
+          : totalItemQuantity
+        : "Дані відсутні"}
       </div>
     </div>
 

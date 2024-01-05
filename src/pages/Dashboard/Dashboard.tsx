@@ -6,17 +6,6 @@ import { OrdersFilterData } from "src/components/Filter/FilterData";
 import { OrdersActionsData } from "src/components/Actions/OrdersActionsData";
 import { RowsOnPageFilterData } from "src/components/RowsOnPageFilter/RowsOnPageFilterData";
 
-function modifyData(data) {
-  if (data.itemHeading === 'Надходження за місяць') {
-    return {
-      ...data,
-      itemQuantity: `${data.itemQuantity} ₴`,
-      totalItemQuantity: `${data.totalItemQuantity} ₴`,
-    };
-  }
-  return data;
-}
-
 const Dashboard = () => {
   return (
     <div className={s.container}>
@@ -24,7 +13,7 @@ const Dashboard = () => {
 
       <div className={s.dashboardCards}>
         {dashboardData.map((data, index) => (
-          <DashboardCard key={index} {...modifyData(data)} />
+          <DashboardCard key={index} {...data} />
         ))}
       </div>
 
