@@ -1,11 +1,11 @@
 import React from "react";
 
-const ArrowToBottomIcon = ({iconSize}) => {
+const ArrowToBottomIcon = ({ size }) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width={iconSize || 48}
-      height={iconSize || 48}
+      width={size || 48}
+      height={size || 48}
       viewBox="0 0 48 48"
       fill="none"
     >
