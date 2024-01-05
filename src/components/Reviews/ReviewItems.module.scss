@@ -1,0 +1,37 @@
+@import "/src/styles/variables.scss";
+@import "/src/styles/mixins.scss";
+
+.container {
+    padding-top: 22px;
+}
+.review_item_title {
+    background-color: #F8F0FB;
+    // padding: 14px;
+}
+
+.review_item li {
+display: grid;
+grid-template-columns: 35px 35px 217px repeat(5, 1fr);
+
+align-items: center;
+padding: 14px;
+color: $main-text-color;
+@extend .Roboto400-16-18;
+
+}
+.review_item p {
+    text-align: center;
+    margin: 0;
+}
+.real_checkbox {
+
+}
+.custom_checkbox {
+    display: inline-block;
+    vertical-align: sub;
+}
+.custom_checkbox::before {
+    content: "";
+    display: inline-block;
+    
+}

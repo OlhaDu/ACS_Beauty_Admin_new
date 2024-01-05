@@ -217,8 +217,9 @@ const ReviewsList: React.FC = () => {
       {/* <label htmlFor="searchInput" title="Search for reviews"></label>
             <input type="text" name="searchInput" id="searchInput" className={s.foundReview}/> */}
       {status === "pending" && <p>Loading...</p>}
-      {status === "rejected" && <p>Failed to fetch data.</p>}
-      {status === "fulfilled" && <ReviewsItems reviews={data || []} />}
+      {status === "rejected" && <p>Failed to fetch data.</p>} 
+       {status === "fulfilled" && <ReviewsItems reviews={data || []} />}
+      <ReviewsItems reviews={data || []} />
     </div>
   );
 };
