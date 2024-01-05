@@ -77,10 +77,7 @@ const Filter: FC<FilterProps> = ({ options }) => {
               <ul key={idx}>
                 <div
                   onClick={() => handleOptionClick(option.optionName)}
-                  className={cn({
-                    [s.lastOption]: idx === options.length - 1,
-                    [s.option]: true,
-                  })}
+                  className={s.option}
                 >
                   {option.optionName}
 
@@ -105,8 +102,6 @@ const Filter: FC<FilterProps> = ({ options }) => {
                           handleSuboptionClick(option.optionName, suboption)
                         }
                         className={cn({
-                          [s.lastSuboption]:
-                            subIdx === option.suboptions.length - 1,
                           [s.suboption]: true,
                           [s.clicked]:
                             selectedOptions[option.optionName] === suboption,

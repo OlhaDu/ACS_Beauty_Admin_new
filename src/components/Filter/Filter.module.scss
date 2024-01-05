@@ -8,22 +8,14 @@
   display: flex;
   justify-content: space-between;
   height: 24px;
-  padding: 18px 10px 0 18px;
-}
-
-.lastOption {
-  padding-bottom: 18px;
+  padding: 18px 10px 7px 18px;
 }
 
 .suboption {
-  padding: 14px 0 0 32px;
+  padding: 7px 0 7px 32px;
   &:hover {
     background-color: $optionHover;
   }
-}
-
-.lastSuboption {
-  padding-bottom: 18px;
 }
 
 .clicked {
