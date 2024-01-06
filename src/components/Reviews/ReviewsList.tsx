@@ -9,6 +9,7 @@ import GestureIcon from "src/assets/gesture-double.svg";
 import ArrowIcon from "src/assets/menu-arrow.svg";
 import ExportIcon from "src/assets/file-export.svg";
 import NavigateIcon from "src/assets/navigate.svg";
+import AdminLayout from "src/layouts/AdminLayout";
 
 const ReviewsList: React.FC = () => {
   const [data, setData] = useState(null);
@@ -22,31 +23,23 @@ const ReviewsList: React.FC = () => {
   const [ratingOpen, setRatingOpen] = useState(false);
 
   const toggleFilter = () => {
-    
     setFilterOpen(!filterOpen);
   };
-  console.log("filterOpen", filterOpen);
-  console.log("actionOpen", actionOpen);
-  console.log("exportOpen", exportOpen);
-  console.log("statusOpen", statusOpen);
-  console.log("ratingOpen", ratingOpen);
 
-  
   const toggleAction = () => {
-   
     setActionOpen(!actionOpen);
   };
-  
+
   const toggleExport = (event: React.MouseEvent<HTMLSpanElement>) => {
     event.stopPropagation();
     setExportOpen((prevExportOpen) => !prevExportOpen);
   };
-  
+
   const toggleStatus = (event: React.MouseEvent<HTMLSpanElement>) => {
     event.stopPropagation();
     setStatusOpen((prevStatusOpen) => !prevStatusOpen);
   };
-  
+
   const toggleRating = (event: React.MouseEvent<HTMLSpanElement>) => {
     event.stopPropagation();
     setRatingOpen((prevRatingOpen) => !prevRatingOpen);
@@ -56,62 +49,60 @@ const ReviewsList: React.FC = () => {
     (async () => {
       try {
         setStatus("pending");
-        const fetchedData = await fetchReviews();
+        const fetchedData = await fetchReviews(1);
         setStatus("fulfilled");
-        setData(fetchedData);
+        setData(fetchedData.rows);
+        console.log("fetchedData", fetchedData.rows)
       } catch (error) {
         setStatus("rejected");
       }
     })();
   }, []);
-
+  console.log("data", data)
   return (
-    <div className={s.container}>
-      <h2>Відгуки</h2>
-      <Formik
-        initialValues={{ name: "" }}
-        onSubmit={async (values) => {
-          await new Promise((resolve) => setTimeout(resolve, 500));
-          alert(JSON.stringify(values, null, 2));
-        }}
-      >
-        <Form className={s.FormSearch}>
-          <Field name="name" type="text" className={s.foundReview} />
+    <AdminLayout>
+      <div className={s.container}>
+        <h2>Відгуки</h2>
+        <Formik
+          initialValues={{ name: "" }}
+          onSubmit={async (values) => {
+            await new Promise((resolve) => setTimeout(resolve, 500));
+            alert(JSON.stringify(values, null, 2));
+          }}
+        >
+          <Form className={s.FormSearch}>
+            <Field name="name" type="text" className={s.foundReview} />
 
-          <button title="SearchButton" type="submit" className={s.BtnSearch}>
-            <GoSearch style={{ width: "24px", height: "24px" }} />
-          </button>
-        </Form>
-      </Formik>
-      <nav className={s.menu}>
-        <ul className={s.menu_list}>
-          <li>
-            <FilterIcon />
-            Фільтрувати
-            <span
-              className={`${s.menu_arrow} 
-              ${
-                filterOpen ? s.menu_arrow_rotated : ""
-              }`}
-              onClick={toggleFilter}
-            >
-              <ArrowIcon />
-            </span>
-            {filterOpen && (
-              <ul className={s.sub_menu_list}>
-                <li>
-                  <a href="" className={s.sub_menu_link}>
-                    Статус
-                  </a>
-                  <span
-                    className={`${s.menu_arrow_span} 
-                    ${
-                      filterOpen ? s.menu_arrow_rotated : ""
-                    }`}
-                    onClick={toggleStatus}
-                  >
-                    <NavigateIcon />
-                  </span>                  
+            <button title="SearchButton" type="submit" className={s.BtnSearch}>
+              <GoSearch style={{ width: "24px", height: "24px" }} />
+            </button>
+          </Form>
+        </Formik>
+        <nav className={s.menu}>
+          <ul className={s.menu_list}>
+            <li>
+              <FilterIcon />
+              Фільтрувати
+              <span
+                className={`${s.menu_arrow} 
+              ${filterOpen ? s.menu_arrow_rotated : ""}`}
+                onClick={toggleFilter}
+              >
+                <ArrowIcon />
+              </span>
+              {filterOpen && (
+                <ul className={s.sub_menu_list}>
+                  <li>
+                    <a href="" className={s.sub_menu_link}>
+                      Статус
+                    </a>
+                    <span
+                      className={`${s.menu_arrow_span} 
+                    ${filterOpen ? s.menu_arrow_rotated : ""}`}
+                      onClick={toggleStatus}
+                    >
+                      <NavigateIcon />
+                    </span>
                     {statusOpen && (
                       <ul className={s.sub_sub_menu_list}>
                         <li>
@@ -136,91 +127,89 @@ const ReviewsList: React.FC = () => {
                         </li>
                       </ul>
                     )}
-                </li>                
-                <li>
-                  <a href="" className={s.menu_link}>
-                    Рейтинг
-                  </a>
-                  <span
-                     className={`${s.menu_arrow_span} 
-                     ${
-                       filterOpen ? s.menu_arrow_rotated : ""
-                     }`}
-                    onClick={toggleRating}
-                  >
-                    <NavigateIcon />
-                  </span>
-                  {ratingOpen && (
-                    <ul className={s.sub_sub_menu_list}>
-                      <li>
-                        <a href="" className={s.sub_sub_menu_link}>
-                          Позитивні
-                        </a>
-                      </li>
-                      <li>
-                        <a href="" className={s.sub_sub_menu_link}>
-                          Нейтральні
-                        </a>
-                      </li>
-                      <li>
-                        <a href="" className={s.sub_sub_menu_link}>
-                          Негативні
-                        </a>
-                      </li>
-                    </ul>
-                  )}
-                  <ul></ul>
-                </li>
-              </ul>
-            )}
-          </li>
-          <li>
-            <GestureIcon />
-            Дії
-            <span
-              className={`${s.menu_arrow} ${
-                actionOpen ? s.menu_arrow_rotated : ""
-              }`}
-              onClick={toggleAction}
-            >
-              <ArrowIcon />
-            </span>
-            {actionOpen && (
-              <ul className={s.sub_menu_list}>
-                <li>
-                  <a href="" className={s.sub_menu_link}>
-                    Змінити статус
-                  </a>
-                </li>
-                <li>
-                  <a href="" className={s.sub_menu_link}>
-                    Видалити
-                  </a>
-                </li>
-              </ul>
-            )}
-          </li>
-          <li>
-            <ExportIcon />
-            Експортувати
-            <span
-              className={`${s.menu_arrow} ${
-                exportOpen ? s.menu_arrow_rotated : ""
-              }`}
-              onClick={toggleExport}
-            >
-              <ArrowIcon />
-            </span>
-          </li>
-        </ul>
-      </nav>
-      {/* <label htmlFor="searchInput" title="Search for reviews"></label>
+                  </li>
+                  <li>
+                    <a href="" className={s.menu_link}>
+                      Рейтинг
+                    </a>
+                    <span
+                      className={`${s.menu_arrow_span} 
+                     ${filterOpen ? s.menu_arrow_rotated : ""}`}
+                      onClick={toggleRating}
+                    >
+                      <NavigateIcon />
+                    </span>
+                    {ratingOpen && (
+                      <ul className={s.sub_sub_menu_list}>
+                        <li>
+                          <a href="" className={s.sub_sub_menu_link}>
+                            Позитивні
+                          </a>
+                        </li>
+                        <li>
+                          <a href="" className={s.sub_sub_menu_link}>
+                            Нейтральні
+                          </a>
+                        </li>
+                        <li>
+                          <a href="" className={s.sub_sub_menu_link}>
+                            Негативні
+                          </a>
+                        </li>
+                      </ul>
+                    )}
+                    <ul></ul>
+                  </li>
+                </ul>
+              )}
+            </li>
+            <li>
+              <GestureIcon />
+              Дії
+              <span
+                className={`${s.menu_arrow} ${
+                  actionOpen ? s.menu_arrow_rotated : ""
+                }`}
+                onClick={toggleAction}
+              >
+                <ArrowIcon />
+              </span>
+              {actionOpen && (
+                <ul className={s.sub_menu_list}>
+                  <li>
+                    <a href="" className={s.sub_menu_link}>
+                      Змінити статус
+                    </a>
+                  </li>
+                  <li>
+                    <a href="" className={s.sub_menu_link}>
+                      Видалити
+                    </a>
+                  </li>
+                </ul>
+              )}
+            </li>
+            <li>
+              <ExportIcon />
+              Експортувати
+              <span
+                className={`${s.menu_arrow} ${
+                  exportOpen ? s.menu_arrow_rotated : ""
+                }`}
+                onClick={toggleExport}
+              >
+                <ArrowIcon />
+              </span>
+            </li>
+          </ul>
+        </nav>
+        {/* <label htmlFor="searchInput" title="Search for reviews"></label>
             <input type="text" name="searchInput" id="searchInput" className={s.foundReview}/> */}
-      {status === "pending" && <p>Loading...</p>}
-      {status === "rejected" && <p>Failed to fetch data.</p>} 
-       {status === "fulfilled" && <ReviewsItems reviews={data || []} />}
-      <ReviewsItems reviews={data || []} />
-    </div>
+        {status === "pending" && <p>Loading...</p>}
+        {status === "rejected" && <p>Failed to fetch data.</p>}
+        {status === "fulfilled" && <ReviewsItems reviews={data || []} />}        
+      </div>
+    </AdminLayout>
   );
 };
 

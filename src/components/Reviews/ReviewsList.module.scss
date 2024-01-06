@@ -2,8 +2,11 @@
 @import "/src/styles/mixins.scss";
 
 .container {
-    width: 100vw;
+  width: calc(100vw - #{$sidebar-width});
   padding: 32px 20px 20px 20px;
+  position: absolute;
+  top: $header-height;
+  right: 0;
   background-color: $second-text-color;
 }
 h2 {
