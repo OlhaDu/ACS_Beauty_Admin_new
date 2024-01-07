@@ -1,8 +1,7 @@
 import React from "react";
 import s from "./ReviewItems.module.scss";
 import CheckboxIcon from "src/assets/checkbox.svg";
-// import { FiCheck } from "react-icons/fi";
-
+import StarIcon from "src/images/svg/StarIcon";
 interface ReviewsItemsProps {
   reviews: {
     id: string;
@@ -15,11 +14,16 @@ interface ReviewsItemsProps {
     rating: number;
   }[];
 }
-
 const ReviewsItems: React.FC<ReviewsItemsProps> = ({ reviews }) => {
-  // const rows = ({reviews})
-  console.log("first", reviews);
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    const day = date.getDate().toString().padStart(2, "0");
+    const month = (date.getMonth() + 1).toString().padStart(2, "0");
+    const year = date.getFullYear();
 
+    return `${day}.${month}.${year}`;
+  };
+ 
   return (
     <div className={s.container}>
       <ul className={s.review_item}>
@@ -32,27 +36,6 @@ const ReviewsItems: React.FC<ReviewsItemsProps> = ({ reviews }) => {
           <p>Рейтинг</p>
           <p>Створено</p>
           <p>Статус</p>
-        </li>
-        <li>
-          <label htmlFor="item" aria-label="Label for the checkbox">
-            <input
-              type="checkbox"
-              name="item"
-              id="item"
-              className={s.real_checkbox}
-            />
-            <span className={s.custom_checkbox}>
-              <CheckboxIcon />
-            </span>
-          </label>
-
-          <p>01</p>
-          <p>Спрей-тонер з пантенолом...</p>
-          <p>Кузьменко Марина</p>
-          <p>Дуже крутий засіб...</p>
-          <p>Рейтинг</p>
-          <p>12.06.2023</p>
-          <p>На перевірці</p>
         </li>
 
         {reviews.map((review) => (
@@ -72,14 +55,22 @@ const ReviewsItems: React.FC<ReviewsItemsProps> = ({ reviews }) => {
               </span>
             </label>
             <p>{review.id}</p>
-            <p>{review.productName}</p>
-            <p>
-              {" "}
+            <p className={s.review_item_text}>{review.productName}</p>
+            <p className={s.review_item_name}>
               {review.firstName} {review.lastName}
             </p>
-            <p>{review.review}</p>
-            <p>{review.rating}</p>
-            <p>{review.createdAt}</p>
+            <p className={s.review_item_text}>{review.review}</p>
+            <p>
+            {Array(4)
+              .fill(0)
+              .map((_, index) => (
+                <StarIcon
+                  key={index}
+                  fill={index < review.rating ? "black" : "white"}
+                />
+              ))}             
+            </p>
+            <p>{formatDate(review.createdAt)}</p>
             <p>{review.status}</p>
           </li>
         ))}

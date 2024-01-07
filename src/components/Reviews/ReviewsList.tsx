@@ -49,16 +49,16 @@ const ReviewsList: React.FC = () => {
     (async () => {
       try {
         setStatus("pending");
-        const fetchedData = await fetchReviews(1);
+        const fetchedData = await fetchReviews(2);
         setStatus("fulfilled");
         setData(fetchedData.rows);
-        console.log("fetchedData", fetchedData.rows)
+        console.log("fetchedData", fetchedData.rows);
       } catch (error) {
         setStatus("rejected");
       }
     })();
   }, []);
-  console.log("data", data)
+  console.log("data", data);
   return (
     <AdminLayout>
       <div className={s.container}>
@@ -78,7 +78,7 @@ const ReviewsList: React.FC = () => {
             </button>
           </Form>
         </Formik>
-        <nav className={s.menu}>
+        <nav >
           <ul className={s.menu_list}>
             <li>
               <FilterIcon />
@@ -109,12 +109,7 @@ const ReviewsList: React.FC = () => {
                           <a href="" className={s.sub_sub_menu_link}>
                             Опубліковано
                           </a>
-                        </li>
-                        <li>
-                          <a href="" className={s.sub_sub_menu_link}>
-                            Очікує публікації
-                          </a>
-                        </li>
+                        </li>                        
                         <li>
                           <a href="" className={s.sub_sub_menu_link}>
                             На перевірці
@@ -203,11 +198,10 @@ const ReviewsList: React.FC = () => {
             </li>
           </ul>
         </nav>
-        {/* <label htmlFor="searchInput" title="Search for reviews"></label>
-            <input type="text" name="searchInput" id="searchInput" className={s.foundReview}/> */}
+
         {status === "pending" && <p>Loading...</p>}
         {status === "rejected" && <p>Failed to fetch data.</p>}
-        {status === "fulfilled" && <ReviewsItems reviews={data || []} />}        
+        {status === "fulfilled" && <ReviewsItems reviews={data || []} />}
       </div>
     </AdminLayout>
   );

@@ -2,52 +2,60 @@
 @import "/src/styles/mixins.scss";
 
 .container {
-    padding-top: 22px;
+  padding-top: 22px;
 }
 .review_item_title {
-    background-color: #F8F0FB;
-    // padding: 14px;
+  background-color: $second-color;
 }
 
 .review_item li {
-display: grid;
-grid-template-columns: 35px 35px 217px repeat(5, 1fr);
-gap: 5px;
-align-items: center;
-padding: 14px;
-color: $main-text-color;
-@extend .Roboto400-16-18;
-
+  display: grid;
+  grid-template-columns: 35px 35px 105px 160px repeat(4, 1fr);
+  gap: 10px;
+  align-items: center;
+  padding: 14px;
+  color: $main-text-color;
+  @extend .Roboto400-16-18;
+  border-radius: 4px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
 }
 .review_item p {
-    text-align: center;
-    margin: 0;
+  text-align: start;
+  margin: 0;
+  white-space: nowrap;
+}
+.review_item_name {
+  display: flex;
+}
+.review_item_text {
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 .real_checkbox {
-display: none;
+  display: none;
 }
 .custom_checkbox {
-    position: relative;
-    display: inline-block;
-    vertical-align: sub;
-    margin-right: 5px;
+  position: relative;
+  display: inline-block;
+  vertical-align: sub;
+  margin-right: 5px;
 }
 .custom_checkbox::before {
-    content: "";
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -60%)scale(0);
-    display: inline-block;
-    width: 12px;
-    height: 12px;
-    padding: 2px;
-    background-image: url("src/assets/check.svg");
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-color: blue;
-    transition: 0.1s ease-in;    
-};
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -60%) scale(0);
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  padding: 2px;
+  background-image: url("src/assets/check.svg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-color: blue;
+  transition: 0.1s ease-in;
+}
 .real_checkbox:checked + .custom_checkbox::before {
-    transform: translate(-50%, -60%)scale(1);
+  transform: translate(-50%, -60%) scale(1);
 }

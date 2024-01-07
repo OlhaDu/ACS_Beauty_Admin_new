@@ -10,42 +10,40 @@
   background-color: $second-text-color;
 }
 h2 {
-    text-align: start;
+  text-align: start;
   color: $main-text-color;
- @extend.Roboto500-24-28;
-font-style: normal;
+  @extend.Roboto500-24-28;
+  font-style: normal;
 }
 .foundReview {
-    text-align: left;
-    max-width: 414px;
-    padding-left: 8px;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    width: 100%;
+  text-align: left;
+  max-width: 414px;
+  padding-left: 8px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  width: 100%;
+  border: 1px solid rgba(0, 0, 0, 0.1);
 }
 .BtnSearch {
-position: absolute;
-top: 0px;
-left: 0px;
-padding: 8px;
-
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  padding: 8px;
+  background-color: transparent;
 }
 .FormSearch {
-    position: relative;
-margin-top: 28px;
+  position: relative;
+  margin-top: 28px;
 }
-.menu {
 
-};
-.menu a {
+.menu_list a {
   text-decoration: none;
 }
 .menu {
   margin-top: 22px;
 }
 .menu_list {
-display: flex;
-
+  display: flex;
 }
 .menu_link {
   color: $main-text-color;
@@ -54,47 +52,46 @@ display: flex;
 .menu_list li {
   position: relative;
 }
-.menu_list >li {
-  display:flex;
+.menu_list > li {
+  display: flex;
   align-items: center;
   justify-content: space-between;
   width: 197px;
   gap: 5px;
   margin-right: 20px;
   color: $main-text-color;
- @extend .Roboto400-16-18;
- padding: 0px 0px 0px 8px;
- border: 1px solid rgba(0, 0, 0, 0.10);
- text-align: center;
-
+  @extend .Roboto400-16-18;
+  padding: 0px 0px 0px 8px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  text-align: center;
 }
 
 .sub_menu_list {
-position: absolute;
-top: 47px;
-left: 0;
-width: 197px;
-padding-left: 18px;
-padding-bottom: 18px;
-color: $main-text-color;
-@extend .Roboto400-16-18;
-border: 1px solid rgba(0, 0, 0, 0.10);
-background-color: #FFF;
+  position: absolute;
+  top: 47px;
+  left: 0;
+  z-index: 1;
+  width: 197px;
+  padding-left: 18px;
+  padding-bottom: 18px;
+  color: $main-text-color;
+  @extend .Roboto400-16-18;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  background-color: #fff;
 }
-.sub_menu_list>li {
+.sub_menu_list > li {
   position: relative;
-padding-top: 10px;
-text-align: start;
-width: 100%;
+  padding-top: 10px;
+  text-align: start;
+  width: 100%;
 }
 
-.sub_menu_link {  
+.sub_menu_link {
   color: $main-text-color;
   @extend .Roboto400-16-18;
 }
 .sub_sub_menu_list {
   text-align: center;
-  
 }
 .sub_sub_menu_list li {
   padding-top: 14px;
@@ -104,16 +101,16 @@ width: 100%;
   @extend .Roboto400-16-18;
   gap: 14px;
 }
-.menu_arrow {  
+.menu_arrow {
   padding: 10px;
   background-color: $gray-dropdown-color;
   justify-content: end;
 }
 
-.menu_arrow_rotated {  
+.menu_arrow_rotated {
   transform: rotate(180deg);
   // transition: transform 0.3s ease;
 }
-.menu_arrow_span {  
+.menu_arrow_span {
   margin-left: 5px;
 }
