@@ -1,0 +1,35 @@
+@import "/src/styles/variables.scss";
+@import "/src/styles/mixins.scss";
+
+.addIcon {
+  display: block;
+  margin: auto;
+  circle {
+    fill: $second-color;
+  }
+  path {
+    fill: $second-icon-color;
+  }
+}
+.borderAddImg {
+  margin-top: $margin-main;
+  padding-top: 120px;
+  padding-bottom: 100px;
+}
+.actionNave {
+  @extend .Roboto600-16-18;
+  margin-top: 27px;
+  text-align: center;
+  color: $main-text-color;
+}
+.label {
+  cursor: pointer;
+  .input {
+    display: none;
+  }
+}
+.error {
+  @extend .Roboto400-16-18;
+  margin-top: $margin-second;
+  color: $error-text-color;
+}

@@ -1,11 +1,14 @@
 // colors
 $main-color: #948ad0;
 $second-color: #f8f0fb;
-$main-text-color: #5c5e60;
 $gray-dropdown-color: #e1dddd;
 $toggler-off-color: #c3cdc7;
 $toggler-on-color: green;
+//text-colors
+$main-text-color: #5c5e60;
 $second-text-color: #fff;
+$error-text-color: red;
+//icons-colors
 $first-icon-color: #fff;
 $second-icon-color: #5c5e60;
 
@@ -13,6 +16,13 @@ $second-icon-color: #5c5e60;
 $header-height: 80px;
 $sidebar-width: 276px;
 $page-width: 1440px;
+$input-height: 44px;
+
+//indents
+$margin-main: 24px;
+$margin-second: 10px;
+$padding-main: 24px;
+$padding-input: 10px;
 
 // other styles
 $border-radius: 4px;

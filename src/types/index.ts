@@ -3,3 +3,5 @@ export type { IVioletButtonProps } from "./IVioletButton";
 export type { ICategories } from "./ICategories";
 export type { ICategory } from "./ICategory";
 export type { IBorder } from "./IBorder";
+export type { IForm } from "./IForm";
+export type { IInitialValues } from "./IAddCategory";

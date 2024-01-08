@@ -1,0 +1,35 @@
+@import "/src/styles/variables.scss";
+@import "/src/styles/mixins.scss";
+
+.form {
+  display: block;
+  margin-top: $margin-main;
+  color: $main-text-color;
+}
+.subTitle {
+  @extend .Roboto700-20-23, .form;
+}
+.label {
+  @extend .Roboto600-16-18, .form;
+}
+.field {
+  @extend .Roboto400-16-18;
+  margin-top: 12px;
+  padding: $padding-input;
+  width: 100%;
+  height: $input-height;
+  border: $default-border;
+  border-radius: $border-radius;
+}
+.button {
+  margin: $margin-main auto 0;
+  width: 197px;
+}
+.error {
+  @extend .Roboto400-16-18;
+  margin-top: $margin-second;
+  color: $error-text-color;
+}
+.disabled {
+  background: $toggler-off-color;
+}

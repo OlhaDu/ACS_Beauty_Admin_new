@@ -56,6 +56,19 @@ ul {
   padding: 0;
   margin: 0;
 }
+textarea {
+  display: block;
+  font-family: "Roboto", sans-serif, system-ui;
+  border: none;
+  overflow: auto;
+  outline: none;
+
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+
+  resize: none;
+}
 
 /* @media (prefers-color-scheme: light) {
   :root {
