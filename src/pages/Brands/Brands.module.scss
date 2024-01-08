@@ -2,13 +2,14 @@
 @import "/src/styles/variables.scss";
 
 .main {
-  padding: 32px 80px 26px 20px;
-
   display: flex;
+  padding: 32px 80px 26px 20px;
   margin-left: 276px;
 }
 
 .main__section {
+  display: flex;
+  flex-direction: column;
   flex: 1;
 }
 
@@ -24,16 +25,8 @@
   @extend .Roboto500-24-28;
 }
 
-.features {
-  padding-bottom: 22px;
-}
-
 .tools {
   display: flex;
   justify-content: space-between;
-}
-
-.tools__actions {
-  display: flex;
-  gap: 20px;
+  margin-bottom: 8px;
 }
