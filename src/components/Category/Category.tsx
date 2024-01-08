@@ -1,29 +1,38 @@
-import EditIcon from "src/images/svg/EditIcon";
 import s from "./Category.module.scss";
-import DeleteIcon from "src/images/svg/DeleteIcon";
-import AddIcon from "src/images/svg/AddIcon";
+import DeleteIcon from "src/images/svg/DeleteIcon_";
+import EditIcon from "src/images/svg/EditIcon";
+import AddIcon from "src/images/svg/AddIcon_";
 import ArrowToRight from "src/images/svg/ArrowToRight";
+import Border from "../Border";
 import { FC } from "react";
 import { ICategory } from "src/types";
-// import SubCategory from "../SubCategory/SubCategory";
 
 const Category: FC<ICategory> = (props) => {
-  const { name } = props;
+  const { category, activeCategory, setActiveCategory, children } = props;
+
+  const arrowRightBtnClickHandler = () => {
+    setActiveCategory(category);
+  };
+
   return (
-    <li className={s.item}>
-      <div className={s.container}>
+    <Border border="borderDefault">
+      <div className={s.category}>
         <div className={s.categoryTools}>
-          <h4 className={s.categoryName}>{name}</h4>
+          <h4 className={s.categoryName}>{category.name}</h4>
           <div className={s.iconsContainer}>
             <EditIcon />
             <DeleteIcon />
-            <AddIcon />
+            <AddIcon className={s.addIcon} />
           </div>
         </div>
-        <ArrowToRight />
+        {!activeCategory && (
+          <button onClick={arrowRightBtnClickHandler}>
+            <ArrowToRight />
+          </button>
+        )}
       </div>
-      {/* <SubCategory /> */}
-    </li>
+      {children}
+    </Border>
   );
 };
 

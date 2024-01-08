@@ -1,0 +1,7 @@
+.categories {
+  margin-top: 29px;
+
+  > *:not(:last-child) {
+    margin-bottom: 32px;
+  }
+}

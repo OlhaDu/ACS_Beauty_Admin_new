@@ -1,14 +1,18 @@
 import axios from "axios";
 import { IAddCategory, IAddUpdateSubcategory, IUpdateCategory } from "./types";
 
+const { VITE_API_BASE_URL, VITE_API_AUTH_TOKEN } = import.meta.env;
+
 const http = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL, //заменить адрес на константу (.env)
+  baseURL: VITE_API_BASE_URL, //заменить адрес на константу (.env)
 });
 export const api = {
   getCategories: () => http.get("/api/category"),
 
   addCategory: (newCategory: IAddCategory) =>
-    http.post("/api/category", newCategory),
+    http.post("/api/category", newCategory, {
+      headers: { Authorization: `Bearer ${VITE_API_AUTH_TOKEN}` },
+    }),
 
   addSubcategory: (newSubCategory: IAddUpdateSubcategory) =>
     http.post("/api/subcategory", newSubCategory),

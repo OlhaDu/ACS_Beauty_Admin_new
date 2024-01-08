@@ -2,14 +2,15 @@
 @import "/src/styles/mixins.scss";
 
 .container {
+  margin-top: $margin-main;
   width: 162px;
-  height: 63px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   gap: 12px;
   h5 {
-    @extend .Roboto700-16-18;
+    @extend .Roboto700-20-23;
+    color: $main-text-color;
   }
   .toggle {
     width: inherit;
@@ -39,7 +40,7 @@
     color: white;
     .toggleCircle {
       left: calc(100% - 30px);
-      background-color: #7D35DA;
+      background-color: #7d35da;
     }
   }
 }

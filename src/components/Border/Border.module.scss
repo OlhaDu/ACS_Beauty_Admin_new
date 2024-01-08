@@ -1,0 +1,15 @@
+@import "/src/styles/variables.scss";
+@import "/src/styles/mixins.scss";
+
+.borderDefault {
+  border: $default-border;
+  border-radius: $border-radius;
+}
+.borderDashed {
+  border: $dashed-border;
+  border-radius: $border-radius;
+}
+.borderOuter {
+  border: $default-border;
+  border-radius: 12px;
+}
