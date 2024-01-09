@@ -32,6 +32,8 @@
     }
   }
   .optionListContainer {
+    background-color: $second-text-color;
+    z-index: 1;
     border: $default-border;
     position: absolute;
     width: inherit;
