@@ -47,6 +47,11 @@ const DataTable: React.FC<DataTableProps> = ({columns, rows, onEdit, onDelete}) 
             },
         ]
         : columns;
+
+    columnsWithActions.forEach((column) => {
+        column.headerClassName = s.headerCell;
+    });
+
     return (
         <div className={s.table}>
             <DataGrid
