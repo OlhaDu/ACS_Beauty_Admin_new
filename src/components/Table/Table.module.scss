@@ -1,4 +1,14 @@
 .table {
   height: 400;
   width: "100%";
+
+  .actionButtons {
+    display: flex;
+    gap: 10px;
+
+    .svg {
+      width: 30px;
+      height: 30px;
+    }
+  }
 }
