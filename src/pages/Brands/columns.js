@@ -10,7 +10,7 @@ export const columns = [
   {
     field: "logo",
     headerName: "Логотип",
-    width: 126,
+    width: 168,
     type: "string",
     editable: true,
   },

@@ -1,3 +1,5 @@
+import { ReactNode } from "react";
+
 import Dialog from "@mui/material/Dialog";
 import CloseIcon from "@mui/icons-material/Close";
 import IconButton from "@mui/material/IconButton";
@@ -5,12 +7,14 @@ import DialogTitle from "@mui/material/DialogTitle";
 import DialogContent from "@mui/material/DialogContent";
 
 interface ModalWindowProps {
+  children: ReactNode;
   title: string;
   onClose: () => void;
   isOpenModal: boolean;
 }
 
 const ModalWindow: React.FC<ModalWindowProps> = ({
+  children,
   title,
   onClose,
   isOpenModal,
@@ -56,7 +60,9 @@ const ModalWindow: React.FC<ModalWindowProps> = ({
           pl: 3,
           width: 630,
         }}
-      ></DialogContent>
+      >
+        {children}
+      </DialogContent>
     </Dialog>
   );
 };

@@ -1,26 +1,30 @@
 @import "/src/styles/mixins.scss";
 @import "/src/styles/variables.scss";
 
-.main {
+.brand {
   display: flex;
   padding: 32px 80px 26px 20px;
   margin-left: 276px;
 }
 
-.main__section {
+.brand__section {
   display: flex;
   flex-direction: column;
   flex: 1;
 }
 
-.main__title {
+.brand__button {
+  @extend .Violet-button-styles;
+}
+
+.brand__title {
   display: flex;
   align-items: baseline;
   justify-content: space-between;
   margin-bottom: 28px;
 }
 
-.main__title_text {
+.brand__title_text {
   color: $main-text-color;
   @extend .Roboto500-24-28;
 }

@@ -26,7 +26,7 @@ interface IColumn {
 }
 
 interface IDataTableProps {
-  setIsOpenModal: () => void;
+  setIsOpenModal: boolean;
   columns: IColumn[];
   rows: GridRowsProp;
 }
