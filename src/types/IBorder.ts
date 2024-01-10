@@ -1,6 +1,6 @@
-import { PropsWithChildren } from "react";
+import { PropsWithChildren } from "react"
 
 export interface IBorder extends PropsWithChildren {
-  border: "borderDefault" | "borderOuter" | "borderDashed";
-  className?: string;
+  border: "borderDefault" | "borderOuter" | "borderDashed"
+  className?: string
 }

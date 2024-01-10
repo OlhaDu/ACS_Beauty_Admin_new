@@ -2,14 +2,11 @@
 @import "/src/styles/mixins.scss";
 
 .borderDefault {
-  border: $default-border;
-  border-radius: $border-radius;
+  @include borderType($border-radius);
 }
 .borderDashed {
-  border: $dashed-border;
-  border-radius: $border-radius;
+  @include borderType($border-radius, $dashed-border);
 }
 .borderOuter {
-  border: $default-border;
-  border-radius: 12px;
+  @include borderType(12px);
 }

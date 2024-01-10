@@ -16,17 +16,6 @@ h4 {
   justify-content: center;
   flex-grow: 1;
 }
-.borderAddImg {
-  margin-top: $margin-main;
-  padding-top: 120px;
-  padding-bottom: 100px;
-  p {
-    @extend .Roboto600-16-18;
-    margin-top: 27px;
-    text-align: center;
-    color: $main-text-color;
-  }
-}
 .addIcon {
   display: block;
   margin: auto;

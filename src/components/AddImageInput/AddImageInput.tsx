@@ -1,18 +1,19 @@
-import { useFormikContext } from "formik";
-import { ChangeEvent, ReactNode } from "react";
-import AddIcon from "src/images/svg/AddIcon_";
-import Border from "../Border";
-import s from "./AddImageInput.module.scss";
+import { useFormikContext } from "formik"
+import { ChangeEvent, ReactNode } from "react"
+import AddIcon from "src/images/svg/AddIcon_"
+import Border from "../Border"
+import s from "./AddImageInput.module.scss"
 
 const AddImageInput = () => {
   const { setFieldValue, errors } = useFormikContext<{
-    image: File;
-  }>();
+    image: File
+  }>()
 
   const loadImageHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    const file = (e.currentTarget.files as FileList)[0];
-    file && setFieldValue("image", file);
-  };
+    if (!e.currentTarget.files) return
+    const file = e.currentTarget.files[0]
+    file && setFieldValue("image", file)
+  }
   return (
     <>
       <Border border="borderDashed" className={s.borderAddImg}>
@@ -31,7 +32,7 @@ const AddImageInput = () => {
       </Border>
       {errors.image && <p className={s.error}>{errors.image as ReactNode}</p>}
     </>
-  );
-};
+  )
+}
 
-export default AddImageInput;
+export default AddImageInput

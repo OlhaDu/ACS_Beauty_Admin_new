@@ -1,18 +1,19 @@
-import s from "./Category.module.scss";
-import DeleteIcon from "src/images/svg/DeleteIcon_";
-import EditIcon from "src/images/svg/EditIcon";
-import AddIcon from "src/images/svg/AddIcon_";
-import ArrowToRight from "src/images/svg/ArrowToRight";
-import Border from "../Border";
-import { FC } from "react";
-import { ICategory } from "src/types";
+import s from "./Category.module.scss"
+import DeleteIcon from "src/images/svg/DeleteIcon_"
+import EditIcon from "src/images/svg/EditIcon"
+import AddIcon from "src/images/svg/AddIcon_"
+import ArrowToRight from "src/images/svg/ArrowToRight"
+import Border from "../Border"
+import { FC } from "react"
+import { ICategory } from "src/types"
 
-const Category: FC<ICategory> = (props) => {
-  const { category, activeCategory, setActiveCategory, children } = props;
+const Category: FC<ICategory> = props => {
+  const { category, activeCategory, setActiveCategory, children } = props
 
-  const arrowRightBtnClickHandler = () => {
-    setActiveCategory(category);
-  };
+  const onArrowRightBtnClick = () => {
+    if (!setActiveCategory) return
+    setActiveCategory(category)
+  }
 
   return (
     <Border border="borderDefault">
@@ -26,14 +27,14 @@ const Category: FC<ICategory> = (props) => {
           </div>
         </div>
         {!activeCategory && (
-          <button onClick={arrowRightBtnClickHandler}>
+          <button onClick={onArrowRightBtnClick}>
             <ArrowToRight />
           </button>
         )}
       </div>
       {children}
     </Border>
-  );
-};
+  )
+}
 
-export default Category;
+export default Category

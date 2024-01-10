@@ -2,7 +2,6 @@ import CloseIcon from "src/images/svg/CloseIcon_";
 import Border from "../Border";
 import s from "./AddCategory.module.scss";
 import { addCategoryFormSchema } from "src/libs/yup";
-// import { FormikValues } from "formik";
 import FormGenerator from "../FormGenerator";
 import AddImageInput from "../AddImageInput";
 import { api } from "src/api";
