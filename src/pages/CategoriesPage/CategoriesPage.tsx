@@ -35,7 +35,7 @@ const CategoriesPage = () => {
             <VioletButton title="ДОДАТИ КАТЕГОРІЮ" onClick={onAddCategotyClick} />
           )}
         </div>
-        {isAddCategoryActive && <AddCategory />}
+        {isAddCategoryActive && <AddCategory setIsAddCategoryActive={setIsAddCategoryActive} />}
         {!activeCategory && !isAddCategoryActive && (
           <Categories
             categories={categories}

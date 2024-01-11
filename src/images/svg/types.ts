@@ -1,7 +1,11 @@
 export interface IIcon {
-  className?: string;
+  className?: string
 }
 
 export interface IArrowToRight extends IIcon {
-  iconSize?: number;
+  iconSize?: number
+}
+
+export interface ICloseIcon {
+  onClick: React.MouseEventHandler<SVGSVGElement>
 }

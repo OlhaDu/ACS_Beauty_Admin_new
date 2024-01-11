@@ -1,14 +1,21 @@
 import { useFormikContext } from "formik"
-import { ChangeEvent, ReactNode, useRef } from "react"
+import { ChangeEvent, ReactNode, forwardRef, useImperativeHandle, useRef } from "react"
 import AddIcon from "src/images/svg/AddIcon_"
 import Border from "../Border"
 import s from "./AddImageInput.module.scss"
 
-const AddImageInput = () => {
-  const bgImgRef = useRef<HTMLDivElement>(null)
+const AddImageInput = forwardRef((props, ref) => {
   const { setFieldValue, errors } = useFormikContext<{ image: File }>()
+  const bgImgRef = useRef<HTMLDivElement>(null)
 
-  const loadImageHandler = (e: ChangeEvent<HTMLInputElement>) => {
+  useImperativeHandle(ref, () => ({
+    clearBgImg() {
+      const el = bgImgRef.current
+      if (el) el.style.background = ""
+    },
+  }))
+
+  const onInputLoadImageClick = async (e: ChangeEvent<HTMLInputElement>) => {
     if (!e.currentTarget.files) return
     const file = e.currentTarget.files[0]
     if (!file) return
@@ -32,7 +39,7 @@ const AddImageInput = () => {
               type="file"
               accept="image/*"
               className={s.input}
-              onChange={loadImageHandler}
+              onChange={onInputLoadImageClick}
             />
             <AddIcon className={s.addIcon} />
             <p className={s.actionNave}>Додати зображення</p>
@@ -42,6 +49,6 @@ const AddImageInput = () => {
       {errors.image && <p className={s.error}>{errors.image as ReactNode}</p>}
     </>
   )
-}
+})
 
 export default AddImageInput
