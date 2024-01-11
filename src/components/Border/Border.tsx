@@ -1,9 +1,12 @@
-import { FC } from "react";
-import { IBorder } from "src/types";
-import s from "./Border.module.scss";
+import { FC } from "react"
+import { IBorder } from "src/types"
+import s from "./Border.module.scss"
+import classNames from "classnames"
 
-const Border: FC<IBorder> = ({ children, border, className }) => (
-  <div className={`${s[border]} ${className}`}>{children}</div>
-);
+const Border: FC<IBorder> = ({ children, border, className }) => {
+  const borderClasses = classNames(s[border], className)
 
-export default Border;
+  return <div className={borderClasses}>{children}</div>
+}
+
+export default Border

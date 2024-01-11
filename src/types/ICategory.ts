@@ -1,5 +1,5 @@
-import { PropsWithChildren } from "react"
-import { ICategories, ISubCategory } from "./"
+import { Dispatch, PropsWithChildren, SetStateAction } from "react"
+import { ISubCategory } from "./"
 
 export interface ICategoryProp {
   id: number
@@ -8,6 +8,8 @@ export interface ICategoryProp {
   subcategories: ISubCategory[]
 }
 
-export interface ICategory extends Partial<Omit<ICategories, "categories">>, PropsWithChildren {
+export interface ICategory extends PropsWithChildren {
   category: ICategoryProp
+  activeCategory?: ICategory | null
+  setActiveCategory?: Dispatch<SetStateAction<ICategoryProp | null>>
 }

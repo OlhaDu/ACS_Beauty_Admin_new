@@ -1,4 +1,4 @@
-import * as Yup from "yup";
+import * as Yup from "yup"
 export const addCategoryFormSchema = Yup.object({
   name: Yup.string()
     .required("Обов`язковий")
@@ -6,7 +6,7 @@ export const addCategoryFormSchema = Yup.object({
     .max(20, "Назва не може перевищувати 20 символи")
     .matches(
       /^[АаБбВвГгҐґДдЕеЄєЖжЗзИиІіЇїЙйКкЛлМмНнОоПпРрСсТтУуФфХхЦцЧчШшЩщьЮюЯя\s\d]+$/g,
-      "Можна використовувати лише українські літери та пробіли"
+      "Можна використовувати лише українські літери, цифри та пробіли"
     ),
   description: Yup.string()
     .required("Обов`язковий")
@@ -20,15 +20,11 @@ export const addCategoryFormSchema = Yup.object({
     .required("Обов`язковий")
     .test(
       "fileFormat",
-      "Тільки картинки дозволено",
-      (file) => (file as File).type.split("/")[0] === "image"
+      "Дозволено тільки картинки",
+      file => (file as File).type.split("/")[0] === "image"
     )
-    .test(
-      "fileSize",
-      "Розмір файла не більше 3Мб",
-      (file) => (file as File).size <= 3 * 1024 * 1024
-    ),
-});
+    .test("fileSize", "Розмір файла не більше 3Мб", file => (file as File).size <= 3 * 1024 * 1024),
+})
 // url: Yup.string()
 //   .required("Обов`язковий")
 //   .min(4, "Посилання має складатися не менше ніж з 3 символів")

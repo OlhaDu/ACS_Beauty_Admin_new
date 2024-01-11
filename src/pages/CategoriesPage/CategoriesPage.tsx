@@ -22,7 +22,7 @@ const CategoriesPage = () => {
     getCategories()
   }, [])
 
-  const onAddCategotyClickHandler = () => {
+  const onAddCategotyClick = () => {
     setIsAddCategoryActive(true)
   }
 
@@ -32,7 +32,7 @@ const CategoriesPage = () => {
         <div className={s.heading}>
           <h3>Категорії{isAddCategoryActive && "/Додати категорію"}</h3>
           {!isAddCategoryActive && (
-            <VioletButton title="ДОДАТИ КАТЕГОРІЮ" onClick={onAddCategotyClickHandler} />
+            <VioletButton title="ДОДАТИ КАТЕГОРІЮ" onClick={onAddCategotyClick} />
           )}
         </div>
         {isAddCategoryActive && <AddCategory />}

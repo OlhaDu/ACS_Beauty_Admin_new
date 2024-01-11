@@ -1,11 +1,12 @@
-import CloseIcon from "src/images/svg/CloseIcon_";
-import Border from "../Border";
-import s from "./AddCategory.module.scss";
-import { addCategoryFormSchema } from "src/libs/yup";
-import FormGenerator from "../FormGenerator";
-import AddImageInput from "../AddImageInput";
-import { api } from "src/api";
-import { IInitialValues } from "src/types";
+import CloseIcon from "src/images/svg/CloseIcon_"
+import Border from "../Border"
+import s from "./AddCategory.module.scss"
+import { addCategoryFormSchema } from "src/libs/yup"
+import FormGenerator from "../FormGenerator"
+import AddImageInput from "../AddImageInput"
+import { api } from "src/api"
+import { IInitialValues } from "src/types"
+import { FormikHelpers } from "formik"
 
 const addCategoryForm = {
   initialValues: {
@@ -36,9 +37,12 @@ const addCategoryForm = {
       ],
     },
   ],
-  onSubmit: async (value: IInitialValues) => api.addCategory(value),
+  onSubmit: async (value: IInitialValues, { resetForm }: FormikHelpers<IInitialValues>) => {
+    const res = await api.addCategory(value)
+    if (res.data) resetForm()
+  },
   isToggler: true,
-};
+}
 
 const AddCategory = () => {
   return (
@@ -49,7 +53,7 @@ const AddCategory = () => {
       </div>
       <FormGenerator<IInitialValues> {...addCategoryForm} />
     </Border>
-  );
-};
+  )
+}
 
-export default AddCategory;
+export default AddCategory
