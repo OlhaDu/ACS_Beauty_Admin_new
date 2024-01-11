@@ -1,0 +1,50 @@
+@import "/src/styles/variables.scss";
+@import "/src/styles/mixins.scss";
+
+s.modal_backdrop {
+    position: fixed;
+    top: 0px;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    width: 100vw;
+    height: 100vh;
+    overflow-y: auto;
+    z-index: 10;
+    background-color: rgba(17, 17, 17, 0.6);
+}
+   
+
+.modal_content {
+    overflow: auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 628px;
+    padding: 24px 32px 20px 32px; 
+    transform: translateY(-50%) translateX(-50%);
+    background-color:#FFF;
+    box-shadow: 7px 4px 14px rgba(49, 21, 4, 0.07);
+    border-radius: 4px;
+border: 1px solid rgba(0, 0, 0, 0.10);
+
+}
+
+ 
+.modal_close {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    right: 32px;
+    top: 24px;
+    width: 24px;
+    height: 24px;
+    background-color: transparent;
+    color: gray;
+    border: none;
+    border-radius:50%;
+    cursor: pointer; 
+}

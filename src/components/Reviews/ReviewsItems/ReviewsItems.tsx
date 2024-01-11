@@ -2,6 +2,7 @@ import React from "react";
 import s from "./ReviewItems.module.scss";
 import CheckboxIcon from "src/assets/checkbox.svg";
 import StarIcon from "src/images/svg/StarIcon";
+
 interface ReviewsItemsProps {
   reviews: {
     id: string;
@@ -13,8 +14,13 @@ interface ReviewsItemsProps {
     status: string;
     rating: number;
   }[];
+  selectedReviews: string[];
+  onSelectedReviewsChange: (updatedSelectedReviews: string[]) => void;
 }
-const ReviewsItems: React.FC<ReviewsItemsProps> = ({ reviews }) => {
+const ReviewsItems: React.FC<ReviewsItemsProps> = ({ reviews, selectedReviews, onSelectedReviewsChange}) => {
+
+  // const [selectedReviews, setSelectedReviews] = useState<string[]>([])
+
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
     const day = date.getDate().toString().padStart(2, "0");
@@ -23,6 +29,17 @@ const ReviewsItems: React.FC<ReviewsItemsProps> = ({ reviews }) => {
 
     return `${day}.${month}.${year}`;
   };
+
+  const toggleReviewSelection = (id: string) => {
+    const updatedSelectedReviews = selectedReviews.includes(id)
+      ? selectedReviews.filter((selectedId) => selectedId !== id)
+      : [...selectedReviews, id];
+
+    onSelectedReviewsChange(updatedSelectedReviews);
+  };
+
+// 
+  const isSelected = (id: string) => selectedReviews.includes(id);
  
   return (
     <div className={s.container}>
@@ -49,6 +66,8 @@ const ReviewsItems: React.FC<ReviewsItemsProps> = ({ reviews }) => {
                 name={`item-${review.id}`}
                 id={`item-${review.id}`}
                 className={s.real_checkbox}
+                checked={isSelected(review.id)}
+                onChange={()=> {toggleReviewSelection(review.id)}}
               />
               <span className={s.custom_checkbox}>
                 <CheckboxIcon />

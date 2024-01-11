@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import ReviewsItems from "./ReviewsItems";
-import { fetchReviews } from "../api/getReviews";
+import ReviewsItems from "../ReviewsItems/ReviewsItems";
+import { fetchReviews } from "../../api/getReviews";
 import s from "./ReviewsList.module.scss";
 import { Formik, Field, Form } from "formik";
 import { GoSearch } from "react-icons/go";
@@ -10,17 +10,49 @@ import ArrowIcon from "src/assets/menu-arrow.svg";
 import ExportIcon from "src/assets/file-export.svg";
 import NavigateIcon from "src/assets/navigate.svg";
 import AdminLayout from "src/layouts/AdminLayout";
+import { ModalSample } from "../Modal/Modal";
+import ChangeStatus from "../Modal/ChangeStatusModal";
+
+interface Review {
+  id: string;
+  firstName: string;
+  lastName: string;
+  productName: string;
+  createdAt: string;
+  review: string;
+  status: string;
+  rating: number;
+}
 
 const ReviewsList: React.FC = () => {
-  const [data, setData] = useState(null);
+  const [data, setData] = useState<Review[]>([]);
   const [status, setStatus] = useState<"pending" | "fulfilled" | "rejected">(
     "pending"
   );
+  const [showModal, setShowModal] = useState(false);
   const [filterOpen, setFilterOpen] = useState(false);
   const [actionOpen, setActionOpen] = useState(false);
   const [exportOpen, setExportOpen] = useState(false);
   const [statusOpen, setStatusOpen] = useState(false);
   const [ratingOpen, setRatingOpen] = useState(false);
+  const [selectedReviews, setSelectedReviews] = useState<string[]>([]);
+
+  const handleSelectedReviews = (updatedSelectedReviews: string[]) => {
+    setSelectedReviews(updatedSelectedReviews);
+  };
+console.log("selectedReviews", selectedReviews)
+
+
+  const toggleModal = () => {
+    
+    setShowModal(!showModal);
+  };
+
+  const onChangeModal = (event: React.MouseEvent<HTMLAnchorElement>) => {
+    event.preventDefault();
+    toggleModal();
+    setActionOpen(false);
+  };
 
   const toggleFilter = () => {
     setFilterOpen(!filterOpen);
@@ -49,7 +81,7 @@ const ReviewsList: React.FC = () => {
     (async () => {
       try {
         setStatus("pending");
-        const fetchedData = await fetchReviews(2);
+        const fetchedData = await fetchReviews(1);
         setStatus("fulfilled");
         setData(fetchedData.rows);
         console.log("fetchedData", fetchedData.rows);
@@ -58,7 +90,13 @@ const ReviewsList: React.FC = () => {
       }
     })();
   }, []);
-  console.log("data", data);
+  const reviews = data
+  console.log("reviews", reviews);
+
+ const selectedProducts = reviews ? reviews.filter((review) =>
+  selectedReviews.includes(review.id)
+) : [];
+console.log("selectedProducts", selectedProducts)
   return (
     <AdminLayout>
       <div className={s.container}>
@@ -78,7 +116,7 @@ const ReviewsList: React.FC = () => {
             </button>
           </Form>
         </Formik>
-        <nav >
+        <nav>
           <ul className={s.menu_list}>
             <li>
               <FilterIcon />
@@ -109,7 +147,7 @@ const ReviewsList: React.FC = () => {
                           <a href="" className={s.sub_sub_menu_link}>
                             Опубліковано
                           </a>
-                        </li>                        
+                        </li>
                         <li>
                           <a href="" className={s.sub_sub_menu_link}>
                             На перевірці
@@ -172,7 +210,11 @@ const ReviewsList: React.FC = () => {
               {actionOpen && (
                 <ul className={s.sub_menu_list}>
                   <li>
-                    <a href="" className={s.sub_menu_link}>
+                    <a
+                      href=""
+                      className={s.sub_menu_link}
+                      onClick={onChangeModal}
+                    >
                       Змінити статус
                     </a>
                   </li>
@@ -201,8 +243,21 @@ const ReviewsList: React.FC = () => {
 
         {status === "pending" && <p>Loading...</p>}
         {status === "rejected" && <p>Failed to fetch data.</p>}
-        {status === "fulfilled" && <ReviewsItems reviews={data || []} />}
+        {status === "fulfilled" && (
+          <ReviewsItems
+            reviews={data || []}
+            selectedReviews={selectedReviews}
+            onSelectedReviewsChange={handleSelectedReviews}
+          />
+        )}
       </div>
+      {showModal && (
+        <ModalSample toggleModal={toggleModal}>
+          <ChangeStatus
+        selectedProducts={selectedProducts}
+          />
+        </ModalSample>
+      )}
     </AdminLayout>
   );
 };
