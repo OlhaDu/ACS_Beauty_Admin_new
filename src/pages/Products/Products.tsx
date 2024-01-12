@@ -1,41 +1,92 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
-import styles from "./Products.module.scss";
+import { useSelector, useDispatch } from "react-redux";
+import { ThunkDispatch, AnyAction } from '@reduxjs/toolkit';
+import { RootState } from "src/redux/store";
 import ToolsPanel from "src/components/ToolsPanel/ToolsPanel";
-import { ProductElem, ProductsResponse } from "src/types";
-import { DataGrid, GridColDef } from '@mui/x-data-grid';
+import { ProductElem } from "src/types";
+import { DataGrid, GridColDef, GridRowSelectionModel, GridPaginationModel } from '@mui/x-data-grid';
+import { Typography } from "@mui/material";
+import { ProductNewProductButton, ProductTable, SubHeaderProduct, ProductsWallpaper } from "./ProductsTheme";
+import { getProductsAsync } from "src/redux/slices/productsSlice";
 
 const Products = () => {
-  const [productsArray, setProductsArray] = useState<ProductElem[]>([]);
-
-  const api = axios.create({
-    baseURL: import.meta.env.VITE_API_BASE_URL,
+  const dispatch: ThunkDispatch<RootState, unknown, AnyAction> = useDispatch();
+  const productsArray: ProductElem[] = useSelector(
+		(state: RootState) => (state.products.products || []) as ProductElem[],
+	);
+  const rowCountState = useSelector(
+		(state: RootState) => (state.products.count),
+	);
+  const [paginationModel, setPaginationModel] = useState({
+    pageSize: 10,
+    page: 0,
   });
 
+  const handlePageSizeChange = (newPageSize: GridPaginationModel) => {
+    setPaginationModel({
+      pageSize: newPageSize.pageSize,
+      page: newPageSize.page,
+    });
+  };  
+  
+  console.log(productsArray);
+
+  const [rowSelectionModel, setRowSelectionModel] =
+  React.useState<GridRowSelectionModel>([]);
+
+  // const authToken = import.meta.env.VITE_API_BASE_TOKEN;
+
   useEffect(() => {
-    if (!productsArray?.length) {
-    const fetchProducts = async () => {
-      try {
-        const response = await api.get("/api/product?page=1&pageSize=25&availability=true&discount=true&category=23&lookup=subcategory7");
+    dispatch(getProductsAsync({
+      page: paginationModel.page,
+      pageSize: paginationModel.pageSize,
+    }));
+  }, [paginationModel.page]);
+  
 
-        if (!response.data) {
-          throw new Error('Failed to fetch products');
-        }
+  const getSelectedItemsText = (count: number) => {/*  */
+    const lastTwoDigits = count % 100;
+    const lastDigit = count % 10;
+  
+    if (lastDigit === 1 && lastTwoDigits !== 11) {
+      return `${count.toLocaleString()} товар вибраний`;
+    } else if ([2, 3, 4].includes(lastDigit) && ![12, 13, 14].includes(lastTwoDigits)) {
+      return `${count.toLocaleString()} товари вибрані`;
+    } else {
+      return `${count.toLocaleString()} товарів вибрані`;
+    }
+  };
 
-        const productsRes: ProductsResponse = response.data;
-        setProductsArray(productsRes.rows);
-      } catch (error) {
-        if (error instanceof Error) {
-          console.error('Error fetching products:', error.message);
-        } else {
-          console.error('Unknown error:', error);
-        }
-      }
-    };
+  const addProduct = async () => {
+    console.log("click");
+    // try {
+    //   const response = await api.post("/api/product", {
+    //     name: "Hair Mask", 
+    //     description: "Product description",
+    //     price: 1250,
+    //     discount: 5,
+    //     count: 100,
+    //     novelty: true,
+    //     hit: false,
+    //     subcategoryId: 1,
+    //     brandId: 1,
+    //   }, {
+    //     headers: {
+    //       Authorization: authToken,
+    //     },
+    //   });
 
-    fetchProducts();
-  }
-  }, []); 
+    //   if (response.status === 200 || response.status === 201) {
+    //     const updatedResponse = await api.get(`/api/product?page=${paginationModel.page + 1}&pageSize=${paginationModel.pageSize}`);
+    //     const updatedProductsRes: ProductsResponse = updatedResponse.data;
+    //     setProductsArray(updatedProductsRes.rows);
+    //   } else {
+    //     console.error('Failed to add product:', response.data);
+    //   }
+    // } catch (error) {
+    //   console.error('Error adding product:', error);
+    // }
+  };
 
   const columns: GridColDef[] = [
     { field: 'id', headerName: 'ID', width: 70 },
@@ -47,23 +98,44 @@ const Products = () => {
     { field: 'createdAt', headerName: 'Створено', width: 150 },
   ];
 
+
   return (
-    <>
+    <ProductsWallpaper>
+      <SubHeaderProduct>
+      <Typography variant="h3">Товари</Typography>
+      <ProductNewProductButton onClick={() => addProduct()}>СТВОРИТИ НОВИЙ</ProductNewProductButton>
+      </SubHeaderProduct>
       <ToolsPanel />
-      <div className={styles.products_table}>
-        {productsArray ? 
-        <DataGrid
-        rows={productsArray}
-        columns={columns}
-        initialState={{
-          pagination: {
-            paginationModel: { page: 0, pageSize: 10 },
-          },
-        }}
-        pageSizeOptions={[10, 15, 20]}
-      /> : <div>Oops!</div>}
-    </div>
-    </>
+      <ProductTable>
+      {productsArray && productsArray.length > 0 ? (
+          <DataGrid
+            rows={productsArray}
+            rowCount={rowCountState}
+            columns={columns}
+            paginationModel={paginationModel}
+            onPaginationModelChange={(newPageSize) => handlePageSizeChange(newPageSize)}
+            rowHeight={106}
+            pageSizeOptions={[10, 25, 50, 100]}
+            checkboxSelection
+            onRowSelectionModelChange={(newRowSelectionModel) => {
+              setRowSelectionModel(newRowSelectionModel);
+            }}
+            rowSelectionModel={rowSelectionModel}
+            disableColumnMenu={true}
+            paginationMode="server"
+            localeText={{
+              footerRowSelected: (count) => getSelectedItemsText(count),
+                MuiTablePagination: {
+                  labelDisplayedRows: ({ from, to, count }) =>
+                    `${from} - ${to} з ${count}`,
+                },
+            }}
+          />
+        ) : (
+          <div>Oops!</div>
+        )}
+      </ProductTable>
+    </ProductsWallpaper>
   );
 };
 
