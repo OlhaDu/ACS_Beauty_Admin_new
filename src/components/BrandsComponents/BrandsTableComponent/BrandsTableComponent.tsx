@@ -1,43 +1,50 @@
+import { useSelector } from "react-redux";
 import { useState } from "react";
+
+import { columns } from "./columns";
+import { useAppDispatch } from "src/redux/store";
+import { deleteBrand } from "src/redux/brands/operations";
+import {
+  selectBrands,
+  selectCount,
+  selectIsLoading,
+} from "src/redux/brands/selectors";
 
 import Box from "@mui/material/Box";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/DeleteOutlined";
-import SaveIcon from "@mui/icons-material/Save";
-import CancelIcon from "@mui/icons-material/Close";
+
+import ModalWindow from "src/components/ModalWindow";
+import BrandManagementForm from "../BrandManagementForm";
+
 import {
-  GridRowsProp,
-  GridRowModesModel,
-  GridRowModes,
   DataGrid,
   GridColDef,
   GridActionsCellItem,
+  GridRowId,
 } from "@mui/x-data-grid";
 
-interface IColumn {
-  field: string;
-  headerName: string;
-  width?: number;
-  editable?: boolean;
-  type?: string;
-  align?: "left" | "center" | "right";
-  headerAlign?: "left" | "center" | "right";
-  valueOptions?: string[];
+interface IPaginationModel {
+  page: number;
+  pageSize: number;
 }
 
-interface IDataTableProps {
-  setIsOpenModal: boolean;
-  columns: IColumn[];
-  rows: GridRowsProp;
+interface IBrandsTableProps {
+  paginationModel: IPaginationModel;
+  setPaginationModel: (params: IPaginationModel) => void;
 }
 
-const BrandsTableComponent: React.FC<IDataTableProps> = ({
-  setIsOpenModal,
-  columns,
-  rows,
+const BrandsTableComponent: React.FC<IBrandsTableProps> = ({
+  paginationModel,
+  setPaginationModel,
 }) => {
-  const [gridRows, setGridRows] = useState(rows);
-  const [rowModesModel, setRowModesModel] = useState<GridRowModesModel>({});
+  const dispatch = useAppDispatch();
+  const brands = useSelector(selectBrands);
+  const count = useSelector(selectCount);
+  const isLoading = useSelector(selectIsLoading);
+
+  const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
+  const [selectedBrand, setSelectedBrand] = useState<GridRowId | null>(null);
 
   const actionsColumn: GridColDef = {
     field: "actions",
@@ -47,41 +54,26 @@ const BrandsTableComponent: React.FC<IDataTableProps> = ({
     cellClassName: "actions",
 
     getActions: ({ id }) => {
-      const isInEditMode = rowModesModel[id]?.mode === GridRowModes.Edit;
-
-      return isInEditMode
-        ? [
-            <GridActionsCellItem
-              icon={<SaveIcon />}
-              label="Save"
-              sx={{
-                color: "primary.main",
-              }}
-            />,
-            <GridActionsCellItem
-              icon={<CancelIcon />}
-              label="Cancel"
-              className="textPrimary"
-              color="inherit"
-            />,
-          ]
-        : [
-            <GridActionsCellItem
-              icon={<EditIcon />}
-              label="Edit"
-              className="textPrimary"
-              color="inherit"
-              onClick={() => {
-                console.log(gridRows.filter((item) => item.id === id));
-                setIsOpenModal(true);
-              }}
-            />,
-            <GridActionsCellItem
-              icon={<DeleteIcon />}
-              label="Delete"
-              color="inherit"
-            />,
-          ];
+      return [
+        <GridActionsCellItem
+          icon={<EditIcon />}
+          label="Edit"
+          className="textPrimary"
+          color="inherit"
+          onClick={() => {
+            setIsOpenModal(true);
+            setSelectedBrand(id);
+          }}
+        />,
+        <GridActionsCellItem
+          icon={<DeleteIcon />}
+          label="Delete"
+          color="inherit"
+          onClick={() => {
+            dispatch(deleteBrand(id));
+          }}
+        />,
+      ];
     },
   };
 
@@ -99,47 +91,61 @@ const BrandsTableComponent: React.FC<IDataTableProps> = ({
   tableColumns.push(actionsColumn);
 
   return (
-    <Box
-      sx={{
-        // height: 500,
-        width: "100%",
-        display: "flex",
+    !isLoading && (
+      <>
+        <Box
+          sx={{
+            width: "100%",
+            display: "flex",
 
-        flexDirection: "column",
+            flexDirection: "column",
 
-        "& .actions": {
-          color: "text.secondary",
-        },
-        "& .textPrimary": {
-          color: "text.primary",
-        },
-        "& .MuiDataGrid-columnHeaders": {
-          backgroundColor: "#F8F0FB",
-        },
-      }}
-    >
-      <DataGrid
-        rows={rows}
-        columns={tableColumns}
-        editMode="row"
-        density="comfortable"
-        rowModesModel={rowModesModel}
-        checkboxSelection={false}
-        rowSelection={false}
-        slotProps={{
-          toolbar: { setRows: setGridRows, setRowModesModel },
-        }}
-        initialState={{
-          pagination: {
-            paginationModel: { page: 0, pageSize: 10 },
-          },
-        }}
-        pageSizeOptions={[10, 25, 50, 100]}
-        getRowId={(row) => row.id}
-        columnHeaderHeight={44}
-        rowHeight={107}
-      />
-    </Box>
+            "& .actions": {
+              color: "text.secondary",
+            },
+            "& .textPrimary": {
+              color: "text.primary",
+            },
+            "& .MuiDataGrid-columnHeaders": {
+              backgroundColor: "#F8F0FB",
+            },
+            ".MuiDataGrid-cell:focus": {
+              outline: "none",
+            },
+          }}
+        >
+          <DataGrid
+            rows={brands}
+            columns={tableColumns}
+            checkboxSelection={false}
+            disableRowSelectionOnClick={true}
+            isCellEditable={() => false}
+            isRowSelectable={() => false}
+            rowCount={count}
+            paginationModel={paginationModel}
+            onPaginationModelChange={setPaginationModel}
+            pageSizeOptions={[10, 25, 50, 100]}
+            columnHeaderHeight={44}
+            rowHeight={107}
+          />
+        </Box>
+
+        <ModalWindow
+          title={"ДОДАТИ БРЕНД"}
+          onClose={() => setIsOpenModal(false)}
+          isOpenModal={isOpenModal}
+        >
+          <BrandManagementForm
+            brand={
+              selectedBrand
+                ? brands.find((brand) => brand.id === selectedBrand)
+                : null
+            }
+            onClose={() => setIsOpenModal(false)}
+          />
+        </ModalWindow>
+      </>
+    )
   );
 };
 

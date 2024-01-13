@@ -1,6 +1,11 @@
 import React from "react";
 
-const SearchIcon = ({ className, style }) => {
+interface ISearchIconProps {
+  className: string;
+  style?: object;
+}
+
+const SearchIcon: React.FC<ISearchIconProps> = ({ className, style }) => {
   return (
     <svg
       className={className}

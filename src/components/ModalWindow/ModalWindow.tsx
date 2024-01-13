@@ -6,14 +6,14 @@ import IconButton from "@mui/material/IconButton";
 import DialogTitle from "@mui/material/DialogTitle";
 import DialogContent from "@mui/material/DialogContent";
 
-interface ModalWindowProps {
+interface IModalWindowProps {
   children: ReactNode;
   title: string;
   onClose: () => void;
   isOpenModal: boolean;
 }
 
-const ModalWindow: React.FC<ModalWindowProps> = ({
+const ModalWindow: React.FC<IModalWindowProps> = ({
   children,
   title,
   onClose,

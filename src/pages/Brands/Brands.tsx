@@ -1,6 +1,8 @@
-import React, { useState } from "react";
-import styles from "./Brands.module.scss";
+import React, { useEffect, useState } from "react";
+import { useAppDispatch } from "src/redux/store";
+import { getBrands } from "src/redux/brands/operations";
 
+import styles from "./Brands.module.scss";
 import AdminLayout from "src/layouts/AdminLayout";
 import ExportFileIcon from "src/images/svg/ExportFileIcon";
 import Select from "src/components/ToolsPanel/Select/Select";
@@ -9,12 +11,29 @@ import SearchInput from "src/components/ToolsPanel/SearchInput/SearchInput";
 import BrandManagementForm from "src/components/BrandsComponents/BrandManagementForm";
 import BrandsTableComponent from "src/components/BrandsComponents/BrandsTableComponent/";
 
-import { temporaryBrands } from "./temporaryBrands";
-import { columns } from "./columns";
+interface IPaginationModel {
+  page: number;
+  pageSize: number;
+}
 
 const Brands: React.FC = () => {
-  const exportOptions = ["Експортувати в Exel"];
+  const dispatch = useAppDispatch();
+  const [searchName, setSearchName] = useState("");
   const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
+  const [paginationModel, setPaginationModel] = useState<IPaginationModel>({
+    page: 0,
+    pageSize: 10,
+  });
+
+  useEffect(() => {
+    dispatch(
+      getBrands({
+        lookup: searchName,
+        ...paginationModel,
+        page: paginationModel.page + 1,
+      })
+    );
+  }, [paginationModel, searchName]);
 
   return (
     <AdminLayout>
@@ -32,18 +51,17 @@ const Brands: React.FC = () => {
           </div>
 
           <div className={styles.tools}>
-            <SearchInput />
+            <SearchInput value={searchName} onChange={setSearchName} />
             <Select
-              options={exportOptions}
+              options={["Експортувати в Exel"]}
               icon={<ExportFileIcon />}
               toolName={"Експортувати"}
             />
           </div>
 
           <BrandsTableComponent
-            columns={columns}
-            rows={temporaryBrands}
-            setIsOpenModal={setIsOpenModal}
+            paginationModel={paginationModel}
+            setPaginationModel={setPaginationModel}
           />
         </section>
         <ModalWindow
@@ -51,7 +69,7 @@ const Brands: React.FC = () => {
           onClose={() => setIsOpenModal(false)}
           isOpenModal={isOpenModal}
         >
-          <BrandManagementForm />
+          <BrandManagementForm onClose={() => setIsOpenModal(false)} />
         </ModalWindow>
       </main>
     </AdminLayout>

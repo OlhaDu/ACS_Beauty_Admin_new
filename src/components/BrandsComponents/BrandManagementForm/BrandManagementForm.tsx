@@ -1,48 +1,79 @@
+import { useAppDispatch } from "src/redux/store";
+import { GridValidRowModel } from "@mui/x-data-grid";
 import { useState, ChangeEvent, FormEvent, useRef } from "react";
 
 import styles from "./BrandManagementForm.module.scss";
 import AddImageIcon from "src/images/svg/AddImageIcon";
 import DeleteIcon from "src/images/svg/DeleteIcon.tsx";
 
-const BrandManagementForm = () => {
+import {
+  createNewBrand,
+  updateBrand,
+  IBrand,
+} from "src/redux/brands/operations";
+
+interface IBrandManagementFormProps {
+  brand?: IBrand | null | GridValidRowModel;
+  onClose: () => void;
+}
+
+const BrandManagementForm: React.FC<IBrandManagementFormProps> = ({
+  brand,
+  onClose,
+}) => {
+  const dispatch = useAppDispatch();
   const brandInputRef = useRef<HTMLInputElement | null>(null);
 
-  const [brandName, setBrandName] = useState<string>("");
-  const [brandDescription, setBrandDescription] = useState<string>("");
-  const [image, setImage] = useState<string | null>(null);
+  const [brandName, setBrandName] = useState<string>(brand?.name || "");
+  const [brandDescription, setBrandDescription] = useState<string>(
+    brand?.description || ""
+  );
+  const [file, setFile] = useState<File | undefined>(undefined);
+  const [image, setImage] = useState<string | Blob>(brand?.logo || "");
 
   const handleImageChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
+    if (!event.target.files?.length) return;
 
-    if (file) {
-      const imageUrl = URL.createObjectURL(file);
-      setImage(imageUrl);
-    } else {
-      setImage(null);
-    }
+    const file = event.target.files?.[0];
+    setFile(file);
+
+    const imageUrl = URL.createObjectURL(file);
+    setImage(imageUrl);
   };
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     const formData = new FormData();
-    formData.append("brandName", brandName);
-    formData.append("brandDescription", brandDescription);
-    formData.append("image", image || "");
+    formData.append("logo", file || image);
+    formData.append("name", brandName);
+    formData.append("description", brandDescription);
 
+    if (brand) {
+      const { id } = brand;
+      dispatch(updateBrand({ id, formData }));
+    } else {
+      dispatch(createNewBrand(formData));
+    }
+
+    onClose();
     setBrandName("");
     setBrandDescription("");
-    setImage(null);
+    setImage("");
   };
 
   return (
     <form className={styles.brand_form} onSubmit={handleSubmit}>
       {image ? (
         <div className={styles.brand_form__image_container}>
-          <img className={styles.brand_form__image} src={image} alt="Brand" />
+          <img
+            className={styles.brand_form__image}
+            src={typeof image === "string" ? image : ""}
+            alt={brandName}
+          />
           <div
             className={styles.brand_form__image_delete_icon}
-            onClick={() => setImage(null)}
+            onClick={() => setImage("")}
           >
             <DeleteIcon fill={"#5C5E60"} />
           </div>

@@ -1,17 +1,23 @@
-import React, { useState } from "react";
+import React, { useState, ReactNode, CSSProperties } from "react";
 import styles from "./Select.module.scss";
-// import DropdownArrow from "../../../svgs/DropdownArrow";
 import DropdownArrow from "src/images/svg/DropdownArrow";
 
-const Select = ({ options, toolName, icon, style }) => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [selectedValue, setSelectedValue] = useState("");
+interface SelectProps {
+  options: string[];
+  toolName: string;
+  icon: ReactNode;
+  style?: CSSProperties;
+}
+
+const Select: React.FC<SelectProps> = ({ options, toolName, icon, style }) => {
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [selectedValue, setSelectedValue] = useState<string>("");
 
   const handleToggle = () => {
     setIsOpen(!isOpen);
   };
 
-  const handleOptionClick = (option) => {
+  const handleOptionClick = (option: string) => {
     setSelectedValue(option);
     setIsOpen(false);
   };

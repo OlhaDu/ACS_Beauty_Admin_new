@@ -10,9 +10,8 @@
 .brand_form__image {
   width: 581px;
   height: 175px;
-  object-fit: cover;
+  object-fit: contain;
   background-position: center;
-  background-size: cover;
   border-radius: 4px;
   border: $dashed-border;
 }
