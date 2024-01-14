@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react";
+import {useEffect, useState} from "react";
 import s from "./Categories.module.scss";
-import VioletButton from "src/components/VioletButton/VioletButton";
+import VioletButton from "src/components/Buttons/VioletButton/VioletButton";
 import Category from "src/components/Category/Category";
-import { api } from "src/api";
+import {api} from "src/api";
 import AdminLayout from "src/layouts/AdminLayout";
 
 // import Category from "./Category/Category";
@@ -20,7 +20,7 @@ const Categories = (props) => {
   //   categories: { isFetching, categories, error },
   // } = props;
   // const { categories } = props;
-
+  
   // useEffect(() => {
   //   if (!categories.length) {
   //     getCategoriesRequest();
@@ -35,7 +35,7 @@ const Categories = (props) => {
   }, []);
   return (
     <AdminLayout>
-      <div className={s.page} style={{ display: active ? "none" : "" }}>
+      <div className={s.page} style={{display: active ? "none" : ""}}>
         <div className={s.heading}>
           <h3>Категорії</h3>
           <VioletButton
@@ -46,7 +46,7 @@ const Categories = (props) => {
         <ul className={s.collapses}>
           {categories &&
             categories.map((category) => (
-              <Category data={category} key={category.id} />
+              <Category data={category} key={category.id}/>
             ))}
         </ul>
       </div>

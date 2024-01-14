@@ -1,13 +1,14 @@
 @import "/src/styles/variables.scss";
 @import "/src/styles/mixins.scss";
 
+
 .main {
   padding-left: 15px;
   padding-right: 15px;
 
-  display: flex;
-
   margin-left: 260px;
+
+  overflow: auto;
 }
 
 .main__section {

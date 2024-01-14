@@ -1,28 +1,28 @@
 import React from "react";
 import styles from "./AddSubcategoryPopup.module.scss";
 import CloseIcon from "../../../svgs/CloseIcon";
-import VioletButton from "../../VioletButton/VioletButton";
+import VioletButton from "../../Buttons/VioletButton/VioletButton";
 import Toggler from "../../Toggler/Toggler";
-import { Formik, Form, Field } from "formik";
-import { connect } from "react-redux";
+import {Formik, Form, Field} from "formik";
+import {connect} from "react-redux";
 import actionCreators from "../../../store/actions/actionCreators";
 import * as Yup from "yup";
-import { ukraineWordsString, validateLinkString } from "../../../utils/regex";
+import {ukraineWordsString, validateLinkString} from "../../../utils/regex";
 
-const AddSubcategoryPopup = ({ setActive, ...props }) => {
-  const { addSubcategoryRequest, categoryId } = props;
-
+const AddSubcategoryPopup = ({setActive, ...props}) => {
+  const {addSubcategoryRequest, categoryId} = props;
+  
   return (
     <div className={styles.container}>
       <div className={styles.heading}>
         <div></div>
         <h3>ДОДАТИ ПІДКАТЕГОРІЮ</h3>
         <div className={styles.closeIcon} onClick={() => setActive(false)}>
-          <CloseIcon />
+          <CloseIcon/>
         </div>
       </div>
       <Formik
-        initialValues={{ name: "", linkKey: "", disabled: false, categoryId: categoryId }}
+        initialValues={{name: "", linkKey: "", disabled: false, categoryId: categoryId}}
         validationSchema={Yup.object({
           name: Yup.string()
             .required("Обов`язковий")
@@ -47,7 +47,7 @@ const AddSubcategoryPopup = ({ setActive, ...props }) => {
           // window.location.reload();
         }}
       >
-        {({ errors, touched, handleChange, handleSubmit, isValid, values }) => (
+        {({errors, touched, handleChange, handleSubmit, isValid, values}) => (
           <Form>
             <div className={styles.form}>
               <div>
@@ -79,7 +79,7 @@ const AddSubcategoryPopup = ({ setActive, ...props }) => {
                 )}
               </div>
               <div className={styles.togglerContainer}>
-                <Toggler />
+                <Toggler/>
               </div>
               <div className={styles.violetButton}>
                 <VioletButton
