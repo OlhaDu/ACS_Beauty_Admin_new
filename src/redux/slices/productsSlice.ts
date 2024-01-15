@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk, SerializedError } from '@reduxjs/toolkit';
 import { ProductElem, ProductsResponse } from 'src/types';
-import axios from "axios";
+import { http } from 'src/api';
 
 export interface ProductsState {
 	products: ProductElem[] | unknown;
@@ -21,15 +21,11 @@ const initialState: ProductsState = {
 	error: null,
 };
 
-const api = axios.create({
-    baseURL: import.meta.env.VITE_API_BASE_URL,
-  });
-  
   export const getProductsAsync = createAsyncThunk(
     'products/fetchProducts',
     async ({ page, pageSize }: dispatchProduct) => {
       try {
-        const response = await api.get(`/api/product?page=${page + 1}&pageSize=${pageSize}`);
+        const response = await http.get(`/api/product?page=${page + 1}&pageSize=${pageSize}`);
   
         if (!response.data) {
           throw new Error(`Error fetching products: ${response.statusText}`);

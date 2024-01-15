@@ -1,7 +1,7 @@
 import axios from "axios";
 import { IAddCategory, IAddUpdateSubcategory, IUpdateCategory } from "./types";
 
-const http = axios.create({
+export const http = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL, //заменить адрес на константу (.env)
 });
 export const api = {

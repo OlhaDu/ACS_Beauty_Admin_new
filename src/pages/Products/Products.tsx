@@ -4,10 +4,13 @@ import { ThunkDispatch, AnyAction } from '@reduxjs/toolkit';
 import { RootState } from "src/redux/store";
 import ToolsPanel from "src/components/ToolsPanel/ToolsPanel";
 import { ProductElem } from "src/types";
-import { DataGrid, GridColDef, GridRowSelectionModel, GridPaginationModel } from '@mui/x-data-grid';
+import { GridColDef, GridRowSelectionModel, GridPaginationModel } from '@mui/x-data-grid';
 import { Typography } from "@mui/material";
-import { ProductNewProductButton, ProductTable, SubHeaderProduct, ProductsWallpaper } from "./ProductsTheme";
+import { ProductNewProductButton, ProductTable, SubHeaderProduct, ProductsWallpaper, ProductsTable, ButtonActions, ProductsHeader } from "./ProductsTheme";
 import { getProductsAsync } from "src/redux/slices/productsSlice";
+import { http } from "src/api";
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
 
 const Products = () => {
   const dispatch: ThunkDispatch<RootState, unknown, AnyAction> = useDispatch();
@@ -29,13 +32,34 @@ const Products = () => {
     });
   };  
   
-  console.log(productsArray);
-
   const [rowSelectionModel, setRowSelectionModel] =
   React.useState<GridRowSelectionModel>([]);
 
-  // const authToken = import.meta.env.VITE_API_BASE_TOKEN;
+  const authToken = import.meta.env.VITE_API_BASE_TOKEN;
 
+  const handleButtonDelete = async (id: number) => {
+    console.log("Delete:", id);
+    try {
+        const response = await http.delete(`/api/product/${id}`, {
+        headers: {
+          Authorization: authToken,
+        },
+      });
+      if (response.status === 204) {
+        console.log("Deleted");
+      } else {
+        console.error('Failed to delete product:', response);
+      }
+    } catch (error) {
+      console.error('Error deleting product:', error);
+    }
+  };
+  
+
+  const handleButtonEdit = async (id: number) => {
+    console.log("Edit:", id);
+  };
+  
   useEffect(() => {
     dispatch(getProductsAsync({
       page: paginationModel.page,
@@ -44,7 +68,7 @@ const Products = () => {
   }, [paginationModel.page]);
   
 
-  const getSelectedItemsText = (count: number) => {/*  */
+  const getSelectedItemsText = (count: number) => {
     const lastTwoDigits = count % 100;
     const lastDigit = count % 10;
   
@@ -57,58 +81,53 @@ const Products = () => {
     }
   };
 
-  const addProduct = async () => {
-    console.log("click");
-    // try {
-    //   const response = await api.post("/api/product", {
-    //     name: "Hair Mask", 
-    //     description: "Product description",
-    //     price: 1250,
-    //     discount: 5,
-    //     count: 100,
-    //     novelty: true,
-    //     hit: false,
-    //     subcategoryId: 1,
-    //     brandId: 1,
-    //   }, {
-    //     headers: {
-    //       Authorization: authToken,
-    //     },
-    //   });
-
-    //   if (response.status === 200 || response.status === 201) {
-    //     const updatedResponse = await api.get(`/api/product?page=${paginationModel.page + 1}&pageSize=${paginationModel.pageSize}`);
-    //     const updatedProductsRes: ProductsResponse = updatedResponse.data;
-    //     setProductsArray(updatedProductsRes.rows);
-    //   } else {
-    //     console.error('Failed to add product:', response.data);
-    //   }
-    // } catch (error) {
-    //   console.error('Error adding product:', error);
-    // }
+  const customLocaleText = {
+    footerRowSelected: (count: number): string => getSelectedItemsText(count),
+    MuiTablePagination: {
+      labelDisplayedRows: ({
+        from,
+        to,
+        count,
+      }: {
+        from: number;
+        to: number;
+        count: number;
+      }): string => `${from} - ${to} з ${count}`,
+    },
   };
 
   const columns: GridColDef[] = [
-    { field: 'id', headerName: 'ID', width: 70 },
-    // { field: 'img', headerName: 'Фото товару', width: 100 },
-    { field: 'name', headerName: 'Назва товару', width: 250 },
-    // { field: 'category', headerName: 'Категорія', width: 100 },
-    { field: 'price', headerName: 'Ціна', width: 70 },
-    // { field: 'display', headerName: 'Відображення', width: 120 },
-    { field: 'createdAt', headerName: 'Створено', width: 150 },
+    { field: 'id', headerName: 'ID', width: 60 },
+    { field: 'img', headerName: 'Фото товару', width: 120 },
+    { field: 'name', headerName: 'Назва товару', width: 300 },
+    { field: 'category', headerName: 'Категорія', width: 120 },
+    { field: 'price', headerName: 'Ціна', width: 110, valueFormatter: (params) => `${parseInt(params.value as string).toLocaleString('ua-UA')} грн.` },
+    { field: 'display', headerName: 'Відображення', width: 140 },
+    { field: 'createdAt', headerName: 'Створено', width: 140, valueFormatter: (params) => new Date(params.value as string).toLocaleDateString() },
+    {
+      field: 'actions',
+      type: 'actions',
+      width: 100,
+      getActions: (params) => [
+        <ButtonActions icon={<EditIcon />} label="Edit" onClick={() => handleButtonEdit(params.row.id)}/>,
+        <ButtonActions icon={<DeleteIcon />} label="Delete" onClick={() => handleButtonDelete(params.row.id)}/>,
+      ],
+    }
   ];
 
 
   return (
     <ProductsWallpaper>
-      <SubHeaderProduct>
-      <Typography variant="h3">Товари</Typography>
-      <ProductNewProductButton onClick={() => addProduct()}>СТВОРИТИ НОВИЙ</ProductNewProductButton>
-      </SubHeaderProduct>
-      <ToolsPanel />
+      <ProductsHeader>
+        <SubHeaderProduct>
+          <Typography variant="h3">Товари</Typography>
+          <ProductNewProductButton>СТВОРИТИ НОВИЙ</ProductNewProductButton>
+        </SubHeaderProduct>
+        <ToolsPanel />
+      </ProductsHeader>
       <ProductTable>
       {productsArray && productsArray.length > 0 ? (
-          <DataGrid
+          <ProductsTable
             rows={productsArray}
             rowCount={rowCountState}
             columns={columns}
@@ -123,13 +142,7 @@ const Products = () => {
             rowSelectionModel={rowSelectionModel}
             disableColumnMenu={true}
             paginationMode="server"
-            localeText={{
-              footerRowSelected: (count) => getSelectedItemsText(count),
-                MuiTablePagination: {
-                  labelDisplayedRows: ({ from, to, count }) =>
-                    `${from} - ${to} з ${count}`,
-                },
-            }}
+            localeText={customLocaleText}
           />
         ) : (
           <div>Oops!</div>
