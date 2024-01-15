@@ -9,7 +9,7 @@
   align-items: flex-start;
   gap: 12px;
   h5 {
-    @extend .Roboto700-20-23;
+    @include font($fs-xl, $fw-bold, $flh-m);
     color: $main-text-color;
   }
   .toggle {
@@ -24,7 +24,7 @@
     border: none;
     position: relative;
     transition: background-color 0.3s;
-    @extend .Roboto400-16-18;
+    @include font();
     .toggleCircle {
       width: 24px;
       height: 24px;

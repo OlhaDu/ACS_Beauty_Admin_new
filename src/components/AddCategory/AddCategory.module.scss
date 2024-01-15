@@ -10,7 +10,7 @@
   align-items: center;
 }
 h4 {
-  @extend .Roboto500-20-23;
+  @include font($fs-xl, $fw-medium, $flh-m);
   color: $main-text-color;
   display: flex;
   justify-content: center;

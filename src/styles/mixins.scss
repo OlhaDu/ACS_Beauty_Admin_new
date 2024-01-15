@@ -83,3 +83,9 @@
   border: $border;
   border-radius: $border-radius;
 }
+
+@mixin font($size: 16px, $weight: 400, $height: 18.75px) {
+  font-weight: $weight;
+  font-size: $size;
+  line-height: $height;
+}

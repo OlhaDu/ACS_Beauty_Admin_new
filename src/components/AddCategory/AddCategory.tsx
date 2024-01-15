@@ -10,7 +10,7 @@ import { FormikHelpers } from "formik"
 import { FC, useRef } from "react"
 
 const AddCategory: FC<IAddCategory> = ({ setIsAddCategoryActive }) => {
-  const bgImgEl = useRef<{ clearBgImg: () => void }>(null)
+  const bgImageRef = useRef<HTMLDivElement>(null)
 
   const closeAddCategory = () => setIsAddCategoryActive(false)
 
@@ -26,7 +26,7 @@ const AddCategory: FC<IAddCategory> = ({ setIsAddCategoryActive }) => {
       {
         fields: [
           {
-            component: <AddImageInput ref={bgImgEl} />,
+            component: <AddImageInput bgImageRef={bgImageRef} />,
           },
         ],
       },
@@ -44,11 +44,13 @@ const AddCategory: FC<IAddCategory> = ({ setIsAddCategoryActive }) => {
       },
     ],
     onSubmit: async (value: IInitialValues, { resetForm }: FormikHelpers<IInitialValues>) => {
-      const res = await api.addCategory(value)
-      if (res.data) {
+      try {
+        await api.addCategory(value)
         resetForm()
-        const el = bgImgEl.current
-        if (el) el.clearBgImg()
+        const el = bgImageRef.current
+        if (el) el.style.background = ""
+      } catch (error) {
+        alert(error)
       }
     },
     isToggler: false,

@@ -7,10 +7,12 @@
   color: $main-text-color;
 }
 .subTitle {
-  @extend .Roboto700-20-23, .form;
+  @extend .form;
+  @include font($fs-xl, $fw-bold, $flh-m);
 }
 .label {
-  @extend .Roboto600-16-18, .form;
+  @extend .form;
+  @include font($fs-m, $fw-semi-bold, $flh-sm);
 }
 .field {
   @extend .Roboto400-16-18;
@@ -26,9 +28,9 @@
   width: 197px;
 }
 .error {
-  @extend .Roboto400-16-18;
   margin-top: $margin-second;
   color: $error-text-color;
+  @include font();
 }
 .disabled {
   background: $toggler-off-color;

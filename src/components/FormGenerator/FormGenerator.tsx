@@ -4,15 +4,16 @@ import Toggler from "../Toggler/Toggler"
 import VioletButton from "../VioletButton"
 import { Fragment, ReactNode } from "react"
 import { IForm } from "src/types"
-import classNames from "classnames"
+import cn from "classnames"
 
 const FormGenerator = <T extends FormikValues>(props: IForm<T>) => {
   const { initialValues, validationSchema, groups, onSubmit, isToggler } = props
+
   return (
     <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={onSubmit}>
       {props => {
         const { errors, touched, isValid, dirty } = props
-        const btnClasses = classNames(s.button, { [s.disabled]: !dirty || !isValid })
+        const btnClasses = cn(s.button, { [s.disabled]: !dirty || !isValid })
         return (
           <Form className={s.form}>
             {groups.map(({ group, fields }, ind) => (
@@ -39,7 +40,7 @@ const FormGenerator = <T extends FormikValues>(props: IForm<T>) => {
                         )}
                       </>
                     )}
-                    {Component && <>{Component}</>}
+                    <>{Component}</>
                   </Fragment>
                 ))}
               </Fragment>
