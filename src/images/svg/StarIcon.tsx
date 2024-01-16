@@ -1,13 +1,13 @@
 import React, { FC } from "react";
 
-interface StarIconnProps {
+interface StarIconProps {
   width?: number;
-  height?: number;
+  height?: number
   fill?: string;
   stroke?: string;
 }
 
-const StarIcon: FC<StarIconnProps> = ({
+const StarIcon: FC<StarIconProps> = ({
   width = 24,
   height = 24,
   fill = "white",
