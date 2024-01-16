@@ -11,13 +11,13 @@
     width: inherit;
     height: inherit;
     outline: none;
-    color: #5c5e60;
-    font-size: 16px;
-    font-weight: 400;
     padding: 10px;
-    border: $default-border;
 
-    &:focus + .searchIcon {
+    @include text();
+    @include border();
+
+    &:focus + .searchIcon,
+    &:not(:placeholder-shown) + .searchIcon {
       left: 95%;
     }
   }
@@ -27,6 +27,6 @@
     left: 5%;
     top: 50%;
     transform: translate(-50%, -50%);
-    transition: left 0.3s ease-out, right 0.3s ease-out;
+    transition: left $transition;
   }
 }

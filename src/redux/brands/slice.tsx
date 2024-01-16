@@ -1,13 +1,13 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { IBrand } from "src/api/brands/types";
 import {
   getBrands,
   createNewBrand,
   deleteBrand,
-  updateBrand,
-  IBrand,
+  patchBrand,
 } from "./operations";
 
-interface BrandsState {
+export interface BrandsState {
   count: number;
   brands: IBrand[];
   isLoading: boolean;
@@ -42,12 +42,9 @@ const brandsSlice = createSlice({
     },
 
     deleteBrand: (state, action) => {
-      const index = state.brands.findIndex(
-        (brand) => brand.id === action.payload.id
+      state.brands = state.brands.filter(
+        (brand) => brand.id !== action.payload.id
       );
-
-      if (index === -1) return;
-      state.brands.splice(index, 1);
       state.count -= 1;
     },
   },
@@ -71,13 +68,13 @@ const brandsSlice = createSlice({
       })
       .addCase(createNewBrand.rejected, handleRejected)
 
-      .addCase(updateBrand.pending, handlePending)
-      .addCase(updateBrand.fulfilled, (state, action) => {
+      .addCase(patchBrand.pending, handlePending)
+      .addCase(patchBrand.fulfilled, (state, action) => {
         brandsSlice.caseReducers.updateBrand(state, action);
         state.isLoading = false;
         state.error = null;
       })
-      .addCase(updateBrand.rejected, handleRejected)
+      .addCase(patchBrand.rejected, handleRejected)
 
       .addCase(deleteBrand.pending, handlePending)
       .addCase(deleteBrand.fulfilled, (state, action) => {

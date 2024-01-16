@@ -6,14 +6,14 @@ import IconButton from "@mui/material/IconButton";
 import DialogTitle from "@mui/material/DialogTitle";
 import DialogContent from "@mui/material/DialogContent";
 
-interface IModalWindowProps {
+interface IProps {
   children: ReactNode;
   title: string;
   onClose: () => void;
   isOpenModal: boolean;
 }
 
-const ModalWindow: React.FC<IModalWindowProps> = ({
+const ModalWindow: React.FC<IProps> = ({
   children,
   title,
   onClose,
@@ -29,8 +29,7 @@ const ModalWindow: React.FC<IModalWindowProps> = ({
       <DialogTitle
         sx={{
           color: "#5C5E60",
-          fontSize: 16,
-          fontWeight: 700,
+          fontSize: 20,
           textAlign: "center",
           p: 3,
         }}
@@ -54,10 +53,7 @@ const ModalWindow: React.FC<IModalWindowProps> = ({
       </IconButton>
       <DialogContent
         sx={{
-          p: 0,
-          pb: 3,
-          pr: 3,
-          pl: 3,
+          p: "0 24px 24px",
           width: 630,
         }}
       >

@@ -4,11 +4,7 @@ import { useState } from "react";
 import { columns } from "./columns";
 import { useAppDispatch } from "src/redux/store";
 import { deleteBrand } from "src/redux/brands/operations";
-import {
-  selectBrands,
-  selectCount,
-  selectIsLoading,
-} from "src/redux/brands/selectors";
+import { selectBrands, selectCount } from "src/redux/brands/selectors";
 
 import Box from "@mui/material/Box";
 import EditIcon from "@mui/icons-material/Edit";
@@ -29,21 +25,20 @@ interface IPaginationModel {
   pageSize: number;
 }
 
-interface IBrandsTableProps {
+interface IProps {
   paginationModel: IPaginationModel;
   setPaginationModel: (params: IPaginationModel) => void;
 }
 
-const BrandsTableComponent: React.FC<IBrandsTableProps> = ({
+const BrandsTable: React.FC<IProps> = ({
   paginationModel,
   setPaginationModel,
 }) => {
   const dispatch = useAppDispatch();
   const brands = useSelector(selectBrands);
   const count = useSelector(selectCount);
-  const isLoading = useSelector(selectIsLoading);
 
-  const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
+  const [isOpenModal, setIsOpenModal] = useState(false);
   const [selectedBrand, setSelectedBrand] = useState<GridRowId | null>(null);
 
   const actionsColumn: GridColDef = {
@@ -91,62 +86,52 @@ const BrandsTableComponent: React.FC<IBrandsTableProps> = ({
   tableColumns.push(actionsColumn);
 
   return (
-    !isLoading && (
-      <>
-        <Box
-          sx={{
-            width: "100%",
-            display: "flex",
+    <>
+      <Box
+        sx={{
+          ".actions": {
+            color: "text.secondary",
+          },
+          ".textPrimary": {
+            color: "text.primary",
+          },
+          ".MuiDataGrid-columnHeaders": {
+            backgroundColor: "#F8F0FB",
+          },
+          ".MuiDataGrid-cell:focus": {
+            outline: "none",
+          },
+        }}
+      >
+        <DataGrid
+          rows={brands}
+          columns={tableColumns}
+          checkboxSelection={false}
+          disableRowSelectionOnClick={true}
+          isCellEditable={() => false}
+          isRowSelectable={() => false}
+          rowCount={count}
+          paginationMode="server"
+          paginationModel={paginationModel}
+          onPaginationModelChange={setPaginationModel}
+          pageSizeOptions={[10, 25, 50, 100]}
+          columnHeaderHeight={44}
+          rowHeight={107}
+        />
+      </Box>
 
-            flexDirection: "column",
-
-            "& .actions": {
-              color: "text.secondary",
-            },
-            "& .textPrimary": {
-              color: "text.primary",
-            },
-            "& .MuiDataGrid-columnHeaders": {
-              backgroundColor: "#F8F0FB",
-            },
-            ".MuiDataGrid-cell:focus": {
-              outline: "none",
-            },
-          }}
-        >
-          <DataGrid
-            rows={brands}
-            columns={tableColumns}
-            checkboxSelection={false}
-            disableRowSelectionOnClick={true}
-            isCellEditable={() => false}
-            isRowSelectable={() => false}
-            rowCount={count}
-            paginationModel={paginationModel}
-            onPaginationModelChange={setPaginationModel}
-            pageSizeOptions={[10, 25, 50, 100]}
-            columnHeaderHeight={44}
-            rowHeight={107}
-          />
-        </Box>
-
-        <ModalWindow
-          title={"ДОДАТИ БРЕНД"}
+      <ModalWindow
+        title={"ДОДАТИ БРЕНД"}
+        onClose={() => setIsOpenModal(false)}
+        isOpenModal={isOpenModal}
+      >
+        <BrandManagementForm
+          brand={brands.find((brand) => brand.id === selectedBrand)}
           onClose={() => setIsOpenModal(false)}
-          isOpenModal={isOpenModal}
-        >
-          <BrandManagementForm
-            brand={
-              selectedBrand
-                ? brands.find((brand) => brand.id === selectedBrand)
-                : null
-            }
-            onClose={() => setIsOpenModal(false)}
-          />
-        </ModalWindow>
-      </>
-    )
+        />
+      </ModalWindow>
+    </>
   );
 };
 
-export default BrandsTableComponent;
+export default BrandsTable;

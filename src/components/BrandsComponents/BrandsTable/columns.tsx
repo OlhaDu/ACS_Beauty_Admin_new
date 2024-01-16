@@ -1,12 +1,6 @@
+import moment from "moment";
+import noImage from "src/images/photo/no_image.png";
 import { GridColDef } from "@mui/x-data-grid";
-
-const formatDate = (dateString: string): string => {
-  const date = new Date(dateString);
-  const day = date.getDate().toString().padStart(2, "0");
-  const month = (date.getMonth() + 1).toString().padStart(2, "0");
-  const year = date.getFullYear();
-  return `${day}.${month}.${year}`;
-};
 
 export const columns: GridColDef[] = [
   {
@@ -26,7 +20,7 @@ export const columns: GridColDef[] = [
     headerAlign: "center",
     renderCell: (params) => (
       <img
-        src={params.value as string}
+        src={(params.value as string) || noImage}
         alt="Logo"
         style={{ width: "138px", height: "97px", objectFit: "contain" }}
       />
@@ -53,6 +47,6 @@ export const columns: GridColDef[] = [
     type: "string",
     width: 102,
     editable: true,
-    valueGetter: (params) => formatDate(params.row.createdAt),
+    valueGetter: (params) => moment(params.row.createdAt).format("DD.MM.YYYY"),
   },
 ];

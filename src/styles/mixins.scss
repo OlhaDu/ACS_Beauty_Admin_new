@@ -1,5 +1,16 @@
 @import "/src/styles/variables.scss";
 
+@mixin text($color: $main-text-color, $font-size: 16px, $font-weight: 400) {
+  color: $color;
+  font-size: $font-size;
+  font-weight: $font-weight;
+}
+
+@mixin border($radius: 4px, $border: $default-border) {
+  border: $border;
+  border-radius: $radius;
+}
+
 .Roboto400-14 {
   font-size: 14px;
   line-height: normal;
@@ -58,23 +69,25 @@
   align-items: center;
   cursor: pointer;
 }
+
 .Violet-button-styles {
   // in use
-  @extend .Roboto600-16-18;
-  width: 197px;
-  height: 43px;
-  padding: 12px 9px;
-  background-color: $main-color;
-  border: none;
-  border-radius: 4px;
   display: flex;
   justify-content: center;
   align-items: center;
-  color: $second-text-color;
-  letter-spacing: 1px;
+
+  width: 197px;
+  height: 43px;
+  padding: 12px 9px;
+
+  @include text($color: $second-color, $font-weight: 600);
+  @include border($border: none);
+
+  background-color: $main-color;
   text-transform: uppercase;
   cursor: pointer;
 }
+
 .Disabled-button-styles {
   opacity: 0.5;
   cursor: not-allowed;

@@ -3,7 +3,6 @@
 
 .brand_form {
   display: grid;
-
   gap: 24px;
 }
 
@@ -12,8 +11,7 @@
   height: 175px;
   object-fit: contain;
   background-position: center;
-  border-radius: 4px;
-  border: $dashed-border;
+  @include border($border: $dashed-border);
 }
 
 .brand_form__image_container {
@@ -47,14 +45,12 @@
 
   width: 581px;
   height: 175px;
-  border: $dashed-border;
+  @include border($border: $dashed-border);
   cursor: pointer;
 }
 
 .brand_form__download_text {
-  color: $main-text-color;
-  font-weight: 500;
-  font-size: 16px;
+  @include text($font-weight: 500);
 }
 
 .brand_form__image_input {
@@ -68,34 +64,38 @@
 }
 
 .brand_form__label {
-  color: $main-text-color;
-  font-size: 16px;
-  font-weight: 600;
+  @include text($font-weight: 600);
 }
 
 .brand_form__input {
   height: 44px;
-  border-radius: 4px;
-  border: $default-border;
   padding: 10px;
+  @include border();
 
   &:focus {
-    border: $active-field-border;
+    @include border($border: $active-field-border);
     outline: transparent;
   }
 }
 
+.brand_form__text_error {
+  @include text($color: #d55e5e);
+}
+
 .brand_form__textarea {
   height: 152px;
-  border-radius: 4px;
-  border: $default-border;
   padding: 10px;
   resize: none;
+  @include border();
 
   &:focus {
-    border: $active-field-border;
+    @include border($border: $active-field-border);
     outline: transparent;
   }
+}
+
+.brand_form__error {
+  @include border($border: $error-field-border);
 }
 
 .brand_form__button {

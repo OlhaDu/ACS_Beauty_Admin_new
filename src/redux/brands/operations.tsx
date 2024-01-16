@@ -1,43 +1,18 @@
-import axios from "axios";
-import { createAsyncThunk } from "@reduxjs/toolkit";
 import { GridRowId } from "@mui/x-data-grid";
+import { createAsyncThunk } from "@reduxjs/toolkit";
+import { brandsApi } from "src/api/brands/brandsApi";
+import {
+  IGetBrandsParams,
+  IBrand,
+  IDeleteBrandResponse,
+  IResponse,
+} from "src/api/brands/types";
 
-const token =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzIsImVtYWlsIjoiYWRtaXdlMjM0MzI0MmZ3ZW5Ad2Vmd2UyMy5jb20iLCJpc0FkbWluIjoidHJ1ZSIsImlhdCI6MTcwMzU2OTU4NCwiZXhwIjoxNzExMzQ1NTg0fQ.ZCj9Ub0jTLqCOtKTDI1CA-8hDDsLGOcp1-0qgVXMDr8";
-
-axios.defaults.baseURL = "http://13.50.16.182:5000/api/brand";
-axios.defaults.headers.common.Authorization = `Bearer ${token}`;
-
-interface GetBrandsParams {
-  page?: number;
-  pageSize?: number;
-  lookup?: string;
-}
-
-export interface IBrand {
-  id: number;
-  logo: string;
-  name: string;
-  description: string;
-  createdAt: string;
-}
-
-interface DeleteBrandResponse {
-  id: GridRowId;
-}
-
-interface BrandData {
-  count: number;
-  rows: IBrand[];
-}
-
-export const getBrands = createAsyncThunk<BrandData, GetBrandsParams>(
+export const getBrands = createAsyncThunk<IResponse, IGetBrandsParams>(
   "brands/getBrands",
-  async ({ page = 1, pageSize = 10, lookup = "" }, { rejectWithValue }) => {
+  async (credentials, { rejectWithValue }) => {
     try {
-      const { data } = await axios.get<BrandData>(
-        `?page=${page}&pageSize=${pageSize}${lookup ? `&lookup=${lookup}` : ""}`
-      );
+      const { data } = await brandsApi.getBrands(credentials);
 
       return data;
     } catch (error: unknown) {
@@ -50,7 +25,7 @@ export const createNewBrand = createAsyncThunk<IBrand, FormData>(
   "brands/createNewBrand",
   async (formData, { rejectWithValue }) => {
     try {
-      const { data } = await axios.post<IBrand>("", formData);
+      const { data } = await brandsApi.postBrand(formData);
 
       return data;
     } catch (error: unknown) {
@@ -59,12 +34,12 @@ export const createNewBrand = createAsyncThunk<IBrand, FormData>(
   }
 );
 
-export const updateBrand = createAsyncThunk<
+export const patchBrand = createAsyncThunk<
   IBrand,
   { id: GridRowId; formData: FormData }
->("brands/updateBrand", async ({ id, formData }, { rejectWithValue }) => {
+>("brands/patchBrand", async ({ id, formData }, { rejectWithValue }) => {
   try {
-    const { data } = await axios.patch<IBrand>(`/${id}`, formData);
+    const { data } = await brandsApi.patchBrand(id, formData);
 
     return data;
   } catch (error: unknown) {
@@ -72,11 +47,11 @@ export const updateBrand = createAsyncThunk<
   }
 });
 
-export const deleteBrand = createAsyncThunk<DeleteBrandResponse, GridRowId>(
+export const deleteBrand = createAsyncThunk<IDeleteBrandResponse, GridRowId>(
   "brands/deleteBrand",
   async (id, { rejectWithValue }) => {
     try {
-      await axios.delete(`/${id}`);
+      await brandsApi.deleteBrand(id);
 
       return { id };
     } catch (error: unknown) {

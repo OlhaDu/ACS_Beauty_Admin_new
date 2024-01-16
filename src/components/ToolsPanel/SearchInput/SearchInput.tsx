@@ -2,20 +2,23 @@ import React from "react";
 import styles from "./SearchInput.module.scss";
 import SearchIcon from "src/images/svg/SearchIcon";
 
-interface ISearchInputProps {
-  value: string;
+import { DebounceInput } from "react-debounce-input";
+
+interface IProps {
   onChange: (value: string) => void;
 }
 
-const SearchInput: React.FC<ISearchInputProps> = ({ value, onChange }) => {
+const SearchInput: React.FC<IProps> = ({ onChange }) => {
   return (
     <div className={styles.searchInputContainer}>
-      <input
-        type="text"
-        className={styles.searchInput}
-        value={value}
+      <DebounceInput
+        minLength={2}
+        debounceTimeout={300}
         onChange={(e) => onChange(e.target.value)}
+        placeholder=""
+        className={styles.searchInput}
       />
+
       <SearchIcon className={styles.searchIcon} />
     </div>
   );
