@@ -6,13 +6,18 @@ import ArrowToRight from "src/images/svg/ArrowToRight"
 import Border from "../Border"
 import { FC } from "react"
 import { ICategory } from "src/types"
+import { useAppDispatch, useAppSelector } from "src/redux/selectors"
+import { setActiveCategory } from "src/redux/slices/categoriesSlice"
+import SubCategories from "../SubCategories"
+import { selectActiveCategory } from "src/redux/hooks"
 
 const Category: FC<ICategory> = props => {
-  const { category, activeCategory, setActiveCategory, children } = props
+  const { category } = props
+  const dispatch = useAppDispatch()
+  const activeCategory = useAppSelector(selectActiveCategory)
 
   const onArrowRightBtnClick = () => {
-    if (!setActiveCategory) return
-    setActiveCategory(category)
+    dispatch(setActiveCategory(category))
   }
 
   return (
@@ -32,7 +37,7 @@ const Category: FC<ICategory> = props => {
           </button>
         )}
       </div>
-      {children}
+      {activeCategory && <SubCategories subcategories={activeCategory.subcategories} />}
     </Border>
   )
 }
