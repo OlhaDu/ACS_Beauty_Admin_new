@@ -1,10 +1,11 @@
 import { useFormikContext } from "formik"
-import { ChangeEvent, FC, ReactNode, RefObject } from "react"
+import { ChangeEvent, FC, ReactNode } from "react"
 import AddIcon from "src/images/svg/AddIcon_"
 import Border from "../Border"
 import s from "./AddImageInput.module.scss"
+import { IAddImageInput } from "src/types"
 
-const AddImageInput: FC<{ bgImageRef: null | RefObject<HTMLDivElement> }> = ({ bgImageRef }) => {
+const AddImageInput: FC<IAddImageInput> = ({ bgImageRef }) => {
   const { setFieldValue, errors } = useFormikContext<{ image: File }>()
 
   const onInputLoadImageClick = async (e: ChangeEvent<HTMLInputElement>) => {

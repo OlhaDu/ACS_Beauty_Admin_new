@@ -11,8 +11,7 @@ import { setActiveCategory } from "src/redux/slices/categoriesSlice"
 import SubCategories from "../SubCategories"
 import { selectActiveCategory } from "src/redux/hooks"
 
-const Category: FC<ICategory> = props => {
-  const { category } = props
+const Category: FC<ICategory> = ({ category }) => {
   const dispatch = useAppDispatch()
   const activeCategory = useAppSelector(selectActiveCategory)
 
