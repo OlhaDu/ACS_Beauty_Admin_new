@@ -7,12 +7,11 @@ import AddImageInput from "../AddImageInput"
 import { api } from "src/api"
 import { IAddCategory, IInitialValues } from "src/types"
 import { FormikHelpers } from "formik"
-import { FC, useRef } from "react"
+import { FC, useState } from "react"
 
 const AddCategory: FC<IAddCategory> = ({ setIsAddCategoryActive }) => {
-  const bgImageRef = useRef<HTMLDivElement>(null)
-
   const closeAddCategory = () => setIsAddCategoryActive(false)
+  const [logo, setLogo] = useState<string | null>("")
 
   const addCategoryForm = {
     initialValues: {
@@ -26,7 +25,7 @@ const AddCategory: FC<IAddCategory> = ({ setIsAddCategoryActive }) => {
       {
         fields: [
           {
-            component: <AddImageInput bgImageRef={bgImageRef} />,
+            component: <AddImageInput categoryName="newCategory" logo={logo} />,
           },
         ],
       },
@@ -46,9 +45,8 @@ const AddCategory: FC<IAddCategory> = ({ setIsAddCategoryActive }) => {
     onSubmit: async (value: IInitialValues, { resetForm }: FormikHelpers<IInitialValues>) => {
       try {
         await api.addCategory(value)
+        setLogo(null)
         resetForm()
-        const el = bgImageRef.current
-        if (el) el.style.background = ""
       } catch (error) {
         alert(error)
       }

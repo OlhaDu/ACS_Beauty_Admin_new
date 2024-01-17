@@ -1,46 +1,60 @@
 import { useFormikContext } from "formik"
-import { ChangeEvent, FC, ReactNode } from "react"
+import { ChangeEvent, FC, ReactNode, useEffect, useRef, useState } from "react"
 import AddIcon from "src/images/svg/AddIcon_"
 import Border from "../Border"
 import s from "./AddImageInput.module.scss"
 import { IAddImageInput } from "src/types"
+import CloseIcon from "src/images/svg/CloseIcon_"
 
-const AddImageInput: FC<IAddImageInput> = ({ bgImageRef }) => {
+const AddImageInput: FC<IAddImageInput> = ({ categoryName, logo }) => {
   const { setFieldValue, errors } = useFormikContext<{ image: File }>()
+  const [image, setImage] = useState(logo || "")
+  const inputRef = useRef<HTMLInputElement>(null)
 
-  const onInputLoadImageClick = async (e: ChangeEvent<HTMLInputElement>) => {
-    if (!e.currentTarget.files) return
+  useEffect(() => {
+    setImage(logo || "")
+  }, [logo])
+
+  const handleImageChange = async (e: ChangeEvent<HTMLInputElement>) => {
+    if (!e.currentTarget.files?.length) return
+
     const file = e.currentTarget.files[0]
-    if (!file) return
     setFieldValue("image", file)
-    const reader = new FileReader()
-    reader.onload = () => {
-      if (bgImageRef && bgImageRef.current) {
-        const el = bgImageRef.current
-        el.style.background = `center / contain no-repeat url(${reader.result})`
-      }
-    }
-    reader.readAsDataURL(file)
+
+    const imageUrl = URL.createObjectURL(file)
+    setImage(imageUrl)
   }
+
+  const handleCloseIconClick = () => {
+    setImage("")
+    setFieldValue("image", null)
+  }
+
+  const handleAddIconClick = () => inputRef.current?.click()
 
   return (
     <>
-      <div ref={bgImageRef}>
-        <Border border="borderDashed" className={s.borderAddImg}>
-          <label htmlFor="image" className={s.label}>
-            <input
-              name="image"
-              id="image"
-              type="file"
-              accept="image/*"
-              className={s.input}
-              onChange={onInputLoadImageClick}
-            />
-            <AddIcon className={s.addIcon} />
-            <p className={s.actionNave}>Додати зображення</p>
-          </label>
-        </Border>
-      </div>
+      <Border border="borderDashed" className={s.add_img__border}>
+        {image ? (
+          <div className={s.add_img__image_container}>
+            <img src={image} alt={categoryName} className={s.add_img__image} />
+            <CloseIcon onClick={handleCloseIconClick} className={s.add_img__add_close_icon} />
+          </div>
+        ) : (
+          <div onClick={handleAddIconClick} className={s.add_img__load_container}>
+            <AddIcon className={s.add_img__add_icon} />
+            <p className={s.add_img__text}>Додати зображення</p>
+          </div>
+        )}
+        <input
+          name="image"
+          type="file"
+          accept="image/*"
+          className={s.add_img__input}
+          onChange={handleImageChange}
+          ref={inputRef}
+        />
+      </Border>
       {errors.image && <p className={s.error}>{errors.image as ReactNode}</p>}
     </>
   )
