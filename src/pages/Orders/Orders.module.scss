@@ -18,7 +18,7 @@
 .main__title_text {
   padding-bottom: 48px;
   color: #5c5e60;
-  @extend .Roboto500-24-28;
+  @include textStyle(500, 24px, 28px);
 }
 
 .features {

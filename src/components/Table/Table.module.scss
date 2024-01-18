@@ -4,18 +4,18 @@
 .table {
   height: 400;
   width: "100%";
+}
 
-  .headerCell {
-    background-color: $second-color;
-  }
+.headerCell {
+  background-color: $second-color;
+}
 
-  .actionButtons {
-    display: flex;
-    gap: 10px;
+.actionButtons {
+  display: flex;
+  gap: 10px;
+}
 
-    .svg {
-      width: 30px;
-      height: 30px;
-    }
-  }
+.svg {
+  width: 30px;
+  height: 30px;
 }

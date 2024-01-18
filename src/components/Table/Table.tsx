@@ -4,49 +4,38 @@ import * as React from "react";
 import {DataGrid, GridColDef} from "@mui/x-data-grid";
 import DeleteIcon from "../../images/svg/DeleteIcon.tsx";
 import EditIcon from "../../images/svg/EditIcon.tsx";
+import {OrdersColumn, OrdersRow} from "../../types/IOrders.ts";
 
-interface Column {
-    field: string;
-    headerName: string;
-    type?: string;
-    width: number;
+
+interface Props {
+    columns: OrdersColumn[];
+    rows: OrdersRow[];
+    onEdit: (id: number) => void;
+    onDelete: (id: number) => void;
 }
 
-interface Row {
-    [key: string]: number | string;
-}
+const Table: React.FC<Props> = ({columns, rows, onEdit, onDelete}) => {
 
-interface DataTableProps {
-    columns: Column[];
-    rows: Row[];
-    onEdit?: (id: number) => void;
-    onDelete?: (id: number) => void;
-}
 
-const DataTable: React.FC<DataTableProps> = ({columns, rows, onEdit, onDelete}) => {
-    const hasActions = onDelete || onEdit;
-
-    const columnsWithActions: GridColDef[] = hasActions
-        ? [
-            ...columns,
-            {
-                field: 'actions',
-                headerName: 'ДіЇ',
-                width: 100,
-                renderCell: (params) => (
-                    <div className={s.actionButtons}>
-                        {onEdit && (
-                            <button onClick={() => onEdit && onEdit(params.row.id as number)}>
-                                <EditIcon className={s.svg}/>
-                            </button>)}
-                        {onDelete && (<button onClick={() => onDelete && onDelete(params.row.id as number)}>
-                            <DeleteIcon className={s.svg}/>
-                        </button>)}
-                    </div>
-                ),
-            },
-        ]
-        : columns;
+    const columnsWithActions: GridColDef[] = [
+        ...columns,
+        {
+            field: 'actions',
+            headerName: 'ДіЇ',
+            width: 100,
+            renderCell: (params) => (
+                <div className={s.actionButtons}>
+                    <button onClick={() => onEdit(params.row.id as number)}>
+                        <EditIcon className={s.svg}/>
+                    </button>
+                    <button onClick={() => onDelete(params.row.id as number)}>
+                        <DeleteIcon className={s.svg}/>
+                    </button>
+                </div>
+            ),
+            headerClassName: s.headerCell,
+        },
+    ];
 
     columnsWithActions.forEach((column) => {
         column.headerClassName = s.headerCell;
@@ -68,4 +57,4 @@ const DataTable: React.FC<DataTableProps> = ({columns, rows, onEdit, onDelete}) 
     );
 };
 
-export default DataTable;
+export default Table;

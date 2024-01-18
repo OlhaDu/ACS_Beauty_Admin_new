@@ -1,9 +1,9 @@
-import styles from './Orders.module.scss'
+import s from './Orders.module.scss'
 import AdminLayout from "../../layouts/AdminLayout";
 import SearchInput from "../../components/ToolsPanel/SearchInput/SearchInput";
 import Select from "../../components/ToolsPanel/Select/Select";
 import FilterIcon from "../../images/svg/FilterIcon";
-import DataTable from "../../components/Table/Table";
+import Table from "../../components/Table/Table";
 import ExportButton from "../../components/ToolsPanel/ExportButton/ExportButton";
 
 const filteringOptions = ["Статус", "Спосіб доставки", "Спосіб оплати"];
@@ -56,21 +56,16 @@ const rows = [
 ];
 
 const getStatusColor = (status: string) => {
-    switch (status) {
-        case "Hoве":
-            return "black";
-        case "Прийнято":
-            return "orange";
-        case "Оплачено":
-            return "green";
-        case "Виконано":
-            return "orange";
-        case "Скасовано":
-            return "red";
-        default:
-            return "black";
+    const statusToColor: Record<string, string> = {
+        Hoве: 'black',
+        Прийнято: 'orange',
+        Оплачено: 'green',
+        Виконано: 'orange',
+        Скасовано: 'red',
     }
-};
+
+    return statusToColor[status] || 'black'
+}
 
 const Orders = () => {
     const handleEdit = (id: number) => {
@@ -82,15 +77,15 @@ const Orders = () => {
     };
     return (
         <AdminLayout>
-            <main className={styles.main}>
-                <section className={styles.main__section}>
-                    <div className={styles.main__title}>
-                        <h2 className={styles.main__title_text}>Замовлення</h2>
+            <main className={s.main}>
+                <section className={s.main__section}>
+                    <div className={s.main__title}>
+                        <h2 className={s.main__title_text}>Замовлення</h2>
                     </div>
-                    <div className={styles.main__user_search}>
-                        <div className={styles.features}>
+                    <div className={s.main__user_search}>
+                        <div className={s.features}>
                             <SearchInput/>
-                            <div className={styles.tools}>
+                            <div className={s.tools}>
                                 <Select
                                     options={filteringOptions}
                                     icon={<FilterIcon/>}
@@ -100,7 +95,7 @@ const Orders = () => {
                             </div>
                         </div>
                     </div>
-                    <DataTable
+                    <Table
                         columns={columns}
                         rows={rows}
                         onEdit={handleEdit}

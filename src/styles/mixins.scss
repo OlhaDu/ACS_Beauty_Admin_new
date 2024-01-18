@@ -4,19 +4,23 @@
   font-size: 14px;
   line-height: normal;
 }
+
 .Roboto400-16-18 {
   line-height: 18.75px;
 }
+
 .Roboto400-20-23 {
   // in use
   font-size: 20px;
   line-height: 23.44px;
 }
+
 .Roboto600-16-18 {
   // in use
   font-weight: 600;
   line-height: 18.75px;
 }
+
 .Roboto500-20-23 {
   font-weight: 500;
   font-size: 20px;
@@ -29,20 +33,24 @@
   font-size: 24px;
   line-height: 28.13px;
 }
+
 .Roboto700-16-18 {
   font-weight: 700;
   line-height: 18.75px;
 }
+
 .Roboto700-24-28 {
   font-weight: 700;
   font-size: 24px;
   line-height: 28px;
 }
+
 .Roboto700-48-56 {
   font-weight: 700;
   font-size: 48px;
   line-height: 56px;
 }
+
 .Icon-main-style {
   width: 52px;
   height: 52px;
@@ -53,6 +61,7 @@
   align-items: center;
   cursor: pointer;
 }
+
 .Violet-button-styles {
   @extend .Roboto600-16-18;
   padding: 12px 9px;
@@ -67,7 +76,15 @@
   text-transform: uppercase;
   cursor: pointer;
 }
+
 .Disabled-button-styles {
   opacity: 0.5;
   cursor: not-allowed;
+}
+
+
+@mixin textStyle($font-weight, $font-size, $line-height) {
+  font-weight: $font-weight;
+  font-size: $font-size;
+  line-height: $line-height;
 }
