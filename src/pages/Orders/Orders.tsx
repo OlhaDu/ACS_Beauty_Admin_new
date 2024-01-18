@@ -5,69 +5,76 @@ import Select from "../../components/ToolsPanel/Select/Select";
 import FilterIcon from "../../images/svg/FilterIcon";
 import Table from "../../components/Table/Table";
 import ExportButton from "../../components/ToolsPanel/ExportButton/ExportButton";
+import ChangeOrderStatusPopup from "../../components/Popups/ChangeOrderStatusPopup/ChangeOrderStatusPopup.tsx";
+import {useState} from "react";
 
 const filteringOptions = ["Статус", "Спосіб доставки", "Спосіб оплати"];
 
-const columns = [
-    {field: "id", headerName: "№", width: 60},
-    {field: "customer", headerName: "Клієнт", width: 120},
-    {field: "total", headerName: "Сума", width: 80},
-    {
-        field: "status", headerName: "Статус", width: 110, renderCell: (params: { value: any }) => (
-            <span style={{color: getStatusColor(params.value)}}>{params.value}</span>),
-    },
-    {field: "deliveryMethod", headerName: "Спосіб доставки", width: 140},
-    {field: "waybill", headerName: "ТТН", width: 140},
-    {field: "comments", headerName: "Коментарі", width: 140},
-    {field: "additionDate", headerName: "Додано", width: 130},
-];
-
-const rows = [
-    {
-        id: 34561,
-        customer: "Кузьменко М.",
-        total: "1256грн",
-        status: "Оплачено",
-        deliveryMethod: "Нова пошта",
-        waybill: "2045678567890",
-        comments: "Будь-ласка відправте",
-        additionDate: "12.06.2023"
-    },
-    {
-        id: 34562,
-        customer: "Кузьменко М.",
-        total: "1256грн",
-        status: "Виконано",
-        deliveryMethod: "Нова пошта",
-        waybill: "2045678567890",
-        comments: "Будь-ласка відправте",
-        additionDate: "12.06.2023"
-    },
-    {
-        id: 34563,
-        customer: "Кузьменко М.",
-        total: "1256грн",
-        status: "Скасовано",
-        deliveryMethod: "Нова пошта",
-        waybill: "2045678567890",
-        comments: "Будь-ласка відправте",
-        additionDate: "12.06.2023"
-    },
-];
-
-const getStatusColor = (status: string) => {
-    const statusToColor: Record<string, string> = {
-        Hoве: 'black',
-        Прийнято: 'orange',
-        Оплачено: 'green',
-        Виконано: 'orange',
-        Скасовано: 'red',
-    }
-
-    return statusToColor[status] || 'black'
-}
-
 const Orders = () => {
+    const [showModal, setShowModal] = useState(true);
+    const [chosenOrderId, setChosenOrderId] = useState(null);
+
+    const columns = [
+        {field: "id", headerName: "№", width: 60},
+        {field: "customer", headerName: "Клієнт", width: 120},
+        {field: "total", headerName: "Сума", width: 80},
+        {
+            field: "status", headerName: "Статус", width: 110, renderCell: (params: { value: string, row: { id: number } }) => (
+                <span
+                    style={{color: getStatusColor(params.value)}}
+                    onClick={() => handleShowModal(params.row.id)}
+                >{params.value}</span>),
+        },
+        {field: "deliveryMethod", headerName: "Спосіб доставки", width: 140},
+        {field: "waybill", headerName: "ТТН", width: 140},
+        {field: "comments", headerName: "Коментарі", width: 140},
+        {field: "additionDate", headerName: "Додано", width: 130},
+    ];
+
+    const rows = [
+        {
+            id: 34561,
+            customer: "Кузьменко М.",
+            total: "1256грн",
+            status: "Оплачено",
+            deliveryMethod: "Нова пошта",
+            waybill: "2045678567890",
+            comments: "Будь-ласка відправте",
+            additionDate: "12.06.2023"
+        },
+        {
+            id: 34562,
+            customer: "Кузьменко М.",
+            total: "1256грн",
+            status: "Виконано",
+            deliveryMethod: "Нова пошта",
+            waybill: "2045678567890",
+            comments: "Будь-ласка відправте",
+            additionDate: "12.06.2023"
+        },
+        {
+            id: 34563,
+            customer: "Кузьменко М.",
+            total: "1256грн",
+            status: "Скасовано",
+            deliveryMethod: "Нова пошта",
+            waybill: "2045678567890",
+            comments: "Будь-ласка відправте",
+            additionDate: "12.06.2023"
+        },
+    ];
+
+    const getStatusColor = (status: string) => {
+        const statusToColor: Record<string, string> = {
+            Hoве: 'black',
+            Прийнято: 'orange',
+            Оплачено: 'green',
+            Виконано: 'orange',
+            Скасовано: 'red',
+        }
+
+        return statusToColor[status] || 'black'
+    }
     const handleEdit = (id: number) => {
         console.log(`Edit order with id: ${id}`);
     };
@@ -75,6 +82,17 @@ const Orders = () => {
     const handleDelete = (id: number) => {
         console.log(`Delete order with id: ${id}`);
     };
+
+    const handleShowModal = (orderId: any) => {
+        setShowModal(true);
+        setChosenOrderId(orderId);
+    }
+
+    const handleHideModal = () => {
+        setShowModal(false);
+        setChosenOrderId(null)
+    }
+
     return (
         <AdminLayout>
             <main className={s.main}>
@@ -82,19 +100,18 @@ const Orders = () => {
                     <div className={s.main__title}>
                         <h2 className={s.main__title_text}>Замовлення</h2>
                     </div>
-                    <div className={s.main__user_search}>
-                        <div className={s.features}>
-                            <SearchInput/>
-                            <div className={s.tools}>
-                                <Select
-                                    options={filteringOptions}
-                                    icon={<FilterIcon/>}
-                                    toolName={"Фільтрувати"}
-                                />
-                                <ExportButton columns={columns} rows={rows}/>
-                            </div>
+                    <div className={s.features}>
+                        <SearchInput/>
+                        <div className={s.tools}>
+                            <Select
+                                options={filteringOptions}
+                                icon={<FilterIcon/>}
+                                toolName={"Фільтрувати"}
+                            />
+                            <ExportButton columns={columns} rows={rows}/>
                         </div>
                     </div>
+
                     <Table
                         columns={columns}
                         rows={rows}
@@ -102,6 +119,8 @@ const Orders = () => {
                         onDelete={handleDelete}
                     />
                 </section>
+                {showModal &&
+                  <ChangeOrderStatusPopup onClose={handleHideModal} onSuccess={handleHideModal} id={chosenOrderId}/>}
             </main>
         </AdminLayout>
     )
