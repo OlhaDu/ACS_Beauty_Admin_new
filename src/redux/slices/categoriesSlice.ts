@@ -1,11 +1,11 @@
 import type { PayloadAction } from "@reduxjs/toolkit"
 import { SerializedError, createSlice } from "@reduxjs/toolkit"
-import { ICategoryProp } from "src/types"
+import { ICategory } from "src/types"
 import { getCategories } from "../asyncThunks/getCategoriesThunk"
 
 interface IState {
-  categories: ICategoryProp[] | []
-  acitveCategory: ICategoryProp | null
+  categories: ICategory[] | []
+  acitveCategory: ICategory | null
   status: "pending" | "fulfilled" | "rejected"
   error: SerializedError | null
 }
@@ -21,7 +21,7 @@ export const categoriesSlice = createSlice({
   name: "categories",
   initialState,
   reducers: {
-    setActiveCategory(state, action: PayloadAction<ICategoryProp>) {
+    setActiveCategory(state, action: PayloadAction<ICategory | null>) {
       state.acitveCategory = action.payload
     },
   },

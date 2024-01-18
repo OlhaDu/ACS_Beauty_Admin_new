@@ -2,7 +2,7 @@ import s from "./Category.module.scss"
 import DeleteIcon from "src/images/svg/DeleteIcon_"
 import EditIcon from "src/images/svg/EditIcon"
 import AddIcon from "src/images/svg/AddIcon_"
-import ArrowToRight from "src/images/svg/ArrowToRight"
+import ArrowToRightIcon from "src/images/svg/ArrowToRightIcon"
 import Border from "../Border"
 import { FC } from "react"
 import { ICategory } from "src/types"
@@ -10,13 +10,18 @@ import { useAppDispatch, useAppSelector } from "src/redux/selectors"
 import { setActiveCategory } from "src/redux/slices/categoriesSlice"
 import SubCategories from "../SubCategories"
 import { selectActiveCategory } from "src/redux/hooks"
+import ArrowDownIcon from "src/images/svg/ArrowDownIcon"
 
-const Category: FC<ICategory> = ({ category }) => {
+const Category: FC<ICategory> = category => {
   const dispatch = useAppDispatch()
   const activeCategory = useAppSelector(selectActiveCategory)
 
-  const onArrowRightBtnClick = () => {
+  const arrowRightClickHandler = () => {
     dispatch(setActiveCategory(category))
+  }
+
+  const arrowDownClickHandler = () => {
+    dispatch(setActiveCategory(null))
   }
 
   return (
@@ -30,10 +35,10 @@ const Category: FC<ICategory> = ({ category }) => {
             <AddIcon className={s.addIcon} />
           </div>
         </div>
-        {!activeCategory && (
-          <button onClick={onArrowRightBtnClick}>
-            <ArrowToRight />
-          </button>
+        {activeCategory ? (
+          <ArrowDownIcon onClick={arrowDownClickHandler} />
+        ) : (
+          <ArrowToRightIcon onClick={arrowRightClickHandler} />
         )}
       </div>
       {activeCategory && <SubCategories subcategories={activeCategory.subcategories} />}

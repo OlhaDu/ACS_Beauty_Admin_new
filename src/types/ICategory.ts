@@ -1,13 +1,8 @@
-import { PropsWithChildren } from "react"
 import { ISubCategory } from "./"
 
-export interface ICategoryProp {
+export interface ICategory {
   id: number
   name: string
   slug: string
   subcategories: ISubCategory[]
-}
-
-export interface ICategory extends PropsWithChildren {
-  category: ICategoryProp
 }

@@ -1,7 +1,7 @@
 import { FC } from "react"
-import { ICloseIcon } from "./types"
+import { IIcon } from "./types"
 
-const CloseIcon: FC<ICloseIcon> = ({ onClick, className }) => {
+const CloseIcon: FC<IIcon> = ({ onClick, className }) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

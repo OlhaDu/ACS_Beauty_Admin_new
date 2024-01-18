@@ -29,7 +29,7 @@ const CategoriesPage = () => {
         {!activeCategory && !isAddCategoryActive && <Categories />}
         {activeCategory && !isAddCategoryActive && (
           <div className={s.categoryWrap}>
-            <Category category={activeCategory} />
+            <Category {...activeCategory} />
           </div>
         )}
       </div>
