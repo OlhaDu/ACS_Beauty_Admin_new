@@ -1,5 +1,8 @@
 export interface IAddCategory {
+  image: null | File;
   name: string;
+  description: string;
+  enabled: boolean;
 }
 
 export interface IAddUpdateSubcategory {

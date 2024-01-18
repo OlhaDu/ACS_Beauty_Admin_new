@@ -1,30 +1,44 @@
-import EditIcon from "src/images/svg/EditIcon";
-import s from "./Category.module.scss";
-import DeleteIcon from "src/images/svg/DeleteIcon";
-import AddIcon from "src/images/svg/AddIcon";
-import ArrowToRight from "src/images/svg/ArrowToRight";
-import { FC } from "react";
-import { ICategory } from "src/types";
-// import SubCategory from "../SubCategory/SubCategory";
+import s from "./Category.module.scss"
+import DeleteIcon from "src/images/svg/DeleteIcon_"
+import EditIcon from "src/images/svg/EditIcon"
+import AddIcon from "src/images/svg/AddIcon_"
+import ArrowToRight from "src/images/svg/ArrowToRight"
+import Border from "../Border"
+import { FC } from "react"
+import { ICategory } from "src/types"
+import { useAppDispatch, useAppSelector } from "src/redux/selectors"
+import { setActiveCategory } from "src/redux/slices/categoriesSlice"
+import SubCategories from "../SubCategories"
+import { selectActiveCategory } from "src/redux/hooks"
 
-const Category: FC<ICategory> = (props) => {
-  const { name } = props;
+const Category: FC<ICategory> = ({ category }) => {
+  const dispatch = useAppDispatch()
+  const activeCategory = useAppSelector(selectActiveCategory)
+
+  const onArrowRightBtnClick = () => {
+    dispatch(setActiveCategory(category))
+  }
+
   return (
-    <li className={s.item}>
-      <div className={s.container}>
+    <Border border="borderDefault">
+      <div className={s.category}>
         <div className={s.categoryTools}>
-          <h4 className={s.categoryName}>{name}</h4>
+          <h4 className={s.categoryName}>{category.name}</h4>
           <div className={s.iconsContainer}>
             <EditIcon />
             <DeleteIcon />
-            <AddIcon />
+            <AddIcon className={s.addIcon} />
           </div>
         </div>
-        <ArrowToRight />
+        {!activeCategory && (
+          <button onClick={onArrowRightBtnClick}>
+            <ArrowToRight />
+          </button>
+        )}
       </div>
-      {/* <SubCategory /> */}
-    </li>
-  );
-};
+      {activeCategory && <SubCategories subcategories={activeCategory.subcategories} />}
+    </Border>
+  )
+}
 
-export default Category;
+export default Category
