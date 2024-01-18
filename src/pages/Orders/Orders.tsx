@@ -7,11 +7,24 @@ import Table from "../../components/Table/Table";
 import ExportButton from "../../components/ToolsPanel/ExportButton/ExportButton";
 import ChangeOrderStatusPopup from "../../components/Popups/ChangeOrderStatusPopup/ChangeOrderStatusPopup.tsx";
 import {useState} from "react";
+import Filter from "../../components/Filter/Filter.tsx";
 
-const filteringOptions = ["Статус", "Спосіб доставки", "Спосіб оплати"];
-
+const OrdersFilterData = [
+    {
+        optionName: "Статус",
+        suboptions: ["Нове", "Прийнято", "Оплачено", "Виконано", "Скасовано"],
+    },
+    {
+        optionName: "Спосіб доставки",
+        suboptions: ["Нова пошта", "Укрпошта", "Самовивіз",],
+    },
+    {
+        optionName: "Спосіб оплати",
+        suboptions: ["На карту", "При отриманні",],
+    },
+];
 const Orders = () => {
-    const [showModal, setShowModal] = useState(true);
+    const [showModal, setShowModal] = useState(false);
     const [chosenOrderId, setChosenOrderId] = useState(null);
 
     const columns = [
@@ -103,11 +116,7 @@ const Orders = () => {
                     <div className={s.features}>
                         <SearchInput/>
                         <div className={s.tools}>
-                            <Select
-                                options={filteringOptions}
-                                icon={<FilterIcon/>}
-                                toolName={"Фільтрувати"}
-                            />
+                            <Filter options={OrdersFilterData}/>
                             <ExportButton columns={columns} rows={rows}/>
                         </div>
                     </div>
