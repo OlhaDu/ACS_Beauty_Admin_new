@@ -12,7 +12,8 @@ const Categories: FC<ICategories> = props => {
 
   useEffect(() => {
     dispatch(getCategories())
-  }, [dispatch])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   return (
     <ul className={s.categories}>
