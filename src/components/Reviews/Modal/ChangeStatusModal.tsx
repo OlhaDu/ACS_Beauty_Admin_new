@@ -32,7 +32,7 @@ const handleSave = () => {
             type="radio"
             name="changeStatus"
             id="verification"
-            onChange={() => setSelectedStatus(" pending")}
+            onChange={() => setSelectedStatus("pending")}
           />
           На перевірці
         </label>

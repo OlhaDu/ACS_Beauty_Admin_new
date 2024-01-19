@@ -1,0 +1,24 @@
+@import "/src/styles/variables.scss";
+@import "/src/styles/mixins.scss";
+
+.FormSearch {
+    position: relative;
+    margin-top: 28px;
+  }
+
+  .foundReview {
+    text-align: left;
+    max-width: 414px;
+    padding-left: 38px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    width: 100%;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+  }
+  .BtnSearch {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    padding: 8px;
+    background-color: transparent;
+  }

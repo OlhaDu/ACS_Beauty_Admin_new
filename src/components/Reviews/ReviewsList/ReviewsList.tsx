@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import ReviewsItems from "../ReviewsItems/ReviewsItems";
 import { fetchReviews } from "../../Utils/api/getReviews";
 import s from "./ReviewsList.module.scss";
-import { Formik, Field, Form } from "formik";
-import { GoSearch } from "react-icons/go";
+import SearchReviews from "src/components/Reviews/SearchReviews/SearchReviews";
+
 import FilterIcon from "src/assets/filter-variant.svg";
 import ArrowIcon from "src/assets/menu-arrow.svg";
 import ExportIcon from "src/assets/file-export.svg";
@@ -33,13 +33,7 @@ const ReviewsList: React.FC = () => {
   const [statusFilter, setStatusFilter] = useState<
     "pending" | "published" | undefined
   >(undefined);
-  
-  const [selectedReviews, setSelectedReviews] = useState<string[]>([]);
-
-  const handleSelectedReviews = (updatedSelectedReviews: string[]) => {
-    setSelectedReviews(updatedSelectedReviews);
-  };
-  console.log("statusFilter", statusFilter);
+  const [searchTerm, setSearchTerm] = useState("");
 
   const toggleFilter = (event: React.MouseEvent<HTMLSpanElement>) => {
     event.stopPropagation();
@@ -50,6 +44,11 @@ const ReviewsList: React.FC = () => {
     event.stopPropagation();
     setExportOpen((prevExportOpen) => !prevExportOpen);
   };
+
+  const handleSearch = async (term: string) => {
+    setSearchTerm(term);
+  };
+  console.log("searchTerm", searchTerm);
 
   useEffect(() => {
     (async () => {
@@ -74,33 +73,12 @@ const ReviewsList: React.FC = () => {
       setStatus("rejected");
     }
   };
-  
-  const reviews = data;
-
-  const selectedProducts = reviews
-    ? reviews.filter((review) => selectedReviews.includes(review.id))
-    : [];
-  console.log("selectedProducts", selectedProducts);
 
   return (
     <AdminLayout>
       <div className={s.container}>
         <h2>Відгуки</h2>
-        <Formik
-          initialValues={{ name: "" }}
-          onSubmit={async (values) => {
-            await new Promise((resolve) => setTimeout(resolve, 500));
-            alert(JSON.stringify(values, null, 2));
-          }}
-        >
-          <Form className={s.FormSearch}>
-            <Field name="name" type="text" className={s.foundReview} />
-
-            <button title="SearchButton" type="submit" className={s.BtnSearch}>
-              <GoSearch style={{ width: "24px", height: "24px" }} />
-            </button>
-          </Form>
-        </Formik>
+        <SearchReviews onSearch={handleSearch} />
         <nav className={s.menu}>
           <ul className={s.menu_list}>
             <li>
@@ -113,15 +91,17 @@ const ReviewsList: React.FC = () => {
               >
                 <ArrowIcon />
               </span>
-              {filterOpen &&  <FilterProperties
-        filterOpen={filterOpen}
-        onRatingFilterChange={(filter) => {
-          setRatingFilter(filter);
-        }}
-        onStatusFilterChange={(statusFilter) => {
-          setStatusFilter(statusFilter);
-        }}
-      /> }
+              {filterOpen && (
+                <FilterProperties
+                  filterOpen={filterOpen}
+                  onRatingFilterChange={(filter) => {
+                    setRatingFilter(filter);
+                  }}
+                  onStatusFilterChange={(statusFilter) => {
+                    setStatusFilter(statusFilter);
+                  }}
+                />
+              )}
             </li>
 
             <li>
@@ -144,11 +124,10 @@ const ReviewsList: React.FC = () => {
         {status === "fulfilled" && (
           <ReviewsItems
             reviews={data || []}
-            selectedReviews={selectedReviews}
-            onSelectedReviewsChange={handleSelectedReviews}
             ratingFilter={ratingFilter}
             statusFilter={statusFilter}
             updateReviewsData={updateReviewsData}
+            searchTerm={searchTerm}
           />
         )}
       </div>

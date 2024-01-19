@@ -70,6 +70,11 @@ const FilterProperties: React.FC<FilterPropertiesProps> = ({
                   На перевірці
                 </p>
               </li>
+              <li>
+                <p className={s.sub_sub_menu_link} onClick={() => handleStatusFilterChange(undefined)}>
+                  Всі
+                </p>
+              </li>
               {/* <li>
                 <p className={s.sub_sub_menu_link}>
                   Видалений
@@ -113,9 +118,17 @@ const FilterProperties: React.FC<FilterPropertiesProps> = ({
                   Негативні
                 </p>
               </li>
+              <li>
+                <p
+                  className={s.sub_sub_menu_link}
+                  onClick={() => handleRatingFilterChange(undefined)}
+                >
+                 Всі
+                </p>
+                </li>
             </ul>
           )}
-          <ul></ul>
+         
         </li>
       </ul>
     </>
