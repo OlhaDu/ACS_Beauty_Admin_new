@@ -6,14 +6,15 @@ import s from "./AddImageInput.module.scss"
 import { IAddImageInput } from "src/types"
 import CloseIcon from "src/images/svg/CloseIcon_"
 
-const AddImageInput: FC<IAddImageInput> = ({ categoryName, logo }) => {
+const AddImageInput: FC<IAddImageInput> = ({ categoryName, logo, inputToggler }) => {
   const { setFieldValue, errors } = useFormikContext<{ image: File }>()
   const [image, setImage] = useState(logo || "")
   const inputRef = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
-    setImage(logo || "")
-  }, [logo])
+    handleCloseIconClick()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [inputToggler])
 
   const handleImageChange = async (e: ChangeEvent<HTMLInputElement>) => {
     if (!e.currentTarget.files?.length) return
@@ -28,6 +29,7 @@ const AddImageInput: FC<IAddImageInput> = ({ categoryName, logo }) => {
   const handleCloseIconClick = () => {
     setImage("")
     setFieldValue("image", null)
+    if (inputRef.current) inputRef.current.value = ""
   }
 
   const handleAddIconClick = () => inputRef.current?.click()

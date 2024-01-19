@@ -4,28 +4,30 @@ import s from "./AddCategory.module.scss"
 import { addCategoryFormSchema } from "src/libs/yup"
 import FormGenerator from "../FormGenerator"
 import AddImageInput from "../AddImageInput"
-import { api } from "src/api"
 import { IAddCategory, IInitialValues } from "src/types"
 import { FormikHelpers } from "formik"
 import { FC, useState } from "react"
+import { addCategory } from "src/redux/asyncThunks/categoriesThunks"
+import { useAppDispatch } from "src/redux/hooks"
 
 const AddCategory: FC<IAddCategory> = ({ setIsAddCategoryActive }) => {
+  const [inputToggler, setInputToggler] = useState<boolean>(false)
+  const dispatch = useAppDispatch()
+
   const closeAddCategory = () => setIsAddCategoryActive(false)
-  const [logo, setLogo] = useState<string | null>("")
 
   const addCategoryForm = {
     initialValues: {
       image: null,
       name: "",
       description: "",
-      enabled: false,
     },
     validationSchema: addCategoryFormSchema,
     groups: [
       {
         fields: [
           {
-            component: <AddImageInput categoryName="newCategory" logo={logo} />,
+            component: <AddImageInput categoryName="newCategory" inputToggler={inputToggler} />,
           },
         ],
       },
@@ -44,8 +46,8 @@ const AddCategory: FC<IAddCategory> = ({ setIsAddCategoryActive }) => {
     ],
     onSubmit: async (value: IInitialValues, { resetForm }: FormikHelpers<IInitialValues>) => {
       try {
-        await api.addCategory(value)
-        setLogo(null)
+        dispatch(addCategory(value))
+        setInputToggler(!inputToggler)
         resetForm()
       } catch (error) {
         alert(error)

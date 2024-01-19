@@ -1,9 +1,9 @@
 import s from "./Categoriis.module.scss"
 import Category from "../Category"
 import { useEffect } from "react"
-import { useAppDispatch, useAppSelector } from "src/redux/selectors"
-import { getCategories } from "src/redux/asyncThunks/getCategoriesThunk"
-import { selectCategories } from "src/redux/hooks"
+import { useAppDispatch, useAppSelector } from "src/redux/hooks"
+import { getCategories } from "src/redux/asyncThunks/categoriesThunks"
+import { selectCategories } from "src/redux/selectors"
 
 const Categories = () => {
   const dispatch = useAppDispatch()

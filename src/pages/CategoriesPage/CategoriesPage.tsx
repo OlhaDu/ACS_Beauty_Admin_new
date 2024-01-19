@@ -5,8 +5,8 @@ import Categories from "src/components/Categories"
 import Category from "src/components/Category"
 import s from "./Categories.module.scss"
 import AddCategory from "src/components/AddCategory"
-import { useAppSelector } from "src/redux/selectors"
-import { selectActiveCategory } from "src/redux/hooks"
+import { useAppSelector } from "src/redux/hooks"
+import { selectActiveCategory } from "src/redux/selectors"
 
 const CategoriesPage = () => {
   const activeCategory = useAppSelector(selectActiveCategory)

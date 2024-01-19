@@ -1,4 +1,5 @@
 export interface IAddImageInput {
   categoryName: string
-  logo: string | null
+  logo?: string
+  inputToggler?: boolean
 }

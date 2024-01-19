@@ -1,13 +1,12 @@
-import type { PayloadAction } from "@reduxjs/toolkit"
-import { SerializedError, createSlice } from "@reduxjs/toolkit"
+import { createSlice } from "@reduxjs/toolkit"
 import { ICategory } from "src/types"
-import { getCategories } from "../asyncThunks/getCategoriesThunk"
+import { addCategory, getCategories } from "../asyncThunks/categoriesThunks"
 
 interface IState {
-  categories: ICategory[] | []
+  categories: ICategory[]
   acitveCategory: ICategory | null
   status: "pending" | "fulfilled" | "rejected"
-  error: SerializedError | null
+  error: string | null
 }
 
 const initialState: IState = {
@@ -21,21 +20,22 @@ export const categoriesSlice = createSlice({
   name: "categories",
   initialState,
   reducers: {
-    setActiveCategory(state, action: PayloadAction<ICategory | null>) {
+    setActiveCategory(state, action) {
       state.acitveCategory = action.payload
     },
   },
   extraReducers: builder => {
-    builder.addCase(getCategories.pending, state => {
-      state.status = "pending"
-    })
     builder.addCase(getCategories.fulfilled, (state, action) => {
       state.status = "fulfilled"
       state.categories = action.payload
     })
-    builder.addCase(getCategories.rejected, (state, action) => {
+    builder.addCase(addCategory.fulfilled, (state, action) => {
+      state.status = "fulfilled"
+      state.categories.push(action.payload)
+    })
+    builder.addCase(addCategory.rejected, (state, action) => {
       state.status = "rejected"
-      state.error = action.error
+      if (typeof action.payload === "string") state.error = action.payload
     })
   },
 })

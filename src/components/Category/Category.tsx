@@ -6,10 +6,10 @@ import ArrowToRightIcon from "src/images/svg/ArrowToRightIcon"
 import Border from "../Border"
 import { FC } from "react"
 import { ICategory } from "src/types"
-import { useAppDispatch, useAppSelector } from "src/redux/selectors"
+import { useAppDispatch, useAppSelector } from "src/redux/hooks"
 import { setActiveCategory } from "src/redux/slices/categoriesSlice"
 import SubCategories from "../SubCategories"
-import { selectActiveCategory } from "src/redux/hooks"
+import { selectActiveCategory } from "src/redux/selectors"
 import ArrowDownIcon from "src/images/svg/ArrowDownIcon"
 
 const Category: FC<ICategory> = category => {

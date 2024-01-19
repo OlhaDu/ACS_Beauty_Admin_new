@@ -1,4 +1,6 @@
-import { IRootState } from "./store"
+import { TypedUseSelectorHook, useDispatch } from "react-redux"
+import { IAppDispatch, IRootState } from "./store"
+import { useSelector } from "react-redux"
 
-export const selectActiveCategory = (state: IRootState) => state.categories.acitveCategory
-export const selectCategories = (state: IRootState) => state.categories.categories
+export const useAppDispatch: () => IAppDispatch = useDispatch
+export const useAppSelector: TypedUseSelectorHook<IRootState> = useSelector
