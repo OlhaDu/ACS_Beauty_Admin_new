@@ -36,7 +36,7 @@ const Users = () => {
 
   useEffect(() => {
     const getUsers = async () => {
-      const apiUrl = "http://16.171.113.245:5000/api/user?page=1";
+      const apiUrl = 'http://13.50.16.182:5000/api/user?page=1'
       // "http://16.171.113.245:5000/api/user?page=1&lookup=323&pageSize=25";
 
       try {
