@@ -45,6 +45,7 @@
 
   width: 581px;
   height: 175px;
+  margin-bottom: 12px;
   @include border($border: $dashed-border);
   cursor: pointer;
 }

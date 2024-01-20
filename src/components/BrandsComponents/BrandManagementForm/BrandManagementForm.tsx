@@ -1,6 +1,7 @@
 import { useAppDispatch } from "src/redux/store";
 import { useState, ChangeEvent, FormEvent, useRef } from "react";
 
+import cn from "classnames";
 import s from "./BrandManagementForm.module.scss";
 import AddImageIcon from "src/images/svg/AddImageIcon";
 import DeleteIcon from "src/images/svg/DeleteIcon.tsx";
@@ -77,11 +78,11 @@ const BrandManagementForm: React.FC<IProps> = ({ brand, onClose }) => {
           </div>
         </div>
       ) : (
-        <>
+        <div>
           <div
-            className={`${s.brand_form__download_container} ${
-              formErrror && s.brand_form__error
-            }`}
+            className={cn(s.brand_form__download_container, {
+              [s.brand_form__error]: formErrror,
+            })}
             onClick={() => brandInputRef.current?.click()}
           >
             <AddImageIcon fill={"#5C5E60"} />
@@ -92,7 +93,7 @@ const BrandManagementForm: React.FC<IProps> = ({ brand, onClose }) => {
               Будь-ласка, завантажте фото.
             </p>
           )}
-        </>
+        </div>
       )}
       <input
         type="file"
@@ -117,9 +118,9 @@ const BrandManagementForm: React.FC<IProps> = ({ brand, onClose }) => {
             setBrandName(e.target.value);
             setFormErrror(false);
           }}
-          className={`${s.brand_form__input} ${
-            formErrror && !brandName && s.brand_form__error
-          }`}
+          className={cn(s.brand_form__input, {
+            [s.brand_form__error]: formErrror && !brandName,
+          })}
           autoComplete="off"
         />
         {formErrror && !brandName && (
@@ -139,9 +140,9 @@ const BrandManagementForm: React.FC<IProps> = ({ brand, onClose }) => {
             setBrandDescription(e.target.value);
             setFormErrror(false);
           }}
-          className={`${s.brand_form__textarea} ${
-            formErrror && !brandDescription && s.brand_form__error
-          }`}
+          className={cn(s.brand_form__textarea, {
+            [s.brand_form__error]: formErrror && !brandDescription,
+          })}
         />
         {formErrror && !brandDescription && (
           <p className={s.brand_form__text_error}>Це поле обовʼязкове.</p>
