@@ -20,19 +20,18 @@ import {
   GridRowId,
 } from "@mui/x-data-grid";
 
-interface IPaginationModel {
+interface IProps {
   page: number;
   pageSize: number;
-}
-
-interface IProps {
-  paginationModel: IPaginationModel;
-  setPaginationModel: (params: IPaginationModel) => void;
+  setPage: (page: number) => void;
+  setPageSize: (pageSize: number) => void;
 }
 
 const BrandsTable: React.FC<IProps> = ({
-  paginationModel,
-  setPaginationModel,
+  page,
+  pageSize,
+  setPage,
+  setPageSize,
 }) => {
   const dispatch = useAppDispatch();
   const brands = useSelector(selectBrands);
@@ -112,8 +111,11 @@ const BrandsTable: React.FC<IProps> = ({
           isRowSelectable={() => false}
           rowCount={count}
           paginationMode="server"
-          paginationModel={paginationModel}
-          onPaginationModelChange={setPaginationModel}
+          paginationModel={{ page, pageSize }}
+          onPaginationModelChange={({ page, pageSize }) => {
+            setPage(page);
+            setPageSize(pageSize);
+          }}
           pageSizeOptions={[10, 25, 50, 100]}
           columnHeaderHeight={44}
           rowHeight={107}

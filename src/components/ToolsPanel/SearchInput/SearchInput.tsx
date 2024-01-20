@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./SearchInput.module.scss";
+import s from "./SearchInput.module.scss";
 import SearchIcon from "src/images/svg/SearchIcon";
 
 import { DebounceInput } from "react-debounce-input";
@@ -10,16 +10,16 @@ interface IProps {
 
 const SearchInput: React.FC<IProps> = ({ onChange }) => {
   return (
-    <div className={styles.searchInputContainer}>
+    <div className={s.searchInputContainer}>
       <DebounceInput
         minLength={2}
         debounceTimeout={300}
         onChange={(e) => onChange(e.target.value)}
         placeholder=""
-        className={styles.searchInput}
+        className={s.searchInput}
       />
 
-      <SearchIcon className={styles.searchIcon} />
+      <SearchIcon className={s.searchIcon} />
     </div>
   );
 };

@@ -11,29 +11,23 @@ import SearchInput from "src/components/ToolsPanel/SearchInput/SearchInput";
 import BrandManagementForm from "src/components/BrandsComponents/BrandManagementForm";
 import BrandsTable from "src/components/BrandsComponents/BrandsTable";
 
-interface IPaginationModel {
-  page: number;
-  pageSize: number;
-}
-
 const Brands: React.FC = () => {
   const dispatch = useAppDispatch();
+  const [isOpenModal, setIsOpenModal] = useState(false);
+
+  const [page, setPage] = useState(0);
+  const [pageSize, setPageSize] = useState(10);
   const [searchName, setSearchName] = useState("");
-  const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
-  const [paginationModel, setPaginationModel] = useState<IPaginationModel>({
-    page: 0,
-    pageSize: 10,
-  });
 
   useEffect(() => {
     dispatch(
       getBrands({
         lookup: searchName,
-        ...paginationModel,
-        page: paginationModel.page + 1,
+        pageSize,
+        page: page + 1,
       })
     );
-  }, [paginationModel, searchName]);
+  }, [page, pageSize, searchName]);
 
   return (
     <AdminLayout>
@@ -60,8 +54,10 @@ const Brands: React.FC = () => {
           </div>
 
           <BrandsTable
-            paginationModel={paginationModel}
-            setPaginationModel={setPaginationModel}
+            page={page}
+            pageSize={pageSize}
+            setPage={setPage}
+            setPageSize={setPageSize}
           />
         </section>
         <ModalWindow
