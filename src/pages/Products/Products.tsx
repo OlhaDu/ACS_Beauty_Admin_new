@@ -84,6 +84,7 @@ const Products = () => {
   const customLocaleText = {
     footerRowSelected: (count: number): string => getSelectedItemsText(count),
     MuiTablePagination: {
+      labelRowsPerPage:"Рядків на сторінці: ",
       labelDisplayedRows: ({
         from,
         to,
@@ -97,9 +98,9 @@ const Products = () => {
   };
 
   const columns: GridColDef[] = [
-    { field: 'id', headerName: 'ID', width: 60 },
+    { field: 'id', headerName: 'ID', width: 70 },
     { field: 'img', headerName: 'Фото товару', width: 120 },
-    { field: 'name', headerName: 'Назва товару', width: 300 },
+    { field: 'name', headerName: 'Назва товару', width: 290 },
     { field: 'category', headerName: 'Категорія', width: 120 },
     { field: 'price', headerName: 'Ціна', width: 110, valueFormatter: (params) => `${parseInt(params.value as string).toLocaleString('ua-UA')} грн.` },
     { field: 'display', headerName: 'Відображення', width: 140 },

@@ -10,9 +10,6 @@ export const ProductsWallpaper = styled(Container)({
   fontStyle: 'normal',
   fontWeight: 400,
   lineHeight: 'normal',
-  // '& ul li:hover': {
-  //   lineHeight: 1.5,
-  // }
   }
 })
 
@@ -34,7 +31,7 @@ export const ProductTable = styled(Container)({
     height: 'auto',
     width: '100%',
     margin: '20px auto',
-    padding: '0!important'
+    padding: '0!important',
 })
 
 export const SubHeaderProduct = styled(Container)({
@@ -48,7 +45,11 @@ export const SubHeaderProduct = styled(Container)({
 export const ProductsTable = styled(DataGrid)({
   '& .MuiDataGrid-columnHeaders': {
     backgroundColor: ' #F8F0FB',
-  }
+  },
+  //   '& .MuiPaper-root-MuiPopover-paper-MuiMenu-paper' : {
+  //     minHeight: '30px!important',
+  //     color: 'red!important'
+  // },
 })
 
 export const ButtonActions = styled(GridActionsCellItem)({
