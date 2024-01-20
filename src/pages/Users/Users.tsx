@@ -1,55 +1,56 @@
-import { useEffect, useState } from "react";
-import s from "./Users.module.scss";
+import { useEffect, useState } from "react"
+import s from "./Users.module.scss"
 
-import Select from "src/components/ToolsPanel/Select/Select";
-import SearchInput from "src/components/ToolsPanel/SearchInput/SearchInput";
-import FilterIcon from "../../images/svg/FilterIcon";
-import ActionsIcon from "../../images/svg/ActionsIcon";
-import ExportFileIcon from "../../images/svg/ExportFileIcon";
-import RowListIcon from "../../images/svg/RowListIcon";
-import axios from "axios";
-import AdminLayout from "src/layouts/AdminLayout";
-import { Table } from "src/components/Table/Table";
-import { handleExternalDataUpdate } from "../../components/Table/helpers";
+import Select from "src/components/ToolsPanel/Select/Select"
+import SearchInput from "src/components/ToolsPanel/SearchInput/SearchInput"
+import FilterIcon from "../../images/svg/FilterIcon"
+import ActionsIcon from "../../images/svg/ActionsIcon"
+import ExportFileIcon from "../../images/svg/ExportFileIcon"
+import RowListIcon from "../../images/svg/RowListIcon"
+import axios from "axios"
+import AdminLayout from "src/layouts/AdminLayout"
+import { Table } from "src/components/Table/Table"
+import { handleExternalDataUpdate } from "../../components/Table/helpers"
 
 export interface User {
-  id: number;
-  firstName: string;
-  lastName: string;
-  email: string;
-  note: string;
-  phone: string;
-  createdAt: string;
-  updatedAt: string;
+  id: number
+  firstName: string
+  lastName: string
+  email: string
+  note: string
+  phone: string
+  createdAt: string
+  updatedAt: string
 }
 interface TableUser {
-  id: number;
-  fullName: string;
-  email: string;
-  note: string;
-  phone: string;
-  createdAt: string;
+  id: number
+  fullName: string
+  email: string
+  note: string
+  phone: string
+  createdAt: string
 }
 
 const Users = () => {
-  const [users, setUsers] = useState<TableUser[]>([]);
+  const [users, setUsers] = useState<TableUser[]>([])
 
   useEffect(() => {
     const getUsers = async () => {
-      const apiUrl = 'http://13.50.16.182:5000/api/user?page=1'
+      const apiUrl = `${import.meta.env.VITE_API_BASE_URL}/api/user?page=1`
+      // 'http://13.50.16.182:5000/api/user?page=1'
       // "http://16.171.113.245:5000/api/user?page=1&lookup=323&pageSize=25";
 
       try {
         const response = await axios.get(apiUrl, {
           headers: {
-            Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzIsImVtYWlsIjoiYWRtaXdlMjM0MzI0MmZ3ZW5Ad2Vmd2UyMy5jb20iLCJpc0FkbWluIjoidHJ1ZSIsImlhdCI6MTcwMzU2OTU4NCwiZXhwIjoxNzExMzQ1NTg0fQ.ZCj9Ub0jTLqCOtKTDI1CA-8hDDsLGOcp1-0qgVXMDr8`,
+            Authorization: `Barer ${import.meta.env.VITE_API_AUTH_TOKEN}`,
           },
-        });
+        })
 
-        const usersData: User[] = response.data.rows;
+        const usersData: User[] = response.data.rows
 
         setUsers(
-          usersData.map((user) => ({
+          usersData.map(user => ({
             id: user.id,
             fullName: `${user.firstName} ${user.lastName}`,
             email: user.email,
@@ -57,19 +58,19 @@ const Users = () => {
             note: user.note,
             createdAt: user.createdAt,
           }))
-        );
+        )
       } catch (error) {
-        console.error("Error fetching data:", error);
+        console.error("Error fetching data:", error)
       }
-    };
+    }
 
-    getUsers();
-  }, []);
+    getUsers()
+  }, [])
 
-  const filteringOptions = ["Option 1", "Option 2", "Option 3"];
-  const actionOptions = ["Редагувати", "Видалити"];
-  const exportOptions = ["Option 1", "Option 2", "Option 3"];
-  const paginationOptions = ["Option 1", "Option 2", "Option 3"];
+  const filteringOptions = ["Option 1", "Option 2", "Option 3"]
+  const actionOptions = ["Редагувати", "Видалити"]
+  const exportOptions = ["Option 1", "Option 2", "Option 3"]
+  const paginationOptions = ["Option 1", "Option 2", "Option 3"]
 
   const customColumns = [
     {
@@ -113,7 +114,7 @@ const Users = () => {
       width: 130,
       editable: true,
     },
-  ];
+  ]
 
   return (
     <AdminLayout>
@@ -132,11 +133,7 @@ const Users = () => {
                     icon={<FilterIcon />}
                     toolName={"Фільтрувати"}
                   />
-                  <Select
-                    options={actionOptions}
-                    icon={<ActionsIcon />}
-                    toolName={"Дії"}
-                  />
+                  <Select options={actionOptions} icon={<ActionsIcon />} toolName={"Дії"} />
                   <Select
                     options={exportOptions}
                     icon={<ExportFileIcon />}
@@ -161,7 +158,7 @@ const Users = () => {
         </section>
       </main>
     </AdminLayout>
-  );
-};
+  )
+}
 
-export default Users;
+export default Users
