@@ -98,7 +98,7 @@ const BrandsTable: React.FC<IProps> = ({
             backgroundColor: "#F8F0FB",
           },
           ".MuiDataGrid-cell:focus": {
-            outline: "none",
+            outline: "none !important",
           },
         }}
       >
