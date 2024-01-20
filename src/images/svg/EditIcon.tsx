@@ -1,6 +1,7 @@
-import { IEditIcon } from "./types";
+import { FC } from "react";
+import { IIcon } from "./types";
 
-const EditIcon = ({ className }: IEditIcon) => (
+const EditIcon: FC<IIcon> = ({ className }) => (
   <svg
     width="52"
     height="52"
