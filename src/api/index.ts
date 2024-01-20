@@ -8,7 +8,7 @@ import {
 
 const { VITE_API_BASE_URL, VITE_API_AUTH_TOKEN } = import.meta.env;
 
-const http = axios.create({
+export const http = axios.create({
   baseURL: VITE_API_BASE_URL, //заменить адрес на константу (.env)
 });
 export const api = {

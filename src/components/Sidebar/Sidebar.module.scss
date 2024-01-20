@@ -5,8 +5,10 @@
   height: calc(100vh - #{$header-height});
 
   // Changed fixed to sticky to prevent vertical scrolling
-  position: sticky;
-
+  // Sticky don`t work from scrolling
+  position: fixed;
+  background-color: white;
+  z-index: 5;
   top: $header-height;
   left: 0;
   border: $default-border;

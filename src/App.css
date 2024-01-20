@@ -12,14 +12,6 @@
   list-style: none;
 }
 
-.routerWrapper {
-  top: 10%;
-  position: absolute;
-  left: 280px;
-  height: 100%;
-  width: 80%;
-}
-
 /* .logo {
   height: 6em;
   padding: 1.5em;
@@ -55,6 +47,14 @@
 .read-the-docs {
   color: #888;
 } */
+
+.routerWrapper {
+  top: 80px;
+  position: relative;
+  left: 280px;
+  height: 100%;
+  width: 80%;
+}
 
 .MuiDataGrid-columnHeaders {
   background-color: red;

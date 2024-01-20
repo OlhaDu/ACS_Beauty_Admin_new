@@ -11,6 +11,7 @@ import { getProductsAsync } from "src/redux/slices/productsSlice";
 import { http } from "src/api";
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
+import Badge from "src/components/Badge/Badge";
 
 const Products = () => {
   const dispatch: ThunkDispatch<RootState, unknown, AnyAction> = useDispatch();
@@ -100,7 +101,15 @@ const Products = () => {
   const columns: GridColDef[] = [
     { field: 'id', headerName: 'ID', width: 70 },
     { field: 'img', headerName: 'Фото товару', width: 120 },
-    { field: 'name', headerName: 'Назва товару', width: 290 },
+    { field: 'name',
+      headerName: 'Назва товару',
+      width: 290,
+      renderCell: (params) => (
+        <Badge 
+          name={params.row.name} 
+          value={params.row.discount} 
+        />
+    )},
     { field: 'category', headerName: 'Категорія', width: 120 },
     { field: 'price', headerName: 'Ціна', width: 110, valueFormatter: (params) => `${parseInt(params.value as string).toLocaleString('ua-UA')} грн.` },
     { field: 'display', headerName: 'Відображення', width: 140 },
@@ -122,6 +131,7 @@ const Products = () => {
       <ProductsHeader>
         <SubHeaderProduct>
           <Typography variant="h3">Товари</Typography>
+          {/* VioletButton */}
           <ProductNewProductButton>СТВОРИТИ НОВИЙ</ProductNewProductButton>
         </SubHeaderProduct>
         <ToolsPanel />
