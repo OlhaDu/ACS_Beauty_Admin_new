@@ -2,12 +2,9 @@
 @import "/src/styles/variables.scss";
 
 .main {
-  max-width: 1316px;
+  max-width: 1000px;
+
   padding-left: 15px;
-  padding-right: 15px;
-
-  display: flex;
-
   margin-left: 260px;
 }
 
@@ -30,9 +27,14 @@
 .tools {
   display: flex;
   justify-content: space-between;
-  section {
-    width: 644px;
-    display: flex;
-    justify-content: space-between;
-  }
+}
+
+.options__container {
+  width: 644px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.MuiDataGrid-columnHeaders {
+  background-color: red;
 }

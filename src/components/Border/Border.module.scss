@@ -1,0 +1,12 @@
+@import "/src/styles/variables.scss";
+@import "/src/styles/mixins.scss";
+
+.borderDefault {
+  @include borderType($border-radius);
+}
+.borderDashed {
+  @include borderType($border-radius, $dashed-border);
+}
+.borderOuter {
+  @include borderType(12px);
+}
