@@ -1,4 +1,4 @@
-import { Button, Container, styled } from "@mui/material";
+import { Container, styled } from "@mui/material";
 import { DataGrid, GridActionsCellItem } from "@mui/x-data-grid";
 
 export const ProductsWallpaper = styled(Container)({
@@ -12,20 +12,6 @@ export const ProductsWallpaper = styled(Container)({
   lineHeight: 'normal',
   }
 })
-
-export const ProductNewProductButton = styled(Button)({
-    borderRadius: 4,
-    background: '#948AD0',
-    width: '197',
-    padding: '12px 9px',
-    justifyContent: 'center',
-    alignItems: 'center',
-    gap: 10,
-    color: 'white',
-    '&:hover': {
-      color: '#948AD0',
-    }
-  });
 
 export const ProductTable = styled(Container)({
     height: 'auto',

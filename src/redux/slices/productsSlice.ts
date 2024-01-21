@@ -1,29 +1,19 @@
-import { createSlice, createAsyncThunk, SerializedError } from '@reduxjs/toolkit';
-import { ProductElem, ProductsResponse } from 'src/types';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { ProductsResponse, DispatchProduct, ProductsState} from 'src/types';
 import { http } from 'src/api';
-
-export interface ProductsState {
-	products: ProductElem[] | unknown;
-    count: number;
-	isLoading: boolean;
-	error: string | null | SerializedError;
-}
-
-interface dispatchProduct {
-    page: number;
-    pageSize: number;
-}
 
 const initialState: ProductsState = {
 	products: [],
-    count: 20,
+  count: 20,
+  page: 0,
+  pageSize: 10, 
 	isLoading: false,
 	error: null,
 };
 
   export const getProductsAsync = createAsyncThunk(
     'products/fetchProducts',
-    async ({ page, pageSize }: dispatchProduct) => {
+    async ({ page, pageSize }: DispatchProduct) => {
       try {
         const response = await http.get(`/api/product?page=${page + 1}&pageSize=${pageSize}`);
   
@@ -33,7 +23,7 @@ const initialState: ProductsState = {
   
         const resultsRes: ProductsResponse = await response.data;
   
-        return { data: { products: resultsRes.rows, count: resultsRes.count } };
+        return { data: { products: resultsRes.rows, count: resultsRes.count, page, pageSize } };
       } catch (error) {
         return { data: { error: error instanceof Error ? error.message : 'An unknown error occurred.' } };
       }
@@ -53,6 +43,8 @@ const productsSlice = createSlice({
               const productsArray = products;     
               state.products = productsArray;        
               state.count = count;
+              state.page = action.meta.arg.page;
+              state.pageSize = action.meta.arg.pageSize;
             } else if (error) {
               state.error = error;
             }

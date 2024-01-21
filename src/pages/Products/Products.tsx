@@ -6,18 +6,20 @@ import ToolsPanel from "src/components/ToolsPanel/ToolsPanel";
 import { ProductElem } from "src/types";
 import { GridColDef, GridRowSelectionModel, GridPaginationModel } from '@mui/x-data-grid';
 import { Typography } from "@mui/material";
-import { ProductNewProductButton, ProductTable, SubHeaderProduct, ProductsWallpaper, ProductsTable, ButtonActions, ProductsHeader } from "./ProductsTheme";
+import { ProductTable, SubHeaderProduct, ProductsWallpaper, ProductsTable, ButtonActions, ProductsHeader } from "./ProductsTheme";
 import { getProductsAsync } from "src/redux/slices/productsSlice";
 import { http } from "src/api";
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import Badge from "src/components/Badge/Badge";
+import VioletButton from "src/components/VioletButton";
+import { useAppSelector } from "src/redux/selectors";
+import { selectProducts } from "src/redux/hooks";
+import { deleteProductAsync } from "src/redux/slices/productActionsSlice";
 
 const Products = () => {
   const dispatch: ThunkDispatch<RootState, unknown, AnyAction> = useDispatch();
-  const productsArray: ProductElem[] = useSelector(
-		(state: RootState) => (state.products.products || []) as ProductElem[],
-	);
+  const productsArray: ProductElem[] = (useAppSelector(selectProducts) || []) as ProductElem[];
   const rowCountState = useSelector(
 		(state: RootState) => (state.products.count),
 	);
@@ -39,18 +41,9 @@ const Products = () => {
   const authToken = import.meta.env.VITE_API_BASE_TOKEN;
 
   const handleButtonDelete = async (id: number) => {
-    console.log("Delete:", id);
     try {
-        const response = await http.delete(`/api/product/${id}`, {
-        headers: {
-          Authorization: authToken,
-        },
-      });
-      if (response.status === 204) {
-        console.log("Deleted");
-      } else {
-        console.error('Failed to delete product:', response);
-      }
+      await dispatch(deleteProductAsync(id));
+      console.log("Deleted");
     } catch (error) {
       console.error('Error deleting product:', error);
     }
@@ -106,8 +99,7 @@ const Products = () => {
       width: 290,
       renderCell: (params) => (
         <Badge 
-          name={params.row.name} 
-          value={params.row.discount} 
+        elem={params.row}
         />
     )},
     { field: 'category', headerName: 'Категорія', width: 120 },
@@ -132,7 +124,7 @@ const Products = () => {
         <SubHeaderProduct>
           <Typography variant="h3">Товари</Typography>
           {/* VioletButton */}
-          <ProductNewProductButton>СТВОРИТИ НОВИЙ</ProductNewProductButton>
+          <VioletButton title="СТВОРИТИ НОВИЙ"></VioletButton>
         </SubHeaderProduct>
         <ToolsPanel />
       </ProductsHeader>
