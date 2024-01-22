@@ -37,15 +37,15 @@ const BrandManagementForm: React.FC<IProps> = ({ brand, onClose }) => {
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
 
-    if (!brandName.trim() || !brandDescription.trim() || !file) {
+    if (!brandName.trim() || !brandDescription.trim() || (!file && !image)) {
       setFormErrror(true)
       return
     }
 
     const formData = new FormData()
     formData.append("logo", file || image)
-    formData.append("name", brandName)
-    formData.append("description", brandDescription)
+    formData.append("name", brandName.trim())
+    formData.append("description", brandDescription.trim())
 
     if (brand) {
       const { id } = brand
@@ -144,7 +144,7 @@ const BrandManagementForm: React.FC<IProps> = ({ brand, onClose }) => {
       </div>
 
       <button type="submit" className={s.brand_form__button}>
-        ДОДАТИ
+        {brand ? "РЕДАГУВАТИ" : "ДОДАТИ"}
       </button>
     </form>
   )
