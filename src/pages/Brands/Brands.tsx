@@ -1,23 +1,23 @@
-import React, { useEffect, useState } from "react";
-import { useAppDispatch } from "src/redux/store";
-import { getBrands } from "src/redux/brands/operations";
+import React, { useEffect, useState } from "react"
+import { useAppDispatch } from "src/redux/store"
+import { getBrands } from "src/redux/brands/operations"
 
-import s from "./Brands.module.scss";
-import AdminLayout from "src/layouts/AdminLayout";
-import ExportFileIcon from "src/images/svg/ExportFileIcon";
-import Select from "src/components/ToolsPanel/Select/Select";
-import ModalWindow from "src/components/ModalWindow/ModalWindow";
-import SearchInput from "src/components/ToolsPanel/SearchInput/SearchInput";
-import BrandManagementForm from "src/components/BrandsComponents/BrandManagementForm";
-import BrandsTable from "src/components/BrandsComponents/BrandsTable";
+import s from "./Brands.module.scss"
+import AdminLayout from "src/layouts/AdminLayout"
+import ExportFileIcon from "src/images/svg/ExportFileIcon"
+import Select from "src/components/ToolsPanel/Select/Select"
+import ModalWindow from "src/components/ModalWindow/ModalWindow"
+import SearchInput from "src/components/ToolsPanel/SearchInput/SearchInput"
+import BrandManagementForm from "src/components/BrandsComponents/BrandManagementForm"
+import BrandsTable from "src/components/BrandsComponents/BrandsTable"
 
 const Brands: React.FC = () => {
-  const dispatch = useAppDispatch();
-  const [isOpenModal, setIsOpenModal] = useState(false);
+  const dispatch = useAppDispatch()
+  const [isOpenModal, setIsOpenModal] = useState(false)
 
-  const [page, setPage] = useState(0);
-  const [pageSize, setPageSize] = useState(10);
-  const [searchName, setSearchName] = useState("");
+  const [page, setPage] = useState(0)
+  const [pageSize, setPageSize] = useState(10)
+  const [searchName, setSearchName] = useState("")
 
   useEffect(() => {
     dispatch(
@@ -26,8 +26,8 @@ const Brands: React.FC = () => {
         pageSize,
         page: page + 1,
       })
-    );
-  }, [page, pageSize, searchName]);
+    )
+  }, [page, pageSize, searchName])
 
   return (
     <AdminLayout>
@@ -35,11 +35,7 @@ const Brands: React.FC = () => {
         <section className={s.brand__section}>
           <div className={s.brand__title}>
             <h2 className={s.brand__title_text}>Бренди</h2>
-            <button
-              type="button"
-              className={s.brand__button}
-              onClick={() => setIsOpenModal(true)}
-            >
+            <button type="button" className={s.brand__button} onClick={() => setIsOpenModal(true)}>
               ДОДАТИ БРЕНД
             </button>
           </div>
@@ -69,7 +65,7 @@ const Brands: React.FC = () => {
         </ModalWindow>
       </main>
     </AdminLayout>
-  );
-};
+  )
+}
 
-export default Brands;
+export default Brands

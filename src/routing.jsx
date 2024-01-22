@@ -1,8 +1,8 @@
-import { createBrowserRouter } from "react-router-dom";
-import Users from "./pages/Users/Users";
-import Categories from "./pages/Categories/Categories";
-import Dashboard from "./pages/Dashboard/Dashboard";
-import Brands from "./pages/Brands/Brands";
+import { createBrowserRouter } from "react-router-dom"
+import Users from "./pages/Users/Users"
+import CategoriesPage from "./pages/CategoriesPage"
+import Dashboard from "./pages/Dashboard/Dashboard"
+import Brands from "./pages/Brands/Brands"
 
 export const router = createBrowserRouter([
   {
@@ -11,7 +11,7 @@ export const router = createBrowserRouter([
   },
   {
     path: "/categories",
-    element: <Categories />,
+    element: <CategoriesPage />,
   },
   {
     path: "/",
@@ -21,4 +21,4 @@ export const router = createBrowserRouter([
     path: "/brands",
     element: <Brands />,
   },
-]);
+])

@@ -1,0 +1,38 @@
+@import "/src/styles/variables.scss";
+@import "/src/styles/mixins.scss";
+
+.form {
+  display: block;
+  margin-top: $margin-main;
+  color: $main-text-color;
+}
+.subTitle {
+  @extend .form;
+  @include font($fs-xl, $fw-bold, $flh-m);
+}
+.label {
+  @extend .form;
+  @include font($fs-m, $fw-semi-bold, $flh-sm);
+}
+.field {
+  @extend .Roboto400-16-18;
+  margin-top: 12px;
+  padding: $padding-input;
+  width: 100%;
+  height: $input-height;
+  border: $default-border;
+  border-radius: $border-radius;
+}
+.button {
+  margin: $margin-main auto 0;
+  width: 197px;
+}
+.error {
+  margin-top: $margin-second;
+  color: $error-text-color;
+  @include font();
+}
+.disabled {
+  background: $toggler-off-color;
+  cursor: auto;
+}

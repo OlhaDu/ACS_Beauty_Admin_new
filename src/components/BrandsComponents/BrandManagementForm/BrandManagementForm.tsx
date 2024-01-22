@@ -1,66 +1,64 @@
-import { useAppDispatch } from "src/redux/store";
-import { useState, ChangeEvent, FormEvent, useRef } from "react";
+import { useAppDispatch } from "src/redux/store"
+import { useState, ChangeEvent, FormEvent, useRef } from "react"
 
-import cn from "classnames";
-import s from "./BrandManagementForm.module.scss";
-import AddImageIcon from "src/images/svg/AddImageIcon";
-import DeleteIcon from "src/images/svg/DeleteIcon.tsx";
+import cn from "classnames"
+import s from "./BrandManagementForm.module.scss"
+import AddImageIcon from "src/images/svg/AddImageIcon"
+import DeleteIcon from "src/images/svg/DeleteIcon.tsx"
 
-import { IBrand } from "src/api/brands/types";
-import { createNewBrand, patchBrand } from "src/redux/brands/operations";
+import { IBrand } from "src/api/brands/types"
+import { createNewBrand, patchBrand } from "src/redux/brands/operations"
 
 interface IProps {
-  brand?: IBrand;
-  onClose: () => void;
+  brand?: IBrand
+  onClose: () => void
 }
 
 const BrandManagementForm: React.FC<IProps> = ({ brand, onClose }) => {
-  const dispatch = useAppDispatch();
-  const brandInputRef = useRef<HTMLInputElement | null>(null);
+  const dispatch = useAppDispatch()
+  const brandInputRef = useRef<HTMLInputElement | null>(null)
 
-  const [brandName, setBrandName] = useState(brand?.name || "");
-  const [brandDescription, setBrandDescription] = useState(
-    brand?.description || ""
-  );
-  const [file, setFile] = useState<File | undefined>(undefined);
-  const [image, setImage] = useState(brand?.logo || "");
-  const [formErrror, setFormErrror] = useState(false);
+  const [brandName, setBrandName] = useState(brand?.name || "")
+  const [brandDescription, setBrandDescription] = useState(brand?.description || "")
+  const [file, setFile] = useState<File | undefined>(undefined)
+  const [image, setImage] = useState(brand?.logo || "")
+  const [formErrror, setFormErrror] = useState(false)
 
   const handleImageChange = (event: ChangeEvent<HTMLInputElement>) => {
-    if (!event.target.files?.length) return;
+    if (!event.target.files?.length) return
 
-    const file = event.target.files[0];
-    setFile(file);
+    const file = event.target.files[0]
+    setFile(file)
 
-    const imageUrl = URL.createObjectURL(file);
-    setImage(imageUrl);
-  };
+    const imageUrl = URL.createObjectURL(file)
+    setImage(imageUrl)
+  }
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+    event.preventDefault()
 
     if (!brandName.trim() || !brandDescription.trim() || !file) {
-      setFormErrror(true);
-      return;
+      setFormErrror(true)
+      return
     }
 
-    const formData = new FormData();
-    formData.append("logo", file || image);
-    formData.append("name", brandName);
-    formData.append("description", brandDescription);
+    const formData = new FormData()
+    formData.append("logo", file || image)
+    formData.append("name", brandName)
+    formData.append("description", brandDescription)
 
     if (brand) {
-      const { id } = brand;
-      dispatch(patchBrand({ id, formData }));
+      const { id } = brand
+      dispatch(patchBrand({ id, formData }))
     } else {
-      dispatch(createNewBrand(formData));
+      dispatch(createNewBrand(formData))
     }
 
-    onClose();
-    setBrandName("");
-    setBrandDescription("");
-    setImage("");
-  };
+    onClose()
+    setBrandName("")
+    setBrandDescription("")
+    setImage("")
+  }
 
   return (
     <form className={s.brand_form} onSubmit={handleSubmit}>
@@ -70,8 +68,8 @@ const BrandManagementForm: React.FC<IProps> = ({ brand, onClose }) => {
           <div
             className={s.brand_form__image_delete_icon}
             onClick={() => {
-              setImage("");
-              setFile(undefined);
+              setImage("")
+              setFile(undefined)
             }}
           >
             <DeleteIcon fill={"#5C5E60"} />
@@ -88,11 +86,7 @@ const BrandManagementForm: React.FC<IProps> = ({ brand, onClose }) => {
             <AddImageIcon fill={"#5C5E60"} />
             <p className={s.brand_form__download_text}>Завантажити банер</p>
           </div>
-          {formErrror && (
-            <p className={s.brand_form__text_error}>
-              Будь-ласка, завантажте фото.
-            </p>
-          )}
+          {formErrror && <p className={s.brand_form__text_error}>Будь-ласка, завантажте фото.</p>}
         </div>
       )}
       <input
@@ -114,9 +108,9 @@ const BrandManagementForm: React.FC<IProps> = ({ brand, onClose }) => {
           id="brandName"
           name="brandName"
           value={brandName}
-          onChange={(e) => {
-            setBrandName(e.target.value);
-            setFormErrror(false);
+          onChange={e => {
+            setBrandName(e.target.value)
+            setFormErrror(false)
           }}
           className={cn(s.brand_form__input, {
             [s.brand_form__error]: formErrror && !brandName,
@@ -136,9 +130,9 @@ const BrandManagementForm: React.FC<IProps> = ({ brand, onClose }) => {
           id="brandDescription"
           name="brandDescription"
           value={brandDescription}
-          onChange={(e) => {
-            setBrandDescription(e.target.value);
-            setFormErrror(false);
+          onChange={e => {
+            setBrandDescription(e.target.value)
+            setFormErrror(false)
           }}
           className={cn(s.brand_form__textarea, {
             [s.brand_form__error]: formErrror && !brandDescription,
@@ -153,7 +147,7 @@ const BrandManagementForm: React.FC<IProps> = ({ brand, onClose }) => {
         ДОДАТИ
       </button>
     </form>
-  );
-};
+  )
+}
 
-export default BrandManagementForm;
+export default BrandManagementForm

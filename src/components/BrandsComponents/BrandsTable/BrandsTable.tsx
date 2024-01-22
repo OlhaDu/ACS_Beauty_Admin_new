@@ -1,44 +1,38 @@
-import { useSelector } from "react-redux";
-import { useState } from "react";
+import { useSelector } from "react-redux"
+import { useState } from "react"
 
-import { columns } from "./columns";
-import { useAppDispatch } from "src/redux/store";
-import { deleteBrand } from "src/redux/brands/operations";
-import { selectBrands, selectCount } from "src/redux/brands/selectors";
+import { columns } from "./columns"
+import { useAppDispatch } from "src/redux/store"
+import { deleteBrand } from "src/redux/brands/operations"
+import { selectBrands, selectCount } from "src/redux/brands/selectors"
 
-import Box from "@mui/material/Box";
-import EditIcon from "@mui/icons-material/Edit";
-import DeleteIcon from "@mui/icons-material/DeleteOutlined";
+import Box from "@mui/material/Box"
+import EditIcon from "@mui/icons-material/Edit"
+import DeleteIcon from "@mui/icons-material/DeleteOutlined"
 
-import ModalWindow from "src/components/ModalWindow";
-import BrandManagementForm from "../BrandManagementForm";
+import ModalWindow from "src/components/ModalWindow"
+import BrandManagementForm from "../BrandManagementForm"
 
-import {
-  DataGrid,
-  GridColDef,
-  GridActionsCellItem,
-  GridRowId,
-} from "@mui/x-data-grid";
+import { DataGrid, GridColDef, GridActionsCellItem, GridRowId } from "@mui/x-data-grid"
 
 interface IProps {
-  page: number;
-  pageSize: number;
-  setPage: (page: number) => void;
-  setPageSize: (pageSize: number) => void;
+  page: number
+  pageSize: number
+  setPage: (page: number) => void
+  setPageSize: (pageSize: number) => void
 }
 
-const BrandsTable: React.FC<IProps> = ({
-  page,
-  pageSize,
-  setPage,
-  setPageSize,
-}) => {
-  const dispatch = useAppDispatch();
-  const brands = useSelector(selectBrands);
-  const count = useSelector(selectCount);
+const BrandsTable: React.FC<IProps> = ({ page, pageSize, setPage, setPageSize }) => {
+  const dispatch = useAppDispatch()
+  const brands = useSelector(selectBrands)
+  const count = useSelector(selectCount)
 
-  const [isOpenModal, setIsOpenModal] = useState(false);
-  const [selectedBrand, setSelectedBrand] = useState<GridRowId | null>(null);
+  console.log(brands)
+
+  const [isOpenModal, setIsOpenModal] = useState(false)
+  const [selectedBrand, setSelectedBrand] = useState<GridRowId | null>(null)
+
+  console.log(brands)
 
   const actionsColumn: GridColDef = {
     field: "actions",
@@ -55,8 +49,8 @@ const BrandsTable: React.FC<IProps> = ({
           className="textPrimary"
           color="inherit"
           onClick={() => {
-            setIsOpenModal(true);
-            setSelectedBrand(id);
+            setIsOpenModal(true)
+            setSelectedBrand(id)
           }}
         />,
         <GridActionsCellItem
@@ -64,25 +58,23 @@ const BrandsTable: React.FC<IProps> = ({
           label="Delete"
           color="inherit"
           onClick={() => {
-            dispatch(deleteBrand(id));
+            dispatch(deleteBrand(id))
           }}
         />,
-      ];
+      ]
     },
-  };
+  }
 
-  const tableColumns: GridColDef[] = columns.map((col) =>
+  const tableColumns: GridColDef[] = columns.map(col =>
     col.field === "description"
       ? {
           ...col,
-          renderCell: ({ value }) => (
-            <div style={{ whiteSpace: "normal" }}>{value}</div>
-          ),
+          renderCell: ({ value }) => <div style={{ whiteSpace: "normal" }}>{value}</div>,
         }
       : col
-  );
+  )
 
-  tableColumns.push(actionsColumn);
+  tableColumns.push(actionsColumn)
 
   return (
     <>
@@ -113,8 +105,8 @@ const BrandsTable: React.FC<IProps> = ({
           paginationMode="server"
           paginationModel={{ page, pageSize }}
           onPaginationModelChange={({ page, pageSize }) => {
-            setPage(page);
-            setPageSize(pageSize);
+            setPage(page)
+            setPageSize(pageSize)
           }}
           pageSizeOptions={[10, 25, 50, 100]}
           columnHeaderHeight={44}
@@ -128,12 +120,12 @@ const BrandsTable: React.FC<IProps> = ({
         isOpenModal={isOpenModal}
       >
         <BrandManagementForm
-          brand={brands.find((brand) => brand.id === selectedBrand)}
+          brand={brands.find(brand => brand.id === selectedBrand)}
           onClose={() => setIsOpenModal(false)}
         />
       </ModalWindow>
     </>
-  );
-};
+  )
+}
 
-export default BrandsTable;
+export default BrandsTable

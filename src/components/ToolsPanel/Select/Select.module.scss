@@ -4,6 +4,9 @@
 .container {
   width: 196px;
   position: relative;
+
+  z-index: 2;
+
   @extend .Roboto400-16-18;
   .fieldContainer {
     position: relative;
@@ -35,6 +38,10 @@
     border: $default-border;
     position: absolute;
     width: inherit;
+
+    background-color: #fff;
+    z-index: 3;
+
     ul {
       padding: 0;
       li {

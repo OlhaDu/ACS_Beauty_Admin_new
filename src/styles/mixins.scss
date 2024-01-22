@@ -21,6 +21,7 @@
   line-height: normal;
 }
 .Roboto400-16-18 {
+  // in use
   line-height: 18.75px;
 }
 .Roboto400-20-23 {
@@ -48,6 +49,12 @@
 .Roboto700-16-18 {
   font-weight: 700;
   line-height: 18.75px;
+}
+.Roboto700-20-23 {
+  // in use
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 23.44px;
 }
 .Roboto700-24-28 {
   font-weight: 700;
@@ -91,4 +98,15 @@
 .Disabled-button-styles {
   opacity: 0.5;
   cursor: not-allowed;
+}
+
+@mixin borderType($border-radius, $border: $default-border) {
+  border: $border;
+  border-radius: $border-radius;
+}
+
+@mixin font($size: 16px, $weight: 400, $height: 18.75px) {
+  font-weight: $weight;
+  font-size: $size;
+  line-height: $height;
 }
