@@ -27,12 +27,8 @@ const BrandsTable: React.FC<IProps> = ({ page, pageSize, setPage, setPageSize })
   const brands = useSelector(selectBrands)
   const count = useSelector(selectCount)
 
-  console.log(brands)
-
   const [isOpenModal, setIsOpenModal] = useState(false)
   const [selectedBrand, setSelectedBrand] = useState<GridRowId | null>(null)
-
-  console.log(brands)
 
   const actionsColumn: GridColDef = {
     field: "actions",
@@ -115,7 +111,7 @@ const BrandsTable: React.FC<IProps> = ({ page, pageSize, setPage, setPageSize })
       </Box>
 
       <ModalWindow
-        title={"ДОДАТИ БРЕНД"}
+        title={"РЕДАГУВАТИ БРЕНД"}
         onClose={() => setIsOpenModal(false)}
         isOpenModal={isOpenModal}
       >

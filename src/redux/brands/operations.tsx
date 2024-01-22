@@ -9,7 +9,6 @@ export const getBrands = createAsyncThunk<IResponse, IGetBrandsParams>(
     try {
       const { data } = await brandsApi.getBrands(params)
 
-      console.log(data)
       return data
     } catch (error: unknown) {
       return rejectWithValue(error)
