@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { http } from 'src/api';
 import { ProductState } from 'src/types/IProducts';
-import { UpdateProductsArray } from '../updateProductArray';
+import { selectProducts } from '../hooks';
 
 const initialState: ProductState = {
   product: '',
@@ -20,16 +20,14 @@ export const deleteProductAsync = createAsyncThunk(
             Authorization: authToken,
           },
         });
-  
         if (response.status === 204) {
-          console.log("Deleted from Dispatch");
+          console.log("Deleted from Dispatch", selectProducts);
         } else {
           console.error('Failed to delete product:', response);
         }
       } catch (error) {
         console.error('Error deleting product:', error);
       }
-
     }
   );
 
@@ -61,7 +59,6 @@ const productActionsSlice = createSlice({
     builder.addCase(deleteProductAsync.fulfilled, (state) => {
         state.isLoading = false;
         console.log("Product deleted successfully");
-        UpdateProductsArray();
       });
   
       builder.addCase(deleteProductAsync.rejected, (state, { error }) => {

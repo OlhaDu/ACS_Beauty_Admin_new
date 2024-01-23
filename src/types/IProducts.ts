@@ -37,3 +37,10 @@ export interface ProductState {
 	isLoading: boolean;
 	error: string | null | SerializedError;
 }
+
+export interface DeleteModalProps {
+  open: boolean;
+  onClose: () => void;
+  nameProduct: string;
+  id: string;
+}

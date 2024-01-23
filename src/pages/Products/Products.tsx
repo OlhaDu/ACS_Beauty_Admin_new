@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { ThunkDispatch, AnyAction } from '@reduxjs/toolkit';
+import { ThunkDispatch } from '@reduxjs/toolkit';
+import { Action } from "redux";
 import { RootState } from "src/redux/store";
 import ToolsPanel from "src/components/ToolsPanel/ToolsPanel";
 import { ProductElem } from "src/types";
@@ -8,17 +9,17 @@ import { GridColDef, GridRowSelectionModel, GridPaginationModel } from '@mui/x-d
 import { Typography } from "@mui/material";
 import { ProductTable, SubHeaderProduct, ProductsWallpaper, ProductsTable, ButtonActions, ProductsHeader } from "./ProductsTheme";
 import { getProductsAsync } from "src/redux/slices/productsSlice";
-// import { http } from "src/api";
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import Badge from "src/components/Badge/Badge";
 import VioletButton from "src/components/VioletButton";
 import { useAppSelector } from "src/redux/selectors";
 import { selectProducts } from "src/redux/hooks";
-import { deleteProductAsync } from "src/redux/slices/productActionsSlice";
+import DeleteModal from "src/components/ProductDeleteModal/DeleteModal";
+// import { deleteProductAsync } from "src/redux/slices/productActionsSlice";
 
 const Products = () => {
-  const dispatch: ThunkDispatch<RootState, unknown, AnyAction> = useDispatch();
+  const dispatch: ThunkDispatch<RootState, unknown, Action> = useDispatch();
   const productsArray: ProductElem[] = (useAppSelector(selectProducts) || []) as ProductElem[];
   const rowCountState = useSelector(
 		(state: RootState) => (state.products.count),
@@ -27,6 +28,11 @@ const Products = () => {
     pageSize: 10,
     page: 0,
   });
+
+  const [open, setOpen] = React.useState(false);
+  const [selectedProduct, setSelectedProduct] = React.useState<{ id: number | null, nameProduct: string | '' }>({ id: null, nameProduct: '' });
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
   const handlePageSizeChange = (newPageSize: GridPaginationModel) => {
     setPaginationModel({
@@ -38,18 +44,13 @@ const Products = () => {
   const [rowSelectionModel, setRowSelectionModel] =
   React.useState<GridRowSelectionModel>([]);
 
-  // const authToken = import.meta.env.VITE_API_BASE_TOKEN;
-
-  const handleButtonDelete = async (id: number) => {
-    try {
-      await dispatch(deleteProductAsync(id));
-      console.log("Deleted");
-    } catch (error) {
-      console.error('Error deleting product:', error);
-    }
-  };
+  const handleButtonDelete = async (id: number, nameProduct: string) => {
+    // await dispatch(deleteProductAsync(id));
+    console.log("Del:", id);
+    setSelectedProduct({ id, nameProduct });
+    handleOpen();
+  };  
   
-
   const handleButtonEdit = async (id: number) => {
     console.log("Edit:", id);
   };
@@ -61,7 +62,6 @@ const Products = () => {
     }));
   }, [paginationModel.page]);
   
-
   const getSelectedItemsText = (count: number) => {
     const lastTwoDigits = count % 100;
     const lastDigit = count % 10;
@@ -112,7 +112,7 @@ const Products = () => {
       width: 100,
       getActions: (params) => [
         <ButtonActions icon={<EditIcon />} label="Edit" onClick={() => handleButtonEdit(params.row.id)}/>,
-        <ButtonActions icon={<DeleteIcon />} label="Delete" onClick={() => handleButtonDelete(params.row.id)}/>,
+        <ButtonActions icon={<DeleteIcon />} label="Delete" onClick={() => handleButtonDelete(params.row.id, params.row.name)}/>,
       ],
     }
   ];
@@ -123,11 +123,11 @@ const Products = () => {
       <ProductsHeader>
         <SubHeaderProduct>
           <Typography variant="h3">Товари</Typography>
-          {/* VioletButton */}
           <VioletButton title="СТВОРИТИ НОВИЙ"></VioletButton>
         </SubHeaderProduct>
         <ToolsPanel />
       </ProductsHeader>
+      <DeleteModal open={open} onClose={handleClose} nameProduct={selectedProduct.nameProduct} id="delete" />
       <ProductTable>
       {productsArray && productsArray.length > 0 ? (
           <ProductsTable
