@@ -7,8 +7,6 @@ function PageNotFound() {
 			<div className="notFound">
 				<img width="100%" src={error} alt="404" loading="lazy" />
 				<span className="textError">
-					Щось пішло не так...
-					<br />
 					Ви ввели неправильну адресу, або ця сторінка на сайті більше не доступна.
 				</span>
 			</div>

@@ -26,7 +26,7 @@ const Category: FC<ICategory> = ({ category }) => {
           <h4 className={s.categoryName}>{category.name}</h4>
           <div className={s.iconsContainer}>
             <EditIcon />
-            <DeleteIcon />
+            <DeleteIcon fill={'#000000'} />
             <AddIcon className={s.addIcon} />
           </div>
         </div>

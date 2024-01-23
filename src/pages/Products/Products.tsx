@@ -8,7 +8,7 @@ import { GridColDef, GridRowSelectionModel, GridPaginationModel } from '@mui/x-d
 import { Typography } from "@mui/material";
 import { ProductTable, SubHeaderProduct, ProductsWallpaper, ProductsTable, ButtonActions, ProductsHeader } from "./ProductsTheme";
 import { getProductsAsync } from "src/redux/slices/productsSlice";
-import { http } from "src/api";
+// import { http } from "src/api";
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import Badge from "src/components/Badge/Badge";
@@ -38,7 +38,7 @@ const Products = () => {
   const [rowSelectionModel, setRowSelectionModel] =
   React.useState<GridRowSelectionModel>([]);
 
-  const authToken = import.meta.env.VITE_API_BASE_TOKEN;
+  // const authToken = import.meta.env.VITE_API_BASE_TOKEN;
 
   const handleButtonDelete = async (id: number) => {
     try {
