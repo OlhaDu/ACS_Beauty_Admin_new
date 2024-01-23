@@ -14,6 +14,7 @@ const FilterProperties: React.FC<FilterPropertiesProps> = ({
   filterOpen,
   onRatingFilterChange,
   onStatusFilterChange,
+ 
 }) => {
   const [statusOpen, setStatusOpen] = useState(false);
   const [ratingOpen, setRatingOpen] = useState(false);

@@ -44,6 +44,7 @@ h2 {
 }
 .menu_list {
   display: flex;
+  margin-top: 22px;
 }
 .menu_link {
   color: $main-text-color;
@@ -52,24 +53,29 @@ h2 {
 .menu_list li {
   position: relative;
 }
-.menu_list > li {
+
+.menu_filter {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  width: 197px;
-  gap: 5px;
+  justify-content:flex-end;;
+  
+  gap: 15px;
   margin-right: 20px;
   color: $main-text-color;
   @extend .Roboto400-16-18;
   padding: 0px 0px 0px 8px;
   border: 1px solid rgba(0, 0, 0, 0.1);
-  text-align: center;
+}
+.countPageLi {
+  margin-left: auto;
 }
 
 .menu_arrow {
+  display: flex;
   padding: 10px;
   background-color: $gray-dropdown-color;
-  justify-content: end;
+  cursor: pointer;
+  pointer-events: auto
 }
 
 .menu_arrow_rotated {
@@ -78,4 +84,10 @@ h2 {
 }
 .menu_arrow_span {
   margin-left: 5px;
+}
+.paginationStyle {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+  
 }

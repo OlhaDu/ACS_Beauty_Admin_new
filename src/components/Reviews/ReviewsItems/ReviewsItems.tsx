@@ -46,6 +46,7 @@ const ReviewsItems: React.FC<ReviewsItemsProps> = ({
   const [status, setStatus] = useState<"pending" | "fulfilled" | "rejected">(
     "pending"
   );
+  const [activeReviewId, setActiveReviewId] = useState<string | null>(null);
 
   useEffect(() => {
     if (status === "rejected") {
@@ -163,16 +164,24 @@ const ReviewsItems: React.FC<ReviewsItemsProps> = ({
             );
           })
           .map((review) => (
-            <li key={review.id}>
+            <li key={review.id}
+            onMouseEnter={() => setActiveReviewId(review.id)}
+      onMouseLeave={() => setActiveReviewId(null)}
+            >
               <p>{review.id}</p>
               <p className={s.review_item_text}>{review.productName}</p>
-              <div className={s.review_item_name}>
+              <div className={s.review_item_name}
+              onMouseEnter={() => setActiveReviewId(review.id)}
+              onMouseLeave={() => setActiveReviewId(null)}
+              >
                 <p>
                   {review.firstName} {review.lastName}
                 </p>
               </div>
 
-              <p className={s.review_item_text}>{review.review}</p>
+              <p className={s.review_item_text}>{review.review}
+              title={activeReviewId === review.id ? review.review : ""}
+              </p>
               <p>
                 {Array(4)
                   .fill(0)

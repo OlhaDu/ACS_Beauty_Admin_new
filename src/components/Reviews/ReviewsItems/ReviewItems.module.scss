@@ -28,49 +28,23 @@
   margin: 0;
   white-space: nowrap;
 }
-
-.review_item_name {
-  display: flex;
-  flex-shrink: 0;
-
-  p {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    max-width: 160px;
-  }
-}
-.review_item_text {
-  text-overflow: ellipsis;
+.review_item_text,
+.review_item_name p {
   overflow: hidden;
-}
-.real_checkbox {
-  display: none;
-}
-.custom_checkbox {
-  position: relative;
-  display: inline-block;
-  vertical-align: sub;
-  margin-right: 5px;
-}
-.custom_checkbox::before {
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -60%) scale(0);
-  display: inline-block;
-  width: 12px;
-  height: 12px;
-  padding: 2px;
-  background-image: url("src/assets/check.svg");
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-color: blue;
-  transition: 0.1s ease-in;
-}
-.real_checkbox:checked + .custom_checkbox::before {
-  transform: translate(-50%, -60%) scale(1);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 160px;
+
+  &:hover,
+  &[title] {
+    // width: 167px;
+    white-space: normal;
+    overflow: visible;
+    text-overflow: clip;
+    word-wrap: break-word;
+    z-index: 2;
+    position: relative;
+  }
 }
 .actionIcon {
   display: flex;
