@@ -1,8 +1,8 @@
-import { Field, Form, Formik, FormikValues } from "formik"
+import { ErrorMessage, Field, Form, Formik, FormikValues } from "formik"
 import s from "./FormGenerator.module.scss"
 import Toggler from "../Toggler/Toggler"
 import VioletButton from "../VioletButton"
-import { Fragment, ReactNode } from "react"
+import { Fragment } from "react"
 import { IForm } from "src/types"
 import cn from "classnames"
 
@@ -12,7 +12,7 @@ const FormGenerator = <T extends FormikValues>(props: IForm<T>) => {
   return (
     <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={onSubmit}>
       {props => {
-        const { errors, touched, isValid, dirty } = props
+        const { isValid, dirty } = props
         const btnClasses = cn(s.button, { [s.disabled]: !dirty || !isValid })
         return (
           <Form className={s.form}>
@@ -35,9 +35,7 @@ const FormGenerator = <T extends FormikValues>(props: IForm<T>) => {
                           type="text"
                           className={`${s.field} ${className}`}
                         />
-                        {touched[name] && errors[name] && (
-                          <p className={s.error}>{errors[name] as ReactNode}</p>
-                        )}
+                        <ErrorMessage name={name} component="p" className={s.error} />
                       </>
                     )}
                     <>{Component}</>

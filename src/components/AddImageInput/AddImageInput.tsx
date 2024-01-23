@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useFormikContext } from "formik"
 import { ChangeEvent, FC, ReactNode, useEffect, useRef, useState } from "react"
 import AddIcon from "src/images/svg/AddIcon_"
@@ -7,21 +8,26 @@ import { IAddImageInput } from "src/types"
 import CloseIcon from "src/images/svg/CloseIcon_"
 
 const AddImageInput: FC<IAddImageInput> = ({ categoryName, logo, inputToggler }) => {
-  const { setFieldValue, errors } = useFormikContext<{ image: File }>()
+  const { setFieldValue, errors, dirty } = useFormikContext<{ image: File }>()
   const [image, setImage] = useState(logo || "")
   const inputRef = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
     handleCloseIconClick()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [inputToggler])
+
+  useEffect(() => {
+    const input = inputRef.current
+    const handleCancelImageChange = () => setFieldValue("image", "")
+    input?.addEventListener("cancel", handleCancelImageChange)
+    return () => input?.removeEventListener("cancel", handleCancelImageChange)
+  }, [])
 
   const handleImageChange = async (e: ChangeEvent<HTMLInputElement>) => {
     if (!e.currentTarget.files?.length) return
-
     const file = e.currentTarget.files[0]
     setFieldValue("image", file)
-
+    if (file.type.split("/")[0] !== "image") return
     const imageUrl = URL.createObjectURL(file)
     setImage(imageUrl)
   }
@@ -29,7 +35,8 @@ const AddImageInput: FC<IAddImageInput> = ({ categoryName, logo, inputToggler })
   const handleCloseIconClick = () => {
     setImage("")
     setFieldValue("image", null)
-    if (inputRef.current) inputRef.current.value = ""
+    const input = inputRef.current
+    if (input) input.value = ""
   }
 
   const handleAddIconClick = () => inputRef.current?.click()
@@ -57,7 +64,7 @@ const AddImageInput: FC<IAddImageInput> = ({ categoryName, logo, inputToggler })
           ref={inputRef}
         />
       </Border>
-      {errors.image && <p className={s.error}>{errors.image as ReactNode}</p>}
+      {errors.image && dirty && <p className={s.error}>{errors.image as ReactNode}</p>}
     </>
   )
 }

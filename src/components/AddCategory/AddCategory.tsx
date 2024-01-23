@@ -12,6 +12,7 @@ import { useAppDispatch } from "src/redux/hooks"
 
 const AddCategory: FC<IAddCategory> = ({ setIsAddCategoryActive }) => {
   const [inputToggler, setInputToggler] = useState<boolean>(false)
+  // const error = useAppSelector(selectError)
   const dispatch = useAppDispatch()
 
   const closeAddCategory = () => setIsAddCategoryActive(false)
@@ -44,16 +45,17 @@ const AddCategory: FC<IAddCategory> = ({ setIsAddCategoryActive }) => {
         ],
       },
     ],
-    onSubmit: async (value: IInitialValues, { resetForm }: FormikHelpers<IInitialValues>) => {
-      try {
-        dispatch(addCategory(value))
+    onSubmit: async (
+      value: IInitialValues,
+      { resetForm, setFieldError }: FormikHelpers<IInitialValues>
+    ) => {
+      const { type, payload } = await dispatch(addCategory(value))
+      if (type.includes("rejected")) setFieldError("name", payload)
+      if (type.includes("fulfilled")) {
         setInputToggler(!inputToggler)
         resetForm()
-      } catch (error) {
-        alert(error)
       }
     },
-    isToggler: false,
   }
 
   return (
