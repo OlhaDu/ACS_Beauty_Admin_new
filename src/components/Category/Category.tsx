@@ -1,5 +1,5 @@
 import s from "./Category.module.scss"
-import DeleteIcon from "src/images/svg/DeleteIcon_"
+import DeleteIcon from "src/images/svg/DeleteIcon"
 import EditIcon from "src/images/svg/EditIcon"
 import AddIcon from "src/images/svg/AddIcon_"
 import ArrowToRight from "src/images/svg/ArrowToRight"

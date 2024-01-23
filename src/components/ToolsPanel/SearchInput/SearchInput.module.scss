@@ -11,12 +11,17 @@
     width: inherit;
     height: inherit;
     outline: none;
-    font-size: 24px;
-    border: $default-border;
+    padding: 10px 10px 10px 40px;
+
+    @include text();
+    @include border();
   }
+
   .searchIcon {
     position: absolute;
-    left: 11px;
-    top: 13px;
+    left: 5%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    transition: left $transition;
   }
 }
