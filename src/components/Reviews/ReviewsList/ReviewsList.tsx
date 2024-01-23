@@ -1,12 +1,10 @@
-import React, { useState, useEffect, useRef, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import ReviewsItems from "../ReviewsItems/ReviewsItems";
 import { fetchReviews } from "../../Utils/api/getReviews";
 import s from "./ReviewsList.module.scss";
 import SearchReviews from "src/components/Reviews/SearchReviews/SearchReviews";
-// import ControlledOpenSelect from "src/components/Reviews/ControlledOpenSelect/ControlledOpenSelect"
-import FilterIcon from "src/assets/filter-variant.svg";
-import ArrowIcon from "src/assets/menu-arrow.svg";
-import ExportIcon from "src/assets/file-export.svg";
+import ExportList from "src/components/Reviews/ExportList/ExportList"
+
 import AdminLayout from "src/layouts/AdminLayout";
 import FilterProperties from "../FilterProperties/FilterProperties";
 import Content from "src/components/Reviews/PaginationItem/PaginationItem";
@@ -28,8 +26,7 @@ const ReviewsList: React.FC = () => {
   const [status, setStatus] = useState<"pending" | "fulfilled" | "rejected">(
     "pending"
   );
-  const [filterOpen, setFilterOpen] = useState(false);
-  const [exportOpen, setExportOpen] = useState(false);
+  // const [exportOpen, setExportOpen] = useState(false);
   const [ratingFilter, setRatingFilter] = useState<
     "positive" | "neutral" | "negative" | undefined
   >(undefined);
@@ -41,15 +38,12 @@ const ReviewsList: React.FC = () => {
   >(undefined);
   const [searchTerm, setSearchTerm] = useState("");
 
-  const filterRef = useRef<HTMLDivElement>(null);
-  const filterButtonRef = useRef<HTMLSpanElement>(null);
-
-  const toggleExport = (
-    event: React.MouseEvent<HTMLSpanElement, MouseEvent>
-  ) => {
-    event.stopPropagation();
-    setExportOpen(!exportOpen);
-  };
+  // const toggleExport = (
+  //   event: React.MouseEvent<HTMLSpanElement, MouseEvent>
+  // ) => {
+  //   event.stopPropagation();
+  //   setExportOpen(!exportOpen);
+  // };
 
   useEffect(() => {
     setStatus("pending");
@@ -63,31 +57,9 @@ const ReviewsList: React.FC = () => {
       });
   }, []);
 
-  const toggleFilter = useCallback(() => {
-    setFilterOpen((prevFilterOpen) => !prevFilterOpen);
-  }, []);
   const handleSearch = async (term: string) => {
     setSearchTerm(term);
   };
-
-  useEffect(() => {
-    const closeFilter = (e: MouseEvent) => {
-      if (filterOpen && filterRef.current && filterButtonRef.current) {
-        if (
-          !filterRef.current.contains(e.target as Node) &&
-          !filterButtonRef.current.contains(e.target as Node)
-        ) {
-          toggleFilter();
-        }
-      }
-    };
-
-    window.addEventListener("mousedown", closeFilter);
-
-    return () => {
-      window.removeEventListener("mousedown", closeFilter);
-    };
-  }, [toggleFilter, filterRef, filterButtonRef, filterOpen]);
 
   const updateReviewsData = async () => {
     try {
@@ -128,45 +100,18 @@ const ReviewsList: React.FC = () => {
         <SearchReviews onSearch={handleSearch} />
 
         <ul className={s.menu_list}>
-          <li>
-            <div className={s.menu_filter}>
-              <FilterIcon />
-              Фільтрувати
-              <span
-                ref={filterButtonRef}
-                className={`${s.menu_arrow} 
-              ${filterOpen ? s.menu_arrow_rotated : ""}`}
-                onClick={toggleFilter}
-              >
-                <ArrowIcon />
-              </span>
-            </div>
-            <div ref={filterRef}>
-              {filterOpen && (
-                <FilterProperties
-                  filterOpen={filterOpen}
-                  onRatingFilterChange={(filter) => {
-                    setRatingFilter(filter);
-                  }}
-                  onStatusFilterChange={(statusFilter) => {
-                    setStatusFilter(statusFilter);
-                  }}
-                />
-              )}
-            </div>
+          <li >
+            <FilterProperties
+              onRatingFilterChange={(filter) => {
+                setRatingFilter(filter);
+              }}
+              onStatusFilterChange={(statusFilter) => {
+                setStatusFilter(statusFilter);
+              }}
+            />
           </li>
-
           <li className={s.menu_filter}>
-            <ExportIcon />
-            Експортувати
-            <span
-              className={`${s.menu_arrow} ${
-                exportOpen ? s.menu_arrow_rotated : ""
-              }`}
-              onClick={toggleExport}
-            >
-              <ArrowIcon />
-            </span>
+            <ExportList/>
           </li>
           <li className={s.countPageLi}>
             <ReviewsOnPage
