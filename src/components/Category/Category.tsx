@@ -11,6 +11,7 @@ import { setActiveCategory } from "src/redux/slices/categoriesSlice"
 import SubCategories from "../SubCategories"
 import { selectActiveCategory } from "src/redux/selectors"
 import ArrowDownIcon from "src/images/svg/ArrowDownIcon"
+import { deleteCategory } from "src/redux/asyncThunks/categoriesThunks"
 
 const Category: FC<ICategory> = category => {
   const dispatch = useAppDispatch()
@@ -24,6 +25,8 @@ const Category: FC<ICategory> = category => {
     dispatch(setActiveCategory(null))
   }
 
+  const deleteIconClickHandler = () => dispatch(deleteCategory(category.id))
+
   return (
     <Border border="borderDefault">
       <div className={s.category}>
@@ -31,7 +34,7 @@ const Category: FC<ICategory> = category => {
           <h4 className={s.categoryName}>{category.name}</h4>
           <div className={s.iconsContainer}>
             <EditIcon />
-            <DeleteIcon />
+            <DeleteIcon onClick={deleteIconClickHandler} />
             <AddIcon className={s.addIcon} />
           </div>
         </div>

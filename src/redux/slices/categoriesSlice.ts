@@ -1,19 +1,19 @@
 import { createSlice } from "@reduxjs/toolkit"
 import { ICategory } from "src/types"
-import { addCategory, getCategories } from "../asyncThunks/categoriesThunks"
+import { addCategory, deleteCategory, getCategories } from "../asyncThunks/categoriesThunks"
 
 interface IState {
   categories: ICategory[]
   acitveCategory: ICategory | null
   status: "pending" | "fulfilled" | "rejected"
-  error: string | null
+  error: string
 }
 
 const initialState: IState = {
   categories: [],
   acitveCategory: null,
   status: "pending",
-  error: null,
+  error: "",
 }
 
 export const categoriesSlice = createSlice({
@@ -31,12 +31,20 @@ export const categoriesSlice = createSlice({
     })
     builder.addCase(addCategory.fulfilled, (state, action) => {
       state.status = "fulfilled"
-      state.error = null
+      state.error = ""
       state.categories.push(action.payload)
     })
     builder.addCase(addCategory.rejected, (state, action) => {
       state.status = "rejected"
-      if (typeof action.payload === "string") state.error = action.payload
+      if (action.payload) state.error = action.payload
+    })
+    builder.addCase(deleteCategory.fulfilled, (state, action) => {
+      state.status = "fulfilled"
+      state.categories = state.categories.filter(category => category.id !== action.payload)
+    })
+    builder.addCase(deleteCategory.rejected, (state, action) => {
+      state.status = "rejected"
+      if (action.payload) state.error = action.payload
     })
   },
 })

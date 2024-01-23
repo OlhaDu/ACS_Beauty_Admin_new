@@ -1,6 +1,7 @@
-import React from "react";
+import { FC } from "react"
+import { IIcon } from "./types"
 
-const DeleteIcon = () => {
+const DeleteIcon: FC<IIcon> = ({ onClick }) => {
   return (
     <svg
       width="52"
@@ -8,6 +9,7 @@ const DeleteIcon = () => {
       viewBox="0 0 52 52"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      onClick={onClick}
     >
       <circle cx="26" cy="26" r="26" fill="#948AD0" />
       <path
@@ -15,7 +17,7 @@ const DeleteIcon = () => {
         fill="white"
       />
     </svg>
-  );
-};
+  )
+}
 
-export default DeleteIcon;
+export default DeleteIcon
