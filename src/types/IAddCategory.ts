@@ -1,5 +1,4 @@
 import { FormikValues } from "formik"
-import { Dispatch, SetStateAction } from "react"
 
 export interface IInitialValues extends FormikValues {
   image: null | File
@@ -7,6 +6,4 @@ export interface IInitialValues extends FormikValues {
   description: string
 }
 
-export interface IAddCategory {
-  setIsAddCategoryActive: Dispatch<SetStateAction<boolean>>
-}
+export interface IAddCategory {}

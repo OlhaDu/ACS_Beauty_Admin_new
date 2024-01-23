@@ -10,12 +10,12 @@ import { FC, useState } from "react"
 import { addCategory } from "src/redux/asyncThunks/categoriesThunks"
 import { useAppDispatch } from "src/redux/hooks"
 
-const AddCategory: FC<IAddCategory> = ({ setIsAddCategoryActive }) => {
+const AddCategory: FC<IAddCategory> = () => {
   const [inputToggler, setInputToggler] = useState<boolean>(false)
   // const error = useAppSelector(selectError)
   const dispatch = useAppDispatch()
 
-  const closeAddCategory = () => setIsAddCategoryActive(false)
+  const closeAddCategory = () => {}
 
   const addCategoryForm = {
     initialValues: {
