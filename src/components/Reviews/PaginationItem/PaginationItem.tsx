@@ -1,7 +1,7 @@
-import React, {useEffect} from 'react';
-import { Link,  useNavigate, useLocation} from 'react-router-dom';
-import Pagination from '@mui/material/Pagination';
-import PaginationItem from '@mui/material/PaginationItem';
+import React, { useEffect } from "react";
+import { Link, useNavigate, useLocation } from "react-router-dom";
+import Pagination from "@mui/material/Pagination";
+import PaginationItem from "@mui/material/PaginationItem";
 
 interface Review {
   id: string;
@@ -14,41 +14,46 @@ interface Review {
   rating: number;
 }
 interface ContentProps {
- reviews: Review[];
+  reviews: Review[];
   numberReviews: string | undefined;
   onPageChange: (currentReviews: Review[]) => void;
 }
-const Content: React.FC<ContentProps> = ({ reviews, numberReviews, onPageChange }) => {
-  
+const Content: React.FC<ContentProps> = ({
+  reviews,
+  numberReviews,
+  onPageChange,
+}) => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  console.log("reviewsContent", reviews);
   const queryParams = new URLSearchParams(location.search);
-  const currentPage = parseInt(queryParams.get('page') || '1', 10);
-  const reviewsPerPage = parseInt(numberReviews || '1', 10);
+  const currentPage = parseInt(queryParams.get("page") || "1", 10);
+  const reviewsPerPage = parseInt(numberReviews || "1", 10);
 
   useEffect(() => {
     const indexOfLastProduct = currentPage * reviewsPerPage;
     const indexOfFirstProduct = indexOfLastProduct - reviewsPerPage;
 
-    console.log("indexOfLastProduct", indexOfLastProduct);
-    console.log("indexOfFirstProduct", indexOfFirstProduct);
-
-    const currentReviews = reviews?.slice(indexOfFirstProduct, indexOfLastProduct);
+    const currentReviews = reviews?.slice(
+      indexOfFirstProduct,
+      indexOfLastProduct
+    );
 
     if (currentReviews && currentReviews.length > 0) {
       onPageChange(currentReviews);
     }
   }, [location.search, reviews, reviewsPerPage, currentPage, onPageChange]);
 
-  const handlePageChange = (event: React.ChangeEvent<unknown>, newPage: number) => {
-    queryParams.set('page', newPage.toString());
+  const handlePageChange = (
+    event: React.ChangeEvent<unknown>,
+    newPage: number
+  ) => {
+    queryParams.set("page", newPage.toString());
     navigate(`?${queryParams.toString()}`);
   };
 
-  return (   
-        <Pagination
+  return (
+    <Pagination
       page={currentPage}
       count={Math.ceil(reviews?.length / reviewsPerPage || 1)}
       onChange={handlePageChange}
@@ -60,8 +65,7 @@ const Content: React.FC<ContentProps> = ({ reviews, numberReviews, onPageChange 
         />
       )}
     />
-      
   );
-}
+};
 
 export default Content;

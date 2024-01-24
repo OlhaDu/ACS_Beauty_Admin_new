@@ -1,18 +1,17 @@
 import React, { useState } from "react";
 import s from "./ChangeStatus.module.scss";
-
 interface ChangeStatusProps {
   onSave: (selectedStatus: string) => void;
   onClose: () => void;
 }
 
-const ChangeStatus: React.FC<ChangeStatusProps> = ({onSave, onClose }) => {
+const ChangeStatus: React.FC<ChangeStatusProps> = ({ onSave, onClose }) => {
   const [selectedStatus, setSelectedStatus] = useState<string>("");
   console.log("selectedStatus item", selectedStatus);
-const handleSave = () => {
-  onSave(selectedStatus);
-  onClose()
-}
+  const handleSave = () => {
+    onSave(selectedStatus);
+    onClose();
+  };
 
   return (
     <div>
@@ -36,7 +35,12 @@ const handleSave = () => {
           />
           На перевірці
         </label>
-        <button type="button" title="SafeButton" className={s.safeBtn} onClick={handleSave}>
+        <button
+          type="button"
+          title="SafeButton"
+          className={s.safeBtn}
+          onClick={handleSave}
+        >
           ЗБЕРЕГТИ
         </button>
       </div>

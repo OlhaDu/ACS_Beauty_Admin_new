@@ -57,8 +57,8 @@ h2 {
 .menu_filter {
   display: flex;
   align-items: center;
-  justify-content:flex-end;;
-  
+  justify-content: flex-end;
+
   gap: 15px;
   margin-right: 20px;
   color: $main-text-color;
@@ -75,12 +75,11 @@ h2 {
   padding: 10px;
   background-color: $gray-dropdown-color;
   cursor: pointer;
-  pointer-events: auto
+  pointer-events: auto;
 }
 
 .menu_arrow_rotated {
   transform: rotate(180deg);
-  // transition: transform 0.3s ease;
 }
 .menu_arrow_span {
   margin-left: 5px;
@@ -89,5 +88,4 @@ h2 {
   display: flex;
   justify-content: center;
   margin-top: 10px;
-  
 }

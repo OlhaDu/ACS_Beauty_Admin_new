@@ -3,7 +3,7 @@ import ReviewsItems from "../ReviewsItems/ReviewsItems";
 import { fetchReviews } from "../../Utils/api/getReviews";
 import s from "./ReviewsList.module.scss";
 import SearchReviews from "src/components/Reviews/SearchReviews/SearchReviews";
-import ExportList from "src/components/Reviews/ExportList/ExportList"
+import ExportList from "src/components/Reviews/ExportList/ExportList";
 
 import AdminLayout from "src/layouts/AdminLayout";
 import FilterProperties from "../FilterProperties/FilterProperties";
@@ -26,7 +26,6 @@ const ReviewsList: React.FC = () => {
   const [status, setStatus] = useState<"pending" | "fulfilled" | "rejected">(
     "pending"
   );
-  // const [exportOpen, setExportOpen] = useState(false);
   const [ratingFilter, setRatingFilter] = useState<
     "positive" | "neutral" | "negative" | undefined
   >(undefined);
@@ -37,13 +36,6 @@ const ReviewsList: React.FC = () => {
     "pending" | "published" | undefined
   >(undefined);
   const [searchTerm, setSearchTerm] = useState("");
-
-  // const toggleExport = (
-  //   event: React.MouseEvent<HTMLSpanElement, MouseEvent>
-  // ) => {
-  //   event.stopPropagation();
-  //   setExportOpen(!exportOpen);
-  // };
 
   useEffect(() => {
     setStatus("pending");
@@ -100,7 +92,7 @@ const ReviewsList: React.FC = () => {
         <SearchReviews onSearch={handleSearch} />
 
         <ul className={s.menu_list}>
-          <li >
+          <li>
             <FilterProperties
               onRatingFilterChange={(filter) => {
                 setRatingFilter(filter);
@@ -111,7 +103,7 @@ const ReviewsList: React.FC = () => {
             />
           </li>
           <li className={s.menu_filter}>
-            <ExportList/>
+            <ExportList />
           </li>
           <li className={s.countPageLi}>
             <ReviewsOnPage

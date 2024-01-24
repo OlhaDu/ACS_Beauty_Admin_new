@@ -4,38 +4,37 @@ import FormatListNumberIcon from "src/assets/FormatListNumberIcon";
 import ArrowIcon from "src/assets/menu-arrow.svg";
 
 interface ReviewsOnPageProps {
-  onNumberReviewsChange: (numberReviews: "10" | "20" | "50" | "100" ) => void;
-  
+  onNumberReviewsChange: (numberReviews: "10" | "20" | "50" | "100") => void;
 }
 
 const ReviewsOnPage: React.FC<ReviewsOnPageProps> = ({
   onNumberReviewsChange,
- 
 }) => {
   const [countOpen, setCountOpen] = useState(false);
   const [numberReviews, setNumberReviews] = useState<
-  "10" | "20" | "50" | "100">("10");
-  
+    "10" | "20" | "50" | "100"
+  >("10");
+
   const toggleCount = useCallback(() => {
     setCountOpen((prevCountOpen) => !prevCountOpen);
-  }, []);     
-  
-  const handleReviewsNumber = (numberReviews: "10" | "20" | "50" | "100" ) => {
-    onNumberReviewsChange(numberReviews)
-    setNumberReviews(numberReviews)
-    toggleCount()
+  }, []);
+
+  const handleReviewsNumber = (numberReviews: "10" | "20" | "50" | "100") => {
+    onNumberReviewsChange(numberReviews);
+    setNumberReviews(numberReviews);
+    toggleCount();
   };
 
   return (
-    <div className={s.menu_filter} >
+    <div className={s.menu_filter}>
       <FormatListNumberIcon />
       Рядків на сторінці: {numberReviews}
       <span
         className={`${s.menu_arrow} 
               ${countOpen ? s.menu_arrow_rotated : ""}`}
-        onClick={toggleCount}     
+        onClick={toggleCount}
       >
-         <ArrowIcon />
+        <ArrowIcon />
       </span>
       {countOpen && (
         <div className={s.styleItems}>

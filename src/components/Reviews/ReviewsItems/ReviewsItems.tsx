@@ -35,7 +35,6 @@ interface ReviewsItemsProps {
 
 const ReviewsItems: React.FC<ReviewsItemsProps> = ({
   reviews,
-
   ratingFilter,
   statusFilter,
   updateReviewsData,
@@ -76,9 +75,7 @@ const ReviewsItems: React.FC<ReviewsItemsProps> = ({
   const handleRemoveNotice = async (id: string) => {
     try {
       setStatus("pending");
-
       await deleteReviews(id);
-
       setStatus("fulfilled");
       updateReviewsData();
     } catch {
@@ -164,23 +161,26 @@ const ReviewsItems: React.FC<ReviewsItemsProps> = ({
             );
           })
           .map((review) => (
-            <li key={review.id}
-            onMouseEnter={() => setActiveReviewId(review.id)}
-      onMouseLeave={() => setActiveReviewId(null)}
+            <li
+              key={review.id}
+              onMouseEnter={() => setActiveReviewId(review.id)}
+              onMouseLeave={() => setActiveReviewId(null)}
             >
               <p>{review.id}</p>
               <p className={s.review_item_text}>{review.productName}</p>
-              <div className={s.review_item_name}
-              onMouseEnter={() => setActiveReviewId(review.id)}
-              onMouseLeave={() => setActiveReviewId(null)}
+              <div
+                className={s.review_item_name}
+                onMouseEnter={() => setActiveReviewId(review.id)}
+                onMouseLeave={() => setActiveReviewId(null)}
               >
                 <p>
                   {review.firstName} {review.lastName}
                 </p>
               </div>
 
-              <p className={s.review_item_text}>{review.review}
-              title={activeReviewId === review.id ? review.review : ""}
+              <p className={s.review_item_text}>
+                {review.review}
+                title={activeReviewId === review.id ? review.review : ""}
               </p>
               <p>
                 {Array(4)
