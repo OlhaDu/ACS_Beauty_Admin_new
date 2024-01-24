@@ -1,11 +1,28 @@
 @import "/src/styles/variables.scss";
 
+@mixin text($color: $main-text-color, $font-size: 16px, $font-weight: 400) {
+  color: $color;
+  font-size: $font-size;
+  font-weight: $font-weight;
+}
+
+@mixin border($radius: 4px, $border: $default-border) {
+  border: $border;
+  border-radius: $radius;
+}
+
 .Roboto400-14 {
   font-size: 14px;
   line-height: normal;
 }
+.Roboto400-16 {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: normal;
+}
 
 .Roboto400-16-18 {
+  // in use
   line-height: 18.75px;
 }
 
@@ -38,7 +55,12 @@
   font-weight: 700;
   line-height: 18.75px;
 }
-
+.Roboto700-20-23 {
+  // in use
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 23.44px;
+}
 .Roboto700-24-28 {
   font-weight: 700;
   font-size: 24px;
@@ -63,16 +85,19 @@
 }
 
 .Violet-button-styles {
-  @extend .Roboto600-16-18;
-  padding: 12px 9px;
-  background-color: $main-color;
-  border: none;
-  border-radius: 4px;
+  // in use
   display: flex;
   justify-content: center;
   align-items: center;
-  color: $second-text-color;
-  letter-spacing: 1px;
+
+  width: 197px;
+  height: 43px;
+  padding: 12px 9px;
+
+  @include text($color: $second-color, $font-weight: 600);
+  @include border($border: none);
+
+  background-color: $main-color;
   text-transform: uppercase;
   cursor: pointer;
 }
@@ -82,9 +107,13 @@
   cursor: not-allowed;
 }
 
+@mixin borderType($border-radius, $border: $default-border) {
+  border: $border;
+  border-radius: $border-radius;
+}
 
-@mixin textStyle($font-weight, $font-size, $line-height) {
-  font-weight: $font-weight;
-  font-size: $font-size;
-  line-height: $line-height;
+@mixin font($size: 16px, $weight: 400, $height: 18.75px) {
+  font-weight: $weight;
+  font-size: $size;
+  line-height: $height;
 }

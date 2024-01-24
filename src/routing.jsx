@@ -1,24 +1,29 @@
-import { createBrowserRouter } from "react-router-dom";
-import Users from "./pages/Users/Users";
-import Categories from "./pages/Categories/Categories";
-import Dashboard from "./pages/Dashboard/Dashboard";
-import Orders from "./pages/Orders/Orders.tsx";
+import { createBrowserRouter } from "react-router-dom"
+import Users from "./pages/Users/Users"
+import CategoriesPage from "./pages/CategoriesPage"
+import Dashboard from "./pages/Dashboard/Dashboard"
+import Brands from "./pages/Brands/Brands"
+import Orders from "./pages/Orders/Orders.tsx"
 
 export const router = createBrowserRouter([
   {
-    path: '/users',
+    path: "/users",
     element: <Users />,
   },
   {
-    path: '/categories',
-    element: <Categories />,
+    path: "/categories",
+    element: <CategoriesPage />,
   },
   {
-    path: '/',
+    path: "/",
     element: <Dashboard />,
   },
   {
-    path: '/orders',
+    path: "/brands",
+    element: <Brands />,
+  },
+  {
+    path: "/orders",
     element: <Orders />,
   },
 ])

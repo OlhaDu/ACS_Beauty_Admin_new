@@ -1,13 +1,13 @@
-import React from "react";
-import s from "./ChangeOrderStatusPopup.module.scss";
-import CloseIcon from "../../../images/svg/CloseIcon.jsx";
-import VioletButton from "../../Buttons/VioletButton/VioletButton.tsx";
-import WhiteButton from "../../Buttons/WhiteButton/WhiteButton.tsx";
+import React from "react"
+import s from "./ChangeOrderStatusPopup.module.scss"
+import CloseIcon from "../../../images/svg/CloseIcon_.jsx"
+import VioletButton from "../../Buttons/VioletButton/VioletButton.tsx"
+import WhiteButton from "../../Buttons/WhiteButton/WhiteButton.tsx"
 
 interface Props {
-  onSuccess: () => void;
-  id: number | null;
-  onClose: () => void;
+  onSuccess: () => void
+  id: number | null
+  onClose: () => void
 }
 
 const statusOptions = [
@@ -16,19 +16,15 @@ const statusOptions = [
   { id: "paid", value: "paid", label: "Оплачено" },
   { id: "done", value: "done", label: "Виконано" },
   { id: "canceled", value: "canceled", label: "Скасовано" },
-];
-const ChangeOrderStatusPopup: React.FC<Props> = ({
-  onSuccess,
-  id,
-  onClose,
-}) => {
+]
+const ChangeOrderStatusPopup: React.FC<Props> = ({ onSuccess, id, onClose }) => {
   return (
     <div className={s.modal}>
       <div className={s.popupBody}>
         <div className={s.header}>
           <h4>ЗМІНИТИ СТАТУС ЗАМОВЛЕННЯ</h4>
-          <div className={s.closeIcon} onClick={onClose}>
-            <CloseIcon />
+          <div className={s.closeIcon}>
+            <CloseIcon onClick={onClose} />
           </div>
         </div>
         <div className={s.main}>
@@ -37,14 +33,9 @@ const ChangeOrderStatusPopup: React.FC<Props> = ({
             {id}
           </div>
           <div className={s.radios__block}>
-            {statusOptions.map((option) => (
+            {statusOptions.map(option => (
               <div key={option.id}>
-                <input
-                  type="radio"
-                  id={option.id}
-                  name="status"
-                  value={option.value}
-                />
+                <input type="radio" id={option.id} name="status" value={option.value} />
                 <label htmlFor={option.id}>{option.label}</label>
               </div>
             ))}
@@ -56,7 +47,7 @@ const ChangeOrderStatusPopup: React.FC<Props> = ({
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default ChangeOrderStatusPopup;
+export default ChangeOrderStatusPopup

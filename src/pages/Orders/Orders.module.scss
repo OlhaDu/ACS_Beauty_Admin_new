@@ -8,7 +8,7 @@
   display: flex;
 
   margin-left: 260px;
-  
+
 }
 
 .main__section {
@@ -19,7 +19,7 @@
 .main__title_text {
   padding-bottom: 48px;
   color: #5c5e60;
-  @include textStyle(500, 24px, 28px);
+  @include font(24px, 500, 28px);
 }
 
 .features {

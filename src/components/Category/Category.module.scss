@@ -1,17 +1,13 @@
 @import "/src/styles/variables.scss";
 @import "/src/styles/mixins.scss";
 
-.item {
-  border: $default-border;
-  border-radius: 4px;
-}
-.container {
+.category {
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-shrink: 0;
   padding: 22px 26px 19px 0;
 }
+
 .categoryTools {
   display: flex;
   flex-direction: column;
@@ -27,4 +23,12 @@
   display: flex;
   margin-top: 12px;
   gap: 12px;
+}
+.addIcon {
+  circle {
+    fill: $main-color;
+  }
+  path {
+    fill: $first-icon-color;
+  }
 }

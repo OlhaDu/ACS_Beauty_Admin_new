@@ -12,7 +12,7 @@ export interface FilterProps {
 }
 
 const Filter: FC<FilterProps> = ({ options }) => {
-  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   const handleToggle = () => {
     setIsOpen(!isOpen);

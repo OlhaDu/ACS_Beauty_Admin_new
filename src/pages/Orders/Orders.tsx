@@ -1,13 +1,11 @@
-import s from "./Orders.module.scss";
-import AdminLayout from "../../layouts/AdminLayout";
-import SearchInput from "../../components/ToolsPanel/SearchInput/SearchInput";
-import Select from "../../components/ToolsPanel/Select/Select";
-import FilterIcon from "../../images/svg/FilterIcon";
-import Table from "../../components/Table/Table";
-import ExportButton from "../../components/ToolsPanel/ExportButton/ExportButton";
-import ChangeOrderStatusPopup from "../../components/Popups/ChangeOrderStatusPopup/ChangeOrderStatusPopup.tsx";
-import { useState } from "react";
-import Filter from "../../components/Filter/Filter.tsx";
+import s from "./Orders.module.scss"
+import AdminLayout from "../../layouts/AdminLayout"
+import SearchInput from "../../components/ToolsPanel/SearchInput/SearchInput"
+import { Table } from "../../components/Table/Table"
+import ExportButton from "../../components/ToolsPanel/ExportButton/ExportButton"
+import ChangeOrderStatusPopup from "../../components/Popups/ChangeOrderStatusPopup/ChangeOrderStatusPopup.tsx"
+import { useState } from "react"
+import Filter from "../../components/Filter/Filter.tsx"
 
 const OrdersFilterData = [
   {
@@ -22,10 +20,10 @@ const OrdersFilterData = [
     optionName: "Спосіб оплати",
     suboptions: ["На карту", "При отриманні"],
   },
-];
+]
 const Orders = () => {
-  const [showModal, setShowModal] = useState(false);
-  const [chosenOrderId, setChosenOrderId] = useState(0);
+  const [showModal, setShowModal] = useState(false)
+  const [chosenOrderId, setChosenOrderId] = useState(0)
 
   const columns = [
     { field: "id", headerName: "№", width: 60 },
@@ -48,7 +46,7 @@ const Orders = () => {
     { field: "waybill", headerName: "ТТН", width: 140 },
     { field: "comments", headerName: "Коментарі", width: 140 },
     { field: "additionDate", headerName: "Додано", width: 130 },
-  ];
+  ]
 
   const rows = [
     {
@@ -81,7 +79,7 @@ const Orders = () => {
       comments: "Будь-ласка відправте",
       additionDate: "12.06.2023",
     },
-  ];
+  ]
 
   const getStatusColor = (status: string) => {
     const statusToColor: Record<string, string> = {
@@ -90,27 +88,27 @@ const Orders = () => {
       Оплачено: "green",
       Виконано: "orange",
       Скасовано: "red",
-    };
+    }
 
-    return statusToColor[status] || "black";
-  };
+    return statusToColor[status] || "black"
+  }
   const handleEdit = (id: number) => {
-    console.log(`Edit order with id: ${id}`);
-  };
+    console.log(`Edit order with id: ${id}`)
+  }
 
-  const handleDelete = (id: number) => {
-    console.log(`Delete order with id: ${id}`);
-  };
+  const handleSearchInputChange = (value: string) => {
+    console.log(`Input change ${value}`)
+  }
 
   const handleShowModal = (orderId: number) => {
-    setShowModal(true);
-    setChosenOrderId(orderId);
-  };
+    setShowModal(true)
+    setChosenOrderId(orderId)
+  }
 
   const handleHideModal = () => {
-    setShowModal(false);
-    setChosenOrderId(0);
-  };
+    setShowModal(false)
+    setChosenOrderId(0)
+  }
 
   return (
     <AdminLayout>
@@ -120,19 +118,14 @@ const Orders = () => {
             <h2 className={s.main__title_text}>Замовлення</h2>
           </div>
           <div className={s.features}>
-            <SearchInput />
+            <SearchInput onChange={handleSearchInputChange} />
             <div className={s.tools}>
               <Filter options={OrdersFilterData} />
               <ExportButton columns={columns} rows={rows} />
             </div>
           </div>
 
-          <Table
-            columns={columns}
-            rows={rows}
-            onEdit={handleEdit}
-            onDelete={handleDelete}
-          />
+          <Table columns={columns} rows={rows} onExternalDataUpdate={handleEdit} />
         </section>
         {showModal && (
           <ChangeOrderStatusPopup
@@ -143,7 +136,7 @@ const Orders = () => {
         )}
       </main>
     </AdminLayout>
-  );
-};
+  )
+}
 
-export default Orders;
+export default Orders
