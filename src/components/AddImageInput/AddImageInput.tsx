@@ -5,7 +5,7 @@ import AddIcon from "src/images/svg/AddIcon_"
 import Border from "../Border"
 import s from "./AddImageInput.module.scss"
 import { IAddImageInput } from "src/types"
-import CloseIcon from "src/images/svg/CloseIcon_"
+import DeleteIcon from "src/images/svg/DeleteIcon"
 
 const AddImageInput: FC<IAddImageInput> = ({ categoryName, logo, inputToggler }) => {
   const { setFieldValue, errors, dirty } = useFormikContext<{ image: File }>()
@@ -34,7 +34,7 @@ const AddImageInput: FC<IAddImageInput> = ({ categoryName, logo, inputToggler })
 
   const handleCloseIconClick = () => {
     setImage("")
-    setFieldValue("image", null)
+    setFieldValue("image", "")
     const input = inputRef.current
     if (input) input.value = ""
   }
@@ -47,7 +47,7 @@ const AddImageInput: FC<IAddImageInput> = ({ categoryName, logo, inputToggler })
         {image ? (
           <div className={s.add_img__image_container}>
             <img src={image} alt={categoryName} className={s.add_img__image} />
-            <CloseIcon onClick={handleCloseIconClick} className={s.add_img__add_close_icon} />
+            <DeleteIcon onClick={handleCloseIconClick} className={s.add_img__add_close_icon} />
           </div>
         ) : (
           <div onClick={handleAddIconClick} className={s.add_img__load_container}>

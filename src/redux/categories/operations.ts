@@ -1,7 +1,10 @@
+import { createAsyncThunk } from "@reduxjs/toolkit"
 import { AxiosError } from "axios"
 import { api } from "src/api"
 import { IAddCategory } from "src/api/types"
-import createAppAsyncThunk from "../creatAppAsyncThunk"
+
+
+const createAppAsyncThunk = createAsyncThunk.withTypes<{ rejectValue: string }>()
 
 export const getCategories = createAppAsyncThunk("categories/getAll", async () => {
   const res = await api.getCategories()

@@ -2,8 +2,8 @@ import s from "./Categoriis.module.scss"
 import Category from "../Category"
 import { useEffect } from "react"
 import { useAppDispatch, useAppSelector } from "src/redux/hooks"
-import { getCategories } from "src/redux/asyncThunks/categoriesThunks"
-import { selectCategories } from "src/redux/selectors"
+import { getCategories } from "src/redux/categories/operations"
+import { selectCategories } from "src/redux/categories/selectors"
 
 const Categories = () => {
   const dispatch = useAppDispatch()
@@ -17,9 +17,7 @@ const Categories = () => {
   return (
     <ul className={s.categories}>
       {categories.map(category => (
-        <li key={category.id}>
-          <Category {...category} />
-        </li>
+        <Category key={category.id} {...category} />
       ))}
     </ul>
   )

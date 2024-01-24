@@ -5,5 +5,3 @@ export interface IInitialValues extends FormikValues {
   name: string
   description: string
 }
-
-export interface IAddCategory {}

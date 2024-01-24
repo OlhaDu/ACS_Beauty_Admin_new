@@ -2,9 +2,9 @@ import { useSelector } from "react-redux"
 import { useState } from "react"
 
 import { columns } from "./columns"
-import { useAppDispatch } from "src/redux/store"
 import { deleteBrand } from "src/redux/brands/operations"
 import { selectBrands, selectCount } from "src/redux/brands/selectors"
+import { useAppDispatch } from "src/redux/hooks"
 
 import Box from "@mui/material/Box"
 import EditIcon from "@mui/icons-material/Edit"

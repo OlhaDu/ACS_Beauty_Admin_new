@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import { useAppDispatch } from "src/redux/store"
+import { useAppDispatch } from "src/redux/hooks"
 import { getBrands } from "src/redux/brands/operations"
 
 import s from "./Brands.module.scss"

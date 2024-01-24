@@ -1,4 +1,3 @@
-import { useAppDispatch } from "src/redux/store"
 import { useState, ChangeEvent, FormEvent, useRef } from "react"
 
 import cn from "classnames"
@@ -8,6 +7,7 @@ import DeleteIcon from "src/images/svg/DeleteIcon.tsx"
 
 import { IBrand } from "src/api/brands/types"
 import { createNewBrand, patchBrand } from "src/redux/brands/operations"
+import { useAppDispatch } from "src/redux/hooks"
 
 interface IProps {
   brand?: IBrand

@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit"
 import { ICategory } from "src/types"
-import { addCategory, deleteCategory, getCategories } from "../asyncThunks/categoriesThunks"
+import { addCategory, deleteCategory, getCategories } from "./operations"
 
 interface IState {
   categories: ICategory[]

@@ -1,21 +1,18 @@
-import CloseIcon from "src/images/svg/CloseIcon_"
-import Border from "../Border"
+// import CloseIcon from "src/images/svg/CloseIcon_"
+// import Border from "../Border"
 import s from "./AddCategory.module.scss"
 import { addCategoryFormSchema } from "src/libs/yup"
 import FormGenerator from "../FormGenerator"
 import AddImageInput from "../AddImageInput"
-import { IAddCategory, IInitialValues } from "src/types"
+import { IInitialValues } from "src/types"
 import { FormikHelpers } from "formik"
-import { FC, useState } from "react"
-import { addCategory } from "src/redux/asyncThunks/categoriesThunks"
+import { useState } from "react"
+import { addCategory } from "src/redux/categories/operations"
 import { useAppDispatch } from "src/redux/hooks"
 
-const AddCategory: FC<IAddCategory> = () => {
+const AddCategory = () => {
   const [inputToggler, setInputToggler] = useState<boolean>(false)
-  // const error = useAppSelector(selectError)
   const dispatch = useAppDispatch()
-
-  const closeAddCategory = () => {}
 
   const addCategoryForm = {
     initialValues: {
@@ -58,15 +55,7 @@ const AddCategory: FC<IAddCategory> = () => {
     },
   }
 
-  return (
-    <Border border="borderOuter" className={s.borderOuter}>
-      <div className={s.head}>
-        <h4>ДОДАТИ КАТЕГОРЇЮ</h4>
-        <CloseIcon onClick={closeAddCategory} />
-      </div>
-      <FormGenerator<IInitialValues> {...addCategoryForm} />
-    </Border>
-  )
+  return <FormGenerator<IInitialValues> {...addCategoryForm} />
 }
 
 export default AddCategory
