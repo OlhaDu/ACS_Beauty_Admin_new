@@ -1,8 +1,24 @@
+@import "/src/styles/variables.scss";
+@import "/src/styles/mixins.scss";
+
 .table {
-  height: 400;
-  width: '100%';
+  height: 400px;
+  width: 100%;
 }
 
+.headerCell {
+  background-color: $second-color;
+}
+
+.actionButtons {
+  display: flex;
+  gap: 10px;
+}
+
+.svg {
+  width: 30px;
+  height: 30px;
+}
 // .Box {
 //   height: 500;
 //   width: 100%;

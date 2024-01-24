@@ -51,15 +51,15 @@ const Filter: FC<FilterProps> = ({ options }) => {
         <div className={s.icon}>
           <FilterIcon />
         </div>
-        <div className={s.dropdownArrow}>
+        <button className={s.dropdownArrow}>
           <DropdownArrow />
-        </div>
+        </button>
         <div className={s.heading}> {"Фільтрувати"}</div>
       </div>
 
       <div
         className={s.optionListContainer}
-        style={!isOpen ? { borderTop: "none" } : {}}
+        style={!isOpen ? { display: "none" } : {}}
       >
         {isOpen && (
           <>

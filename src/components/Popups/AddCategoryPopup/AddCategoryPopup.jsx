@@ -2,16 +2,16 @@ import React from "react";
 import s from "./AddCategoryPopup.module.scss";
 import Toggler from "../../Toggler/Toggler";
 import AddIcon from "../../../svgs/AddIcon";
-import VioletButton from "../../VioletButton/VioletButton";
+import VioletButton from "../../Buttons/VioletButton/VioletButton";
 import CloseIcon from "../../../svgs/CloseIcon";
-import { Formik, Form, Field } from "formik";
-import { connect } from "react-redux";
+import {Formik, Form, Field} from "formik";
+import {connect} from "react-redux";
 import actionCreators from "../../../store/actions/actionCreators";
 import * as Yup from "yup";
-import { ukraineWordsString, validateLinkString } from "../../../utils/regex";
-import { updCategoryRequest } from "../../../store/actions/actionCreators/categories";
+import {ukraineWordsString, validateLinkString} from "../../../utils/regex";
+import {updCategoryRequest} from "../../../store/actions/actionCreators/categories";
 
-const AddCategoryPopup = ({ setActive, ...props }) => {
+const AddCategoryPopup = ({setActive, ...props}) => {
   const {
     addCategoryRequest,
     updCategoryRequest,
@@ -46,12 +46,12 @@ const AddCategoryPopup = ({ setActive, ...props }) => {
               setActiveCategoryId(null);
             }}
           >
-            <CloseIcon />
+            <CloseIcon/>
           </div>
         </div>
         <div className={s.addImageField}>
           <div className={s.icon}>
-            <AddIcon color={"#5c5e60"} />
+            <AddIcon color={"#5c5e60"}/>
           </div>
           {activeCategoryId ? (
             <h5>Редагувати зображення</h5>
@@ -63,12 +63,12 @@ const AddCategoryPopup = ({ setActive, ...props }) => {
           initialValues={
             activeCategoryId
               ? {
-                  categoryId: dataField.categoryId,
-                  name: dataField.name,
-                  linkKey: dataField.linkKey,
-                  disabled: dataField.disabled,
-                }
-              : { name: "", linkKey: "", disabled: false }
+                categoryId: dataField.categoryId,
+                name: dataField.name,
+                linkKey: dataField.linkKey,
+                disabled: dataField.disabled,
+              }
+              : {name: "", linkKey: "", disabled: false}
           }
           validationSchema={Yup.object({
             name: Yup.string()
@@ -98,13 +98,13 @@ const AddCategoryPopup = ({ setActive, ...props }) => {
           }}
         >
           {({
-            errors,
-            touched,
-            handleChange,
-            handleSubmit,
-            isValid,
-            values,
-          }) => (
+              errors,
+              touched,
+              handleChange,
+              handleSubmit,
+              isValid,
+              values,
+            }) => (
             <Form>
               <div>
                 <label htmlFor="name">
@@ -135,7 +135,7 @@ const AddCategoryPopup = ({ setActive, ...props }) => {
                 )}
               </div>
               <div className={s.togglerContainer}>
-                <Toggler />
+                <Toggler/>
               </div>
               <div className={s.violetButton}>
                 <VioletButton

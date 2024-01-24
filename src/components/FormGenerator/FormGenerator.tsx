@@ -1,7 +1,7 @@
 import { Field, Form, Formik, FormikValues } from "formik"
 import s from "./FormGenerator.module.scss"
 import Toggler from "../Toggler/Toggler"
-import VioletButton from "../VioletButton"
+import VioletButton from "../Buttons/VioletButton"
 import { Fragment, ReactNode } from "react"
 import { IForm } from "src/types"
 import cn from "classnames"

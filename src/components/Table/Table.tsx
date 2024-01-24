@@ -165,7 +165,6 @@ export const Table: React.FC<Props> = ({ columns, rows, onExternalDataUpdate }) 
           },
         }}
         pageSizeOptions={[10, 25, 50, 100]}
-        checkboxSelection
       />
     </Box>
   )
