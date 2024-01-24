@@ -1,0 +1,32 @@
+@import "/src/styles/variables.scss";
+@import "/src/styles/mixins.scss";
+
+.main {
+  padding-left: 15px;
+  padding-right: 15px;
+
+  display: flex;
+
+  margin-left: 260px;
+
+}
+
+.main__section {
+  padding-top: 37px;
+  padding-left: 20px;
+}
+
+.main__title_text {
+  padding-bottom: 48px;
+  color: #5c5e60;
+  @include font(24px, 500, 28px);
+}
+
+.features {
+  padding-bottom: 22px;
+}
+
+.tools {
+  display: flex;
+  gap: 20px;
+}

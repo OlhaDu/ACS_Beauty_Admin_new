@@ -1,25 +1,30 @@
-import axios from "axios";
-import { IAddCategory, IAddUpdateSubcategory, IUpdateCategory } from "./types";
+import axios from "axios"
+import { IAddCategory, IAddUpdateSubcategory, IUpdateCategory, IUpdateUsers } from "./types"
+
+const { VITE_API_BASE_URL, VITE_API_AUTH_TOKEN } = import.meta.env
 
 const http = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL, //заменить адрес на константу (.env)
-});
+  baseURL: VITE_API_BASE_URL, //заменить адрес на константу (.env)
+})
 export const api = {
-  getCategories: () => http.get("/api/category"),
+  getCategories: () => http.get("/category"),
 
   addCategory: (newCategory: IAddCategory) =>
-    http.post("/api/category", newCategory),
+    http.post("/category", newCategory, {
+      headers: { Authorization: `Bearer ${VITE_API_AUTH_TOKEN}` },
+    }),
 
   addSubcategory: (newSubCategory: IAddUpdateSubcategory) =>
-    http.post("/api/subcategory", newSubCategory),
+    http.post("/subcategory", newSubCategory),
 
-  updateCategory: (updatedCategory: IUpdateCategory) =>
-    http.patch("/api/category", updatedCategory),
+  updateCategory: (updatedCategory: IUpdateCategory) => http.patch("/category", updatedCategory),
 
   updateSubcategory: (updatedSubCategory: IAddUpdateSubcategory) =>
-    http.patch("/api/subcategory", updatedSubCategory),
+    http.patch("/subcategory", updatedSubCategory),
 
-  deleteCategory: (id: number) => http.delete(`/api/category/${id}`),
+  deleteCategory: (id: number) => http.delete(`/category/${id}`),
 
-  deleteSubcategory: (id: number) => http.delete(`/api/subcategory/${id}`),
-};
+  deleteSubcategory: (id: number) => http.delete(`/subcategory/${id}`),
+
+  updateUsers: (updatedUsers: IUpdateUsers) => http.patch(`/user/${updatedUsers.id}`, updatedUsers),
+}
