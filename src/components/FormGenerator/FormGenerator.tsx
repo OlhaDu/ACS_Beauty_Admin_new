@@ -7,7 +7,7 @@ import { IForm } from "src/types"
 import cn from "classnames"
 
 const FormGenerator = <T extends FormikValues>(props: IForm<T>) => {
-  const { initialValues, validationSchema, groups, onSubmit, isToggler } = props
+  const { initialValues, validationSchema, groups, onSubmit, isToggler, btnName = "ДОДАТИ" } = props
 
   return (
     <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={onSubmit}>
@@ -49,7 +49,7 @@ const FormGenerator = <T extends FormikValues>(props: IForm<T>) => {
             {isToggler && <Toggler />}
             <VioletButton
               type="submit"
-              title="ДОДАТИ"
+              title={btnName}
               disabled={!isValid || !dirty}
               className={btnClasses}
             />

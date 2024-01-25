@@ -75,6 +75,7 @@ const BrandManagementForm: React.FC<IProps> = ({ brand, onClose }) => {
       }
     },
     isToggler: false,
+    btnName: brand && "РЕДАГУВАТИ",
   }
 
   return <FormGenerator<IBrandsInitialValues> {...addCategoryForm} />
