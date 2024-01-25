@@ -34,6 +34,7 @@ const FormGenerator = <T extends FormikValues>(props: IForm<T>) => {
                           name={name}
                           type="text"
                           className={`${s.field} ${className}`}
+                          autoComplete="off"
                         />
                         {touched[name] && errors[name] && (
                           <p className={s.error}>{errors[name] as ReactNode}</p>

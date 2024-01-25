@@ -1,88 +1,6 @@
 @import "/src/styles/variables.scss";
 @import "/src/styles/mixins.scss";
 
-.brand_form {
-  display: grid;
-  gap: 24px;
-}
-
-.brand_form__image {
-  width: 581px;
-  height: 175px;
-  object-fit: contain;
-  background-position: center;
-  @include border($border: $dashed-border);
-}
-
-.brand_form__image_container {
-  position: relative;
-}
-
-.brand_form__image_delete_icon {
-  position: absolute;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  top: 8px;
-  right: 8px;
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
-  cursor: pointer;
-  transition: background-color $transition;
-
-  &:hover {
-    background-color: $second-color;
-  }
-}
-
-.brand_form__download_container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-
-  width: 581px;
-  height: 175px;
-  margin-bottom: 12px;
-  @include border($border: $dashed-border);
-  cursor: pointer;
-}
-
-.brand_form__download_text {
-  @include text($font-weight: 500);
-}
-
-.brand_form__image_input {
-  display: none;
-}
-
-.brand_form__label_container {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.brand_form__label {
-  @include text($font-weight: 600);
-}
-
-.brand_form__input {
-  height: 44px;
-  padding: 10px;
-  @include border();
-
-  &:focus {
-    @include border($border: $active-field-border);
-    outline: transparent;
-  }
-}
-
-.brand_form__text_error {
-  @include text($color: #d55e5e);
-}
-
 .brand_form__textarea {
   height: 152px;
   padding: 10px;
@@ -93,13 +11,4 @@
     @include border($border: $active-field-border);
     outline: transparent;
   }
-}
-
-.brand_form__error {
-  @include border($border: $error-field-border);
-}
-
-.brand_form__button {
-  @extend .Violet-button-styles;
-  margin: 0 auto;
 }
