@@ -21,4 +21,5 @@ export interface IForm<T extends FormikValues> {
   groups: IGroup[]
   onSubmit: (values: T, actions: FormikHelpers<T>) => void
   isToggler?: boolean
+  btnName?: string
 }
