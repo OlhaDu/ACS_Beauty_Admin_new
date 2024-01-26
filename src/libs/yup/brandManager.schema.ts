@@ -12,23 +12,13 @@ export const brandManagerSchema = Yup.object<IBrandsInitialValues>({
     .max(220, "Опис не може перевищувати 220 символи"),
   logo: Yup.mixed()
     .required("Завантажте банер")
-    .test("isFileOrString", "Дозволено тільки File або рядок", value => {
-      if (value instanceof File) {
-        if (value.type?.split("/")[0] !== "image") {
-          throw new Yup.ValidationError("Дозволено тільки картинки", value, "fileFormat")
-        }
-
-        if (value.size > 3 * 1024 * 1024) {
-          throw new Yup.ValidationError("Розмір файла не більше 3Мб", value, "fileSize")
-        }
-      } else if (typeof value === "string") {
-        if (!(value.startsWith("http") || value.startsWith("https"))) {
-          throw new Yup.ValidationError("Це не є посиланням на фото", value, "invalidLink")
-        }
-      } else {
-        throw new Yup.ValidationError("Невідомий тип значення", value, "unknownType")
-      }
-
-      return true
-    }),
+    .test(
+      "fileFormat",
+      "Дозволено тільки картинки",
+      value =>
+        (value instanceof File &&
+          value.type?.split("/")[0] === "image" &&
+          value.size <= 3 * 1024 * 1024) ||
+        (typeof value === "string" && value.startsWith("http"))
+    ),
 })
