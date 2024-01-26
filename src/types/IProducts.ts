@@ -42,5 +42,5 @@ export interface DeleteModalProps {
   open: boolean;
   onClose: () => void;
   nameProduct: string;
-  id: string;
+  id: number;
 }

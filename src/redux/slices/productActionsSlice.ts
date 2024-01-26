@@ -15,7 +15,7 @@ export const deleteProductAsync = createAsyncThunk(
       const authToken = import.meta.env.VITE_API_BASE_TOKEN;
   
       try {
-        const response = await http.delete(`/api/product/${id}`, {
+        const response = await http.delete(`/product/${id}`, {
           headers: {
             Authorization: authToken,
           },
@@ -35,7 +35,7 @@ export const deleteProductAsync = createAsyncThunk(
 //     'product/update',
 //     async (updatedProduct: YourProductType) => {
 //       try {
-//         const response = await http.put('/api/product', updatedProduct, {
+//         const response = await http.put('/product', updatedProduct, {
 //           headers: {
 //             Authorization: authToken,
 //           },

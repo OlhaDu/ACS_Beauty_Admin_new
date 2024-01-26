@@ -15,7 +15,7 @@ const initialState: ProductsState = {
     'products/fetchProducts',
     async ({ page, pageSize }: DispatchProduct) => {
       try {
-        const response = await http.get(`/api/product?page=${page + 1}&pageSize=${pageSize}`);
+        const response = await http.get(`/product?page=${page + 1}&pageSize=${pageSize}`);
   
         if (!response.data) {
           throw new Error(`Error fetching products: ${response.statusText}`);

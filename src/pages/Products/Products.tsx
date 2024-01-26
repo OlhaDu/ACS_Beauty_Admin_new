@@ -5,7 +5,7 @@ import { Action } from "redux";
 import { RootState } from "src/redux/store";
 import ToolsPanel from "src/components/ToolsPanel/ToolsPanel";
 import { ProductElem } from "src/types";
-import { GridColDef, GridRowSelectionModel, GridPaginationModel } from '@mui/x-data-grid';
+import { GridColDef, GridRowSelectionModel, GridPaginationModel, GridPreProcessEditCellProps } from '@mui/x-data-grid';
 import { Typography } from "@mui/material";
 import { ProductTable, SubHeaderProduct, ProductsWallpaper, ProductsTable, ButtonActions, ProductsHeader } from "./ProductsTheme";
 import { getProductsAsync } from "src/redux/slices/productsSlice";
@@ -16,7 +16,6 @@ import VioletButton from "src/components/Buttons/VioletButton";
 import { useAppSelector } from "src/redux/selectors";
 import { selectProducts } from "src/redux/hooks";
 import DeleteModal from "src/components/ProductDeleteModal/DeleteModal";
-// import { deleteProductAsync } from "src/redux/slices/productActionsSlice";
 
 const Products = () => {
   const dispatch: ThunkDispatch<RootState, unknown, Action> = useDispatch();
@@ -30,7 +29,7 @@ const Products = () => {
   });
 
   const [open, setOpen] = React.useState(false);
-  const [selectedProduct, setSelectedProduct] = React.useState<{ id: number | null, nameProduct: string | '' }>({ id: null, nameProduct: '' });
+  const [selectedProduct, setSelectedProduct] = React.useState<{ id: number, nameProduct: string | '' }>({ id: 0, nameProduct: '' });
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
@@ -45,13 +44,11 @@ const Products = () => {
   React.useState<GridRowSelectionModel>([]);
 
   const handleButtonDelete = async (id: number, nameProduct: string) => {
-    // await dispatch(deleteProductAsync(id));
-    console.log("Del:", id);
     setSelectedProduct({ id, nameProduct });
     handleOpen();
   };  
   
-  const handleButtonEdit = async (id: number) => {
+    const handleButtonEdit = async (id: number) => {
     console.log("Edit:", id);
   };
   
@@ -91,10 +88,22 @@ const Products = () => {
     },
   };
 
+  const errorValue = (pam: GridPreProcessEditCellProps) => {
+      const hasError = pam.props.value === '';
+      const errorStyle = hasError ? { backgroundColor: 'red', height: '105%', padding: 0} : null;
+  
+      return {
+        ...pam.props,
+        error: hasError,
+        style: errorStyle,
+      };
+  }
+
   const columns: GridColDef[] = [
     { field: 'id', editable: true, headerName: 'ID', width: 30 },
     { field: 'img', headerName: 'Фото товару', width: 120 },
     { field: 'name', editable: true,
+      preProcessEditCellProps: (params) => errorValue(params),
       headerName: 'Назва товару',
       width: 280,
       renderCell: (params) => (
@@ -102,22 +111,20 @@ const Products = () => {
         elem={params.row}
         />
     )},
-    { field: 'category', editable: true, headerName: 'Категорія', width: 120 },
-    { field: 'price', editable: true, headerName: 'Ціна', width: 100, valueFormatter: (params) => `${parseInt(params.value as string).toLocaleString('ua-UA')} грн.` },
-    { field: 'count', editable: true, headerName: 'К-сть', width: 70,     
-    preProcessEditCellProps: (params) => {
-      const hasError = params.props.value === '';
-      const errorColor = hasError ? 'red' : ''; // Установите цвет по вашему выбору
-  
-      return {
-        ...params.props,
-        error: hasError,
-        style: { backgroundColor: errorColor },
-      };
-    }, 
+    { field: 'category', editable: true, headerName: 'Категорія', width: 120,
+      preProcessEditCellProps: (params) => errorValue(params),
     },
-    { field: 'display', editable: true, headerName: 'Відображення', width: 130 },
-    { field: 'createdAt', editable: true, headerName: 'Створено', width: 130, type: 'date', valueFormatter: (params) => new Date(params.value as string).toLocaleDateString() },
+    { field: 'price', editable: true, headerName: 'Ціна', width: 100,
+      preProcessEditCellProps: (params) => errorValue(params),
+      valueFormatter: (params) => `${parseInt(params.value as string).toLocaleString('ua-UA')} грн.` },
+    { field: 'count', editable: true, headerName: 'К-сть', width: 70,     
+      preProcessEditCellProps: (params) => errorValue(params)
+    },
+    { field: 'display', editable: true, headerName: 'Відображення', width: 130,
+      preProcessEditCellProps: (params) => errorValue(params),
+    },
+    { field: 'createdAt', editable: true, headerName: 'Створено', width: 130, type: 'date',
+      valueFormatter: (params) => new Date(params.value as string).toLocaleDateString() },
     {
       field: 'actions',
       type: 'actions',
@@ -139,7 +146,7 @@ const Products = () => {
         </SubHeaderProduct>
         <ToolsPanel />
       </ProductsHeader>
-      <DeleteModal open={open} onClose={handleClose} nameProduct={selectedProduct.nameProduct} id="delete" />
+      <DeleteModal open={open} onClose={handleClose} nameProduct={selectedProduct.nameProduct} id={selectedProduct.id} />
       <ProductTable>
       {productsArray && productsArray.length > 0 ? (
           <ProductsTable

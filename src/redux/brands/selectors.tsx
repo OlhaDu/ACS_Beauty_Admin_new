@@ -1,4 +1,4 @@
-import type { IBrand } from "src/api/brands/types";
+import type { IBrand } from "src/types/brands";
 
 export const selectIsLoading = (state: { brands: { isLoading: boolean } }) =>
   state.brands.isLoading;
