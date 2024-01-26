@@ -1,0 +1,13 @@
+@import "/src/styles/variables";
+@import "/src/styles/mixins";
+
+.button {
+  color: $blue-text-color;
+  padding: 12px 9px;
+  border: none;
+  border-radius: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
