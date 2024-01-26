@@ -12,7 +12,7 @@ import { getProductsAsync } from "src/redux/slices/productsSlice";
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import Badge from "src/components/Badge/Badge";
-import VioletButton from "src/components/VioletButton";
+import VioletButton from "src/components/Buttons/VioletButton";
 import { useAppSelector } from "src/redux/selectors";
 import { selectProducts } from "src/redux/hooks";
 import DeleteModal from "src/components/ProductDeleteModal/DeleteModal";
@@ -92,20 +92,32 @@ const Products = () => {
   };
 
   const columns: GridColDef[] = [
-    { field: 'id', headerName: 'ID', width: 70 },
+    { field: 'id', editable: true, headerName: 'ID', width: 30 },
     { field: 'img', headerName: 'Фото товару', width: 120 },
-    { field: 'name',
+    { field: 'name', editable: true,
       headerName: 'Назва товару',
-      width: 290,
+      width: 280,
       renderCell: (params) => (
         <Badge 
         elem={params.row}
         />
     )},
-    { field: 'category', headerName: 'Категорія', width: 120 },
-    { field: 'price', headerName: 'Ціна', width: 110, valueFormatter: (params) => `${parseInt(params.value as string).toLocaleString('ua-UA')} грн.` },
-    { field: 'display', headerName: 'Відображення', width: 140 },
-    { field: 'createdAt', headerName: 'Створено', width: 140, valueFormatter: (params) => new Date(params.value as string).toLocaleDateString() },
+    { field: 'category', editable: true, headerName: 'Категорія', width: 120 },
+    { field: 'price', editable: true, headerName: 'Ціна', width: 100, valueFormatter: (params) => `${parseInt(params.value as string).toLocaleString('ua-UA')} грн.` },
+    { field: 'count', editable: true, headerName: 'К-сть', width: 70,     
+    preProcessEditCellProps: (params) => {
+      const hasError = params.props.value === '';
+      const errorColor = hasError ? 'red' : ''; // Установите цвет по вашему выбору
+  
+      return {
+        ...params.props,
+        error: hasError,
+        style: { backgroundColor: errorColor },
+      };
+    }, 
+    },
+    { field: 'display', editable: true, headerName: 'Відображення', width: 130 },
+    { field: 'createdAt', editable: true, headerName: 'Створено', width: 130, type: 'date', valueFormatter: (params) => new Date(params.value as string).toLocaleDateString() },
     {
       field: 'actions',
       type: 'actions',

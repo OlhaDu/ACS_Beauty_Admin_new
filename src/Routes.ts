@@ -4,6 +4,7 @@ const Dashboard = React.lazy(() => import('../src/pages/Dashboard/Dashboard'));
 const Categories = React.lazy(() => import('../src/pages/CategoriesPage/CategoriesPage'));
 const Users = React.lazy(() => import('../src/pages/Users/Users'));
 const Products = React.lazy(() => import('../src/pages/Products/Products'));
+const Orders = React.lazy(() => import('../src/pages/Orders/Orders'));
 const NotFound = React.lazy(() => import('../src/pages/NotFound/NotFound'));
 
 const routes = [
@@ -22,6 +23,10 @@ const routes = [
 	{
 		path: '/users',
 		component: Users,
+	},
+	{
+		path: '/orders',
+		component: Orders,
 	},
 	{
 		path: '*',
