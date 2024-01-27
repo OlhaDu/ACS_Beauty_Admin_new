@@ -3,9 +3,20 @@ import { useSelector, useDispatch } from "react-redux";
 import { ThunkDispatch } from '@reduxjs/toolkit';
 import { Action } from "redux";
 import { RootState } from "src/redux/store";
-import ToolsPanel from "src/components/ToolsPanel/ToolsPanel";
 import { ProductElem } from "src/types";
-import { GridColDef, GridRowSelectionModel, GridPaginationModel, GridPreProcessEditCellProps } from '@mui/x-data-grid';
+import { GridColDef,
+  GridRowSelectionModel,
+  GridPaginationModel,
+  GridPreProcessEditCellProps,
+  GridToolbarExport,
+  GridToolbarContainer,
+  GridPrintGetRowsToExportParams,
+  gridFilteredSortedRowIdsSelector,
+  selectedGridRowsSelector,
+  GridToolbar,
+  GridToolbarFilterButton,
+  GridRowId, } from '@mui/x-data-grid';
+// import ExportFileIcon from "src/images/svg/ExportFileIcon";
 import { Typography } from "@mui/material";
 import { ProductTable, SubHeaderProduct, ProductsWallpaper, ProductsTable, ButtonActions, ProductsHeader } from "./ProductsTheme";
 import { getProductsAsync } from "src/redux/slices/productsSlice";
@@ -74,6 +85,9 @@ const Products = () => {
 
   const customLocaleText = {
     footerRowSelected: (count: number): string => getSelectedItemsText(count),
+    toolbarExport: "Експортувати",
+    toolbarFilters: "Фільтрувати",
+    filterPanelColumns: "Рядок",
     MuiTablePagination: {
       labelRowsPerPage:"Рядків на сторінці: ",
       labelDisplayedRows: ({
@@ -105,7 +119,7 @@ const Products = () => {
     { field: 'name', editable: true,
       preProcessEditCellProps: (params) => errorValue(params),
       headerName: 'Назва товару',
-      width: 280,
+      width: 270,
       renderCell: (params) => (
         <Badge 
         elem={params.row}
@@ -136,6 +150,28 @@ const Products = () => {
     }
   ];
 
+  const getSelectedRowsToExport = ({
+    apiRef,
+  }: GridPrintGetRowsToExportParams): GridRowId[] => {
+    const selectedRowIds = selectedGridRowsSelector(apiRef);
+    console.log(selectedRowIds);
+    if (selectedRowIds.size > 0) {
+      return Array.from(selectedRowIds.keys());
+    }
+  
+    return gridFilteredSortedRowIdsSelector(apiRef);
+  };
+
+  function CustomToolbar() {
+    return (
+      <GridToolbarContainer>
+        <GridToolbarFilterButton />
+        <GridToolbarExport printOptions= {{ getRowsToExport: getSelectedRowsToExport }} />
+      </GridToolbarContainer>
+    );
+  }
+  
+  console.log(GridToolbar, CustomToolbar);
 
   return (
     <ProductsWallpaper>
@@ -144,7 +180,6 @@ const Products = () => {
           <Typography variant="h3">Товари</Typography>
           <VioletButton title="СТВОРИТИ НОВИЙ"></VioletButton>
         </SubHeaderProduct>
-        <ToolsPanel />
       </ProductsHeader>
       <DeleteModal open={open} onClose={handleClose} nameProduct={selectedProduct.nameProduct} id={selectedProduct.id} />
       <ProductTable>
@@ -165,6 +200,10 @@ const Products = () => {
             disableColumnMenu={true}
             paginationMode="server"
             localeText={customLocaleText}
+            slots={{ toolbar: CustomToolbar }}
+            // slotProps={{
+            //   toolbar: { printOptions: { getRowsToExport: getSelectedRowsToExport } },
+            // }}
           />
         ) : (
           <div>Oops!</div>
