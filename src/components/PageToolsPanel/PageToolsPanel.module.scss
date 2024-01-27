@@ -1,0 +1,29 @@
+@import "/src/styles/mixins.scss";
+@import "/src/styles/variables.scss";
+
+.page_tools {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.page_tools__title {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 28px;
+}
+
+.page_tools__title_text {
+  @include text($font-size: 24px, $font-weight: 500);
+}
+
+.page_tools__button {
+  @extend .Violet-button-styles;
+}
+
+.page_tools__tools_group {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}

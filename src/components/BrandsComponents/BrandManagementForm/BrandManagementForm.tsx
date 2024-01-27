@@ -7,7 +7,7 @@ import { brandManagerSchema } from "src/libs/yup/brandManager.schema"
 import { createNewBrand, patchBrand } from "src/redux/brands/operations"
 
 import s from "./BrandManagementForm.module.scss"
-import AddLogoInput from "../AddLogoInput/AddLogoInput"
+import AddLogoInput from "../../AddLogoInput"
 import FormGenerator from "src/components/FormGenerator"
 
 interface IProps {
@@ -19,7 +19,7 @@ const BrandManagementForm: React.FC<IProps> = ({ brand, onClose }) => {
   const dispatch = useAppDispatch()
   const [image, setImage] = useState(brand?.logo || null)
 
-  const addCategoryForm = {
+  const addBrandForm = {
     initialValues: {
       logo: image,
       name: brand?.name || "",
@@ -30,7 +30,7 @@ const BrandManagementForm: React.FC<IProps> = ({ brand, onClose }) => {
       {
         fields: [
           {
-            component: <AddLogoInput brandName={brand?.name || ""} brandLogo={image} />,
+            component: <AddLogoInput fields="logo" name={brand?.name || ""} logo={image} />,
           },
         ],
       },
@@ -78,7 +78,7 @@ const BrandManagementForm: React.FC<IProps> = ({ brand, onClose }) => {
     btnName: brand && "РЕДАГУВАТИ",
   }
 
-  return <FormGenerator<IBrandsInitialValues> {...addCategoryForm} />
+  return <FormGenerator<IBrandsInitialValues> {...addBrandForm} />
 }
 
 export default BrandManagementForm

@@ -1,0 +1,14 @@
+@import "/src/styles/variables.scss";
+@import "/src/styles/mixins.scss";
+
+.brand_form__textarea {
+  height: 152px;
+  padding: 10px;
+  resize: none;
+  @include border();
+
+  &:focus {
+    @include border($border: $active-field-border);
+    outline: transparent;
+  }
+}
