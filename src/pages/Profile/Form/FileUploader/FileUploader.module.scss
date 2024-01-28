@@ -1,0 +1,82 @@
+@import "/src/styles/mixins.scss";
+@import "/src/styles/variables.scss";
+
+.fileinputWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 36px;
+}
+
+.formTitle {
+  color: $main-text-color;
+  @extend .Roboto500-20-23;
+}
+
+.regLabel {
+  width: 235px;
+  height: 235px;
+  display: flex;
+  justify-content: flex-end;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.filesField {
+  display: none;
+}
+
+.dragArea {
+  position: relative;
+  display: flex;
+  justify-content: flex-end;
+  cursor: pointer;
+}
+
+.dropArea {
+  position: relative;
+  display: flex;
+  justify-content: flex-end;
+  cursor: pointer;
+  border: 2px dashed black;
+}
+
+.limits {
+  @extend .Roboto500-16-18 !optional;
+  display: flex;
+  align-items: center;
+  align-self: stretch;
+}
+
+.removeButton {
+  position: absolute;
+  scale: 2;
+  background: none;
+}
+
+.preview {
+  position: absolute;
+}
+
+.imgAfter {
+  width: 235px;
+  height: 235px;
+  border-radius: 100%;
+  position: absolute;
+  clip-path: circle(50%);
+  object-fit: cover;
+}
+
+.error {
+  position: absolute;
+  top: 14.9rem;
+  left: 0.75rem;
+  display: flex;
+  align-items: center;
+  flex: 1 0 0;
+  color: $error-text-color;
+  padding: 0.25rem 0rem;
+  align-self: stretch;
+  font-size: 0.8rem;
+  line-height: 140%;
+}
