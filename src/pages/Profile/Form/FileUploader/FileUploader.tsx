@@ -16,13 +16,11 @@ interface FileUploaderProps {
 const FileUploader: React.FC<FileUploaderProps> = ({ id, avatar, onChange }) => {
   const [drag, setDrag] = useState(false)
   const [image, setImage] = useState<File | null>(null)
-  // const [hasImage, setHasImage] = useState(false)
 
   const fileInputRef = useRef<HTMLInputElement | null>(null)
 
   const handleRemoveImage = () => {
     setImage(null)
-    // setHasImage(false)
     onChange(null)
   }
 
@@ -31,7 +29,6 @@ const FileUploader: React.FC<FileUploaderProps> = ({ id, avatar, onChange }) => 
 
     if (file) {
       setImage(file)
-      // setHasImage(true)
       onChange(file)
     }
   }
@@ -56,7 +53,6 @@ const FileUploader: React.FC<FileUploaderProps> = ({ id, avatar, onChange }) => 
     if (files.length > 0) {
       const file = files[0]
       setImage(file)
-      // setHasImage(true)
       onChange(file)
     }
 
@@ -64,16 +60,13 @@ const FileUploader: React.FC<FileUploaderProps> = ({ id, avatar, onChange }) => 
   }
 
   useEffect(() => {
-    // if (avatar && !hasImage) {
     if (avatar) {
       fetch(avatar)
         .then(response => response.blob())
         .then(blob => {
           setImage(new File([blob], "avatar") as File)
-          // setHasImage(true)
         })
     }
-    // }, [avatar, hasImage])
   }, [avatar])
 
   return (

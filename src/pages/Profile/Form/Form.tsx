@@ -22,7 +22,6 @@ const ProfileForm: React.FC = () => {
 
   const formik = useFormik<IProfileTypes>({
     initialValues: {
-      // id: userData?.id || 0,
       lastName: "",
       firstName: "",
       phone: "",
@@ -68,9 +67,6 @@ const ProfileForm: React.FC = () => {
         } else {
           formData.append("avatar", "")
         }
-        // if (values.avatar !== null && values.avatar !== "") {
-        //   formData.append("avatar", values.avatar)
-        // }
 
         const response = await axios.patch(
           `${baseUrl}/api/user/me/`,
@@ -104,7 +100,6 @@ const ProfileForm: React.FC = () => {
         })
 
         setUserData({
-          // id: response.data.id,
           lastName: response.data.lastName,
           firstName: response.data.firstName,
           phone: response.data.phone,
