@@ -1,55 +1,24 @@
-import React from "react";
-import { Formik, Field, Form, FormikHelpers } from "formik";
-import { GoSearch } from "react-icons/go";
-import s from "./SearchReviews.module.scss";
-import debounce from "lodash/debounce";
-
-interface SearchReviewsProps {
-  onSearch: (term: string) => Promise<void>;
-}
+import React from "react"
+import { GoSearch } from "react-icons/go"
+import s from "./SearchReviews.module.scss"
+import { DebounceInput } from "react-debounce-input"
 interface Values {
-  search: string;
+  onSearch: (term: string) => void
 }
 
-const SearchReviews: React.FC<SearchReviewsProps> = ({ onSearch }) => {
-  const handleSearch = debounce(onSearch, 300);
-
+const SearchReviews: React.FC<Values> = ({ onSearch }) => {
+  
   return (
-    <>
-      <Formik
-        initialValues={{ search: "" }}
-        onSubmit={(
-          values: Values,
-          { resetForm, setSubmitting }: FormikHelpers<Values>
-        ) => {
-          setTimeout(() => {
-            alert(JSON.stringify(values, null, 2));
-            setSubmitting(false);
-          }, 500);
-          resetForm();
-        }}
-      >
-        {(formikProps) => (
-          <Form autoComplete="off" className={s.FormSearch}>
-            <Field
-              name="search"
-              type="text"
-              className={s.foundReview}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                console.log("e.target.value", e.target.value);
-                handleSearch(e.target.value);
-                formikProps.handleChange(e);
-              }}
-            />
+    <div className={s.FormSearch}>
+      <DebounceInput
+        minLength={1}
+        debounceTimeout={300}
+        onChange={e => onSearch(e.target.value)}
+        className={s.foundReview}
+      />      
+      <GoSearch className={s.inputIcon}/>
+    </div>
+  )
+}
 
-            <button title="SearchButton" type="submit" className={s.BtnSearch}>
-              <GoSearch style={{ width: "24px", height: "24px" }} />
-            </button>
-          </Form>
-        )}
-      </Formik>
-    </>
-  );
-};
-
-export default SearchReviews;
+export default SearchReviews

@@ -24,7 +24,7 @@
   .sub_menu_link {
     display: flex;
     gap: 5px;
-    align-items: last baseline;
+    align-items: center;
     color: $main-text-color;
     @extend .Roboto400-16-18;
     cursor: pointer;

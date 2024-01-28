@@ -4,7 +4,7 @@ import FormatListNumberIcon from "src/assets/FormatListNumberIcon";
 import ArrowIcon from "src/assets/menu-arrow.svg";
 
 interface ReviewsOnPageProps {
-  onNumberReviewsChange: (numberReviews: "10" | "20" | "50" | "100") => void;
+  onNumberReviewsChange: (numberReviews: "10" | "20" | "50" | "100" | "4") => void;
 }
 
 const ReviewsOnPage: React.FC<ReviewsOnPageProps> = ({
@@ -12,14 +12,14 @@ const ReviewsOnPage: React.FC<ReviewsOnPageProps> = ({
 }) => {
   const [countOpen, setCountOpen] = useState(false);
   const [numberReviews, setNumberReviews] = useState<
-    "10" | "20" | "50" | "100"
+    "10" | "20" | "50" | "100" |"4"
   >("10");
 
   const toggleCount = useCallback(() => {
     setCountOpen((prevCountOpen) => !prevCountOpen);
   }, []);
 
-  const handleReviewsNumber = (numberReviews: "10" | "20" | "50" | "100") => {
+  const handleReviewsNumber = (numberReviews: "10" | "20" | "50" | "100" | "4") => {
     onNumberReviewsChange(numberReviews);
     setNumberReviews(numberReviews);
     toggleCount();
@@ -38,7 +38,7 @@ const ReviewsOnPage: React.FC<ReviewsOnPageProps> = ({
       </span>
       {countOpen && (
         <div className={s.styleItems}>
-          <p onClick={() => handleReviewsNumber("10")}>10</p>
+          <p onClick={() => handleReviewsNumber("4")}>10</p>
           <p onClick={() => handleReviewsNumber("20")}>20</p>
           <p onClick={() => handleReviewsNumber("50")}>50</p>
           <p onClick={() => handleReviewsNumber("100")}>100</p>

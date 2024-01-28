@@ -3,31 +3,26 @@
 
 .container {
   padding-top: 22px;
+ 
 }
 .review_item {
   max-height: 500px;
   overflow-y: auto;
+  
 }
 .review_item_title {
-  background-color: $second-color;
-}
-
-.review_item li {
-  display: grid;
-  grid-template-columns: 35px 105px 160px 160px repeat(4, 1fr);
-  gap: 10px;
-  align-items: center;
-  padding: 14px;
-  color: $main-text-color;
-  @extend .Roboto400-16-18;
   border-radius: 4px;
   border: 1px solid rgba(0, 0, 0, 0.1);
 }
-.review_item p {
-  text-align: start;
-  margin: 0;
-  white-space: nowrap;
+.review_item_title {
+  background-color: $second-color;
+  
 }
+.class {
+  border-radius: 10px; 
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
 .review_item_text,
 .review_item_name p {
   overflow: hidden;
@@ -53,71 +48,4 @@
   & a {
     cursor: pointer;
   }
-}
-
-.menu_filter {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-
-  gap: 15px;
-  margin-right: 20px;
-  color: $main-text-color;
-  @extend .Roboto400-16-18;
-  padding: 0px 0px 0px 8px;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-}
-.sub_menu_list {
-  position: absolute;
-  top: 45px;
-  left: 0;
-  z-index: 1;
-  width: 197px;
-  padding-left: 18px;
-  padding-bottom: 18px;
-  color: $main-text-color;
-  @extend .Roboto400-16-18;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  background-color: #fff;
-}
-.sub_menu_list > li {
-  position: relative;
-  padding-top: 10px;
-  text-align: start;
-  width: 100%;
-}
-
-.sub_menu_link {
-  display: flex;
-  gap: 5px;
-  align-items: last baseline;
-  color: $main-text-color;
-  @extend .Roboto400-16-18;
-  cursor: pointer;
-}
-.sub_sub_menu_list {
-  text-align: "start";
-  margin-left: 14px;
-}
-.sub_sub_menu_list li {
-  padding-top: 14px;
-}
-.sub_sub_menu_link {
-  color: $main-text-color;
-  @extend .Roboto400-16-18;
-  gap: 14px;
-  cursor: pointer;
-}
-.menu_arrow {
-  padding: 10px;
-  background-color: $gray-dropdown-color;
-  justify-content: end;
-}
-
-.menu_arrow_rotated {
-  transform: rotate(180deg);
-  transition: transform 0.3s ease;
-}
-.menu_arrow_span {
-  margin-left: 5px;
 }

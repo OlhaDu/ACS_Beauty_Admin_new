@@ -4,14 +4,14 @@ interface NavigateIconProps {
   width?: number;
   height?: number;
   fill?: string;
-  rotated?: boolean; 
+  rotated?: boolean;   
 }
 
 const NavigateIcon: FC<NavigateIconProps> = ({
   width = 24,
   height = 24,
   fill = "#5C5E60",
-  rotated = false,
+  rotated = false,  
   
 }) => {
     const rotationStyle = rotated ? { transform: "rotate(180deg)" } : {};
@@ -19,7 +19,7 @@ const NavigateIcon: FC<NavigateIconProps> = ({
     <svg
       width={width}
       height={height}
-      fill="none"
+      fill="none"      
       style={rotationStyle}
       xmlns="http://www.w3.org/2000/svg"
     >

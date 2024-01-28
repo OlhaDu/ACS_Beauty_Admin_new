@@ -30,7 +30,7 @@ const ReviewsList: React.FC = () => {
     "positive" | "neutral" | "negative" | undefined
   >(undefined);
   const [numberReviews, setNumberReviews] = useState<
-    "10" | "20" | "50" | "100"
+    "10" | "20" | "50" | "100" | "4"
   >("10");
   const [statusFilter, setStatusFilter] = useState<
     "pending" | "published" | undefined
