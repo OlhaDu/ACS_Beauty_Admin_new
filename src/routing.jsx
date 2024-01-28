@@ -6,7 +6,6 @@ import CategoriesPage from "./pages/CategoriesPage"
 import Dashboard from "./pages/Dashboard/Dashboard"
 import Brands from "./pages/Brands/Brands"
 import Orders from "./pages/Orders/Orders.tsx"
-import AdminLayout from "./layouts/AdminLayout.tsx"
 
 export const router = createBrowserRouter([
   {
@@ -21,14 +20,11 @@ export const router = createBrowserRouter([
     element: <ReviewsList />
   },
   { path: 'reviews/:page', element: <Content /> },
-  // {
-  //   path: "/",
-  //   element: <Dashboard />,
-  // },
   {
     path: "/",
-    element: <AdminLayout />,
+    element: <Dashboard />,
   },
+  
   {
     path: "/brands",
     element: <Brands />,
