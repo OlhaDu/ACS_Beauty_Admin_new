@@ -1,0 +1,141 @@
+@import "/src/styles/mixins.scss";
+@import "/src/styles/variables.scss";
+
+.main {
+  display: flex;
+  max-width: 1316px;
+  padding: 32px 80px 56px 0px;
+  margin-left: 300px;
+}
+
+.form {
+  display: flex;
+  justify-content: space-between;
+  gap: 130px;
+  width: 1063px;
+  height: auto;
+  padding: 32px 80px 56px 87px;
+  border-radius: 4px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.titleProfile {
+  top: 32px;
+  left: 300px;
+  margin-bottom: 30px;
+  color: $main-text-color;
+
+  @extend .Roboto500-24-28;
+}
+
+.subtitleProfile {
+  @extend .Roboto500-24-28;
+  margin-bottom: 50px;
+}
+
+.formTitle {
+  color: $main-text-color;
+  @extend .Roboto500-20-23;
+  margin-bottom: 18px;
+}
+
+.infoWrap {
+  margin-bottom: 38px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.inputWrapper {
+  position: relative;
+  width: 432px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.regLabel {
+  @extend .Roboto500-16-18 !optional;
+  display: flex;
+  align-items: center;
+  align-self: stretch;
+}
+
+.viewLabel {
+  @extend .Roboto400-20-23 !optional;
+  display: flex;
+  align-items: center;
+  align-self: stretch;
+}
+
+.signUpField {
+  width: 432px;
+  height: 38px;
+  padding: 0.3rem 1rem;
+  border-radius: 4px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  transition: border 0.2s ease-in-out color 0.2s ease-in-out;
+  background: none;
+  @extend .Roboto500-16-18 !optional;
+
+  &:hover {
+    border: 1px solid #434444;
+  }
+
+  &:focus {
+    outline: 1px solid #434444;
+  }
+
+  &:disabled {
+    color: #c7c7c7;
+    border: 1px solid #c7c7c7;
+  }
+}
+
+.error {
+  position: absolute;
+  top: 3.5rem;
+  left: 0.75rem;
+  display: flex;
+  align-items: center;
+  flex: 1 0 0;
+  color: $error-text-color;
+  padding: 0.25rem 0rem;
+  align-self: stretch;
+  font-size: 0.75rem;
+  line-height: 140%;
+}
+
+::placeholder {
+  @extend .Roboto500-16-18 !optional;
+  color: rgb(0, 0, 0);
+}
+
+.eye {
+  position: absolute;
+  top: 1.9rem;
+  right: 1rem;
+  display: block;
+}
+
+.btnWrapper {
+  width: 432px;
+  height: 43px;
+  display: flex;
+  justify-content: center;
+}
+
+.button {
+  width: 197px;
+  @extend .Violet-button-styles;
+  transition: background-color 0.3s ease-in-out;
+
+  &:hover {
+    background-color: #675ca5;
+  }
+
+  &:disabled {
+    background-color: #a697fa;
+    border: 1px solid #675ca5;
+  }
+}
