@@ -1,9 +1,6 @@
 import React, { useState } from "react";
 import s from "./ChangeStatus.module.scss";
-interface ChangeStatusProps {
-  onSave: (selectedStatus: string) => void;
-  onClose: () => void;
-}
+import {ChangeStatusProps} from "src/types/Reviews"
 
 const ChangeStatus: React.FC<ChangeStatusProps> = ({ onSave, onClose }) => {
   const [selectedStatus, setSelectedStatus] = useState<string>("");

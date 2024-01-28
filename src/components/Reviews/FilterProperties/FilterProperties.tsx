@@ -3,15 +3,7 @@ import s from "./FilterProperties.module.scss";
 import NavigateIcon from "src/images/svg/NavigateIcon";
 import FilterIcon from "src/assets/filter-variant.svg";
 import ArrowIcon from "src/assets/menu-arrow.svg";
-
-interface FilterPropertiesProps {
-  onRatingFilterChange: (
-    filter: "positive" | "neutral" | "negative" | undefined
-  ) => void;
-  onStatusFilterChange: (
-    statusFilter: "pending" | "published" | undefined
-  ) => void;
-}
+import { FilterPropertiesProps } from "src/types/Reviews";
 
 const FilterProperties: React.FC<FilterPropertiesProps> = ({
   onRatingFilterChange,

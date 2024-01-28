@@ -7,6 +7,7 @@ import { ModalSample } from "../Modal/Modal"
 import ChangeStatus from "../Modal/ChangeStatusModal"
 import { changeStatus, deleteReviews } from "src/components/Utils/api/getReviews"
 import { toast } from "react-toastify"
+import { ReviewsItemsProps } from "src/types/Reviews"
 import { matchesFilter, filterStatus, formatDate } from "src/components/Utils/matchesFilter"
 import {
   TableHead,
@@ -30,24 +31,6 @@ const cellStyles = {
   fontSize: 16,
   margin: 0,
   color: " #5C5E60",
-}
-
-interface ReviewsItemsProps {
-  reviews: {
-    id: string
-    firstName: string
-    lastName: string
-    productName: string
-    createdAt: string
-    review: string
-    status: string
-    rating: number
-  }[]
-
-  ratingFilter?: "positive" | "neutral" | "negative"
-  statusFilter?: "pending" | "published" | undefined
-  updateReviewsData: () => void
-  searchTerm: string
 }
 
 const ReviewsItems: React.FC<ReviewsItemsProps> = ({

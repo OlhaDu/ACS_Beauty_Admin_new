@@ -13,6 +13,7 @@ h2 {
   text-align: start;
   color: $main-text-color;
   @extend.Roboto500-24-28;
+  font-family: 'Roboto';
   font-style: normal;
 }
 .foundReview {
@@ -49,6 +50,8 @@ h2 {
 .menu_link {
   color: $main-text-color;
   @extend .Roboto400-16-18;
+  font-family: 'Roboto';
+
 }
 .menu_list li {
   position: relative;
@@ -63,6 +66,7 @@ h2 {
   margin-right: 20px;
   color: $main-text-color;
   @extend .Roboto400-16-18;
+  font-family: 'Roboto';
   padding: 0px 0px 0px 8px;
   border: 1px solid rgba(0, 0, 0, 0.1);
 }

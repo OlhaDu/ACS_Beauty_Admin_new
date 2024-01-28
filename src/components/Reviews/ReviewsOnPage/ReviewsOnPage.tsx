@@ -1,29 +1,22 @@
-import React, { useState, useCallback } from "react";
-import s from "./ReviewsOnPage.module.scss";
-import FormatListNumberIcon from "src/assets/FormatListNumberIcon";
-import ArrowIcon from "src/assets/menu-arrow.svg";
+import React, { useState, useCallback } from "react"
+import s from "./ReviewsOnPage.module.scss"
+import FormatListNumberIcon from "src/assets/FormatListNumberIcon"
+import ArrowIcon from "src/assets/menu-arrow.svg"
+import { ReviewsOnPageProps } from "src/types/Reviews"
 
-interface ReviewsOnPageProps {
-  onNumberReviewsChange: (numberReviews: "10" | "20" | "50" | "100" | "4") => void;
-}
-
-const ReviewsOnPage: React.FC<ReviewsOnPageProps> = ({
-  onNumberReviewsChange,
-}) => {
-  const [countOpen, setCountOpen] = useState(false);
-  const [numberReviews, setNumberReviews] = useState<
-    "10" | "20" | "50" | "100" |"4"
-  >("10");
+const ReviewsOnPage: React.FC<ReviewsOnPageProps> = ({ onNumberReviewsChange }) => {
+  const [countOpen, setCountOpen] = useState(false)
+  const [numberReviews, setNumberReviews] = useState<"10" | "20" | "50" | "100" | "4">("10")
 
   const toggleCount = useCallback(() => {
-    setCountOpen((prevCountOpen) => !prevCountOpen);
-  }, []);
+    setCountOpen(prevCountOpen => !prevCountOpen)
+  }, [])
 
   const handleReviewsNumber = (numberReviews: "10" | "20" | "50" | "100" | "4") => {
-    onNumberReviewsChange(numberReviews);
-    setNumberReviews(numberReviews);
-    toggleCount();
-  };
+    onNumberReviewsChange(numberReviews)
+    setNumberReviews(numberReviews)
+    toggleCount()
+  }
 
   return (
     <div className={s.menu_filter}>
@@ -45,7 +38,7 @@ const ReviewsOnPage: React.FC<ReviewsOnPageProps> = ({
         </div>
       )}
     </div>
-  );
-};
+  )
+}
 
-export default ReviewsOnPage;
+export default ReviewsOnPage
