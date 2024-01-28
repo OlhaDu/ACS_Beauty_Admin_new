@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from "react"
 import { ErrorMessage } from "formik"
 import styles from "./FileUploader.module.scss"
-import Preview from "../../../../images/FileUploader.png"
+import Preview from "src/images/photo/FileUploader.png"
 import profileData from "../../profileData.json"
 
 interface FileUploaderProps {
