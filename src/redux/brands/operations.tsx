@@ -1,7 +1,7 @@
 import { GridRowId } from "@mui/x-data-grid"
 import { createAsyncThunk } from "@reduxjs/toolkit"
 import { brandsApi } from "src/api/brands/brandsApi"
-import { IGetBrandsParams, IBrand, IDeleteBrandResponse, IResponse } from "src/api/brands/types"
+import { IBrand, IDeleteBrandResponse, IGetBrandsParams, IResponse } from "src/types/brands"
 
 export const getBrands = createAsyncThunk<IResponse, IGetBrandsParams>(
   "brands/getBrands",
