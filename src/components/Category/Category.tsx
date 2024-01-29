@@ -10,15 +10,27 @@ import ArrowDownIcon from "src/images/svg/ArrowDownIcon"
 import SubCategories from "../SubCategories"
 import { ICategory } from "src/types"
 import s from "./Category.module.scss"
+import ModalWindow from "../ModalWindow"
+import AddOrUpdateCategory from "../AddOrUpdateCategory"
 
 const Category: FC<ICategory> = category => {
+  const { id, name, description, subcategories, logo, slug } = category
+
   const [isSubCategoryShown, setIsSubCategoryShown] = useState<boolean>(false)
+  const [isEditCategoryShown, setIsEditCategoryShown] = useState<boolean>(false)
 
   const dispatch = useAppDispatch()
 
-  const arrowRightClickHandler = () => setIsSubCategoryShown(true)
-  const arrowDownClickHandler = () => setIsSubCategoryShown(false)
-  const deleteIconClickHandler = () => dispatch(deleteCategory(category.id))
+  const deleteIconClickHandler = () => dispatch(deleteCategory(id))
+  const isSubcategoryShownClickHandler = () => setIsSubCategoryShown(!isSubCategoryShown)
+  const isEditCategoryShownClickHandler = () => setIsEditCategoryShown(!isEditCategoryShown)
+
+  const initialValues = {
+    name,
+    description: description ? description : "",
+    file: null,
+    slug,
+  }
 
   const category__addIcon = cn(s.category__addIcon, s.category__icon)
 
@@ -26,20 +38,29 @@ const Category: FC<ICategory> = category => {
     <li className={s.category}>
       <div className={s.category__container_center}>
         <div className={s.category__tools}>
-          <h4 className={s.category__title}>{category.name}</h4>
+          <h4 className={s.category__title}>{name}</h4>
           <div className={s.category__icons_container}>
-            <EditIcon className={s.category__icon} />
+            <EditIcon className={s.category__icon} onClick={isEditCategoryShownClickHandler} />
             <DeleteIcon onClick={deleteIconClickHandler} className={s.category__icon} />
             <AddIcon className={category__addIcon} />
           </div>
         </div>
         {isSubCategoryShown ? (
-          <ArrowDownIcon onClick={arrowDownClickHandler} />
+          <ArrowDownIcon onClick={isSubcategoryShownClickHandler} />
         ) : (
-          <ArrowToRightIcon onClick={arrowRightClickHandler} />
+          <ArrowToRightIcon onClick={isSubcategoryShownClickHandler} />
         )}
       </div>
-      {isSubCategoryShown && <SubCategories subcategories={category.subcategories} />}
+      {isSubCategoryShown && <SubCategories subcategories={subcategories} />}
+      {isEditCategoryShown && (
+        <ModalWindow
+          title="РЕДАГУВАТИ КАТЕГОРІЮ"
+          onClose={isEditCategoryShownClickHandler}
+          isOpenModal={isEditCategoryShown}
+        >
+          <AddOrUpdateCategory initialValues={initialValues} logo={logo} action="update" />
+        </ModalWindow>
+      )}
     </li>
   )
 }

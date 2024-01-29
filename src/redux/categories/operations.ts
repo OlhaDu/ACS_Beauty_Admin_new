@@ -1,8 +1,8 @@
 import { createAsyncThunk } from "@reduxjs/toolkit"
 import { AxiosError } from "axios"
-import { api } from "src/api"
-import { IAddCategory } from "src/api/types"
-
+import { api } from "src/api/categories"
+import { IAddCategory, IUpdateCategory } from "src/api/categories/types"
+import { ICategory } from "src/types"
 
 const createAppAsyncThunk = createAsyncThunk.withTypes<{ rejectValue: string }>()
 
@@ -19,6 +19,18 @@ export const addCategory = createAppAsyncThunk(
       return res.data
     } catch (error) {
       return rejectWithValue("Така назва категорії вже використовується")
+    }
+  }
+)
+
+export const updateCategory = createAppAsyncThunk<ICategory, IUpdateCategory>(
+  "categories/update",
+  async (value, { rejectWithValue }) => {
+    try {
+      const res = await api.updateCategory(value)
+      return res.data
+    } catch (error) {
+      return rejectWithValue("Помилка при оновленні категорії")
     }
   }
 )

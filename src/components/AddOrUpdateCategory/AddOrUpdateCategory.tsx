@@ -1,31 +1,33 @@
-// import CloseIcon from "src/images/svg/CloseIcon_"
-// import Border from "../Border"
-import s from "./AddCategory.module.scss"
-import { addCategoryFormSchema } from "src/libs/yup"
+import s from "./AddOrUpdateCategory.module.scss"
+import { categoryFormSchema } from "src/libs/yup"
 import FormGenerator from "../FormGenerator"
 import AddImageInput from "../AddImageInput"
 import { IInitialValues } from "src/types"
 import { FormikHelpers } from "formik"
-import { useState } from "react"
-import { addCategory } from "src/redux/categories/operations"
+import { FC, useState } from "react"
+import { addCategory, updateCategory } from "src/redux/categories/operations"
 import { useAppDispatch } from "src/redux/hooks"
 
-const AddCategory = () => {
+interface IAddOrUpdateCategory {
+  initialValues: IInitialValues
+  logo: string
+  action: "add" | "update"
+}
+
+const AddOrUpdateCategory: FC<IAddOrUpdateCategory> = ({ initialValues, logo, action }) => {
   const [inputToggler, setInputToggler] = useState<boolean>(false)
   const dispatch = useAppDispatch()
 
+  const { slug } = initialValues
+
   const addCategoryForm = {
-    initialValues: {
-      image: null,
-      name: "",
-      description: "",
-    },
-    validationSchema: addCategoryFormSchema,
+    initialValues,
+    validationSchema: categoryFormSchema,
     groups: [
       {
         fields: [
           {
-            component: <AddImageInput categoryName="newCategory" inputToggler={inputToggler} />,
+            component: <AddImageInput logo={logo} inputToggler={inputToggler} slug={slug} />,
           },
         ],
       },
@@ -44,9 +46,12 @@ const AddCategory = () => {
     ],
     onSubmit: async (
       value: IInitialValues,
-      { resetForm, setFieldError }: FormikHelpers<IInitialValues>
+      { resetForm, setFieldError, setFieldValue }: FormikHelpers<IInitialValues>
     ) => {
-      const { type, payload } = await dispatch(addCategory(value))
+      if (action === "update") setFieldValue("slug", slug)
+      const { type, payload } = await dispatch(
+        (action === "add" ? addCategory : updateCategory)(value)
+      )
       if (type.includes("rejected")) setFieldError("name", payload)
       if (type.includes("fulfilled")) {
         setInputToggler(!inputToggler)
@@ -58,4 +63,4 @@ const AddCategory = () => {
   return <FormGenerator<IInitialValues> {...addCategoryForm} />
 }
 
-export default AddCategory
+export default AddOrUpdateCategory

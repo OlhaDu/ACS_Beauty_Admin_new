@@ -1,7 +1,8 @@
 import { FormikValues } from "formik"
 
 export interface IInitialValues extends FormikValues {
-  image: null | File
+  file: File | null
   name: string
   description: string
+  slug?: string
 }

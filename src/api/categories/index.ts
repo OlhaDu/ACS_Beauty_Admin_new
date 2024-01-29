@@ -14,10 +14,10 @@ export const api = {
 
   addCategory: (newCategory: IAddCategory) => http.post("/category", newCategory),
 
+  updateCategory: (updatedCategory: IUpdateCategory) => http.patch("/category", updatedCategory),
+
   addSubcategory: (newSubCategory: IAddUpdateSubcategory) =>
     http.post("/subcategory", newSubCategory),
-
-  updateCategory: (updatedCategory: IUpdateCategory) => http.patch("/category", updatedCategory),
 
   updateSubcategory: (updatedSubCategory: IAddUpdateSubcategory) =>
     http.patch("/subcategory", updatedSubCategory),

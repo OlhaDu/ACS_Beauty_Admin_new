@@ -1,17 +1,15 @@
 import { createSlice } from "@reduxjs/toolkit"
 import { ICategory } from "src/types"
-import { addCategory, deleteCategory, getCategories } from "./operations"
+import { addCategory, deleteCategory, getCategories, updateCategory } from "./operations"
 
 interface IState {
   categories: ICategory[]
-  acitveCategory: ICategory | null
   status: "pending" | "fulfilled" | "rejected"
   error: string
 }
 
 const initialState: IState = {
   categories: [],
-  acitveCategory: null,
   status: "pending",
   error: "",
 }
@@ -19,11 +17,7 @@ const initialState: IState = {
 export const categoriesSlice = createSlice({
   name: "categories",
   initialState,
-  reducers: {
-    setActiveCategory(state, action) {
-      state.acitveCategory = action.payload
-    },
-  },
+  reducers: {},
   extraReducers: builder => {
     builder.addCase(getCategories.fulfilled, (state, action) => {
       state.status = "fulfilled"
@@ -46,8 +40,14 @@ export const categoriesSlice = createSlice({
       state.status = "rejected"
       if (action.payload) state.error = action.payload
     })
+    builder.addCase(updateCategory.fulfilled, (state, action) => {
+      const updatedCategory = action.payload
+      const index = state.categories.findIndex(category => category.id === updatedCategory.id)
+
+      if (index === -1) return
+      state.categories[index] = updatedCategory
+    })
   },
 })
 
-export const { setActiveCategory } = categoriesSlice.actions
 export default categoriesSlice.reducer

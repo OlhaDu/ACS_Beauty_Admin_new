@@ -1,1 +1,1 @@
-export { addCategoryFormSchema } from "./addCategoryForm.schema";
+export { categoryFormSchema } from "./categoryFormSchema"
