@@ -1,164 +1,48 @@
-import { useState } from "react"
-import Box from "@mui/material/Box"
-import EditIcon from "@mui/icons-material/Edit"
-import DeleteIcon from "@mui/icons-material/DeleteOutlined"
-import SaveIcon from "@mui/icons-material/Save"
-import CancelIcon from "@mui/icons-material/Close"
-import {
-  GridRowsProp,
-  GridRowModesModel,
-  GridRowModes,
-  DataGrid,
-  GridColDef,
-  GridActionsCellItem,
-  GridEventListener,
-  GridRowId,
-  GridRowModel,
-  GridRowEditStopReasons,
-} from "@mui/x-data-grid"
+import s from "./Table.module.scss"
 
-interface IColumn {
-  field: string
-  headerName: string
-  width?: number
-  editable?: boolean
-  type?: string
-  align?: "left" | "center" | "right"
-  headerAlign?: "left" | "center" | "right"
-  valueOptions?: string[]
-}
+import * as React from "react"
+import { DataGrid, GridColDef } from "@mui/x-data-grid"
+import DeleteIcon from "../../images/svg/DeleteIcon.tsx"
+import EditIcon from "../../images/svg/EditIcon.tsx"
+import { OrdersColumn, OrdersRow } from "../../types/IOrders.ts"
 
 interface Props {
-  columns: IColumn[]
-  rows: GridRowsProp
-  onExternalDataUpdate: (updatedRowData: any) => void
+  columns: OrdersColumn[]
+  rows: OrdersRow[]
+  onEdit: (id: number) => void
+  onDelete: (id: number) => void
 }
 
-export const Table: React.FC<Props> = ({ columns, rows, onExternalDataUpdate }) => {
-  const [gridRows, setGridRows] = useState(rows)
-  const [rowModesModel, setRowModesModel] = useState<GridRowModesModel>({})
-
-  const handleRowEditStop: GridEventListener<"rowEditStop"> = (params, event) => {
-    if (params.reason === GridRowEditStopReasons.rowFocusOut) {
-      event.defaultMuiPrevented = true
-    }
-  }
-
-  const handleEditClick = (id: GridRowId) => () => {
-    setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.Edit } })
-  }
-
-  const handleSaveClick = (id: GridRowId) => () => {
-    setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.View } })
-  }
-
-  const handleDeleteClick = (id: GridRowId) => () => {
-    setGridRows(gridRows.filter(row => row.id !== id))
-  }
-
-  const handleCancelClick = (id: GridRowId) => () => {
-    setRowModesModel({
-      ...rowModesModel,
-      [id]: { mode: GridRowModes.View, ignoreModifications: true },
-    })
-
-    const editedRow = gridRows.find(row => row.id === id)
-    if (!editedRow) return
-    if (editedRow.isNew) {
-      setGridRows(gridRows.filter(row => row.id !== id))
-    }
-  }
-
-  const processRowUpdate = (newRow: GridRowModel) => {
-    const updatedRow = { ...newRow, isNew: false }
-    setGridRows(gridRows.map(row => (row.id === newRow.id ? updatedRow : row)))
-
-    // Call the callback function to pass the updatedRowData to
-    onExternalDataUpdate(updatedRow)
-
-    return updatedRow
-  }
-
-  const handleRowModesModelChange = (newRowModesModel: GridRowModesModel) => {
-    setRowModesModel(newRowModesModel)
-  }
-
-  const actionsColumn: GridColDef = {
-    field: "actions",
-    type: "actions",
-    headerName: "Actions",
-    width: 100,
-    cellClassName: "actions",
-    getActions: ({ id }) => {
-      const isInEditMode = rowModesModel[id]?.mode === GridRowModes.Edit
-
-      if (isInEditMode) {
-        return [
-          <GridActionsCellItem
-            icon={<SaveIcon />}
-            label="Save"
-            sx={{
-              color: "primary.main",
-            }}
-            onClick={handleSaveClick(id)}
-          />,
-          <GridActionsCellItem
-            icon={<CancelIcon />}
-            label="Cancel"
-            className="textPrimary"
-            onClick={handleCancelClick(id)}
-            color="inherit"
-          />,
-        ]
-      }
-
-      return [
-        <GridActionsCellItem
-          icon={<EditIcon />}
-          label="Edit"
-          className="textPrimary"
-          onClick={handleEditClick(id)}
-          color="inherit"
-        />,
-        <GridActionsCellItem
-          icon={<DeleteIcon />}
-          label="Delete"
-          onClick={handleDeleteClick(id)}
-          color="inherit"
-        />,
-      ]
+const Table: React.FC<Props> = ({ columns, rows, onEdit, onDelete }) => {
+  const columnsWithActions: GridColDef[] = [
+    ...columns,
+    {
+      field: "actions",
+      headerName: "ДіЇ",
+      width: 100,
+      renderCell: params => (
+        <div className={s.actionButtons}>
+          <button onClick={() => onEdit(params.row.id as number)}>
+            <EditIcon className={s.svg} />
+          </button>
+          <button onClick={() => onDelete(params.row.id as number)}>
+            <DeleteIcon className={s.svg} />
+          </button>
+        </div>
+      ),
+      headerClassName: s.headerCell,
     },
-  }
+  ]
 
-  const tableColumns: GridColDef[] = [...columns, actionsColumn]
+  columnsWithActions.forEach(column => {
+    column.headerClassName = s.headerCell
+  })
 
   return (
-    <Box
-      sx={{
-        // height: 500,
-        // width: "100%",
-        ".actions": {
-          color: "text.secondary",
-        },
-        ".textPrimary": {
-          color: "text.primary",
-        },
-        ".MuiDataGrid-columnHeaders": {
-          backgroundColor: "#F8F0FB",
-        },
-      }}
-    >
+    <div className={s.table}>
       <DataGrid
         rows={rows}
-        columns={tableColumns}
-        editMode="row"
-        rowModesModel={rowModesModel}
-        onRowModesModelChange={handleRowModesModelChange}
-        onRowEditStop={handleRowEditStop}
-        processRowUpdate={processRowUpdate}
-        slotProps={{
-          toolbar: { setRows: setGridRows, setRowModesModel },
-        }}
+        columns={columnsWithActions}
         initialState={{
           pagination: {
             paginationModel: { page: 0, pageSize: 10 },
@@ -166,6 +50,8 @@ export const Table: React.FC<Props> = ({ columns, rows, onExternalDataUpdate }) 
         }}
         pageSizeOptions={[10, 25, 50, 100]}
       />
-    </Box>
+    </div>
   )
 }
+
+export default Table
