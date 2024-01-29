@@ -1,0 +1,14 @@
+@import "/src/styles/mixins.scss";
+@import "/src/styles/variables.scss";
+
+.news {
+  display: flex;
+  padding: 32px 80px 26px 20px;
+  margin-left: 276px;
+}
+
+.news__section {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}

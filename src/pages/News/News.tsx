@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from "react"
+
 import { useAppDispatch } from "src/redux/store"
-import { getBrands } from "src/redux/brands/operations"
+import { getNews } from "src/redux/news/operations"
 
-import s from "./Brands.module.scss"
+import s from "./News.module.scss"
 import AdminLayout from "src/layouts/AdminLayout"
+import ModalWindow from "src/components/ModalWindow"
 import PageToolsPanel from "src/components/PageToolsPanel"
-import ModalWindow from "src/components/ModalWindow/ModalWindow"
-import BrandsTable from "src/components/BrandsComponents/BrandsTable"
-import BrandManagementForm from "src/components/BrandsComponents/BrandManagementForm"
+import NewsTable from "src/components/NewsComponents/NewsTable"
+import NewsManagementForm from "src/components/NewsComponents/NewsManagementForm"
 
-const Brands: React.FC = () => {
+const News: React.FC = () => {
   const dispatch = useAppDispatch()
   const [isOpenModal, setIsOpenModal] = useState(false)
 
@@ -19,7 +20,7 @@ const Brands: React.FC = () => {
 
   useEffect(() => {
     dispatch(
-      getBrands({
+      getNews({
         lookup: searchName,
         pageSize,
         page: page + 1,
@@ -29,32 +30,28 @@ const Brands: React.FC = () => {
 
   return (
     <AdminLayout>
-      <main className={s.brand}>
-        <section className={s.brand__section}>
+      <main className={s.news}>
+        <section className={s.news__section}>
           <PageToolsPanel
-            title="Бренди"
-            btnTitle="ДОДАТИ БРЕНД"
+            title="Новини"
+            btnTitle="ДОДАТИ НОВИНУ"
             setSearchName={setSearchName}
             setIsOpenModal={setIsOpenModal}
           />
 
-          <BrandsTable
-            page={page}
-            pageSize={pageSize}
-            setPage={setPage}
-            setPageSize={setPageSize}
-          />
+          <NewsTable page={page} pageSize={pageSize} setPage={setPage} setPageSize={setPageSize} />
         </section>
+
         <ModalWindow
-          title={"ДОДАТИ БРЕНД"}
+          title={"ДОДАТИ НОВИНУ"}
           onClose={() => setIsOpenModal(false)}
           isOpenModal={isOpenModal}
         >
-          <BrandManagementForm onClose={() => setIsOpenModal(false)} />
+          <NewsManagementForm onClose={() => setIsOpenModal(false)} />
         </ModalWindow>
       </main>
     </AdminLayout>
   )
 }
 
-export default Brands
+export default News

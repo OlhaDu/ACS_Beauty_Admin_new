@@ -9,7 +9,7 @@ export const brandManagerSchema = Yup.object<IBrandsInitialValues>({
   description: Yup.string()
     .required("Обов`язкове поле")
     .min(3, "Опис має складатися не менше ніж з 3 символів")
-    .max(220, "Опис не може перевищувати 220 символи"),
+    .max(220, "Опис не може перевищувати 220 символів"),
   logo: Yup.mixed()
     .required("Завантажте банер")
     .test(

@@ -5,12 +5,12 @@ import { DataGrid, GridColDef, GridRowId } from "@mui/x-data-grid"
 
 import Box from "@mui/material/Box"
 import ModalWindow from "src/components/ModalWindow"
+import NewsManagementForm from "../NewsManagementForm"
 import ActionsColumn from "src/components/ActionsColumn"
-import BrandManagementForm from "../BrandManagementForm"
 
 import { columns } from "./columns"
-import { deleteBrand } from "src/redux/brands/operations"
-import { selectBrands, selectCount } from "src/redux/brands/selectors"
+import { deleteNews } from "src/redux/news/operations"
+import { selectCount, selectNews } from "src/redux/news/selectors"
 
 interface IProps {
   page: number
@@ -19,13 +19,13 @@ interface IProps {
   setPageSize: (pageSize: number) => void
 }
 
-const BrandsTable: React.FC<IProps> = ({ page, pageSize, setPage, setPageSize }) => {
+const NewsTable: React.FC<IProps> = ({ page, pageSize, setPage, setPageSize }) => {
   const dispatch = useAppDispatch()
-  const brands = useSelector(selectBrands)
+  const news = useSelector(selectNews)
   const count = useSelector(selectCount)
 
   const [isOpenModal, setIsOpenModal] = useState(false)
-  const [selectedBrand, setSelectedBrand] = useState<GridRowId | null>(null)
+  const [selectedNews, setSelectedNews] = useState<GridRowId | null>(null)
 
   const actionsColumn: GridColDef = {
     field: "actions",
@@ -39,10 +39,10 @@ const BrandsTable: React.FC<IProps> = ({ page, pageSize, setPage, setPageSize })
         <ActionsColumn
           onEditClick={() => {
             setIsOpenModal(true)
-            setSelectedBrand(id)
+            setSelectedNews(id)
           }}
           onDeleteClick={() => {
-            dispatch(deleteBrand(id))
+            dispatch(deleteNews(id))
           }}
         />,
       ]
@@ -50,7 +50,7 @@ const BrandsTable: React.FC<IProps> = ({ page, pageSize, setPage, setPageSize })
   }
 
   const tableColumns: GridColDef[] = columns.map(col =>
-    col.field === "description"
+    col.field === "text"
       ? {
           ...col,
           renderCell: ({ value }) => <div style={{ whiteSpace: "normal" }}>{value}</div>,
@@ -79,7 +79,7 @@ const BrandsTable: React.FC<IProps> = ({ page, pageSize, setPage, setPageSize })
         }}
       >
         <DataGrid
-          rows={brands}
+          rows={news}
           columns={tableColumns}
           checkboxSelection={false}
           disableRowSelectionOnClick={true}
@@ -100,12 +100,12 @@ const BrandsTable: React.FC<IProps> = ({ page, pageSize, setPage, setPageSize })
       </Box>
 
       <ModalWindow
-        title={"РЕДАГУВАТИ БРЕНД"}
+        title={"РЕДАГУВАТИ НОВИНУ"}
         onClose={() => setIsOpenModal(false)}
         isOpenModal={isOpenModal}
       >
-        <BrandManagementForm
-          brand={brands.find(brand => brand.id === selectedBrand)}
+        <NewsManagementForm
+          news={news.find(news => news.id === selectedNews)}
           onClose={() => setIsOpenModal(false)}
         />
       </ModalWindow>
@@ -113,4 +113,4 @@ const BrandsTable: React.FC<IProps> = ({ page, pageSize, setPage, setPageSize })
   )
 }
 
-export default BrandsTable
+export default NewsTable
