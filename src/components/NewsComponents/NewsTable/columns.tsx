@@ -35,7 +35,7 @@ export const columns: GridColDef[] = [
     editable: true,
   },
   {
-    field: "description",
+    field: "text",
     headerName: "Текст",
     type: "string",
     width: 500,

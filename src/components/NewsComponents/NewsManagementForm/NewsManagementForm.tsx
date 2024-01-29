@@ -23,7 +23,7 @@ const NewsManagementForm: React.FC<IProps> = ({ news, onClose }) => {
     initialValues: {
       banner: image,
       title: news?.title || "",
-      description: news?.description || "",
+      text: news?.text || "",
     },
     validationSchema: newsManagerSchema,
     groups: [
@@ -38,7 +38,7 @@ const NewsManagementForm: React.FC<IProps> = ({ news, onClose }) => {
         fields: [
           { name: "title", label: "Заголовок" },
           {
-            name: "description",
+            name: "text",
             label: "Опис",
             as: "textarea",
             className: s.brand_form__textarea,
@@ -51,12 +51,12 @@ const NewsManagementForm: React.FC<IProps> = ({ news, onClose }) => {
       { resetForm }: FormikHelpers<INewsInitialValues>
     ) => {
       const formData = new FormData()
-      const { banner, title, description } = value
+      const { banner, title, text } = value
 
-      if (banner && title && description) {
+      if (banner && title && text) {
         formData.append("banner", banner)
         formData.append("title", title)
-        formData.append("description", description)
+        formData.append("text", text)
       }
 
       try {

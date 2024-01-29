@@ -50,7 +50,7 @@ const NewsTable: React.FC<IProps> = ({ page, pageSize, setPage, setPageSize }) =
   }
 
   const tableColumns: GridColDef[] = columns.map(col =>
-    col.field === "description"
+    col.field === "text"
       ? {
           ...col,
           renderCell: ({ value }) => <div style={{ whiteSpace: "normal" }}>{value}</div>,

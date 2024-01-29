@@ -6,7 +6,7 @@ export const newsManagerSchema = Yup.object<INewsInitialValues>({
     .required("Обов`язкове поле")
     .min(3, "Заголовок має складатися не менше ніж з 3 символів")
     .max(30, "Заголовок не може перевищувати 30 символів"),
-  description: Yup.string()
+  text: Yup.string()
     .required("Обов`язкове поле")
     .min(3, "Текст має складатися не менше ніж з 3 символів")
     .max(220, "Текст не може перевищувати 220 символів"),
@@ -19,7 +19,6 @@ export const newsManagerSchema = Yup.object<INewsInitialValues>({
         (value instanceof File &&
           value.type?.split("/")[0] === "image" &&
           value.size <= 3 * 1024 * 1024) ||
-        typeof value === "string"
-      // (typeof value === "string" && value.startsWith("http"))
+        (typeof value === "string" && value.startsWith("http"))
     ),
 })
