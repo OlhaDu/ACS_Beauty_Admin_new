@@ -20,5 +20,5 @@ export interface IForm<T extends FormikValues> {
   validationSchema: AnyObjectSchema
   groups: IGroup[]
   onSubmit: (values: T, actions: FormikHelpers<T>) => void
-  isToggler?: boolean
+  btnName: string
 }

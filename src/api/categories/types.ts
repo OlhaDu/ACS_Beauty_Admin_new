@@ -1,25 +1,33 @@
-export interface IAddCategory {
-  file: null | File
-  name: string
-  description: string
-}
-export interface IUpdateCategory {
-  file: null | File
-  name: string
-  description: string
-  slug: string
-}
-
-export interface IAddUpdateSubcategory {
-  name: string
-  CategoryId: string
-}
+import { ICategory } from "src/types"
 
 export interface IUpdateUsers {
-  id: number
   fullName: string
   emai: string
   phone_number: number
   note: string
   createdAt: string
+  id: number
+}
+
+export interface ICategoryResponse extends Omit<ICategory, "subcategories"> {}
+
+export interface ISubCategoryResponse {
+  name: string
+  id: number
+  categoryId: number
+}
+
+export interface IAddSubCategory {
+  name: string
+  categoryId: number
+}
+
+export interface IDeleteSubCategory {
+  categoryId: number
+  subCategoryId: number
+}
+
+export interface IUpdatedCategoryOrSubCategory {
+  formData: FormData
+  id: number
 }

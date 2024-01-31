@@ -1,5 +1,6 @@
 import axios from "axios"
-import { IAddCategory, IAddUpdateSubcategory, IUpdateCategory, IUpdateUsers } from "./types"
+import { IAddSubCategory, ISubCategoryResponse, IUpdateUsers } from "./types"
+import { ICategory } from "src/types"
 
 const { VITE_API_BASE_URL, VITE_API_AUTH_TOKEN } = import.meta.env
 
@@ -12,15 +13,16 @@ http.defaults.headers.common["Authorization"] = `Bearer ${VITE_API_AUTH_TOKEN}`
 export const api = {
   getCategories: () => http.get("/category"),
 
-  addCategory: (newCategory: IAddCategory) => http.post("/category", newCategory),
+  addCategory: (formData: FormData) => http.post<ICategory>("/category", formData),
 
-  updateCategory: (updatedCategory: IUpdateCategory) => http.patch("/category", updatedCategory),
+  updateCategory: (id: number, updatedCategory: FormData) =>
+    http.patch<ICategory>(`/category/${id}`, updatedCategory),
 
-  addSubcategory: (newSubCategory: IAddUpdateSubcategory) =>
-    http.post("/subcategory", newSubCategory),
+  addSubcategory: (newSubCategory: IAddSubCategory) =>
+    http.post<ISubCategoryResponse>("/subcategory", newSubCategory),
 
-  updateSubcategory: (updatedSubCategory: IAddUpdateSubcategory) =>
-    http.patch("/subcategory", updatedSubCategory),
+  updateSubcategory: (id: number, updatedSubCategory: FormData) =>
+    http.patch<ISubCategoryResponse>(`/subcategory/${id}`, updatedSubCategory),
 
   deleteCategory: (id: number) => http.delete(`/category/${id}`),
 

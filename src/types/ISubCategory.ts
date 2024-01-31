@@ -1,4 +1,3 @@
-export interface ISubCategory {
-  id: number;
-  name: string;
-}
+import { ISubCategoryResponse } from "src/api/categories/types"
+
+export interface ISubCategory extends Omit<ISubCategoryResponse, "categoryId"> {}

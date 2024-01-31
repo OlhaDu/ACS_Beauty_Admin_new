@@ -2,14 +2,14 @@ import s from "./AddOrUpdateCategory.module.scss"
 import { categoryFormSchema } from "src/libs/yup"
 import FormGenerator from "../FormGenerator"
 import AddImageInput from "../AddImageInput"
-import { IInitialValues } from "src/types"
+import { IInitialValuesAddCategory, IInitialValuesUpdateCategory } from "src/types"
 import { FormikHelpers } from "formik"
 import { FC, useState } from "react"
-import { addCategory, updateCategory } from "src/redux/categories/operations"
+import { updateCategory } from "src/redux/categories/operations"
 import { useAppDispatch } from "src/redux/hooks"
 
 interface IAddOrUpdateCategory {
-  initialValues: IInitialValues
+  initialValues: IInitialValuesUpdateCategory | IInitialValuesAddCategory
   logo: string
   action: "add" | "update"
 }
@@ -45,22 +45,28 @@ const AddOrUpdateCategory: FC<IAddOrUpdateCategory> = ({ initialValues, logo, ac
       },
     ],
     onSubmit: async (
-      value: IInitialValues,
-      { resetForm, setFieldError, setFieldValue }: FormikHelpers<IInitialValues>
+      value: IInitialValuesAddCategory | IInitialValuesUpdateCategory,
+      {
+        resetForm,
+        setFieldError,
+        setFieldValue,
+      }: FormikHelpers<IInitialValuesAddCategory | IInitialValuesUpdateCategory>
     ) => {
-      if (action === "update") setFieldValue("slug", slug)
-      const { type, payload } = await dispatch(
-        (action === "add" ? addCategory : updateCategory)(value)
-      )
-      if (type.includes("rejected")) setFieldError("name", payload)
-      if (type.includes("fulfilled")) {
-        setInputToggler(!inputToggler)
-        resetForm()
+      if (action === "update") {
+        setFieldValue("slug", slug)
+        const { type, payload } = await dispatch(updateCategory(value))
+        if (type.includes("rejected")) setFieldError("name", payload)
+        if (type.includes("fulfilled")) {
+          setInputToggler(!inputToggler)
+          resetForm()
+        }
       }
     },
   }
 
-  return <FormGenerator<IInitialValues> {...addCategoryForm} />
+  return (
+    <FormGenerator<IInitialValuesAddCategory | IInitialValuesUpdateCategory> {...addCategoryForm} />
+  )
 }
 
 export default AddOrUpdateCategory

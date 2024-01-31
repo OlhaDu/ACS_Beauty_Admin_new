@@ -7,34 +7,34 @@ import s from "./AddImageInput.module.scss"
 import { IAddImageInput } from "src/types"
 import DeleteIcon from "src/images/svg/DeleteIcon"
 
-const AddImageInput: FC<IAddImageInput> = ({ inputToggler, logo, slug }) => {
-  const [image, setImage] = useState<string>(logo ? logo : "")
+const AddImageInput: FC<IAddImageInput> = ({ image, slug }) => {
+  const [bgImage, setBgImage] = useState<string>(image ? image : "")
   const inputRef = useRef<HTMLInputElement>(null)
-  const { setFieldValue, errors, dirty } = useFormikContext<{ file: File }>()
-
-  useEffect(() => {
-    handleCloseIconClick()
-  }, [inputToggler])
+  const { setFieldValue, errors } = useFormikContext<{ image: File }>()
 
   useEffect(() => {
     const input = inputRef.current
-    const handleCancelImageChange = () => setFieldValue("file", "")
+    const handleCancelImageChange = () => setFieldValue("image", null)
     input?.addEventListener("cancel", handleCancelImageChange)
     return () => input?.removeEventListener("cancel", handleCancelImageChange)
   }, [])
 
   const handleImageChange = async (e: ChangeEvent<HTMLInputElement>) => {
     if (!e.currentTarget.files?.length) return
+
     const file = e.currentTarget.files[0]
-    setFieldValue("file", file)
+    setFieldValue("image", file)
+
     if (file.type.split("/")[0] !== "image") return
+
     const imageUrl = URL.createObjectURL(file)
-    setImage(imageUrl)
+    setBgImage(imageUrl)
   }
 
-  const handleCloseIconClick = () => {
-    setImage("")
-    setFieldValue("file", "")
+  const handleDeleteIconClick = () => {
+    setBgImage("")
+    setFieldValue("image", null)
+
     const input = inputRef.current
     if (input) input.value = ""
   }
@@ -44,10 +44,10 @@ const AddImageInput: FC<IAddImageInput> = ({ inputToggler, logo, slug }) => {
   return (
     <>
       <Border border="borderDashed" className={s.add_img__border}>
-        {image ? (
+        {bgImage ? (
           <div className={s.add_img__image_container}>
-            <img src={image} alt={slug} className={s.add_img__image} />
-            <DeleteIcon onClick={handleCloseIconClick} className={s.add_img__add_close_icon} />
+            <img src={bgImage} alt={slug} className={s.add_img__image} />
+            <DeleteIcon onClick={handleDeleteIconClick} className={s.add_img__add_delete_icon} />
           </div>
         ) : (
           <div onClick={handleAddIconClick} className={s.add_img__load_container}>
@@ -56,7 +56,7 @@ const AddImageInput: FC<IAddImageInput> = ({ inputToggler, logo, slug }) => {
           </div>
         )}
         <input
-          name="file"
+          name="image"
           type="file"
           accept="image/*"
           className={s.add_img__input}
@@ -64,7 +64,7 @@ const AddImageInput: FC<IAddImageInput> = ({ inputToggler, logo, slug }) => {
           ref={inputRef}
         />
       </Border>
-      {errors.file && dirty && <p className={s.error}>{errors.file as ReactNode}</p>}
+      {errors.image && <p className={s.error}>{errors.image as ReactNode}</p>}
     </>
   )
 }

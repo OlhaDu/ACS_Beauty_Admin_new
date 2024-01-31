@@ -11,26 +11,22 @@ import SubCategories from "../SubCategories"
 import { ICategory } from "src/types"
 import s from "./Category.module.scss"
 import ModalWindow from "../ModalWindow"
-import AddOrUpdateCategory from "../AddOrUpdateCategory"
+import CategoryManagementForm from "../CategoryManagementForm"
+import SubCategoryManagementForm from "../SubCategoryManagementForm"
 
 const Category: FC<ICategory> = category => {
-  const { id, name, description, subcategories, logo, slug } = category
+  const { id, name, subcategories } = category
 
   const [isSubCategoryShown, setIsSubCategoryShown] = useState<boolean>(false)
   const [isEditCategoryShown, setIsEditCategoryShown] = useState<boolean>(false)
+  const [isAddSubCategoryShown, setIsAddSubCategoryShown] = useState<boolean>(false)
 
   const dispatch = useAppDispatch()
 
   const deleteIconClickHandler = () => dispatch(deleteCategory(id))
   const isSubcategoryShownClickHandler = () => setIsSubCategoryShown(!isSubCategoryShown)
   const isEditCategoryShownClickHandler = () => setIsEditCategoryShown(!isEditCategoryShown)
-
-  const initialValues = {
-    name,
-    description: description ? description : "",
-    file: null,
-    slug,
-  }
+  const isAddSubCategoryShownClickHandler = () => setIsAddSubCategoryShown(!isAddSubCategoryShown)
 
   const category__addIcon = cn(s.category__addIcon, s.category__icon)
 
@@ -42,7 +38,7 @@ const Category: FC<ICategory> = category => {
           <div className={s.category__icons_container}>
             <EditIcon className={s.category__icon} onClick={isEditCategoryShownClickHandler} />
             <DeleteIcon onClick={deleteIconClickHandler} className={s.category__icon} />
-            <AddIcon className={category__addIcon} />
+            <AddIcon onClick={isAddSubCategoryShownClickHandler} className={category__addIcon} />
           </div>
         </div>
         {isSubCategoryShown ? (
@@ -58,7 +54,16 @@ const Category: FC<ICategory> = category => {
           onClose={isEditCategoryShownClickHandler}
           isOpenModal={isEditCategoryShown}
         >
-          <AddOrUpdateCategory initialValues={initialValues} logo={logo} action="update" />
+          <CategoryManagementForm category={category} onClose={isEditCategoryShownClickHandler} />
+        </ModalWindow>
+      )}
+      {isAddSubCategoryShown && (
+        <ModalWindow
+          title="Додати підкатегорію"
+          onClose={isAddSubCategoryShownClickHandler}
+          isOpenModal={isAddSubCategoryShown}
+        >
+          <SubCategoryManagementForm categoryId={id} onClose={isAddSubCategoryShownClickHandler} />
         </ModalWindow>
       )}
     </li>

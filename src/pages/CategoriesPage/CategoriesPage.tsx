@@ -4,13 +4,7 @@ import Categories from "src/components/Categories"
 import s from "./Categories.module.scss"
 import { useState } from "react"
 import ModalWindow from "src/components/ModalWindow"
-import AddOrUpdateCategory from "src/components/AddOrUpdateCategory"
-
-const initialValues = {
-  name: "",
-  description: "",
-  file: null,
-}
+import CategoryManagementForm from "src/components/CategoryManagementForm"
 
 const CategoriesPage = () => {
   const [isOpenModal, setIsOpenModal] = useState<boolean>(false)
@@ -26,7 +20,7 @@ const CategoriesPage = () => {
           <VioletButton title="ДОДАТИ КАТЕГОРІЮ" onClick={addCategotyClickHandler} />
         </div>
         <ModalWindow title="ДОДАТИ КАТЕГОРІЮ" isOpenModal={isOpenModal} onClose={closeOpenModal}>
-          <AddOrUpdateCategory initialValues={initialValues} logo="" action="add" />
+          <CategoryManagementForm onClose={closeOpenModal} />
         </ModalWindow>
         <Categories />
       </div>

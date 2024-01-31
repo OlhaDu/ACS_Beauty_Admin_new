@@ -11,10 +11,16 @@
     fill: $second-icon-color;
   }
 }
-.add_img__add_close_icon {
+.add_img__add_delete_icon {
   position: absolute;
   top: 10px;
   right: 10px;
+  circle {
+    fill: none;
+  }
+  path {
+    fill: $second-icon-color;
+  }
 }
 .add_img__image_container {
   height: 318px;

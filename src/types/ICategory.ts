@@ -4,7 +4,7 @@ export interface ICategory {
   id: number
   name: string
   slug: string
-  subcategories: ISubCategory[]
-  logo: string
+  image: string
   description: string
+  subcategories: ISubCategory[]
 }

@@ -1,8 +1,12 @@
 import { createAsyncThunk } from "@reduxjs/toolkit"
-import { AxiosError } from "axios"
 import { api } from "src/api/categories"
-import { IAddCategory, IUpdateCategory } from "src/api/categories/types"
-import { ICategory } from "src/types"
+import {
+  IAddSubCategory,
+  ICategoryResponse,
+  IDeleteSubCategory,
+  ISubCategoryResponse,
+  IUpdatedCategoryOrSubCategory,
+} from "src/api/categories/types"
 
 const createAppAsyncThunk = createAsyncThunk.withTypes<{ rejectValue: string }>()
 
@@ -11,38 +15,74 @@ export const getCategories = createAppAsyncThunk("categories/getAll", async () =
   return res.data
 })
 
-export const addCategory = createAppAsyncThunk(
+export const addCategory = createAppAsyncThunk<ICategoryResponse, FormData>(
   "categories/add",
-  async (value: IAddCategory, { rejectWithValue }) => {
+  async (formData, { rejectWithValue }) => {
     try {
-      const res = await api.addCategory(value)
-      return res.data
+      const { data } = await api.addCategory(formData)
+      return data
     } catch (error) {
       return rejectWithValue("Така назва категорії вже використовується")
     }
   }
 )
 
-export const updateCategory = createAppAsyncThunk<ICategory, IUpdateCategory>(
+export const updateCategory = createAppAsyncThunk<ICategoryResponse, IUpdatedCategoryOrSubCategory>(
   "categories/update",
-  async (value, { rejectWithValue }) => {
+  async ({ id, formData }, { rejectWithValue }) => {
     try {
-      const res = await api.updateCategory(value)
-      return res.data
+      const { data } = await api.updateCategory(id, formData)
+      return data
     } catch (error) {
       return rejectWithValue("Помилка при оновленні категорії")
     }
   }
 )
 
-export const deleteCategory = createAppAsyncThunk(
+export const deleteCategory = createAppAsyncThunk<number, number>(
   "categories/delete",
-  async (id: number, { rejectWithValue }) => {
+  async (id, { rejectWithValue }) => {
     try {
       await api.deleteCategory(id)
       return id
     } catch (error) {
-      if (error instanceof AxiosError) return rejectWithValue(error.response?.data.message)
+      return rejectWithValue("Помилка при видаленні")
     }
   }
 )
+
+export const addSubCategory = createAppAsyncThunk<ISubCategoryResponse, IAddSubCategory>(
+  "categories/addSubCategory",
+  async (subCategory, { rejectWithValue }) => {
+    try {
+      const { data } = await api.addSubcategory(subCategory)
+      return data
+    } catch (error) {
+      return rejectWithValue("Така назва категорії вже використовується")
+    }
+  }
+)
+
+export const deleteSubCategory = createAppAsyncThunk<IDeleteSubCategory, IDeleteSubCategory>(
+  "categories/deleteSubCategory",
+  async ({ categoryId, subCategoryId }, { rejectWithValue }) => {
+    try {
+      await api.deleteSubcategory(subCategoryId)
+      return { categoryId, subCategoryId }
+    } catch (error) {
+      return rejectWithValue("Помилка при видаленні")
+    }
+  }
+)
+
+export const updateSubCategory = createAppAsyncThunk<
+  ISubCategoryResponse,
+  IUpdatedCategoryOrSubCategory
+>("categories/updateSubCategory", async ({ id, formData }, { rejectWithValue }) => {
+  try {
+    const { data } = await api.updateSubcategory(id, formData)
+    return data
+  } catch (error) {
+    return rejectWithValue("Така назва підкатегорії вже використовується")
+  }
+})

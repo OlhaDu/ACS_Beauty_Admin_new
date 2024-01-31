@@ -1,5 +1,4 @@
 export interface IAddImageInput {
-  inputToggler?: boolean
-  logo: string
-  slug: string | undefined
+  image: string
+  slug: string
 }
