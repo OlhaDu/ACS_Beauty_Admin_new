@@ -1,9 +1,7 @@
 import { useEffect, useState } from "react"
 import s from "./Users.module.scss"
 
-import Select from "src/components/ToolsPanel/Select/Select"
 import SearchInput from "src/components/ToolsPanel/SearchInput/SearchInput"
-import FilterIcon from "../../images/svg/FilterIcon"
 import AdminLayout from "src/layouts/AdminLayout"
 import Table from "src/components/Table/Table"
 
@@ -18,13 +16,23 @@ import InfoPopup from "../../components/Popups/InfoPopup/InfoPopup.tsx"
 
 const Users = () => {
   const [users, setUsers] = useState<IUser[]>([])
+  const [chosenUser, setChosenUser] = useState<IUser | undefined>()
+  const [totalUsers, setTotalUsers] = useState(0)
+
   const [showUpdateUserModal, setShowUpdateUserModal] = useState(false)
   const [showSuccessPopup, setShowSuccessPopup] = useState("")
-  const [chosenUser, setChosenUser] = useState<IUser | undefined>()
 
+  const [page, setPage] = useState(0)
+  const [pageSize, setPageSize] = useState(10)
+  const [searchData, setSearchData] = useState("")
   const fetchUsers = async () => {
     try {
-      const response = await usersApi.getUsers({ page: 1, pageSize: 10 })
+      const response = await usersApi.getUsers({
+        page: page + 1,
+        pageSize,
+        lookup: searchData,
+      })
+      setTotalUsers(response.data.count)
       const usersData: IUser[] = response.data.rows
       setUsers(
         usersData.map(user => ({
@@ -71,9 +79,7 @@ const Users = () => {
 
   useEffect(() => {
     fetchUsers()
-  }, [])
-
-  const filteringOptions = ["Option 1", "Option 2", "Option 3"]
+  }, [page, pageSize, searchData])
 
   const customColumns = [
     {
@@ -81,41 +87,42 @@ const Users = () => {
       headerName: "ID",
       width: 50,
       type: "number",
+      headerClassName: s.headerCell,
     },
     {
       field: "fullName",
       headerName: "Ім’я",
-      width: 150,
+      width: 170,
       type: "string",
-      editable: true,
+      headerClassName: s.headerCell,
     },
     {
       field: "email",
       headerName: "Email",
-      width: 150,
+      width: 160,
       type: "string",
-      editable: true,
+      headerClassName: s.headerCell,
     },
     {
       field: "phone",
       headerName: "Телефон",
       type: "number",
       width: 140,
-      editable: true,
+      headerClassName: s.headerCell,
     },
     {
       field: "note",
       headerName: "Примітки",
       type: "string",
-      width: 170,
-      editable: true,
+      width: 180,
+      headerClassName: s.headerCell,
     },
     {
       field: "createdAt",
       headerName: "Додано",
       type: "string",
       width: 150,
-      editable: true,
+      headerClassName: s.headerCell,
     },
     {
       field: "actions",
@@ -150,10 +157,6 @@ const Users = () => {
     setChosenUser(undefined)
   }
 
-  const searchUsers = () => {
-    console.log("search")
-  }
-
   return (
     <AdminLayout>
       <main className={s.main}>
@@ -162,18 +165,19 @@ const Users = () => {
             <h2 className={s.main__title_text}>Користувачі</h2>
           </div>
           <div className={s.tools}>
-            <SearchInput onChange={searchUsers} />
+            <SearchInput onChange={setSearchData} />
             <ExportButton columns={customColumns} rows={users} />
           </div>
-          <Table columns={customColumns} rows={users} />
-        </section>
-        {showUpdateUserModal && chosenUser && (
-          <ChangeUsersInfoPopup
-            onClose={handleHideUpdateUserModal}
-            onSuccess={handleEditUser}
-            user={chosenUser}
+          <Table
+            columns={customColumns}
+            rows={users}
+            page={page}
+            pageSize={pageSize}
+            setPage={setPage}
+            setPageSize={setPageSize}
+            count={totalUsers}
           />
-        )}
+        </section>
         {showUpdateUserModal && chosenUser && (
           <ChangeUsersInfoPopup
             onClose={handleHideUpdateUserModal}

@@ -10,18 +10,28 @@ import { IUser } from "../../types/IUsers.ts"
 interface Props {
   columns: OrdersColumn[]
   rows: OrdersRow[] | IUser[]
+  page: number
+  pageSize: number
+  setPage: (page: number) => void
+  setPageSize: (pageSize: number) => void
+  count: number
 }
 
-const Table: React.FC<Props> = ({ columns, rows }) => {
+const Table: React.FC<Props> = ({ columns, rows, page, pageSize, setPage, setPageSize, count }) => {
   return (
     <div className={s.table}>
       <DataGrid
         rows={rows}
         columns={columns}
-        initialState={{
-          pagination: {
-            paginationModel: { page: 0, pageSize: 10 },
-          },
+        disableRowSelectionOnClick={true}
+        isCellEditable={() => false}
+        isRowSelectable={() => false}
+        rowCount={count}
+        paginationMode="server"
+        paginationModel={{ page, pageSize }}
+        onPaginationModelChange={({ page, pageSize }) => {
+          setPage(page)
+          setPageSize(pageSize)
         }}
         pageSizeOptions={[10, 25, 50, 100]}
       />
