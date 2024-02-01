@@ -3,10 +3,13 @@ import { Link, useNavigate, useLocation } from "react-router-dom"
 import Pagination from "@mui/material/Pagination"
 import PaginationItem from "@mui/material/PaginationItem"
 import { ContentProps } from "src/types/Reviews"
+import {  useSelector } from "react-redux"
+import { RootState } from "src/redux/store";
 
-const Content: React.FC<ContentProps> = ({ reviews, numberReviews, onPageChange }) => {
+const Content: React.FC<ContentProps> = ({ numberReviews, onPageChange }) => {
   const navigate = useNavigate()
   const location = useLocation()
+  const reviews = useSelector((state: RootState) => state.reviews.reviews);
 
   const queryParams = new URLSearchParams(location.search)
   const currentPage = parseInt(queryParams.get("page") || "1", 10)

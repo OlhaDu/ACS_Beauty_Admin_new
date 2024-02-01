@@ -3,18 +3,19 @@ import s from "./FilterProperties.module.scss";
 import NavigateIcon from "src/images/svg/NavigateIcon";
 import FilterIcon from "src/assets/filter-variant.svg";
 import ArrowIcon from "src/assets/menu-arrow.svg";
-import { FilterPropertiesProps } from "src/types/Reviews";
+import { useAppDispatch } from "src/redux/store";
+import { setRatingFilter, setStatusFilter } from "src/redux/reviews/reviewsSlice";
 
-const FilterProperties: React.FC<FilterPropertiesProps> = ({
-  onRatingFilterChange,
-  onStatusFilterChange,
-}) => {
+const FilterProperties = () => {
+
   const [statusOpen, setStatusOpen] = useState(false);
   const [ratingOpen, setRatingOpen] = useState(false);
   const [filterOpen, setFilterOpen] = useState(false);
 
   const filterRef = useRef<HTMLDivElement>(null);
   const filterButtonRef = useRef<HTMLSpanElement>(null);
+
+  const dispatch = useAppDispatch();
 
   const prevFilterOpenRef = useRef(filterOpen);
   useEffect(() => {
@@ -59,13 +60,13 @@ const FilterProperties: React.FC<FilterPropertiesProps> = ({
   const handleRatingFilterChange = (
     filter: "positive" | "neutral" | "negative" | undefined
   ) => {
-    onRatingFilterChange(filter);
+    dispatch(setRatingFilter(filter));
   };
 
   const handleStatusFilterChange = (
     statusFilter: "pending" | "published" | undefined
   ) => {
-    onStatusFilterChange(statusFilter);
+    dispatch(setStatusFilter(statusFilter));
   };
 
   return (

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react"
 import ReviewsItems from "../ReviewsItems/ReviewsItems"
-import { fetchReviews } from "../../Utils/api/getReviews"
 import s from "./ReviewsList.module.scss"
 import SearchReviews from "src/components/Reviews/SearchReviews/SearchReviews"
 import ExportList from "src/components/Reviews/ExportList/ExportList"
@@ -9,29 +8,30 @@ import FilterProperties from "../FilterProperties/FilterProperties"
 import Content from "src/components/Reviews/PaginationItem/PaginationItem"
 import ReviewsOnPage from "../ReviewsOnPage/ReviewsOnPage"
 import { Review } from "src/types/Reviews"
+import { fetchReviews } from "src/redux/reviews/operations"
+import { useAppDispatch } from "src/redux/store"
 
 const ReviewsList: React.FC = () => {
-  const [data, setData] = useState<Review[]>([])
   const [newReviews, setNewReviews] = useState<Review[]>([])
-  const [status, setStatus] = useState<"pending" | "fulfilled" | "rejected">("pending")
-  const [ratingFilter, setRatingFilter] = useState<"positive" | "neutral" | "negative" | undefined>(
-    undefined
-  )
+  const [status, setStatus] = useState<"pending" | "fulfilled" | "rejected">("pending")  
   const [numberReviews, setNumberReviews] = useState<"10" | "20" | "50" | "100" | "4">("10")
-  const [statusFilter, setStatusFilter] = useState<"pending" | "published" | undefined>(undefined)
   const [searchTerm, setSearchTerm] = useState("")
 
+  const dispatch = useAppDispatch()
+
   useEffect(() => {
-    setStatus("pending")
-    fetchReviews(1)
-      .then(fetchedData => {
+    const fetchData = async () => {
+      try {
+        setStatus("pending")
+        await dispatch(fetchReviews(1))
         setStatus("fulfilled")
-        setData(fetchedData.rows)
-      })
-      .catch(() => {
+      } catch (error) {
         setStatus("rejected")
-      })
-  }, [])
+      }
+    }
+
+    fetchData()
+  }, [dispatch])
 
   const handleSearch = async (term: string) => {
     setSearchTerm(term)
@@ -40,9 +40,8 @@ const ReviewsList: React.FC = () => {
   const updateReviewsData = async () => {
     try {
       setStatus("pending")
-      const fetchedData = await fetchReviews(1)
+      await dispatch(fetchReviews(1))
       setStatus("fulfilled")
-      setData(fetchedData.rows)
     } catch (error) {
       setStatus("rejected")
     }
@@ -50,7 +49,6 @@ const ReviewsList: React.FC = () => {
 
   const handlePageChange = (currentReviews: Review[]) => {
     if (!areReviewsEqual(newReviews, currentReviews)) {
-      console.log("currentReviews", currentReviews)
       setNewReviews(currentReviews)
     }
   }
@@ -77,14 +75,7 @@ const ReviewsList: React.FC = () => {
 
         <ul className={s.menu_list}>
           <li>
-            <FilterProperties
-              onRatingFilterChange={filter => {
-                setRatingFilter(filter)
-              }}
-              onStatusFilterChange={statusFilter => {
-                setStatusFilter(statusFilter)
-              }}
-            />
+            <FilterProperties />
           </li>
           <li className={s.menu_filter}>
             <ExportList />
@@ -101,20 +92,10 @@ const ReviewsList: React.FC = () => {
         {status === "pending" && <p>Loading...</p>}
         {status === "rejected" && <p>Failed to fetch data.</p>}
         {status === "fulfilled" && (
-          <ReviewsItems
-            reviews={newReviews || []}
-            ratingFilter={ratingFilter}
-            statusFilter={statusFilter}
-            updateReviewsData={updateReviewsData}
-            searchTerm={searchTerm}
-          />
+          <ReviewsItems updateReviewsData={updateReviewsData} searchTerm={searchTerm} />
         )}
         <div className={s.paginationStyle}>
-          <Content
-            numberReviews={numberReviews}
-            reviews={data || []}
-            onPageChange={handlePageChange}
-          />
+          <Content numberReviews={numberReviews} onPageChange={handlePageChange} />
         </div>
       </div>
     </AdminLayout>

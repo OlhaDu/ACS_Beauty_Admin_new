@@ -8,6 +8,8 @@ import ChangeStatus from "../Modal/ChangeStatusModal"
 import { changeStatus, deleteReviews } from "src/components/Utils/api/getReviews"
 import { toast } from "react-toastify"
 import { ReviewsItemsProps } from "src/types/Reviews"
+import {  useSelector } from "react-redux"
+import { RootState } from "src/redux/store";
 import { matchesFilter, filterStatus, formatDate } from "src/components/Utils/matchesFilter"
 import {
   TableHead,
@@ -19,6 +21,7 @@ import {
   TableContainer,
   Box,
 } from "@mui/material"
+
 
 const cellStyles = {
   fontFamily: "Roboto",
@@ -33,10 +36,7 @@ const cellStyles = {
   color: " #5C5E60",
 }
 
-const ReviewsItems: React.FC<ReviewsItemsProps> = ({
-  reviews,
-  ratingFilter,
-  statusFilter,
+const ReviewsItems: React.FC<ReviewsItemsProps> = ({ 
   updateReviewsData,
   searchTerm,
 }) => {
@@ -44,6 +44,8 @@ const ReviewsItems: React.FC<ReviewsItemsProps> = ({
   const [selectedProductId, setSelectedProductId] = useState<string>("")
   const [status, setStatus] = useState<"pending" | "fulfilled" | "rejected">("pending")
   const [activeReviewId, setActiveReviewId] = useState<string | null>(null)
+  const reviews = useSelector((state: RootState) => state.reviews.reviews);
+  const { ratingFilter, statusFilter } = useSelector((state: RootState) => state.reviews.filters);
 
   useEffect(() => {
     if (status === "rejected") {

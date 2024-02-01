@@ -9,7 +9,6 @@ export interface Review {
     rating: number;
   }
   export interface ContentProps {
-    reviews: Review[];
     numberReviews: string | undefined;
     onPageChange: (currentReviews: Review[]) => void;
   }
