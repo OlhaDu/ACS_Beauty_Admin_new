@@ -1,15 +1,31 @@
 import { createAsyncThunk } from "@reduxjs/toolkit"
 import { api } from "src/api/categories"
 import {
-  IAddSubCategory,
+  ISubCategory,
   ICategoryResponse,
   IDeleteSubCategory,
   ISubCategoryResponse,
   IUpdatedCategory,
   IUpdatedSubCategory,
 } from "src/api/categories/types"
+import { IRootState } from "../store"
 
-const createAppAsyncThunk = createAsyncThunk.withTypes<{ rejectValue: string }>()
+const createAppAsyncThunk = createAsyncThunk.withTypes<{ state: IRootState; rejectValue: string }>()
+
+const findSubcategoryByName = (state: IRootState, subcategory: ISubCategory) => {
+  const { name, categoryId } = subcategory
+
+  const {
+    categories: { categories },
+  } = state
+
+  const categoryIndex = categories.findIndex(category => category.id === categoryId)
+
+  const subcategoryFromState = categories[categoryIndex].subcategories.find(
+    subcategory => subcategory.name === name
+  )
+  return subcategoryFromState
+}
 
 export const getCategories = createAppAsyncThunk("categories/getAll", async () => {
   const res = await api.getCategories()
@@ -52,14 +68,17 @@ export const deleteCategory = createAppAsyncThunk<number, number>(
   }
 )
 
-export const addSubCategory = createAppAsyncThunk<ISubCategoryResponse, IAddSubCategory>(
+export const addSubCategory = createAppAsyncThunk<ISubCategoryResponse, ISubCategory>(
   "categories/addSubCategory",
-  async (subCategory, { rejectWithValue }) => {
+  async (subCategory, { rejectWithValue, getState }) => {
+    const subcategoryFromState = findSubcategoryByName(getState(), subCategory)
+
     try {
+      if (subcategoryFromState) throw new Error()
       const { data } = await api.addSubcategory(subCategory)
       return data
     } catch (error) {
-      return rejectWithValue("Така назва категорії вже використовується")
+      return rejectWithValue("Така назва підкатегорії вже використовується")
     }
   }
 )
@@ -78,8 +97,11 @@ export const deleteSubCategory = createAppAsyncThunk<IDeleteSubCategory, IDelete
 
 export const updateSubCategory = createAppAsyncThunk<ISubCategoryResponse, IUpdatedSubCategory>(
   "categories/updateSubCategory",
-  async ({ id, updatedSubCategory }, { rejectWithValue }) => {
+  async ({ id, updatedSubCategory }, { getState, rejectWithValue }) => {
+    const subcategoryFromState = findSubcategoryByName(getState(), updatedSubCategory)
+
     try {
+      if (subcategoryFromState) throw new Error()
       const { data } = await api.updateSubcategory(id, updatedSubCategory)
       return data
     } catch (error) {

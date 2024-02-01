@@ -28,9 +28,6 @@
   justify-content: center;
   position: relative;
 }
-.add_img__border {
-  margin-top: $margin-main;
-}
 .add_img__text {
   @include font($fs-m, $fw-semi-bold, $flh-sm);
   margin-top: $margin-third;

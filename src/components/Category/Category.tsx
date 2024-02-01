@@ -1,5 +1,4 @@
 import { FC, useState } from "react"
-import cn from "classnames"
 import { useAppDispatch } from "src/redux/hooks"
 import { deleteCategory } from "src/redux/categories/operations"
 import DeleteIcon from "src/images/svg/DeleteIcon"
@@ -30,8 +29,6 @@ const Category: FC<ICategory> = category => {
 
   const shouldArrowIconsShown = category.subcategories.length !== 0
 
-  const category__addIcon = cn(s.category__addIcon, s.category__icon)
-
   return (
     <li className={s.category}>
       <div className={s.category__container_center}>
@@ -39,15 +36,21 @@ const Category: FC<ICategory> = category => {
           <h4 className={s.category__title}>{name}</h4>
           <div className={s.category__icons_container}>
             <EditIcon className={s.category__icon} onClick={isEditCategoryShownClickHandler} />
-            <DeleteIcon onClick={deleteIconClickHandler} className={s.category__icon} />
-            <AddIcon onClick={isAddSubCategoryShownClickHandler} className={category__addIcon} />
+            <DeleteIcon className={s.category__icon} onClick={deleteIconClickHandler} />
+            <AddIcon className={s.category__add_icon} onClick={isAddSubCategoryShownClickHandler} />
           </div>
         </div>
         {shouldArrowIconsShown &&
           (isSubCategoriesShown ? (
-            <ArrowDownIcon onClick={isSubcategoriesShownClickHandler} />
+            <ArrowDownIcon
+              className={s.category__arrow}
+              onClick={isSubcategoriesShownClickHandler}
+            />
           ) : (
-            <ArrowToRightIcon onClick={isSubcategoriesShownClickHandler} />
+            <ArrowToRightIcon
+              className={s.category__arrow}
+              onClick={isSubcategoriesShownClickHandler}
+            />
           ))}
       </div>
       {isSubCategoriesShown && <SubCategories subcategories={subcategories} categoryId={id} />}

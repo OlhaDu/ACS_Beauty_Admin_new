@@ -17,7 +17,7 @@ export interface ISubCategoryResponse {
   categoryId: number
 }
 
-export interface IAddSubCategory {
+export interface ISubCategory {
   name: string
   categoryId: number
 }
@@ -33,6 +33,6 @@ export interface IUpdatedCategory {
 }
 
 export interface IUpdatedSubCategory {
-  updatedSubCategory: IAddSubCategory
+  updatedSubCategory: ISubCategory
   id: number
 }

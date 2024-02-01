@@ -75,9 +75,9 @@ export const categoriesSlice = createSlice({
         const categoryIndex = state.categories.findIndex(category => category.id === categoryId)
 
         if (categoryIndex === -1) return
-        state.categories[categoryIndex].subcategories.filter(
-          subcategory => subcategory.id !== subCategoryId
-        )
+        state.categories[categoryIndex].subcategories = state.categories[
+          categoryIndex
+        ].subcategories.filter(subcategory => subcategory.id !== subCategoryId)
         setFulfilledState(state)
       })
       .addCase(deleteSubCategory.rejected, habdleReject)

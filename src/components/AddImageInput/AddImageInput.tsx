@@ -43,7 +43,7 @@ const AddImageInput: FC<IAddImageInput> = ({ image, slug }) => {
 
   return (
     <>
-      <Border border="borderDashed" className={s.add_img__border}>
+      <Border border="borderDashed">
         {bgImage ? (
           <div className={s.add_img__image_container}>
             <img src={bgImage} alt={slug} className={s.add_img__image} />

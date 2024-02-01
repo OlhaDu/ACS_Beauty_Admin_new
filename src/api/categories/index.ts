@@ -1,5 +1,5 @@
 import axios from "axios"
-import { IAddSubCategory, ISubCategoryResponse, IUpdateUsers } from "./types"
+import { ISubCategory, ISubCategoryResponse, IUpdateUsers } from "./types"
 import { ICategory } from "src/types"
 
 const { VITE_API_BASE_URL, VITE_API_AUTH_TOKEN } = import.meta.env
@@ -18,10 +18,10 @@ export const api = {
   updateCategory: (id: number, formData: FormData) =>
     http.patch<ICategory>(`/category/${id}`, formData),
 
-  addSubcategory: (newSubCategory: IAddSubCategory) =>
+  addSubcategory: (newSubCategory: ISubCategory) =>
     http.post<ISubCategoryResponse>("/subcategory", newSubCategory),
 
-  updateSubcategory: (id: number, updatedSubCategory: IAddSubCategory) =>
+  updateSubcategory: (id: number, updatedSubCategory: ISubCategory) =>
     http.patch<ISubCategoryResponse>(`/subcategory/${id}`, updatedSubCategory),
 
   deleteCategory: (id: number) => http.delete(`/category/${id}`),

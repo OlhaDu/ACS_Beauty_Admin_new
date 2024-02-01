@@ -1,7 +1,7 @@
 @import "/src/styles/variables.scss";
 @import "/src/styles/mixins.scss";
 
-.subContainer {
+.subcategory {
   display: flex;
   width: 628px;
   height: 76px;
@@ -10,11 +10,13 @@
   align-items: center;
   border: $default-border;
 }
-.subName {
+.subcategory__name {
   @extend .Roboto400-20-23;
   color: $main-text-color;
 }
-.subIconWrapper {
+.subcategory__edit_icon {
   margin-left: auto;
-  height: auto;
+}
+.subcategory__delete_icon {
+  margin-left: $margin-second;
 }
