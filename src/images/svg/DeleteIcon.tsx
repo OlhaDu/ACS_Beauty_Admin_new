@@ -1,11 +1,12 @@
-import React from "react";
-import { FC } from "react";
+import React from "react"
+import { FC } from "react"
 
 interface deleteIconProps {
-  fill: string;
+  fill: string
+  className?: string
 }
 
-const DeleteIcon: FC<deleteIconProps> = ({ fill }) => {
+const DeleteIcon: FC<deleteIconProps> = ({ fill, className }) => {
   return (
     <svg
       width="52"
@@ -13,6 +14,7 @@ const DeleteIcon: FC<deleteIconProps> = ({ fill }) => {
       viewBox="0 0 52 52"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      className={className}
     >
       <circle cx="26" cy="26" r="26" fill="none" />
       <path
@@ -20,7 +22,7 @@ const DeleteIcon: FC<deleteIconProps> = ({ fill }) => {
         fill={fill}
       />
     </svg>
-  );
-};
+  )
+}
 
-export default DeleteIcon;
+export default DeleteIcon

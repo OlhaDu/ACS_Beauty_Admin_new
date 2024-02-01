@@ -28,5 +28,10 @@
 
 .tools {
   display: flex;
-  gap: 20px;
+  justify-content: space-between;
+  margin-top: 22px;
+}
+
+.headerCell {
+  background-color: $second-color;
 }

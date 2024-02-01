@@ -1,120 +1,161 @@
 import { useEffect, useState } from "react"
 import s from "./Users.module.scss"
 
-import Select from "src/components/ToolsPanel/Select/Select"
 import SearchInput from "src/components/ToolsPanel/SearchInput/SearchInput"
-import FilterIcon from "../../images/svg/FilterIcon"
-import ActionsIcon from "../../images/svg/ActionsIcon"
-import ExportFileIcon from "../../images/svg/ExportFileIcon"
-import RowListIcon from "../../images/svg/RowListIcon"
-import axios from "axios"
 import AdminLayout from "src/layouts/AdminLayout"
-import { Table } from "src/components/Table/Table"
-import { handleExternalDataUpdate } from "../../components/Table/helpers"
+import Table from "src/components/Table/Table"
 
-export interface User {
-  id: number
-  firstName: string
-  lastName: string
-  email: string
-  note: string
-  phone: string
-  createdAt: string
-  updatedAt: string
-}
-interface TableUser {
-  id: number
-  fullName: string
-  email: string
-  note: string
-  phone: string
-  createdAt: string
-}
+import { usersApi } from "../../api/usersApi.ts"
+import ExportButton from "../../components/ToolsPanel/ExportButton/ExportButton.tsx"
+import { IUpdatedUser, IUser } from "../../types/IUsers.ts"
+import EditIcon from "../../images/svg/EditIcon.tsx"
+import DeleteIcon from "../../images/svg/DeleteIcon.tsx"
+import * as React from "react"
+import ChangeUsersInfoPopup from "../../components/Popups/ChangeUsersInfoPopup/ChangeUsersInfoPopup.tsx"
+import InfoPopup from "../../components/Popups/InfoPopup/InfoPopup.tsx"
 
 const Users = () => {
-  const [users, setUsers] = useState<TableUser[]>([])
+  const [users, setUsers] = useState<IUser[]>([])
+  const [chosenUser, setChosenUser] = useState<IUser | undefined>()
+  const [totalUsers, setTotalUsers] = useState(0)
 
-  useEffect(() => {
-    const getUsers = async () => {
-      const apiUrl = `${import.meta.env.VITE_API_BASE_URL}/user?page=1`
-      // 'http://13.50.16.182:5000/api/user?page=1'
-      // "http://16.171.113.245:5000/api/user?page=1&lookup=323&pageSize=25";
+  const [showUpdateUserModal, setShowUpdateUserModal] = useState(false)
+  const [showSuccessPopup, setShowSuccessPopup] = useState("")
 
+  const [page, setPage] = useState(0)
+  const [pageSize, setPageSize] = useState(10)
+  const [searchData, setSearchData] = useState("")
+  const fetchUsers = async () => {
+    try {
+      const response = await usersApi.getUsers({
+        page: page + 1,
+        pageSize,
+        lookup: searchData,
+      })
+      setTotalUsers(response.data.count)
+      const usersData: IUser[] = response.data.rows
+      setUsers(
+        usersData.map(user => ({
+          id: user.id,
+          firstName: user.firstName,
+          lastName: user.lastName,
+          fullName: `${user.firstName} ${user.lastName}`,
+          email: user.email,
+          phone: user.phone,
+          note: user.note,
+          createdAt: user.createdAt,
+        }))
+      )
+    } catch (error) {
+      console.error("Error fetching orders", error)
+    }
+  }
+
+  const patchUser = async (user: IUpdatedUser) => {
+    if (chosenUser) {
       try {
-        const response = await axios.get(apiUrl, {
-          headers: {
-            Authorization: `Barer ${import.meta.env.VITE_API_AUTH_TOKEN}`,
-          },
-        })
-
-        const usersData: User[] = response.data.rows
-
-        setUsers(
-          usersData.map(user => ({
-            id: user.id,
-            fullName: `${user.firstName} ${user.lastName}`,
-            email: user.email,
-            phone: user.phone,
-            note: user.note,
-            createdAt: user.createdAt,
-          }))
-        )
+        await usersApi.patchUser(chosenUser.id, user)
+        setShowSuccessPopup("Інформація про користувача успішно змінена")
+        fetchUsers()
+        setTimeout(() => setShowSuccessPopup(""), 2000)
       } catch (error) {
-        console.error("Error fetching data:", error)
+        console.error("Error patching user", error)
+        setShowSuccessPopup("Щось пішло не так. Спробуйте піздніше.")
       }
     }
+  }
 
-    getUsers()
-  }, [])
+  const deleteUser = async (id: number) => {
+    try {
+      await usersApi.deleteUser(id)
+      setShowSuccessPopup("Користувач успішно видалено")
+      fetchUsers()
+      setTimeout(() => setShowSuccessPopup(""), 2000)
+    } catch (error) {
+      console.error("Error deleting user", error)
+      setShowSuccessPopup("Щось пішло не так. Спробуйте піздніше.")
+    }
+  }
 
-  const filteringOptions = ["Option 1", "Option 2", "Option 3"]
-  const actionOptions = ["Редагувати", "Видалити"]
-  const exportOptions = ["Option 1", "Option 2", "Option 3"]
-  const paginationOptions = ["Option 1", "Option 2", "Option 3"]
+  useEffect(() => {
+    fetchUsers()
+  }, [page, pageSize, searchData])
 
   const customColumns = [
     {
       field: "id",
       headerName: "ID",
-      width: 70,
+      width: 50,
       type: "number",
+      headerClassName: s.headerCell,
     },
     {
       field: "fullName",
       headerName: "Ім’я",
-      width: 130,
+      width: 170,
       type: "string",
-      editable: true,
+      headerClassName: s.headerCell,
     },
     {
       field: "email",
       headerName: "Email",
-      width: 130,
+      width: 160,
       type: "string",
-      editable: true,
+      headerClassName: s.headerCell,
     },
     {
       field: "phone",
       headerName: "Телефон",
       type: "number",
-      width: 130,
-      editable: true,
+      width: 140,
+      headerClassName: s.headerCell,
     },
     {
       field: "note",
       headerName: "Примітки",
       type: "string",
-      width: 130,
-      editable: true,
+      width: 180,
+      headerClassName: s.headerCell,
     },
     {
       field: "createdAt",
       headerName: "Додано",
       type: "string",
-      width: 130,
-      editable: true,
+      width: 150,
+      headerClassName: s.headerCell,
+    },
+    {
+      field: "actions",
+      headerName: "ДіЇ",
+      width: 120,
+      renderCell: (params: { row: IUser }) => (
+        <div className={s.actionButtons}>
+          <button onClick={() => handleshowUpdateUserModal(params.row)}>
+            <EditIcon className={s.svg} fill="black" />
+          </button>
+          <button onClick={() => deleteUser(params.row.id)}>
+            <DeleteIcon className={s.svg} fill="black" />
+          </button>
+        </div>
+      ),
+      headerClassName: s.headerCell,
     },
   ]
+
+  const handleEditUser = (user: IUpdatedUser) => {
+    patchUser(user)
+    handleHideUpdateUserModal()
+  }
+
+  const handleshowUpdateUserModal = (user: IUser) => {
+    setShowUpdateUserModal(true)
+    setChosenUser(user)
+  }
+
+  const handleHideUpdateUserModal = () => {
+    setShowUpdateUserModal(false)
+    setChosenUser(undefined)
+  }
 
   return (
     <AdminLayout>
@@ -123,39 +164,30 @@ const Users = () => {
           <div className={s.main__title}>
             <h2 className={s.main__title_text}>Користувачі</h2>
           </div>
-          <div className={s.main__user_search}>
-            <div className={s.features}>
-              <SearchInput />
-              <div className={s.tools}>
-                <section className={s.options__container}>
-                  <Select
-                    options={filteringOptions}
-                    icon={<FilterIcon />}
-                    toolName={"Фільтрувати"}
-                  />
-                  <Select options={actionOptions} icon={<ActionsIcon />} toolName={"Дії"} />
-                  <Select
-                    options={exportOptions}
-                    icon={<ExportFileIcon />}
-                    toolName={"Експортувати"}
-                  />
-                </section>
-                <Select
-                  options={paginationOptions}
-                  icon={<RowListIcon />}
-                  toolName={"Рядків на сторінці: 10"}
-                  style={{ width: "261px" }}
-                />
-              </div>
-            </div>
+          <div className={s.tools}>
+            <SearchInput onChange={setSearchData} />
+            <ExportButton columns={customColumns} rows={users} />
           </div>
-
           <Table
             columns={customColumns}
             rows={users}
-            onExternalDataUpdate={handleExternalDataUpdate}
+            page={page}
+            pageSize={pageSize}
+            setPage={setPage}
+            setPageSize={setPageSize}
+            count={totalUsers}
           />
         </section>
+        {showUpdateUserModal && chosenUser && (
+          <ChangeUsersInfoPopup
+            onClose={handleHideUpdateUserModal}
+            onSuccess={handleEditUser}
+            user={chosenUser}
+          />
+        )}
+        {showSuccessPopup !== "" && (
+          <InfoPopup onClose={() => setShowSuccessPopup("")}>{showSuccessPopup}</InfoPopup>
+        )}
       </main>
     </AdminLayout>
   )
