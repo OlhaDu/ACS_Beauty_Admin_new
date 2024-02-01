@@ -24,11 +24,6 @@
   padding-bottom: 22px;
 }
 
-.tools {
-  display: flex;
-  justify-content: space-between;
-}
-
 .options__container {
   width: 644px;
   display: flex;
@@ -37,4 +32,11 @@
 
 .MuiDataGrid-columnHeaders {
   background-color: red;
+}
+
+.tools {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 16px;
 }

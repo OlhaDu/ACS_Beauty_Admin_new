@@ -1,48 +1,23 @@
 import s from "./Table.module.scss"
 
 import * as React from "react"
-import { DataGrid, GridColDef } from "@mui/x-data-grid"
-import DeleteIcon from "../../images/svg/DeleteIcon.tsx"
-import EditIcon from "../../images/svg/EditIcon.tsx"
+import { DataGrid } from "@mui/x-data-grid"
+
 import { OrdersColumn, OrdersRow } from "../../types/IOrders.ts"
+import "/src/styles/variables.scss"
+import { IUser } from "../../types/IUsers.ts"
 
 interface Props {
   columns: OrdersColumn[]
-  rows: OrdersRow[]
-  onEdit: (id: number) => void
-  onDelete: (id: number) => void
+  rows: OrdersRow[] | IUser[]
 }
 
-const Table: React.FC<Props> = ({ columns, rows, onEdit, onDelete }) => {
-  const columnsWithActions: GridColDef[] = [
-    ...columns,
-    {
-      field: "actions",
-      headerName: "ДіЇ",
-      width: 100,
-      renderCell: params => (
-        <div className={s.actionButtons}>
-          <button onClick={() => onEdit(params.row.id as number)}>
-            <EditIcon className={s.svg} />
-          </button>
-          <button onClick={() => onDelete(params.row.id as number)}>
-            <DeleteIcon className={s.svg} />
-          </button>
-        </div>
-      ),
-      headerClassName: s.headerCell,
-    },
-  ]
-
-  columnsWithActions.forEach(column => {
-    column.headerClassName = s.headerCell
-  })
-
+const Table: React.FC<Props> = ({ columns, rows }) => {
   return (
     <div className={s.table}>
       <DataGrid
         rows={rows}
-        columns={columnsWithActions}
+        columns={columns}
         initialState={{
           pagination: {
             paginationModel: { page: 0, pageSize: 10 },
