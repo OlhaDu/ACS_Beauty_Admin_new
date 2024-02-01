@@ -15,13 +15,13 @@ export const api = {
 
   addCategory: (formData: FormData) => http.post<ICategory>("/category", formData),
 
-  updateCategory: (id: number, updatedCategory: FormData) =>
-    http.patch<ICategory>(`/category/${id}`, updatedCategory),
+  updateCategory: (id: number, formData: FormData) =>
+    http.patch<ICategory>(`/category/${id}`, formData),
 
   addSubcategory: (newSubCategory: IAddSubCategory) =>
     http.post<ISubCategoryResponse>("/subcategory", newSubCategory),
 
-  updateSubcategory: (id: number, updatedSubCategory: FormData) =>
+  updateSubcategory: (id: number, updatedSubCategory: IAddSubCategory) =>
     http.patch<ISubCategoryResponse>(`/subcategory/${id}`, updatedSubCategory),
 
   deleteCategory: (id: number) => http.delete(`/category/${id}`),

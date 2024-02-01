@@ -5,7 +5,8 @@ import {
   ICategoryResponse,
   IDeleteSubCategory,
   ISubCategoryResponse,
-  IUpdatedCategoryOrSubCategory,
+  IUpdatedCategory,
+  IUpdatedSubCategory,
 } from "src/api/categories/types"
 
 const createAppAsyncThunk = createAsyncThunk.withTypes<{ rejectValue: string }>()
@@ -27,7 +28,7 @@ export const addCategory = createAppAsyncThunk<ICategoryResponse, FormData>(
   }
 )
 
-export const updateCategory = createAppAsyncThunk<ICategoryResponse, IUpdatedCategoryOrSubCategory>(
+export const updateCategory = createAppAsyncThunk<ICategoryResponse, IUpdatedCategory>(
   "categories/update",
   async ({ id, formData }, { rejectWithValue }) => {
     try {
@@ -75,14 +76,14 @@ export const deleteSubCategory = createAppAsyncThunk<IDeleteSubCategory, IDelete
   }
 )
 
-export const updateSubCategory = createAppAsyncThunk<
-  ISubCategoryResponse,
-  IUpdatedCategoryOrSubCategory
->("categories/updateSubCategory", async ({ id, formData }, { rejectWithValue }) => {
-  try {
-    const { data } = await api.updateSubcategory(id, formData)
-    return data
-  } catch (error) {
-    return rejectWithValue("Така назва підкатегорії вже використовується")
+export const updateSubCategory = createAppAsyncThunk<ISubCategoryResponse, IUpdatedSubCategory>(
+  "categories/updateSubCategory",
+  async ({ id, updatedSubCategory }, { rejectWithValue }) => {
+    try {
+      const { data } = await api.updateSubcategory(id, updatedSubCategory)
+      return data
+    } catch (error) {
+      return rejectWithValue("Така назва підкатегорії вже використовується")
+    }
   }
-})
+)

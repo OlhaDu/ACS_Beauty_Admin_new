@@ -8,7 +8,7 @@ import { addSubCategory, updateSubCategory } from "src/redux/categories/operatio
 import { useAppDispatch } from "src/redux/hooks"
 
 const SubCategoryManagementForm: FC<ISubCategoryManagementForm> = ({
-  subCategory,
+  subcategory,
   categoryId,
   onClose,
 }) => {
@@ -16,7 +16,7 @@ const SubCategoryManagementForm: FC<ISubCategoryManagementForm> = ({
 
   const subCategoryForm = {
     initialValues: {
-      name: subCategory?.name || "",
+      name: subcategory?.name || "",
     },
     validationSchema: subCategoryFormSchema,
     groups: [
@@ -35,8 +35,10 @@ const SubCategoryManagementForm: FC<ISubCategoryManagementForm> = ({
       formData.append("categoryId", `${categoryId}`)
 
       let result = null
-      if (subCategory) {
-        result = await dispatch(updateSubCategory({ id: subCategory.id, formData }))
+      if (subcategory) {
+        result = await dispatch(
+          updateSubCategory({ id: subcategory.id, updatedSubCategory: { name, categoryId } })
+        )
       } else {
         result = await dispatch(addSubCategory({ name, categoryId }))
       }
@@ -47,7 +49,7 @@ const SubCategoryManagementForm: FC<ISubCategoryManagementForm> = ({
         onClose()
       }
     },
-    btnName: subCategory ? "РЕДАГУВАТИ" : "ДОДАТИ",
+    btnName: subcategory ? "РЕДАГУВАТИ" : "ДОДАТИ",
   }
 
   return <FormGenerator<IInitialValuesSubCategory> {...subCategoryForm} />

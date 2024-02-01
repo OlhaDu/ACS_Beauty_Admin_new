@@ -2,7 +2,7 @@ import { FormikValues } from "formik"
 import { ISubCategory } from "./ISubCategory"
 
 export interface ISubCategoryManagementForm {
-  subCategory?: ISubCategory
+  subcategory?: ISubCategory
   categoryId: number
   onClose: () => void
 }

@@ -17,16 +17,18 @@ import SubCategoryManagementForm from "../SubCategoryManagementForm"
 const Category: FC<ICategory> = category => {
   const { id, name, subcategories } = category
 
-  const [isSubCategoryShown, setIsSubCategoryShown] = useState<boolean>(false)
+  const [isSubCategoriesShown, setIsSubCategoriesShown] = useState<boolean>(false)
   const [isEditCategoryShown, setIsEditCategoryShown] = useState<boolean>(false)
   const [isAddSubCategoryShown, setIsAddSubCategoryShown] = useState<boolean>(false)
 
   const dispatch = useAppDispatch()
 
   const deleteIconClickHandler = () => dispatch(deleteCategory(id))
-  const isSubcategoryShownClickHandler = () => setIsSubCategoryShown(!isSubCategoryShown)
+  const isSubcategoriesShownClickHandler = () => setIsSubCategoriesShown(!isSubCategoriesShown)
   const isEditCategoryShownClickHandler = () => setIsEditCategoryShown(!isEditCategoryShown)
   const isAddSubCategoryShownClickHandler = () => setIsAddSubCategoryShown(!isAddSubCategoryShown)
+
+  const shouldArrowIconsShown = category.subcategories.length !== 0
 
   const category__addIcon = cn(s.category__addIcon, s.category__icon)
 
@@ -41,31 +43,28 @@ const Category: FC<ICategory> = category => {
             <AddIcon onClick={isAddSubCategoryShownClickHandler} className={category__addIcon} />
           </div>
         </div>
-        {isSubCategoryShown ? (
-          <ArrowDownIcon onClick={isSubcategoryShownClickHandler} />
-        ) : (
-          <ArrowToRightIcon onClick={isSubcategoryShownClickHandler} />
-        )}
+        {shouldArrowIconsShown &&
+          (isSubCategoriesShown ? (
+            <ArrowDownIcon onClick={isSubcategoriesShownClickHandler} />
+          ) : (
+            <ArrowToRightIcon onClick={isSubcategoriesShownClickHandler} />
+          ))}
       </div>
-      {isSubCategoryShown && <SubCategories subcategories={subcategories} />}
-      {isEditCategoryShown && (
-        <ModalWindow
-          title="РЕДАГУВАТИ КАТЕГОРІЮ"
-          onClose={isEditCategoryShownClickHandler}
-          isOpenModal={isEditCategoryShown}
-        >
-          <CategoryManagementForm category={category} onClose={isEditCategoryShownClickHandler} />
-        </ModalWindow>
-      )}
-      {isAddSubCategoryShown && (
-        <ModalWindow
-          title="Додати підкатегорію"
-          onClose={isAddSubCategoryShownClickHandler}
-          isOpenModal={isAddSubCategoryShown}
-        >
-          <SubCategoryManagementForm categoryId={id} onClose={isAddSubCategoryShownClickHandler} />
-        </ModalWindow>
-      )}
+      {isSubCategoriesShown && <SubCategories subcategories={subcategories} categoryId={id} />}
+      <ModalWindow
+        title="РЕДАГУВАТИ КАТЕГОРІЮ"
+        onClose={isEditCategoryShownClickHandler}
+        isOpenModal={isEditCategoryShown}
+      >
+        <CategoryManagementForm category={category} onClose={isEditCategoryShownClickHandler} />
+      </ModalWindow>
+      <ModalWindow
+        title="Додати підкатегорію"
+        onClose={isAddSubCategoryShownClickHandler}
+        isOpenModal={isAddSubCategoryShown}
+      >
+        <SubCategoryManagementForm categoryId={id} onClose={isAddSubCategoryShownClickHandler} />
+      </ModalWindow>
     </li>
   )
 }

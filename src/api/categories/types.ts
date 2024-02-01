@@ -27,7 +27,12 @@ export interface IDeleteSubCategory {
   subCategoryId: number
 }
 
-export interface IUpdatedCategoryOrSubCategory {
+export interface IUpdatedCategory {
   formData: FormData
+  id: number
+}
+
+export interface IUpdatedSubCategory {
+  updatedSubCategory: IAddSubCategory
   id: number
 }
