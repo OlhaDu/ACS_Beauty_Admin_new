@@ -1,7 +1,7 @@
 import { useFormikContext } from "formik"
 import { ChangeEvent, FC, ReactNode, useEffect, useRef, useState } from "react"
 import AddIcon from "src/images/svg/AddIcon_"
-import Border from "../Border"
+import Border from "../../Border"
 import s from "./AddImageInput.module.scss"
 import { IAddImageInput } from "src/types"
 import DeleteIcon from "src/images/svg/DeleteIcon"

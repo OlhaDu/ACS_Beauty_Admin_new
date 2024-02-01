@@ -1,10 +1,10 @@
 import AdminLayout from "src/layouts/AdminLayout"
 import VioletButton from "src/components/Buttons/VioletButton"
-import Categories from "src/components/Categories"
+import Categories from "src/components/CategoriesComponents/Categories"
 import s from "./Categories.module.scss"
 import { useState } from "react"
 import ModalWindow from "src/components/ModalWindow"
-import CategoryManagementForm from "src/components/CategoryManagementForm"
+import CategoryManagementForm from "src/components/CategoriesComponents/CategoryManagementForm"
 
 const CategoriesPage = () => {
   const [isOpenModal, setIsOpenModal] = useState<boolean>(false)

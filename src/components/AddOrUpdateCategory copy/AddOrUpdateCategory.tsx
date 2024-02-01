@@ -1,7 +1,7 @@
 import s from "./AddOrUpdateCategory.module.scss"
 import { categoryFormSchema } from "src/libs/yup"
 import FormGenerator from "../FormGenerator"
-import AddImageInput from "../AddImageInput"
+import AddImageInput from "../CategoriesComponents/AddImageInput"
 import { IInitialValuesAddCategory, IInitialValuesUpdateCategory } from "src/types"
 import { FormikHelpers } from "formik"
 import { FC, useState } from "react"

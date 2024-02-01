@@ -1,6 +1,6 @@
 import s from "./CategoryManagementForm.module.scss"
 import { categoryFormSchema } from "src/libs/yup"
-import FormGenerator from "../FormGenerator"
+import FormGenerator from "../../FormGenerator"
 import AddImageInput from "../AddImageInput"
 import { ICategoryManagementForm, IInitialValuesCategory } from "src/types"
 import { FormikHelpers } from "formik"

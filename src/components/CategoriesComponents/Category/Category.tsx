@@ -9,9 +9,9 @@ import ArrowDownIcon from "src/images/svg/ArrowDownIcon"
 import SubCategories from "../SubCategories"
 import { ICategory } from "src/types"
 import s from "./Category.module.scss"
-import ModalWindow from "../ModalWindow"
+import ModalWindow from "../../ModalWindow"
 import CategoryManagementForm from "../CategoryManagementForm"
-import SubCategoryManagementForm from "../SubCategoryManagementForm"
+import SubCategoryManagementForm from "../../SubCategoryManagementForm"
 
 const Category: FC<ICategory> = category => {
   const { id, name, subcategories } = category
