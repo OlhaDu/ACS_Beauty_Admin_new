@@ -1,6 +1,6 @@
 import { ErrorMessage, Field, Form, Formik, FormikValues } from "formik"
 import s from "./FormGenerator.module.scss"
-import VioletButton from "../VioletButton"
+import VioletButton from "../Buttons/VioletButton"
 import { Fragment } from "react"
 import { IForm } from "src/types"
 import cn from "classnames"
@@ -33,6 +33,7 @@ const FormGenerator = <T extends FormikValues>(props: IForm<T>) => {
                           name={name}
                           type="text"
                           className={`${s.field} ${className}`}
+                          autoComplete="off"
                         />
                         <ErrorMessage name={name} component="p" className={s.error} />
                       </>

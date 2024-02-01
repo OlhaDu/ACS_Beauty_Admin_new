@@ -16,7 +16,7 @@ const CategoryManagementForm: FC<ICategoryManagementForm> = ({ category, onClose
     initialValues: {
       name: category?.name || "",
       description: category?.description || "",
-      image: new File([], "add image"),
+      image: null,
     },
     validationSchema: categoryFormSchema,
     groups: [
@@ -49,7 +49,7 @@ const CategoryManagementForm: FC<ICategoryManagementForm> = ({ category, onClose
       const formData = new FormData()
       formData.append("name", name)
       formData.append("description", description)
-      formData.append("image", image)
+      image && formData.append("image", image)
 
       let result = null
       if (category) {

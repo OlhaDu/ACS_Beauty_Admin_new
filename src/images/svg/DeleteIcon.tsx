@@ -1,4 +1,4 @@
-import React, { FC } from "react"
+import { FC } from "react"
 import { IIcon } from "./types"
 
 const DeleteIcon: FC<IIcon> = ({ onClick, className }) => {

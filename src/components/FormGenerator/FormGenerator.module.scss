@@ -20,8 +20,12 @@
   padding: $padding-input;
   width: 100%;
   height: $input-height;
-  border: $default-border;
-  border-radius: $border-radius;
+  @include border();
+
+  &:focus {
+    @include border($border: $active-field-border);
+    outline: transparent;
+  }
 }
 .button {
   margin: $margin-main auto 0;

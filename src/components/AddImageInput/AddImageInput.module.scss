@@ -10,6 +10,10 @@
   path {
     fill: $second-icon-color;
   }
+  @extend .icon-pointer-fill;
+  &:hover path {
+    fill: $first-icon-color;
+  }
 }
 .add_img__add_delete_icon {
   position: absolute;
@@ -21,6 +25,7 @@
   path {
     fill: $second-icon-color;
   }
+  @extend .icon-pointer-bgColor;
 }
 .add_img__image_container {
   height: 318px;

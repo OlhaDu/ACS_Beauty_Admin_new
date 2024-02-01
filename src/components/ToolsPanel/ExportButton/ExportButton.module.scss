@@ -1,0 +1,23 @@
+@import "/src/styles/variables.scss";
+@import "/src/styles/mixins.scss";
+
+.container {
+  background: none;
+  width: 160px;
+}
+
+.fieldContainer {
+  position: relative;
+  width: inherit;
+  height: 44px;
+  border: $default-border;
+  padding-left: 40px;
+  display: flex;
+  align-items: center;
+}
+
+.icon {
+  position: absolute;
+  top: 11px;
+  left: 13px;
+}

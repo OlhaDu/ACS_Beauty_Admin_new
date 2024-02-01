@@ -27,26 +27,26 @@ const Select: React.FC<Props> = ({ options, icon, toolName, style }) => {
   }
 
   return (
-    <div className={s.container} onClick={handleToggle} style={style}>
-      <div className={s.fieldContainer}>
-        <div className={s.icon}>{icon}</div>
-        <div className={s.dropdownArrow}>
-          <DropdownArrow />
+      <div className={s.container} onClick={handleToggle} style={style}>
+        <div className={s.fieldContainer}>
+          <div className={s.icon}>{icon}</div>
+          <div className={s.dropdownArrow}>
+            <DropdownArrow />
+          </div>
+          {selectedValue || toolName}
         </div>
-        {selectedValue || toolName}
+        <div className={s.optionListContainer} style={isOpen ? {} : { borderTop: "none" }}>
+          {isOpen && (
+              <ul ref={ref}>
+                {options.map((option, index) => (
+                    <li className={s.option} key={index} onClick={() => handleOptionClick(option)}>
+                      {option}
+                    </li>
+                ))}
+              </ul>
+          )}
+        </div>
       </div>
-      <div className={s.optionListContainer} style={isOpen ? {} : { borderTop: "none" }}>
-        {isOpen && (
-          <ul ref={ref}>
-            {options.map((option, index) => (
-              <li className={s.option} key={index} onClick={() => handleOptionClick(option)}>
-                {option}
-              </li>
-            ))}
-          </ul>
-        )}
-      </div>
-    </div>
   )
 }
 

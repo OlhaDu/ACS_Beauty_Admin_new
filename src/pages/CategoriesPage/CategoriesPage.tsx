@@ -1,5 +1,5 @@
 import AdminLayout from "src/layouts/AdminLayout"
-import VioletButton from "src/components/VioletButton"
+import VioletButton from "src/components/Buttons/VioletButton"
 import Categories from "src/components/Categories"
 import s from "./Categories.module.scss"
 import { useState } from "react"

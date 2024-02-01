@@ -3,6 +3,7 @@ import Users from "./pages/Users/Users"
 import CategoriesPage from "./pages/CategoriesPage"
 import Dashboard from "./pages/Dashboard/Dashboard"
 import Brands from "./pages/Brands/Brands"
+import Orders from "./pages/Orders/Orders.tsx"
 
 export const router = createBrowserRouter([
   {
@@ -20,5 +21,9 @@ export const router = createBrowserRouter([
   {
     path: "/brands",
     element: <Brands />,
+  },
+  {
+    path: "/orders",
+    element: <Orders />,
   },
 ])

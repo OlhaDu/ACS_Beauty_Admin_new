@@ -29,10 +29,10 @@
   gap: $margin-second;
 }
 .category__icon {
-  cursor: pointer;
+  @extend .icon-pointer-fill;
 }
 .category__add_icon {
-  @extend .category__icon;
+  @extend .icon-pointer-fill;
   circle {
     fill: $main-color;
   }
@@ -43,4 +43,5 @@
 .category__arrow {
   position: absolute;
   right: 0;
+  @extend .icon-pointer-bgColor;
 }

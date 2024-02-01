@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import { useFormikContext } from "formik"
 import { ChangeEvent, FC, ReactNode, useEffect, useRef, useState } from "react"
 import AddIcon from "src/images/svg/AddIcon_"
@@ -17,7 +16,7 @@ const AddImageInput: FC<IAddImageInput> = ({ image, slug }) => {
     const handleCancelImageChange = () => setFieldValue("image", null)
     input?.addEventListener("cancel", handleCancelImageChange)
     return () => input?.removeEventListener("cancel", handleCancelImageChange)
-  }, [])
+  }, [setFieldValue])
 
   const handleImageChange = async (e: ChangeEvent<HTMLInputElement>) => {
     if (!e.currentTarget.files?.length) return

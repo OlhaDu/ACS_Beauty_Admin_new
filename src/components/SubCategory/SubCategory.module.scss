@@ -11,12 +11,15 @@
   border: $default-border;
 }
 .subcategory__name {
-  @extend .Roboto400-20-23;
+  @extend .icon-pointer-fill;
+  @include font($size: $fs-xl, $height: $flh-m);
   color: $main-text-color;
 }
 .subcategory__edit_icon {
+  @extend .icon-pointer-fill;
   margin-left: auto;
 }
 .subcategory__delete_icon {
+  @extend .icon-pointer-fill;
   margin-left: $margin-second;
 }

@@ -7,9 +7,9 @@ import AdminLayout from "src/layouts/AdminLayout"
 import ExportFileIcon from "src/images/svg/ExportFileIcon"
 import Select from "src/components/ToolsPanel/Select/Select"
 import ModalWindow from "src/components/ModalWindow/ModalWindow"
+import BrandsTable from "src/components/BrandsComponents/BrandsTable"
 import SearchInput from "src/components/ToolsPanel/SearchInput/SearchInput"
 import BrandManagementForm from "src/components/BrandsComponents/BrandManagementForm"
-import BrandsTable from "src/components/BrandsComponents/BrandsTable"
 
 const Brands: React.FC = () => {
   const dispatch = useAppDispatch()
@@ -27,6 +27,7 @@ const Brands: React.FC = () => {
         page: page + 1,
       })
     )
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page, pageSize, searchName])
 
   return (

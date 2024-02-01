@@ -13,8 +13,7 @@ export const categoryFormSchema = Yup.object({
     .test(
       "fileFormat",
       "Дозволено тільки картинки",
-      file =>
-        file instanceof File && (file.type.split("/")[0] === "image" || file.name === "add image")
+      file => file instanceof File && file.type.split("/")[0] === "image"
     )
     .test(
       "fileSize",
