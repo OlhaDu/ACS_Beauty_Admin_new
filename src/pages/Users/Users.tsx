@@ -68,7 +68,7 @@ const Users = () => {
   const deleteUser = async (id: number) => {
     try {
       await usersApi.deleteUser(id)
-      setShowSuccessPopup("Користувач успішно видален")
+      setShowSuccessPopup("Користувач успішно видалено")
       fetchUsers()
       setTimeout(() => setShowSuccessPopup(""), 2000)
     } catch (error) {

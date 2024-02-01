@@ -3,13 +3,13 @@ import s from "./Table.module.scss"
 import * as React from "react"
 import { DataGrid } from "@mui/x-data-grid"
 
-import { OrdersColumn, OrdersRow } from "../../types/IOrders.ts"
+import { OrdersColumn, IOrder } from "../../types/IOrders.ts"
 import "/src/styles/variables.scss"
 import { IUser } from "../../types/IUsers.ts"
 
 interface Props {
   columns: OrdersColumn[]
-  rows: OrdersRow[] | IUser[]
+  rows: IOrder[] | IUser[]
   page: number
   pageSize: number
   setPage: (page: number) => void
