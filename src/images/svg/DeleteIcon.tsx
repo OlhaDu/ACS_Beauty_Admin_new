@@ -2,7 +2,7 @@ import React from "react"
 import { FC } from "react"
 
 interface deleteIconProps {
-  fill?: string
+  fill: string
   className?: string
 }
 
