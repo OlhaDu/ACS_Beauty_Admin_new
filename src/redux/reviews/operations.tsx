@@ -1,20 +1,18 @@
 import { createAsyncThunk } from "@reduxjs/toolkit"
-import { Review } from "src/types/Reviews"
-import axios from "axios"
+import { IGetReviewsParams, IResponse } from "src/types/Reviews";
 
-interface ReviewsState {
-  reviews: Review[]
-  status: "idle" | "pending" | "fulfilled" | "rejected"
-}
-export const fetchReviews = createAsyncThunk<ReviewsState, number>(
-    'reviews/fetchReviews',
+import { reviewsApi } from "src/api/reviews/reviewsApi";
+
+
+export const getReviews = createAsyncThunk<IResponse, IGetReviewsParams>(
+    'reviews/getReviews',
     async (params, { rejectWithValue }) => {
       try {
-        const {data} = await axios.get(`api/feedback?page=${params}`);
-        console.log("data", data.rows)
-        return { reviews: data.rows, status: 'fulfilled' } as ReviewsState;
+        const {data} = await reviewsApi.getReviews(params);
+        console.log("data", data)
+        return data   
       } catch (error) {
-        return rejectWithValue({ error: 'Failed to fetch reviews' });
+        return rejectWithValue(error);
       }
     }
   );

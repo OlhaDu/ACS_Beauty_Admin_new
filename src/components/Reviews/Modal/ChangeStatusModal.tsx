@@ -3,7 +3,7 @@ import s from "./ChangeStatus.module.scss";
 import {ChangeStatusProps} from "src/types/Reviews"
 
 const ChangeStatus: React.FC<ChangeStatusProps> = ({ onSave, onClose }) => {
-  const [selectedStatus, setSelectedStatus] = useState<string>("");
+  const [selectedStatus, setSelectedStatus] = useState("");
   console.log("selectedStatus item", selectedStatus);
   const handleSave = () => {
     onSave(selectedStatus);
@@ -11,7 +11,7 @@ const ChangeStatus: React.FC<ChangeStatusProps> = ({ onSave, onClose }) => {
   };
 
   return (
-    <div>
+    <>
       <p className={s.modal_title}>ЗМІНИТИ СТАТУС ВІДГУКУ</p>
       <div className={s.radioBtn}>
         <label htmlFor="published" aria-label="Label for the checkbox">
@@ -41,7 +41,7 @@ const ChangeStatus: React.FC<ChangeStatusProps> = ({ onSave, onClose }) => {
           ЗБЕРЕГТИ
         </button>
       </div>
-    </div>
+    </>
   );
 };
 

@@ -1,5 +1,5 @@
 export interface Review {
-    id: string;
+    id: number;
     firstName: string;
     lastName: string;
     productName: string;
@@ -7,8 +7,10 @@ export interface Review {
     review: string;
     status: string;
     rating: number;
+  //    productId: number;
+  //  userId: number;
   }
   export interface ContentProps {
-    numberReviews: string | undefined;
+    numberReviews: number | undefined;
     onPageChange: (currentReviews: Review[]) => void;
   }

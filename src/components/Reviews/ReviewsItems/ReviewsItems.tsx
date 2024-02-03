@@ -8,8 +8,8 @@ import ChangeStatus from "../Modal/ChangeStatusModal"
 import { changeStatus, deleteReviews } from "src/components/Utils/api/getReviews"
 import { toast } from "react-toastify"
 import { ReviewsItemsProps } from "src/types/Reviews"
-import {  useSelector } from "react-redux"
-import { RootState } from "src/redux/store";
+import { useSelector } from "react-redux"
+import { RootState } from "src/redux/store"
 import { matchesFilter, filterStatus, formatDate } from "src/components/Utils/matchesFilter"
 import {
   TableHead,
@@ -21,7 +21,6 @@ import {
   TableContainer,
   Box,
 } from "@mui/material"
-
 
 const cellStyles = {
   fontFamily: "Roboto",
@@ -36,16 +35,13 @@ const cellStyles = {
   color: " #5C5E60",
 }
 
-const ReviewsItems: React.FC<ReviewsItemsProps> = ({ 
-  updateReviewsData,
-  searchTerm,
-}) => {
+const ReviewsItems: React.FC<ReviewsItemsProps> = ({ updateReviewsData, searchTerm }) => {
   const [showModal, setShowModal] = useState(false)
-  const [selectedProductId, setSelectedProductId] = useState<string>("")
+  const [selectedProductId, setSelectedProductId] = useState<number | null>(null)
   const [status, setStatus] = useState<"pending" | "fulfilled" | "rejected">("pending")
-  const [activeReviewId, setActiveReviewId] = useState<string | null>(null)
-  const reviews = useSelector((state: RootState) => state.reviews.reviews);
-  const { ratingFilter, statusFilter } = useSelector((state: RootState) => state.reviews.filters);
+  const [activeReviewId, setActiveReviewId] = useState<number | null>(null)
+  const reviews = useSelector((state: RootState) => state.reviews.reviews)
+  const { ratingFilter, statusFilter } = useSelector((state: RootState) => state.reviews.filters)
 
   useEffect(() => {
     if (status === "rejected") {
@@ -69,7 +65,7 @@ const ReviewsItems: React.FC<ReviewsItemsProps> = ({
     }
   }
 
-  const handleRemoveNotice = async (id: string) => {
+  const handleRemoveNotice = async (id: number) => {
     try {
       setStatus("pending")
       await deleteReviews(id)
@@ -84,7 +80,7 @@ const ReviewsItems: React.FC<ReviewsItemsProps> = ({
     setShowModal(!showModal)
   }
 
-  const onChangeModal = (productId: string) => (event: React.MouseEvent<HTMLAnchorElement>) => {
+  const onChangeModal = (productId: number) => (event: React.MouseEvent<HTMLAnchorElement>) => {
     event.preventDefault()
     setSelectedProductId(productId)
     toggleModal()
@@ -95,13 +91,15 @@ const ReviewsItems: React.FC<ReviewsItemsProps> = ({
     updateStatus(status)
   }
 
-  const filteredByRating = ratingFilter
-    ? reviews.filter(review => matchesFilter(review.rating, ratingFilter))
-    : reviews
+  const filteredByRating =
+    ratingFilter !== "all"
+      ? reviews.filter(review => matchesFilter(review.rating, ratingFilter))
+      : reviews
 
-  const filteredByStatus = statusFilter
-    ? filteredByRating.filter(review => filterStatus(review.status, statusFilter))
-    : filteredByRating
+  const filteredByStatus =
+    statusFilter !== "all"
+      ? filteredByRating.filter(review => filterStatus(review.status, statusFilter))
+      : filteredByRating
 
   return (
     <>

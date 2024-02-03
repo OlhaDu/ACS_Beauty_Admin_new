@@ -1,12 +1,12 @@
 import React, { FC } from "react";
 
-interface FormatListNumberIconProps {
+interface Props {
   width?: number;
   height?: number;
   fill?: string;
 }
 
-const FormatListNumberIcon: FC<FormatListNumberIconProps> = ({
+const FormatListNumberIcon: FC<Props> = ({
   width = 24,
   height = 24,
   fill = "#5C5E60",

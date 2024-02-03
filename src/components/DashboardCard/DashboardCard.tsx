@@ -1,32 +1,32 @@
 // import ArrowToTopIcon from "src/images/svg/ArrowToTopIcon";
 
-import styles from "./DashboardCard.module.scss";
+import s from "./DashboardCard.module.scss";
 
-interface DashboardCardProps {
-  itemHeading: string | undefined;
-  itemQuantity: string | undefined;
-  itemIcon: React.ReactNode; // або інший тип, який представляє вашу іконку
-  totalItemQuantity: string | undefined;
-  itemIncrease: boolean | undefined;
+interface Props {
+  itemHeading: string;
+  itemQuantity: number;
+  itemIcon: React.ReactNode;
+  totalItemQuantity: number;
+  itemIncrease: number;
 }
 
-const DashboardCard = ({
+const DashboardCard: React.FC<Props> = ({
   itemHeading,
   itemQuantity,
   itemIcon,
   totalItemQuantity,
   itemIncrease,
-}: DashboardCardProps) =>{
+}) => {
   return (
-    <div className={styles.container}>
-      <div className={styles.topInfoContainer}>
+    <div className={s.container}>
+      <div className={s.topInfoContainer}>
         <section>
           <h5>{itemHeading ? `${itemHeading}` : "Місячний приріст"}</h5>
           <h2>{itemQuantity ? `${itemQuantity}` : "Дані відсутні"}</h2>
         </section>
-        <div className={styles.iconContainer}>{itemIcon}</div>
+        <div className={s.iconContainer}>{itemIcon}</div>
       </div>
-      <div className={styles.bottomInfoContainer}>
+      <div className={s.bottomInfoContainer}>
         <h5>
           Всього: {totalItemQuantity ? `${totalItemQuantity}` : "Дані відсутні"}
         </h5>

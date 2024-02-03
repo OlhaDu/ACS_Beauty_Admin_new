@@ -20,7 +20,7 @@ export const matchesFilter = (
 
 export const filterStatus = (
   status: string,
-  statusFilter: "pending" | "published" | undefined
+  statusFilter: "pending" | "published" | "all"
 ) => {
   if (!statusFilter) {
     return true;

@@ -58,13 +58,13 @@ const FilterProperties = () => {
   }, [toggleFilter, filterRef, filterButtonRef, filterOpen]);
 
   const handleRatingFilterChange = (
-    filter: "positive" | "neutral" | "negative" | undefined
+    filter: "positive" | "neutral" | "negative" | "all"
   ) => {
     dispatch(setRatingFilter(filter));
   };
 
   const handleStatusFilterChange = (
-    statusFilter: "pending" | "published" | undefined
+    statusFilter: "pending" | "published" | "all"
   ) => {
     dispatch(setStatusFilter(statusFilter));
   };
@@ -115,7 +115,7 @@ const FilterProperties = () => {
                   <li>
                     <p
                       className={s.sub_sub_menu_link}
-                      onClick={() => handleStatusFilterChange(undefined)}
+                      onClick={() => handleStatusFilterChange("all")}
                     >
                       Всі
                     </p>
@@ -161,7 +161,7 @@ const FilterProperties = () => {
                   <li>
                     <p
                       className={s.sub_sub_menu_link}
-                      onClick={() => handleRatingFilterChange(undefined)}
+                      onClick={() => handleRatingFilterChange("all")}
                     >
                       Всі
                     </p>

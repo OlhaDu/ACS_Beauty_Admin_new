@@ -1,45 +1,30 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit"
 import { Review } from "src/types/Reviews"
-import { fetchReviews } from "./operations"
+import { getReviews } from "./operations"
 
 export interface ReviewsState {
-  reviews: Review[]
-  isLoading: boolean
-  error: unknown | null
-  status: "idle" | "pending" | "fulfilled" | "rejected"
-  filters: {
-    ratingFilter: "positive" | "neutral" | "negative" | undefined,
-  statusFilter: "pending" | "published" | undefined,
-  },
+  reviews: Review[];
+  isLoading: boolean;
+  error: unknown | null;
+  count: number;
   
-}
+  }
+
 
 const initialState: ReviewsState = {
   reviews: [],
   isLoading: false,
   error: null,
-  status: "idle",
-  filters: {
-    ratingFilter: undefined,
-    statusFilter: undefined,
-  },
- 
-}
+  count: 0,
+  }
+
 
 const reviewsSlice = createSlice({
   name: "reviews",
   initialState,
 
   reducers: {
-    setRatingFilter: (state, action: PayloadAction<"positive" | "neutral" | "negative" | undefined>) => {
-      state.filters.ratingFilter = action.payload;
-      console.log("state.ratingFilter", state.filters.ratingFilter)
-    },
     
-    setStatusFilter: (state, action: PayloadAction<"pending" | "published" | undefined>) => {
-      state.filters.statusFilter = action.payload;
-      console.log("state.statusFilter", state.filters.statusFilter)
-    },
     updatedReviews: (state, action: PayloadAction<Review>) => {
       const updateReview = action.payload
       const index = state.reviews.findIndex(review => review.id === updateReview.id)
@@ -47,28 +32,37 @@ const reviewsSlice = createSlice({
       if (index === -1) return
       state.reviews[index] = updateReview
     },
-    deleteReviews: (state, action) => {
+    deleteReview: (state, action) => {
       state.reviews = state.reviews.filter(review => review.id !== action.payload.id)
     },
   },
   extraReducers: builder => {
     builder
-      .addCase(fetchReviews.pending, state => {
-        state.status = "pending"
-      })
-      .addCase(fetchReviews.fulfilled, (state, action) => {
-        state.status = "fulfilled"
-        state.reviews = action.payload.reviews
+      .addCase(getReviews.pending, handlePending)
+      .addCase(getReviews.fulfilled, (state, action) => {
+        
+        state.count = action.payload.count;
+        state.reviews = action.payload.rows;
         console.log("reviews", state.reviews)
+        state.isLoading = false;
         state.error = null
       })
-      .addCase(fetchReviews.rejected, state => {
-        state.status = "rejected"
-      })
-
+      .addCase(getReviews.rejected, handleRejected)
   },
 })
 
-export const { setRatingFilter, setStatusFilter, updatedReviews, deleteReviews } = reviewsSlice.actions;
+function handlePending(state: { isLoading: boolean }) {
+  state.isLoading = true;
+}
+
+function handleRejected(
+  state: { isLoading: boolean; error: unknown },
+  action: { payload: unknown }
+) {
+  state.isLoading = false;
+  state.error = action.payload;
+}
+export const { updatedReviews, deleteReview } =
+  reviewsSlice.actions
 
 export const reviewsReducer = reviewsSlice.reducer

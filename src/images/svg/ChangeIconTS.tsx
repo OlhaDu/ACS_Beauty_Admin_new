@@ -1,13 +1,13 @@
 import React, { FC } from "react";
 
-interface ChangeIconProps {
+interface IProps {
     width?: number;
     height?: number;
     fill?: string;
    
   }
 
-const ChangeIconTS: FC<ChangeIconProps> = ({
+const ChangeIcon: FC<IProps> = ({
     width = 24,
     height = 24,
     fill = "white",
@@ -29,4 +29,4 @@ const ChangeIconTS: FC<ChangeIconProps> = ({
   );
 };
 
-export default ChangeIconTS;
+export default ChangeIcon;

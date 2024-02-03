@@ -13,7 +13,7 @@ const Content: React.FC<ContentProps> = ({ numberReviews, onPageChange }) => {
 
   const queryParams = new URLSearchParams(location.search)
   const currentPage = parseInt(queryParams.get("page") || "1", 10)
-  const reviewsPerPage = parseInt(numberReviews || "1", 10)
+  const reviewsPerPage = parseInt(numberReviews !== undefined ? numberReviews.toString() : "1", 10)
 
   useEffect(() => {
     const indexOfLastProduct = currentPage * reviewsPerPage
