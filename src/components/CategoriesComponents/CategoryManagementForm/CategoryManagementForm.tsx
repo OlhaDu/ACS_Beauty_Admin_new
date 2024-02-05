@@ -2,21 +2,21 @@ import s from "./CategoryManagementForm.module.scss"
 import { categoryFormSchema } from "src/libs/yup"
 import FormGenerator from "../../FormGenerator"
 import AddImageInput from "../AddImageInput"
-import { ICategoryManagementForm, IInitialValuesCategory } from "src/types"
+import { ICategoryManagementForm, IInitialValuesCategory } from "src/types/categories"
 import { FormikHelpers } from "formik"
 import { FC, useState } from "react"
 import { addCategory, updateCategory } from "src/redux/categories/operations"
 import { useAppDispatch } from "src/redux/hooks"
 
 const CategoryManagementForm: FC<ICategoryManagementForm> = ({ category, onClose }) => {
-  const [image, setImage] = useState<string>(category?.image || "")
+  const [image, setImage] = useState<string | null>(category?.image || null)
   const dispatch = useAppDispatch()
 
   const categoryForm = {
     initialValues: {
       name: category?.name || "",
       description: category?.description || "",
-      image: null,
+      image: category ? "edit" : null,
     },
     validationSchema: categoryFormSchema,
     groups: [
@@ -44,12 +44,14 @@ const CategoryManagementForm: FC<ICategoryManagementForm> = ({ category, onClose
       values: IInitialValuesCategory,
       { resetForm, setFieldError }: FormikHelpers<IInitialValuesCategory>
     ) => {
+      const formData = new FormData()
       const { name, description, image } = values
 
-      const formData = new FormData()
-      formData.append("name", name)
-      formData.append("description", description)
-      image && formData.append("image", image)
+      if (name && description && image) {
+        formData.append("name", name)
+        formData.append("description", description)
+        image && formData.append("image", image)
+      }
 
       let result = null
       if (category) {
@@ -58,11 +60,15 @@ const CategoryManagementForm: FC<ICategoryManagementForm> = ({ category, onClose
         result = await dispatch(addCategory(formData))
       }
       const { type, payload } = result
-      if (type.includes("rejected") && typeof payload === "string") setFieldError("name", payload)
-      if (type.includes("fulfilled")) {
-        resetForm()
-        setImage("")
-        onClose()
+      try {
+        if (type.includes("rejected") && typeof payload === "string") throw new Error(payload)
+        if (type.includes("fulfilled")) {
+          resetForm()
+          setImage(null)
+          onClose()
+        }
+      } catch (error) {
+        if (error instanceof Error) setFieldError("name", error.message)
       }
     },
     btnName: category ? "РЕДАГУВАТИ" : "ДОДАТИ",

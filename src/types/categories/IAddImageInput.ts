@@ -1,4 +1,4 @@
 export interface IAddImageInput {
-  image: string
+  image: string | null
   slug: string
 }

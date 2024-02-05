@@ -7,20 +7,20 @@ import ModalWindow from "src/components/ModalWindow"
 import CategoryManagementForm from "src/components/CategoriesComponents/CategoryManagementForm"
 
 const CategoriesPage = () => {
-  const [isOpenModal, setIsOpenModal] = useState<boolean>(false)
+  const [isOpenModal, setIsOpenModal] = useState(false)
 
-  const addCategotyClickHandler = () => setIsOpenModal(true)
-  const closeOpenModal = () => setIsOpenModal(false)
+  const onAddClick = () => setIsOpenModal(true)
+  const onCloseModalClick = () => setIsOpenModal(false)
 
   return (
     <AdminLayout>
       <div className={s.categories}>
         <div className={s.categories__head}>
           <h3 className={s.categories__title}>Категорії</h3>
-          <VioletButton title="ДОДАТИ КАТЕГОРІЮ" onClick={addCategotyClickHandler} />
+          <VioletButton title="ДОДАТИ КАТЕГОРІЮ" onClick={onAddClick} />
         </div>
-        <ModalWindow title="ДОДАТИ КАТЕГОРІЮ" isOpenModal={isOpenModal} onClose={closeOpenModal}>
-          <CategoryManagementForm onClose={closeOpenModal} />
+        <ModalWindow title="ДОДАТИ КАТЕГОРІЮ" isOpenModal={isOpenModal} onClose={onCloseModalClick}>
+          <CategoryManagementForm onClose={onCloseModalClick} />
         </ModalWindow>
         <Categories />
       </div>

@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit"
-import { ICategory } from "src/types"
+import { ICategory } from "src/types/categories"
 import {
   addCategory,
   addSubCategory,

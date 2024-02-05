@@ -1,11 +1,11 @@
 import { useEffect } from "react"
-import { api } from "src/api/categories"
+import { usersApi } from "src/api/users/usersApi"
 
 interface IUserData {
   id: number
   fullName: string
   emai: string
-  phone_number: number
+  phone_number: string
   note: string
   createdAt: string
 }
@@ -14,8 +14,9 @@ export const handleExternalDataUpdate = async (updatedRowData: IUserData) => {
   useEffect(() => {
     const updateUsers = async () => {
       try {
-        const response = await api.updateUsers(updatedRowData)
+        const response = await usersApi.updateUsers(updatedRowData)
       } catch (error) {
+        ;``
         console.error("Error fetching data:", error)
       }
     }

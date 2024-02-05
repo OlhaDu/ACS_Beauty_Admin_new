@@ -1,7 +1,7 @@
 // import s from "./CategoryManagementForm.module.scss"
 import { subCategoryFormSchema } from "src/libs/yup"
 import FormGenerator from "../FormGenerator"
-import { IInitialValuesSubCategory, ISubCategoryManagementForm } from "src/types"
+import { IInitialValuesSubCategory, ISubCategoryManagementForm } from "src/types/categories"
 import { FormikHelpers } from "formik"
 import { FC } from "react"
 import { addSubCategory, updateSubCategory } from "src/redux/categories/operations"

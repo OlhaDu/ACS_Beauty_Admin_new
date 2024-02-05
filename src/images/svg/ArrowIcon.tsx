@@ -1,7 +1,7 @@
 import { FC } from "react"
 import { IIcon } from "./types"
 
-const ArrowToRightIcon: FC<IIcon> = ({ iconSize, className, onClick }) => {
+const ArrowIcon: FC<IIcon> = ({ iconSize, className, onClick }) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -13,11 +13,11 @@ const ArrowToRightIcon: FC<IIcon> = ({ iconSize, className, onClick }) => {
       onClick={onClick}
     >
       <path
-        d="M16.5902 33.18L19.4102 36L31.4102 24L19.4102 12L16.5902 14.82L25.7502 24L16.5902 33.18Z"
+        d="M33.18 16.59L36 19.41L24 31.41L12 19.41L14.82 16.59L24 25.75L33.18 16.59Z"
         fill="#5C5E60"
       />
     </svg>
   )
 }
 
-export default ArrowToRightIcon
+export default ArrowIcon

@@ -1,39 +1,39 @@
 import s from "./SubCategory.module.scss"
 import EditIcon from "src/images/svg/EditIcon"
-import ArrowToRightIcon from "src/images/svg/ArrowToRightIcon"
 import { FC, useState } from "react"
 import ModalWindow from "../../ModalWindow"
-import { ISubCategoryResponse } from "src/api/categories/types"
 import SubCategoryManagementForm from "../../SubCategoryManagementForm"
 import DeleteIcon from "src/images/svg/DeleteIcon"
 import { useAppDispatch } from "src/redux/hooks"
 import { deleteSubCategory } from "src/redux/categories/operations"
+import { ISubCategoryRes } from "src/types/categories"
+import ArrowIcon from "src/images/svg/ArrowIcon"
 
-const SubCategory: FC<ISubCategoryResponse> = ({ categoryId, ...subcategory }) => {
+const SubCategory: FC<ISubCategoryRes> = ({ categoryId, ...subcategory }) => {
   const dispatch = useAppDispatch()
 
-  const [isEditSubCategoryShown, setIsEditSubCategoryShown] = useState<boolean>(false)
+  const [isEditSubCategoryShown, setIsEditSubCategoryShown] = useState(false)
 
-  const isEditSubCategoryClickHandle = () => setIsEditSubCategoryShown(!isEditSubCategoryShown)
-  const deleteIconClickHandler = () =>
+  const onEditClick = () => setIsEditSubCategoryShown(!isEditSubCategoryShown)
+  const onDeleteClick = () =>
     dispatch(deleteSubCategory({ categoryId, subCategoryId: subcategory.id }))
 
   return (
     <li className={s.subcategory}>
-      <ArrowToRightIcon iconSize={24} />
+      <ArrowIcon className={s.category__right_arrow} />
       <h5 className={s.subcategory__name}>{subcategory.name}</h5>
-      <EditIcon onClick={isEditSubCategoryClickHandle} className={s.subcategory__edit_icon} />
-      <DeleteIcon onClick={deleteIconClickHandler} className={s.subcategory__delete_icon} />
+      <EditIcon onClick={onEditClick} className={s.subcategory__edit_icon} />
+      <DeleteIcon onClick={onDeleteClick} className={s.subcategory__delete_icon} />
 
       <ModalWindow
         title="Редагувати підкатегорію"
         isOpenModal={isEditSubCategoryShown}
-        onClose={isEditSubCategoryClickHandle}
+        onClose={onEditClick}
       >
         <SubCategoryManagementForm
           subcategory={subcategory}
           categoryId={categoryId}
-          onClose={isEditSubCategoryClickHandle}
+          onClose={onEditClick}
         />
       </ModalWindow>
     </li>

@@ -2,12 +2,11 @@ import { ErrorMessage, Field, Form, Formik, FormikValues } from "formik"
 import s from "./FormGenerator.module.scss"
 import VioletButton from "../Buttons/VioletButton"
 import { Fragment } from "react"
-import { IForm } from "src/types"
 import cn from "classnames"
+import { IForm } from "src/types/common"
 
 const FormGenerator = <T extends FormikValues>(props: IForm<T>) => {
   const { initialValues, validationSchema, groups, onSubmit, btnName } = props
-
   return (
     <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={onSubmit}>
       {props => {
@@ -18,29 +17,32 @@ const FormGenerator = <T extends FormikValues>(props: IForm<T>) => {
             {groups.map(({ group, fields }, ind) => (
               <Fragment key={ind}>
                 {group && <h5 className={s.subTitle}>{group}</h5>}
-                {fields.map(({ name, label, as, className, component: Component }, ind) => (
-                  <Fragment key={ind}>
-                    {!Component && name && (
-                      <>
-                        {label && (
-                          <label htmlFor={name} className={s.label}>
-                            {label}
-                          </label>
-                        )}
-                        <Field
-                          id={name}
-                          {...{ as }}
-                          name={name}
-                          type="text"
-                          className={`${s.field} ${className}`}
-                          autoComplete="off"
-                        />
-                        <ErrorMessage name={name} component="p" className={s.error} />
-                      </>
-                    )}
-                    <>{Component}</>
-                  </Fragment>
-                ))}
+                {fields.map(({ name, label, as, className, component: Component }, ind) => {
+                  const fieldClasses = cn(s.field, className)
+                  return (
+                    <Fragment key={ind}>
+                      {!Component && name && (
+                        <>
+                          {label && (
+                            <label htmlFor={name} className={s.label}>
+                              {label}
+                            </label>
+                          )}
+                          <Field
+                            id={name}
+                            {...{ as }}
+                            name={name}
+                            type="text"
+                            className={fieldClasses}
+                            autoComplete="off"
+                          />
+                          <ErrorMessage name={name} component="p" className={s.error} />
+                        </>
+                      )}
+                      <>{Component}</>
+                    </Fragment>
+                  )
+                })}
               </Fragment>
             ))}
             <VioletButton

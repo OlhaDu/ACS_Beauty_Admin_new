@@ -45,3 +45,7 @@
   right: 0;
   @extend .icon-pointer-bgColor;
 }
+.category__right_arrow {
+  @extend .category__arrow;
+  transform: rotate(-90deg);
+}

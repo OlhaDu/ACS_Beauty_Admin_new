@@ -1,4 +1,4 @@
-import { ISubCategory } from "./"
+import { ISubCategory } from "."
 
 export interface ICategory {
   id: number

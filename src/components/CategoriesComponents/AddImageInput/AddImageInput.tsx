@@ -1,24 +1,17 @@
 import { useFormikContext } from "formik"
-import { ChangeEvent, FC, ReactNode, useEffect, useRef, useState } from "react"
+import { ChangeEvent, FC, ReactNode, useRef, useState } from "react"
 import AddIcon from "src/images/svg/AddIcon_"
 import Border from "../../Border"
 import s from "./AddImageInput.module.scss"
-import { IAddImageInput } from "src/types"
+import { IAddImageInput } from "src/types/categories"
 import DeleteIcon from "src/images/svg/DeleteIcon"
 
 const AddImageInput: FC<IAddImageInput> = ({ image, slug }) => {
-  const [bgImage, setBgImage] = useState<string>(image ? image : "")
+  const [bgImage, setBgImage] = useState<string>(image || "")
   const inputRef = useRef<HTMLInputElement>(null)
   const { setFieldValue, errors } = useFormikContext<{ image: File }>()
 
-  useEffect(() => {
-    const input = inputRef.current
-    const handleCancelImageChange = () => setFieldValue("image", null)
-    input?.addEventListener("cancel", handleCancelImageChange)
-    return () => input?.removeEventListener("cancel", handleCancelImageChange)
-  }, [setFieldValue])
-
-  const handleImageChange = async (e: ChangeEvent<HTMLInputElement>) => {
+  const onImageChange = async (e: ChangeEvent<HTMLInputElement>) => {
     if (!e.currentTarget.files?.length) return
 
     const file = e.currentTarget.files[0]
@@ -59,7 +52,7 @@ const AddImageInput: FC<IAddImageInput> = ({ image, slug }) => {
           type="file"
           accept="image/*"
           className={s.add_img__input}
-          onChange={handleImageChange}
+          onChange={onImageChange}
           ref={inputRef}
         />
       </Border>
