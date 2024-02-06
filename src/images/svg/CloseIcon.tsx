@@ -1,18 +1,12 @@
-import React, { FC } from "react";
-
+import React, { FC } from "react"
 
 interface IProps {
-    width?: number;
-    height?: number;
-    fill?: string;   
-  }
+  width?: number
+  height?: number
+  fill?: string
+}
 
-const CloseIcon: FC<IProps> = ({
-    width=24,
-      height=24,
-      fill="#5C5E60",
-
-}) => {
+const CloseIcon: FC<IProps> = ({ width = 24, height = 24, fill = "#5C5E60" }) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -26,7 +20,7 @@ const CloseIcon: FC<IProps> = ({
         fill={fill}
       />
     </svg>
-  );
-};
+  )
+}
 
-export default CloseIcon;
+export default CloseIcon

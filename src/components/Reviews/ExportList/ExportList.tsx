@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import ArrowIcon from "src/assets/menu-arrow.svg";
-import ExportIcon from "src/assets/file-export.svg";
-import s from "../ReviewsList/ReviewsList.module.scss";
+import ArrowIcon from "src/images/svg/ArrowIcon";
+import ExportIcon from "src/images/svg/ExportIcon";
+import s from "src/components/Reviews/FilterProperties/FilterProperties.module.scss";
 
 const ExportList = () => {
   const [exportOpen, setExportOpen] = useState(false);
@@ -14,16 +14,16 @@ const ExportList = () => {
   };
 
   return (
-    <>
+    <div className={s.menu_filter}>
       <ExportIcon />
       Експортувати
       <span
-        className={`${s.menu_arrow} ${exportOpen ? s.menu_arrow_rotated : ""}`}
+        className={s.menu_arrow} 
         onClick={toggleExport}
       >
-        <ArrowIcon />
+        <ArrowIcon  rotated={exportOpen}/>
       </span>
-    </>
+    </div>
   );
 };
 export default ExportList;

@@ -1,32 +1,31 @@
-import { useState, FC } from "react";
-import s from "./RowsOnPageFilter.module.scss";
-import DropdownArrow from "src/images/svg/DropdownArrow";
-import RowListIcon from 'src/images/svg/RowListIcon';
+import { useState, FC } from "react"
+import s from "./RowsOnPageFilter.module.scss"
+import DropdownArrow from "src/images/svg/DropdownArrow"
+import RowListIcon from "src/images/svg/RowListIcon"
 
 interface Row {
-    rowName: string;
-    handler: () => void;
-  }
-  
-  export interface RowsProps {
-    rows: Row[];
-  }
+  rowName: string
+  handler: () => void
+}
+
+export interface RowsProps {
+  rows: Row[]
+}
 
 const RowsOnPageFilter: FC<RowsProps> = ({ rows }) => {
-    const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [selectedRow, setSelectedRow] = useState<Row | null>(null);
+  const [isOpen, setIsOpen] = useState<boolean>(false)
+  const [selectedRow, setSelectedRow] = useState<Row | null>(null)
 
   const handleToggle = () => {
-    setIsOpen(!isOpen);
-  };
+    setIsOpen(!isOpen)
+  }
 
   const handleActionClick = (row: Row) => {
-    setSelectedRow(row);
-  };
+    setSelectedRow(row)
+  }
 
   return (
     <div className={s.container}>
-
       <div className={s.fieldContainer} onClick={handleToggle}>
         <div className={s.icon}>
           <RowListIcon />
@@ -41,10 +40,8 @@ const RowsOnPageFilter: FC<RowsProps> = ({ rows }) => {
 
       <div className={s.optionListContainer} style={!isOpen ? { borderTop: "none" } : {}}>
         {isOpen && (
-
           <ul className={s.list}>
             {rows.map((row, idx) => (
-
               <li
                 key={idx}
                 className={`${s.option} ${selectedRow === row ? s.selected : ""}`}
@@ -52,15 +49,12 @@ const RowsOnPageFilter: FC<RowsProps> = ({ rows }) => {
               >
                 {row.rowName} {selectedRow === row && "✔"}
               </li>
-              
             ))}
           </ul>
-
         )}
       </div>
-
     </div>
-  );
-};
+  )
+}
 
-export default RowsOnPageFilter;
+export default RowsOnPageFilter

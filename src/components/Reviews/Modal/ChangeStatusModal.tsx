@@ -1,48 +1,47 @@
-import React, { useState } from "react";
-import s from "./ChangeStatus.module.scss";
-import {ChangeStatusProps} from "src/types/Reviews"
+import React, { useState } from "react"
+import s from "./ChangeStatus.module.scss"
+import { IProps } from "src/types/Reviews"
+import Radio from "@mui/material/Radio"
+import RadioGroup from "@mui/material/RadioGroup"
+import FormControlLabel from "@mui/material/FormControlLabel"
+import FormControl from "@mui/material/FormControl"
+import { useAppDispatch } from "src/redux/store"
+import { patchReviews } from "src/redux/reviews/operations"
 
-const ChangeStatus: React.FC<ChangeStatusProps> = ({ onSave, onClose }) => {
-  const [selectedStatus, setSelectedStatus] = useState("");
-  console.log("selectedStatus item", selectedStatus);
+const ChangeStatus: React.FC<IProps> = ({ review, onClose }) => {
+  const [selectedStatus, setSelectedStatus] = useState("")
+  console.log("selectedStatus item", selectedStatus)
   const handleSave = () => {
-    onSave(selectedStatus);
-    onClose();
-  };
+    if (selectedStatus && review?.id !== undefined) {
+      dispatch(patchReviews({ id: review?.id, status: { status: selectedStatus } }))
+    }
+    onClose()
+  }
+  const dispatch = useAppDispatch()
+
+  const handleRadioChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSelectedStatus(event.target.value)
+  }
 
   return (
     <>
-      <p className={s.modal_title}>ЗМІНИТИ СТАТУС ВІДГУКУ</p>
       <div className={s.radioBtn}>
-        <label htmlFor="published" aria-label="Label for the checkbox">
-          <input
-            type="radio"
-            name="changeStatus"
-            id="published"
-            onChange={() => setSelectedStatus("published")}
-          />
-          Опубліковано
-        </label>
-        <label htmlFor="verification" aria-label="Label for the checkbox">
-          <input
-            type="radio"
-            name="changeStatus"
-            id="verification"
-            onChange={() => setSelectedStatus("pending")}
-          />
-          На перевірці
-        </label>
-        <button
-          type="button"
-          title="SafeButton"
-          className={s.safeBtn}
-          onClick={handleSave}
-        >
+        <FormControl>
+          <RadioGroup
+            aria-labelledby="demo-radio-buttons-group-label"
+            defaultValue=""
+            name="radio-buttons-group"
+            onChange={handleRadioChange}>
+            <FormControlLabel value="published" control={<Radio />} label="Опубліковано" />
+            <FormControlLabel value="pending" control={<Radio />} label="На перевірці" />
+          </RadioGroup>
+        </FormControl>
+        <button type="button" title="SafeButton" className={s.safeBtn} onClick={handleSave}>
           ЗБЕРЕГТИ
         </button>
       </div>
     </>
-  );
-};
+  )
+}
 
-export default ChangeStatus;
+export default ChangeStatus

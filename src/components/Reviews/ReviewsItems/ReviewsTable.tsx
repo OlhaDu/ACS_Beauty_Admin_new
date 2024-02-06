@@ -4,7 +4,7 @@ import { useState } from "react"
 import { columns } from "./columns"
 import { useAppDispatch } from "src/redux/store"
 import { selectReviews, selectCount } from "src/redux/reviews/selectors"
-import { deleteReview } from "src/redux/reviews/reviewsSlice"
+import { deleteReview } from "src/redux/reviews/operations"
 
 import Box from "@mui/material/Box"
 
@@ -12,7 +12,8 @@ import EditIcon from "@mui/icons-material/Edit"
 import DeleteIcon from "src/images/svg/DeleteIconTS"
 
 import { DataGrid, GridColDef, GridActionsCellItem, GridRowId } from "@mui/x-data-grid"
-
+import ModalWindow from "src/components/ModalWindow"
+import ChangeStatus from "src/components/Reviews/Modal/ChangeStatusModal"
 interface IProps {
   page: number
   pageSize: number
@@ -24,18 +25,15 @@ const ReviewsTable: React.FC<IProps> = ({ page, pageSize, setPage, setPageSize }
   const dispatch = useAppDispatch()
   const reviews = useSelector(selectReviews)
   const count = useSelector(selectCount)
-  // const reviews = useSelector((state: RootState) => state.reviews.reviews)
 
-  console.log("reviews 23", reviews)
-
-  //   const [isOpenModal, setIsOpenModal] = useState(false)
+  const [isOpenModal, setIsOpenModal] = useState(false)
   const [selectedReview, setSelectedReview] = useState<GridRowId | null>(null)
 
   const actionsColumn: GridColDef = {
     field: "actions",
     type: "actions",
     headerName: "Дії",
-    width: 100,
+    width: 110,
     cellClassName: "actions",
 
     getActions: ({ id }) => {
@@ -46,7 +44,7 @@ const ReviewsTable: React.FC<IProps> = ({ page, pageSize, setPage, setPageSize }
           className="textPrimary"
           color="inherit"
           onClick={() => {
-            // setIsOpenModal(true)
+            setIsOpenModal(true)
             setSelectedReview(id)
           }}
         />,
@@ -65,24 +63,26 @@ const ReviewsTable: React.FC<IProps> = ({ page, pageSize, setPage, setPageSize }
     ...review,
     author: `${review.firstName} ${review.lastName}`,
   }))
-  console.log("reviewsWithAuthor", reviewsWithAuthor)
 
-  const tableColumns: GridColDef[] = columns.map(col =>
-    col.field === "description"
-      ? {
-          ...col,
-          renderCell: ({ value }) => <div style={{ whiteSpace: "normal" }}>{value}</div>,
-        }
-      : col
-  )
-
+  const tableColumns: GridColDef[] = columns.map(col => {
+    if (col.field === "author") {
+      return {
+        ...col,
+        valueGetter: params => params.row.author,
+      };
+    }
+  
+    return col;
+  });
+console.log("reviewsWithAuthor", reviewsWithAuthor)
   tableColumns.push(actionsColumn)
 
   return (
     <>
       <Box
         sx={{
-          width: '100%',
+          width: "100%",
+          marginTop: "22px",
           ".MuiDataGrid-columnHeaders": {
             backgroundColor: "#F8F0FB",
             color: " #5c5e60",
@@ -95,7 +95,6 @@ const ReviewsTable: React.FC<IProps> = ({ page, pageSize, setPage, setPageSize }
           ".MuiDataGrid-cell:focus": {
             outline: "none !important",
           },
-          
 
           ".MuiDataGrid-cell[data-field='author']:hover, .MuiDataGrid-cell[data-field='review']:hover":
             {
@@ -105,7 +104,6 @@ const ReviewsTable: React.FC<IProps> = ({ page, pageSize, setPage, setPageSize }
               textOverflow: "clip",
               cursor: "pointer",
             },
-          
         }}
       >
         <DataGrid
@@ -122,11 +120,22 @@ const ReviewsTable: React.FC<IProps> = ({ page, pageSize, setPage, setPageSize }
             setPage(page)
             setPageSize(pageSize)
           }}
-          pageSizeOptions={[4, 10, 25, 50, 100]}
+          pageSizeOptions={[ 10, 25, 50, 100]}
           columnHeaderHeight={44}
           rowHeight={107}
         />
       </Box>
+
+      <ModalWindow
+        title={"ЗМІНИТИ СТАТУС ВІДГУКУ"}
+        onClose={() => setIsOpenModal(false)}
+        isOpenModal={isOpenModal}
+      >
+        <ChangeStatus
+          onClose={() => setIsOpenModal(false)}
+          review={reviews.find(review => review.id === selectedReview)}
+        />
+      </ModalWindow>
     </>
   )
 }

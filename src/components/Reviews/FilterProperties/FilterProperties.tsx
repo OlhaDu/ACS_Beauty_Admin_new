@@ -1,86 +1,45 @@
-import React, { useState, useEffect, useRef, useCallback } from "react";
-import s from "./FilterProperties.module.scss";
-import NavigateIcon from "src/images/svg/NavigateIcon";
-import FilterIcon from "src/assets/filter-variant.svg";
-import ArrowIcon from "src/assets/menu-arrow.svg";
-import { useAppDispatch } from "src/redux/store";
-import { setRatingFilter, setStatusFilter } from "src/redux/reviews/reviewsSlice";
+import React, { useState, useRef } from "react"
+import s from "./FilterProperties.module.scss"
+import NavigateIcon from "src/images/svg/NavigateIcon"
+import FilterIcon from "src/images/svg/FilterIcon"
+import ArrowIcon from "src/images/svg/ArrowIcon"
+import useFilterEffect from "src/hooks/useFilterOnClickOutside"
+interface IProps {
+  setStatus: React.Dispatch<React.SetStateAction<string>>
+  setRating: React.Dispatch<React.SetStateAction<string>>
+}
 
-const FilterProperties = () => {
+const FilterProperties: React.FC<IProps> = ({ setStatus, setRating }) => {
+  const [statusOpen, setStatusOpen] = useState(false)
+  const [ratingOpen, setRatingOpen] = useState(false)
+  const [filterOpen, setFilterOpen] = useState(false)
 
-  const [statusOpen, setStatusOpen] = useState(false);
-  const [ratingOpen, setRatingOpen] = useState(false);
-  const [filterOpen, setFilterOpen] = useState(false);
-
-  const filterRef = useRef<HTMLDivElement>(null);
-  const filterButtonRef = useRef<HTMLSpanElement>(null);
-
-  const dispatch = useAppDispatch();
-
-  const prevFilterOpenRef = useRef(filterOpen);
-  useEffect(() => {
-    if (prevFilterOpenRef.current === filterOpen && !filterOpen) {
-      prevFilterOpenRef.current = filterOpen;
-    }
-  }, [filterOpen]);
+  const filterRef = useRef<HTMLDivElement>(null)
+  const filterButtonRef = useRef<HTMLSpanElement>(null)
 
   const toggleStatus = (event: React.MouseEvent<HTMLSpanElement>) => {
-    event.stopPropagation();
-    setStatusOpen(!statusOpen);
-  };
+    event.stopPropagation()
+    setStatusOpen(!statusOpen)
+  }
 
   const toggleRating = (event: React.MouseEvent<HTMLSpanElement>) => {
-    event.stopPropagation();
-    setRatingOpen((prevRatingOpen) => !prevRatingOpen);
-  };
+    event.stopPropagation()
+    setRatingOpen(prevRatingOpen => !prevRatingOpen)
+  }
 
-  const toggleFilter = useCallback(() => {
-    setFilterOpen((prevFilterOpen) => !prevFilterOpen);
-  }, []);
+  const toggleFilter = () => {
+    setFilterOpen(!filterOpen)
+  }
 
-  useEffect(() => {
-    const closeFilter = (e: MouseEvent) => {
-      if (filterOpen && filterRef.current && filterButtonRef.current) {
-        if (
-          !filterRef.current.contains(e.target as Node) &&
-          !filterButtonRef.current.contains(e.target as Node)
-        ) {
-          toggleFilter();
-        }
-      }
-    };
-
-    window.addEventListener("mousedown", closeFilter);
-
-    return () => {
-      window.removeEventListener("mousedown", closeFilter);
-    };
-  }, [toggleFilter, filterRef, filterButtonRef, filterOpen]);
-
-  const handleRatingFilterChange = (
-    filter: "positive" | "neutral" | "negative" | "all"
-  ) => {
-    dispatch(setRatingFilter(filter));
-  };
-
-  const handleStatusFilterChange = (
-    statusFilter: "pending" | "published" | "all"
-  ) => {
-    dispatch(setStatusFilter(statusFilter));
-  };
+  useFilterEffect(filterOpen, filterRef, filterButtonRef, toggleFilter)
 
   return (
     <>
       <div className={s.menu_filter}>
         <FilterIcon />
         Фільтрувати
-        <span
-          ref={filterButtonRef}
-          className={`${s.menu_arrow} 
-              ${filterOpen ? s.menu_arrow_rotated : ""}`}
-          onClick={toggleFilter}
-        >
-          <ArrowIcon />
+        <span ref={filterButtonRef} className={s.menu_arrow} onClick={toggleFilter}>
+          <ArrowIcon rotated={filterOpen} />
         </span>
       </div>
       <div ref={filterRef}>
@@ -97,30 +56,20 @@ const FilterProperties = () => {
               {statusOpen && (
                 <ul className={s.sub_sub_menu_list}>
                   <li>
-                    <p
-                      className={s.sub_sub_menu_link}
-                      onClick={() => handleStatusFilterChange("published")}
-                    >
+                    <p className={s.sub_sub_menu_link} onClick={() => setStatus("published")}>
                       Опубліковано
                     </p>
                   </li>
                   <li>
-                    <p
-                      className={s.sub_sub_menu_link}
-                      onClick={() => handleStatusFilterChange("pending")}
-                    >
+                    <p className={s.sub_sub_menu_link} onClick={() => setStatus("pending")}>
                       На перевірці
                     </p>
                   </li>
                   <li>
-                    <p
-                      className={s.sub_sub_menu_link}
-                      onClick={() => handleStatusFilterChange("all")}
-                    >
+                    <p className={s.sub_sub_menu_link} onClick={() => setStatus("")}>
                       Всі
                     </p>
                   </li>
-                 
                 </ul>
               )}
             </li>
@@ -135,34 +84,22 @@ const FilterProperties = () => {
               {ratingOpen && (
                 <ul className={s.sub_sub_menu_list}>
                   <li>
-                    <p
-                      className={s.sub_sub_menu_link}
-                      onClick={() => handleRatingFilterChange("positive")}
-                    >
+                    <p className={s.sub_sub_menu_link} onClick={() => setRating("positive")}>
                       Позитивні
                     </p>
                   </li>
                   <li>
-                    <p
-                      className={s.sub_sub_menu_link}
-                      onClick={() => handleRatingFilterChange("neutral")}
-                    >
+                    <p className={s.sub_sub_menu_link} onClick={() => setRating("neutral")}>
                       Нейтральні
                     </p>
                   </li>
                   <li>
-                    <p
-                      className={s.sub_sub_menu_link}
-                      onClick={() => handleRatingFilterChange("negative")}
-                    >
+                    <p className={s.sub_sub_menu_link} onClick={() => setRating("negative")}>
                       Негативні
                     </p>
                   </li>
                   <li>
-                    <p
-                      className={s.sub_sub_menu_link}
-                      onClick={() => handleRatingFilterChange("all")}
-                    >
+                    <p className={s.sub_sub_menu_link} onClick={() => setRating("")}>
                       Всі
                     </p>
                   </li>
@@ -173,7 +110,7 @@ const FilterProperties = () => {
         )}
       </div>
     </>
-  );
-};
+  )
+}
 
-export default FilterProperties;
+export default FilterProperties

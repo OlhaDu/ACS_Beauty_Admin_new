@@ -1,5 +1,4 @@
-import ReviewsList from "src/components/Reviews/ReviewsList/ReviewsList";
-import Content from "./components/Reviews/PaginationItem/PaginationItem";
+import Reviews from "src/pages/Reviews/Reviews.tsx";
 import { createBrowserRouter } from "react-router-dom"
 import Users from "./pages/Users/Users"
 import CategoriesPage from "./pages/CategoriesPage"
@@ -17,9 +16,8 @@ export const router = createBrowserRouter([
     element: <CategoriesPage />,
   },
   {path: '/reviews',
-    element: <ReviewsList />
+    element: <Reviews/>
   },
-  { path: 'reviews/:page', element: <Content /> },
   {
     path: "/",
     element: <Dashboard />,

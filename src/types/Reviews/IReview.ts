@@ -7,10 +7,7 @@ export interface Review {
     review: string;
     status: string;
     rating: number;
-  //    productId: number;
-  //  userId: number;
+     productId: number;
+   userId: number;
   }
-  export interface ContentProps {
-    numberReviews: number | undefined;
-    onPageChange: (currentReviews: Review[]) => void;
-  }
+ 
