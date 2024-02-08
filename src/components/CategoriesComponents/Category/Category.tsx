@@ -22,9 +22,9 @@ const Category: FC<ICategory> = category => {
   const dispatch = useAppDispatch()
 
   const onDeleteCategory = () => dispatch(deleteCategory(id))
-  const onShownSubCategory = () => setIsSubCategoriesShown(!isSubCategoriesShown)
+  const onToggleSubCategoryShown = () => setIsSubCategoriesShown(!isSubCategoriesShown)
   const onToggleEditCategoryShown = () => setIsEditCategoryShown(!isEditCategoryShown)
-  const onAddSubCategory = () => setIsAddSubCategoryShown(!isAddSubCategoryShown)
+  const onToggleSubCategoryAdd = () => setIsAddSubCategoryShown(!isAddSubCategoryShown)
 
   const showArrow = category.subcategories.length !== 0
 
@@ -36,14 +36,14 @@ const Category: FC<ICategory> = category => {
           <div className={s.category__icons_container}>
             <EditIcon className={s.category__icon} onClick={onToggleEditCategoryShown} />
             <DeleteIcon className={s.category__icon} onClick={onDeleteCategory} />
-            <AddIcon className={s.category__add_icon} onClick={onAddSubCategory} />
+            <AddIcon className={s.category__add_icon} onClick={onToggleSubCategoryAdd} />
           </div>
         </div>
         {showArrow &&
           (isSubCategoriesShown ? (
-            <ArrowIcon className={s.category__arrow} onClick={onShownSubCategory} />
+            <ArrowIcon className={s.category__arrow} onClick={onToggleSubCategoryShown} />
           ) : (
-            <ArrowIcon className={s.category__right_arrow} onClick={onShownSubCategory} />
+            <ArrowIcon className={s.category__right_arrow} onClick={onToggleSubCategoryShown} />
           ))}
       </div>
       {isSubCategoriesShown && <SubCategories subcategories={subcategories} categoryId={id} />}
@@ -56,10 +56,10 @@ const Category: FC<ICategory> = category => {
       </ModalWindow>
       <ModalWindow
         title="Додати підкатегорію"
-        onClose={onAddSubCategory}
+        onClose={onToggleSubCategoryAdd}
         isOpenModal={isAddSubCategoryShown}
       >
-        <SubCategoryManagementForm categoryId={id} onClose={onAddSubCategory} />
+        <SubCategoryManagementForm categoryId={id} onClose={onToggleSubCategoryAdd} />
       </ModalWindow>
     </li>
   )
