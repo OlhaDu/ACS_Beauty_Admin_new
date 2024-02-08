@@ -9,18 +9,18 @@ import CategoryManagementForm from "src/components/CategoriesComponents/Category
 const CategoriesPage = () => {
   const [isOpenModal, setIsOpenModal] = useState(false)
 
-  const onAddClick = () => setIsOpenModal(true)
-  const onCloseModalClick = () => setIsOpenModal(false)
+  const onAdd = () => setIsOpenModal(true)
+  const onCloseModal = () => setIsOpenModal(false)
 
   return (
     <AdminLayout>
       <div className={s.categories}>
         <div className={s.categories__head}>
           <h3 className={s.categories__title}>Категорії</h3>
-          <VioletButton title="ДОДАТИ КАТЕГОРІЮ" onClick={onAddClick} />
+          <VioletButton title="ДОДАТИ КАТЕГОРІЮ" onClick={onAdd} />
         </div>
-        <ModalWindow title="ДОДАТИ КАТЕГОРІЮ" isOpenModal={isOpenModal} onClose={onCloseModalClick}>
-          <CategoryManagementForm onClose={onCloseModalClick} />
+        <ModalWindow title="ДОДАТИ КАТЕГОРІЮ" isOpenModal={isOpenModal} onClose={onCloseModal}>
+          <CategoryManagementForm onClose={onCloseModal} />
         </ModalWindow>
         <Categories />
       </div>

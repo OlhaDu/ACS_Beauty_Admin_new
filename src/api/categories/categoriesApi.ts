@@ -1,4 +1,4 @@
-import { instance } from "./instance"
+import { instance } from "../instance"
 import { ICategory, ISubCategoryReq, ISubCategoryRes } from "src/types/categories"
 
 export const categoriesApi = {

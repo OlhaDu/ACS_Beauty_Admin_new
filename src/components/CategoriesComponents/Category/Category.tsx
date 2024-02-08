@@ -21,10 +21,10 @@ const Category: FC<ICategory> = category => {
 
   const dispatch = useAppDispatch()
 
-  const onDeleteCategoryClick = () => dispatch(deleteCategory(id))
-  const onShownSubCategoryClick = () => setIsSubCategoriesShown(!isSubCategoriesShown)
-  const onEditCategoryClick = () => setIsEditCategoryShown(!isEditCategoryShown)
-  const onAddSubCategoryClick = () => setIsAddSubCategoryShown(!isAddSubCategoryShown)
+  const onDeleteCategory = () => dispatch(deleteCategory(id))
+  const onShownSubCategory = () => setIsSubCategoriesShown(!isSubCategoriesShown)
+  const onToggleEditCategoryShown = () => setIsEditCategoryShown(!isEditCategoryShown)
+  const onAddSubCategory = () => setIsAddSubCategoryShown(!isAddSubCategoryShown)
 
   const showArrow = category.subcategories.length !== 0
 
@@ -34,32 +34,32 @@ const Category: FC<ICategory> = category => {
         <div className={s.category__tools}>
           <h4 className={s.category__title}>{name}</h4>
           <div className={s.category__icons_container}>
-            <EditIcon className={s.category__icon} onClick={onEditCategoryClick} />
-            <DeleteIcon className={s.category__icon} onClick={onDeleteCategoryClick} />
-            <AddIcon className={s.category__add_icon} onClick={onAddSubCategoryClick} />
+            <EditIcon className={s.category__icon} onClick={onToggleEditCategoryShown} />
+            <DeleteIcon className={s.category__icon} onClick={onDeleteCategory} />
+            <AddIcon className={s.category__add_icon} onClick={onAddSubCategory} />
           </div>
         </div>
         {showArrow &&
           (isSubCategoriesShown ? (
-            <ArrowIcon className={s.category__arrow} onClick={onShownSubCategoryClick} />
+            <ArrowIcon className={s.category__arrow} onClick={onShownSubCategory} />
           ) : (
-            <ArrowIcon className={s.category__right_arrow} onClick={onShownSubCategoryClick} />
+            <ArrowIcon className={s.category__right_arrow} onClick={onShownSubCategory} />
           ))}
       </div>
       {isSubCategoriesShown && <SubCategories subcategories={subcategories} categoryId={id} />}
       <ModalWindow
         title="РЕДАГУВАТИ КАТЕГОРІЮ"
-        onClose={onEditCategoryClick}
+        onClose={onToggleEditCategoryShown}
         isOpenModal={isEditCategoryShown}
       >
-        <CategoryManagementForm category={category} onClose={onEditCategoryClick} />
+        <CategoryManagementForm category={category} onClose={onToggleEditCategoryShown} />
       </ModalWindow>
       <ModalWindow
         title="Додати підкатегорію"
-        onClose={onAddSubCategoryClick}
+        onClose={onAddSubCategory}
         isOpenModal={isAddSubCategoryShown}
       >
-        <SubCategoryManagementForm categoryId={id} onClose={onAddSubCategoryClick} />
+        <SubCategoryManagementForm categoryId={id} onClose={onAddSubCategory} />
       </ModalWindow>
     </li>
   )
