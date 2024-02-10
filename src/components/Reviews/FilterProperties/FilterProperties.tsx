@@ -4,6 +4,7 @@ import NavigateIcon from "src/images/svg/NavigateIcon"
 import FilterIcon from "src/images/svg/FilterIcon"
 import ArrowIcon from "src/images/svg/ArrowIcon"
 import useFilterEffect from "src/hooks/useFilterOnClickOutside"
+import { statusOptions, ratingOptions } from "./menuPotions";
 interface IProps {
   setStatus: React.Dispatch<React.SetStateAction<string>>
   setRating: React.Dispatch<React.SetStateAction<string>>
@@ -17,13 +18,13 @@ const FilterProperties: React.FC<IProps> = ({ setStatus, setRating }) => {
   const filterRef = useRef<HTMLDivElement>(null)
   const filterButtonRef = useRef<HTMLSpanElement>(null)
 
-  const toggleStatus = (event: React.MouseEvent<HTMLSpanElement>) => {
-    event.stopPropagation()
+  
+
+  const toggleStatus = () => {
     setStatusOpen(!statusOpen)
   }
 
-  const toggleRating = (event: React.MouseEvent<HTMLSpanElement>) => {
-    event.stopPropagation()
+  const toggleRating = () => {
     setRatingOpen(prevRatingOpen => !prevRatingOpen)
   }
 
@@ -52,26 +53,18 @@ const FilterProperties: React.FC<IProps> = ({ setStatus, setRating }) => {
                   <NavigateIcon rotated={statusOpen} />
                 </span>
               </p>
-
               {statusOpen && (
                 <ul className={s.sub_sub_menu_list}>
-                  <li>
-                    <p className={s.sub_sub_menu_link} onClick={() => setStatus("published")}>
-                      Опубліковано
-                    </p>
-                  </li>
-                  <li>
-                    <p className={s.sub_sub_menu_link} onClick={() => setStatus("pending")}>
-                      На перевірці
-                    </p>
-                  </li>
-                  <li>
-                    <p className={s.sub_sub_menu_link} onClick={() => setStatus("")}>
-                      Всі
-                    </p>
-                  </li>
+                  {statusOptions.map(option => (
+                    <li key={option.value}>
+                      <p className={s.sub_sub_menu_link} onClick={() => setStatus(option.value)}>
+                        {option.label}
+                      </p>
+                    </li>
+                  ))}
                 </ul>
               )}
+
             </li>
             <li>
               <p className={s.sub_menu_link} onClick={toggleRating}>
@@ -80,31 +73,18 @@ const FilterProperties: React.FC<IProps> = ({ setStatus, setRating }) => {
                   <NavigateIcon rotated={ratingOpen} />
                 </span>
               </p>
-
               {ratingOpen && (
                 <ul className={s.sub_sub_menu_list}>
-                  <li>
-                    <p className={s.sub_sub_menu_link} onClick={() => setRating("positive")}>
-                      Позитивні
-                    </p>
-                  </li>
-                  <li>
-                    <p className={s.sub_sub_menu_link} onClick={() => setRating("neutral")}>
-                      Нейтральні
-                    </p>
-                  </li>
-                  <li>
-                    <p className={s.sub_sub_menu_link} onClick={() => setRating("negative")}>
-                      Негативні
-                    </p>
-                  </li>
-                  <li>
-                    <p className={s.sub_sub_menu_link} onClick={() => setRating("")}>
-                      Всі
-                    </p>
-                  </li>
+                  {ratingOptions.map(option => (
+                    <li key={option.value}>
+                      <p className={s.sub_sub_menu_link} onClick={() => setRating(option.value)}>
+                        {option.label}
+                      </p>
+                    </li>
+                  ))}
                 </ul>
               )}
+
             </li>
           </ul>
         )}

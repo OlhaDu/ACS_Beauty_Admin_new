@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 
 import { columns } from "./columns"
 import { useAppDispatch } from "src/redux/store"
@@ -10,10 +10,10 @@ import Box from "@mui/material/Box"
 
 import EditIcon from "@mui/icons-material/Edit"
 import DeleteIcon from "src/images/svg/DeleteIconTS"
-
 import { DataGrid, GridColDef, GridActionsCellItem, GridRowId } from "@mui/x-data-grid"
 import ModalWindow from "src/components/ModalWindow"
 import ChangeStatus from "src/components/Reviews/Modal/ChangeStatusModal"
+import { columns as columnsAction } from "src/redux/reviews/reviewsSlice"
 interface IProps {
   page: number
   pageSize: number
@@ -69,13 +69,16 @@ const ReviewsTable: React.FC<IProps> = ({ page, pageSize, setPage, setPageSize }
       return {
         ...col,
         valueGetter: params => params.row.author,
-      };
+      }
     }
-  
-    return col;
-  });
-console.log("reviewsWithAuthor", reviewsWithAuthor)
+
+    return col
+  })
   tableColumns.push(actionsColumn)
+
+  useEffect(() => {
+    dispatch(columnsAction(reviewsWithAuthor)) // Диспатч экшена для сохранения reviewsWithAuthor в состояние Redux
+  }, [dispatch, reviewsWithAuthor])
 
   return (
     <>
@@ -120,7 +123,7 @@ console.log("reviewsWithAuthor", reviewsWithAuthor)
             setPage(page)
             setPageSize(pageSize)
           }}
-          pageSizeOptions={[ 10, 25, 50, 100]}
+          pageSizeOptions={[10, 25, 50, 100]}
           columnHeaderHeight={44}
           rowHeight={107}
         />

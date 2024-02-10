@@ -102,6 +102,14 @@
   cursor: pointer;
 }
 
+@mixin customPosition($top, $left, $width) {
+  position: absolute;
+  top: $top;
+  left: $left;
+  z-index: 1;
+  width: $width;
+}
+
 .Disabled-button-styles {
   opacity: 0.5;
   cursor: not-allowed;

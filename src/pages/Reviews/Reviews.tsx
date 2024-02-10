@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react"
 import s from "./Reviews.module.scss"
 import SearchInput from "src/components/ToolsPanel/SearchInput/SearchInput"
-import ExportList from "src/components/Reviews/ExportList/ExportList"
 import AdminLayout from "src/layouts/AdminLayout"
 import FilterProperties from "../../components/Reviews/FilterProperties/FilterProperties"
 import { getReviews } from "src/redux/reviews/operations"
 import { useAppDispatch } from "src/redux/store"
 import ReviewsTable from "src/components/Reviews/ReviewsItems/ReviewsTable"
+import ExportButton from "src/components/Reviews/Export/ExportButton"
 
 const ReviewsList: React.FC = () => {
   const [page, setPage] = useState(0)
@@ -16,7 +16,6 @@ const ReviewsList: React.FC = () => {
   const [rating, setRating] = useState("")
 
   const dispatch = useAppDispatch()
-
   useEffect(() => {
     dispatch(
       getReviews({
@@ -28,7 +27,6 @@ const ReviewsList: React.FC = () => {
       })
     )
   }, [dispatch, searchName, pageSize, page, status, rating])
-
   return (
     <AdminLayout>
       <div className={s.container}>
@@ -38,7 +36,7 @@ const ReviewsList: React.FC = () => {
 
           <div className={s.menu_list}>
             <FilterProperties setStatus={setStatus} setRating={setRating} />
-            <ExportList />
+            <ExportButton />
           </div>
 
           <ReviewsTable

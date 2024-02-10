@@ -1,15 +1,14 @@
-import { PayloadAction, createSlice } from "@reduxjs/toolkit"
-import { Review } from "src/types/Reviews"
+import { createSlice } from "@reduxjs/toolkit"
+import { Review, ReviewRow } from "src/types/Reviews"
 import { getReviews, patchReviews, deleteReview } from "./operations"
+import { handlePending, handleRejected } from "src/Utils"
 
 export interface ReviewsState {
   reviews: Review[]
   isLoading: boolean
   error: unknown | null
   count: number
-  filters: {
-    ratingFilter: "positive" | "neutral" | "negative" | "all"
-  }
+  columns: ReviewRow[]
 }
 
 const initialState: ReviewsState = {
@@ -17,9 +16,7 @@ const initialState: ReviewsState = {
   isLoading: false,
   error: null,
   count: 0,
-  filters: {
-    ratingFilter: "all",
-  },
+  columns: [],
 }
 
 const reviewsSlice = createSlice({
@@ -27,12 +24,8 @@ const reviewsSlice = createSlice({
   initialState,
 
   reducers: {
-    setRatingFilter: (
-      state,
-      action: PayloadAction<"positive" | "neutral" | "negative" | "all">
-    ) => {
-      state.filters.ratingFilter = action.payload
-      console.log("state.ratingFilter", state.filters.ratingFilter)
+    columns: (state, action) => {
+      state.columns = action.payload
     },
 
     updatedReviews: (state, action) => {
@@ -44,8 +37,6 @@ const reviewsSlice = createSlice({
     },
     deleteReview: (state, action) => {
       state.reviews = state.reviews.filter(review => review.id !== action.payload)
-      console.log("first", state.reviews)
-      console.log("action.payload.id", action.payload)
       state.count -= 1
     },
   },
@@ -78,17 +69,6 @@ const reviewsSlice = createSlice({
   },
 })
 
-function handlePending(state: { isLoading: boolean }) {
-  state.isLoading = true
-}
-
-function handleRejected(
-  state: { isLoading: boolean; error: unknown },
-  action: { payload: unknown }
-) {
-  state.isLoading = false
-  state.error = action.payload
-}
-export const { setRatingFilter, updatedReviews } = reviewsSlice.actions
+export const { columns, updatedReviews } = reviewsSlice.actions
 
 export const reviewsReducer = reviewsSlice.reducer

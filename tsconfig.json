@@ -23,6 +23,6 @@
     //   "src/*": ["src/*"]
     // }
   },
-  "include": ["src"],
+  "include": ["src", "Utils/redux", "Utils/redux"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

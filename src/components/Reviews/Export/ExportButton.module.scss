@@ -1,0 +1,8 @@
+@import "/src/styles/variables.scss";
+@import "/src/styles/mixins.scss";
+
+.btnExport{
+    padding: 10px 24px;
+    @include borderType($border-radius, $border: $default-border);
+    @include text($color: $main-text-color, $font-size: $fs-sm,$font-weight: $fw-semi-bold);
+  }

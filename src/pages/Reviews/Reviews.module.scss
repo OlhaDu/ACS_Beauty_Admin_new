@@ -2,7 +2,7 @@
 @import "/src/styles/mixins.scss";
 
 .container {
-  padding: 32px 20px 20px 20px;
+  padding: 32px 20px 20px;
   margin-left: $sidebar-width;
   background-color: $second-text-color;
 }
@@ -11,11 +11,9 @@
   flex-direction: column;
   flex: 1;
 }
-.text_title {
-  text-align: start;
+.text_title { 
   color: $main-text-color;
-  @extend.Roboto500-24-28;
-  font-style: normal;
+  @extend.Roboto500-24-28;  
   margin-bottom: 28px;
 }
 
@@ -26,3 +24,4 @@
   margin-top: 22px;
   flex: 1;
 }
+

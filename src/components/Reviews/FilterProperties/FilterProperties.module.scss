@@ -2,17 +2,13 @@
 @import "/src/styles/mixins.scss";
 
 .sub_menu_list {
-  position: absolute;
-  top: 45px;
-  left: 0;
-  z-index: 1;
-  width: 197px;
+  @include customPosition(45px, 0, 197px); 
   padding-left: 18px;
   padding-bottom: 18px;
   color: $main-text-color;
   @extend .Roboto400-16-18;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  background-color: #fff;
+  border:$default-border;
+  background-color: $first-icon-color;
 }
 .sub_menu_list > li {
   position: relative;
@@ -30,8 +26,7 @@
   @extend .Roboto400-16-18;
   cursor: pointer;
 }
-.sub_sub_menu_list {
-  text-align: "start";
+.sub_sub_menu_list { 
   margin-left: 14px;
 }
 .sub_sub_menu_list li {
@@ -47,7 +42,7 @@
   display: flex;
   padding: 10px;
   background-color: $gray-dropdown-color;
-  justify-content: end;
+  justify-content: flex-end;
   cursor: pointer;
 }
 
@@ -60,5 +55,5 @@
   color: $main-text-color;
   @extend .Roboto400-16-18;
   padding-left: 8px;
-  border: 1px solid rgba(0, 0, 0, 0.1);
+  border: $default-border;
 }

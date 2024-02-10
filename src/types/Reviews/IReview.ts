@@ -3,7 +3,7 @@ export interface Review {
     firstName: string;
     lastName: string;
     productName: string;
-    createdAt: string;
+    createdAt: "2024-02-08";
     review: string;
     status: string;
     rating: number;
