@@ -11,7 +11,6 @@ import s from "./Category.module.scss"
 import ModalWindow from "../../ModalWindow"
 import CategoryManagementForm from "../CategoryManagementForm"
 import SubCategoryManagementForm from "../../SubCategoryManagementForm"
-import "react-toastify/dist/ReactToastify.css"
 import { getErrorMessage } from "../helpers"
 import { toast } from "react-toastify"
 

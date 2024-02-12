@@ -6,6 +6,7 @@ import { useState } from "react"
 import ModalWindow from "src/components/ModalWindow"
 import CategoryManagementForm from "src/components/CategoriesComponents/CategoryManagementForm"
 import { ToastContainer } from "react-toastify"
+import "react-toastify/dist/ReactToastify.css"
 
 const CategoriesPage = () => {
   const [isOpenModal, setIsOpenModal] = useState(false)
