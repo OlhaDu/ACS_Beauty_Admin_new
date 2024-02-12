@@ -5,6 +5,5 @@ export interface ICategory {
   name: string
   slug: string
   image: string
-  description: string
   subcategories: ISubCategory[]
 }

@@ -8,6 +8,8 @@ import { useAppDispatch } from "src/redux/hooks"
 import { deleteSubCategory } from "src/redux/categories/operations"
 import { ISubCategoryRes } from "src/types/categories"
 import ArrowIcon from "src/images/svg/ArrowIcon"
+import { getErrorMessage } from "../helpers"
+import { toast } from "react-toastify"
 
 const SubCategory: FC<ISubCategoryRes> = ({ categoryId, ...subcategory }) => {
   const dispatch = useAppDispatch()
@@ -15,8 +17,15 @@ const SubCategory: FC<ISubCategoryRes> = ({ categoryId, ...subcategory }) => {
   const [isEditSubCategoryShown, setIsEditSubCategoryShown] = useState(false)
 
   const onEditClick = () => setIsEditSubCategoryShown(!isEditSubCategoryShown)
-  const onDeleteClick = () =>
-    dispatch(deleteSubCategory({ categoryId, subCategoryId: subcategory.id }))
+
+  const onDeleteClick = async () => {
+    try {
+      await dispatch(deleteSubCategory({ categoryId, subCategoryId: subcategory.id })).unwrap()
+    } catch (error) {
+      const message = getErrorMessage(error)
+      toast.error(message)
+    }
+  }
 
   return (
     <li className={s.subcategory}>

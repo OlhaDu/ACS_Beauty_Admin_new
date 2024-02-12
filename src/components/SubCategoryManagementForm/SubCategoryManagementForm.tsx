@@ -1,11 +1,11 @@
-// import s from "./CategoryManagementForm.module.scss"
 import { subCategoryFormSchema } from "src/libs/yup"
 import FormGenerator from "../FormGenerator"
 import { IInitialValuesSubCategory, ISubCategoryManagementForm } from "src/types/categories"
 import { FormikHelpers } from "formik"
 import { FC } from "react"
-import { addSubCategory, updateSubCategory } from "src/redux/categories/operations"
+import { addSubCategory, patchSubCategory } from "src/redux/categories/operations"
 import { useAppDispatch } from "src/redux/hooks"
+import { getErrorMessage } from "../CategoriesComponents/helpers"
 
 const SubCategoryManagementForm: FC<ISubCategoryManagementForm> = ({
   subcategory,
@@ -30,23 +30,22 @@ const SubCategoryManagementForm: FC<ISubCategoryManagementForm> = ({
     ) => {
       const { name } = values
 
-      const formData = new FormData()
-      formData.append("name", name)
-      formData.append("categoryId", `${categoryId}`)
-
-      let result = null
-      if (subcategory) {
-        result = await dispatch(
-          updateSubCategory({ id: subcategory.id, updatedSubCategory: { name, categoryId } })
-        )
-      } else {
-        result = await dispatch(addSubCategory({ name, categoryId }))
-      }
-      const { type, payload } = result
-      if (type.includes("rejected") && typeof payload === "string") setFieldError("name", payload)
-      if (type.includes("fulfilled")) {
-        resetForm()
-        onClose()
+      try {
+        let result = null
+        if (subcategory) {
+          result = await dispatch(
+            patchSubCategory({ id: subcategory.id, updatedSubCategory: { name, categoryId } })
+          ).unwrap()
+        } else {
+          result = await dispatch(addSubCategory({ name, categoryId })).unwrap()
+        }
+        if (result) {
+          resetForm()
+          onClose()
+        }
+      } catch (error) {
+        const message = getErrorMessage(error)
+        setFieldError("name", message)
       }
     },
     btnName: subcategory ? "РЕДАГУВАТИ" : "ДОДАТИ",

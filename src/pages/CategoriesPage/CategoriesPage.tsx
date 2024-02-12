@@ -5,6 +5,7 @@ import s from "./Categories.module.scss"
 import { useState } from "react"
 import ModalWindow from "src/components/ModalWindow"
 import CategoryManagementForm from "src/components/CategoriesComponents/CategoryManagementForm"
+import { ToastContainer } from "react-toastify"
 
 const CategoriesPage = () => {
   const [isOpenModal, setIsOpenModal] = useState(false)
@@ -24,6 +25,7 @@ const CategoriesPage = () => {
         </ModalWindow>
         <Categories />
       </div>
+      <ToastContainer position="top-center" />
     </AdminLayout>
   )
 }

@@ -6,13 +6,13 @@ export const categoriesApi = {
 
   addCategory: (formData: FormData) => instance.post<ICategory>("category/", formData),
 
-  updateCategory: (id: number, formData: FormData) =>
+  patchCategory: (id: number, formData: FormData) =>
     instance.patch<ICategory>(`category/${id}`, formData),
 
   addSubcategory: (newSubCategory: ISubCategoryReq) =>
     instance.post<ISubCategoryRes>("subcategory/", newSubCategory),
 
-  updateSubcategory: (id: number, updatedSubCategory: ISubCategoryReq) =>
+  patchSubCategory: (id: number, updatedSubCategory: ISubCategoryReq) =>
     instance.patch<ISubCategoryRes>(`subcategory/${id}`, updatedSubCategory),
 
   deleteCategory: (id: number) => instance.delete(`category/${id}`),

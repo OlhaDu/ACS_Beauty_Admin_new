@@ -1,7 +1,7 @@
-import { IUpdateUsers } from "src/types/users/IUpdateUsers"
+import { IUpdateUser } from "src/types/users/IUpdateUser"
 import { instance } from "../instance"
 
 export const usersApi = {
-  updateUsers: (updatedUsers: IUpdateUsers) =>
+  updateUser: (updatedUsers: IUpdateUser) =>
     instance.patch(`user/${updatedUsers.id}`, updatedUsers),
 }

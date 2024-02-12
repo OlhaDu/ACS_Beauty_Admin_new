@@ -8,6 +8,5 @@ export interface ICategoryManagementForm {
 
 export interface IInitialValuesCategory extends FormikValues {
   name: string
-  description: string
   image: File | string | null
 }

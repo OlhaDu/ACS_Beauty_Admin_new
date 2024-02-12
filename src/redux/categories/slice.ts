@@ -6,30 +6,27 @@ import {
   deleteCategory,
   deleteSubCategory,
   getCategories,
-  updateCategory,
-  updateSubCategory,
+  patchCategory,
+  patchSubCategory,
 } from "./operations"
 
 interface IState {
   categories: ICategory[]
   status: "pending" | "fulfilled" | "rejected"
-  error: string
+  // error: string
 }
 
 const initialState: IState = {
   categories: [],
   status: "pending",
-  error: "",
 }
 
-const habdleReject = (state: { status: string; error: unknown }, action: { payload: unknown }) => {
+const habdleReject = (state: { status: string }) => {
   state.status = "rejected"
-  state.error = action.payload
 }
 
-const setFulfilledState = (state: { status: string; error: unknown }) => {
+const setFulfilledState = (state: { status: string }) => {
   state.status = "fulfilled"
-  state.error = ""
 }
 
 export const categoriesSlice = createSlice({
@@ -52,7 +49,7 @@ export const categoriesSlice = createSlice({
         setFulfilledState(state)
       })
       .addCase(deleteCategory.rejected, habdleReject)
-      .addCase(updateCategory.fulfilled, (state, { payload: updatedCategory }) => {
+      .addCase(patchCategory.fulfilled, (state, { payload: updatedCategory }) => {
         const categoryIndex = state.categories.findIndex(
           category => category.id === updatedCategory.id
         )
@@ -62,7 +59,7 @@ export const categoriesSlice = createSlice({
 
         setFulfilledState(state)
       })
-      .addCase(updateCategory.rejected, habdleReject)
+      .addCase(patchCategory.rejected, habdleReject)
       .addCase(addSubCategory.fulfilled, (state, { payload: { name, id, categoryId } }) => {
         const categoryIndex = state.categories.findIndex(category => category.id === categoryId)
 
@@ -81,7 +78,7 @@ export const categoriesSlice = createSlice({
         setFulfilledState(state)
       })
       .addCase(deleteSubCategory.rejected, habdleReject)
-      .addCase(updateSubCategory.fulfilled, (state, { payload: { name, id, categoryId } }) => {
+      .addCase(patchSubCategory.fulfilled, (state, { payload: { name, id, categoryId } }) => {
         const categoryIndex = state.categories.findIndex(category => category.id === categoryId)
         const subCategoryIndex = state.categories[categoryIndex].subcategories.findIndex(
           subcategory => subcategory.id === id

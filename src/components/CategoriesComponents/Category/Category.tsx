@@ -11,6 +11,9 @@ import s from "./Category.module.scss"
 import ModalWindow from "../../ModalWindow"
 import CategoryManagementForm from "../CategoryManagementForm"
 import SubCategoryManagementForm from "../../SubCategoryManagementForm"
+import "react-toastify/dist/ReactToastify.css"
+import { getErrorMessage } from "../helpers"
+import { toast } from "react-toastify"
 
 const Category: FC<ICategory> = category => {
   const { id, name, subcategories } = category
@@ -21,7 +24,14 @@ const Category: FC<ICategory> = category => {
 
   const dispatch = useAppDispatch()
 
-  const onDeleteCategory = () => dispatch(deleteCategory(id))
+  const onDeleteClick = async () => {
+    try {
+      await dispatch(deleteCategory(id)).unwrap()
+    } catch (error) {
+      const message = getErrorMessage(error)
+      toast.error(message)
+    }
+  }
   const onToggleSubCategoryShown = () => setIsSubCategoriesShown(!isSubCategoriesShown)
   const onToggleEditCategoryShown = () => setIsEditCategoryShown(!isEditCategoryShown)
   const onToggleSubCategoryAdd = () => setIsAddSubCategoryShown(!isAddSubCategoryShown)
@@ -35,7 +45,7 @@ const Category: FC<ICategory> = category => {
           <h4 className={s.category__title}>{name}</h4>
           <div className={s.category__icons_container}>
             <EditIcon className={s.category__icon} onClick={onToggleEditCategoryShown} />
-            <DeleteIcon className={s.category__icon} onClick={onDeleteCategory} />
+            <DeleteIcon className={s.category__icon} onClick={onDeleteClick} />
             <AddIcon className={s.category__add_icon} onClick={onToggleSubCategoryAdd} />
           </div>
         </div>
