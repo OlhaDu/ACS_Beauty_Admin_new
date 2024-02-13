@@ -12,9 +12,9 @@ interface IUserData {
 
 export const handleExternalDataUpdate = async (updatedRowData: IUserData) => {
   useEffect(() => {
-    const updateUser = async () => {
+    const patchUser = async () => {
       try {
-        await usersApi.updateUser(updatedRowData)
+        await usersApi.patchUser(updatedRowData)
       } catch (error) {
         console.error("Error fetching data:", error)
       }
@@ -23,6 +23,6 @@ export const handleExternalDataUpdate = async (updatedRowData: IUserData) => {
     // Log the updated data
     console.log("Handling updated row data in external file:", updatedRowData)
 
-    updateUser()
+    patchUser()
   }, [])
 }

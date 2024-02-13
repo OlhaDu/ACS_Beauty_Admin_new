@@ -1,4 +1,4 @@
-export interface IUpdateUser {
+export interface IPatchUser {
   fullName: string
   email: string
   phone: string
