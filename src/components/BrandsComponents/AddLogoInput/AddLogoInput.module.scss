@@ -26,6 +26,12 @@
   height: 40px;
   cursor: pointer;
   transition: background-color $transition;
+  circle {
+    fill: none;
+  }
+  path {
+    fill: $second-icon-color;
+  }
 
   &:hover {
     background-color: $second-color;

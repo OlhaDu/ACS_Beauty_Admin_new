@@ -1,0 +1,57 @@
+@import "/src/styles/variables.scss";
+@import "/src/styles/mixins.scss";
+
+.add_img__add_icon {
+  display: block;
+  margin: auto;
+  circle {
+    fill: $second-color;
+  }
+  path {
+    fill: $second-icon-color;
+  }
+  @extend .icon-pointer-fill;
+  &:hover path {
+    fill: $first-icon-color;
+  }
+}
+.add_img__add_delete_icon {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  circle {
+    fill: none;
+  }
+  path {
+    fill: $second-icon-color;
+  }
+  @extend .icon-pointer-bgColor;
+}
+.add_img__image_container {
+  height: 318px;
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+.add_img__text {
+  @include font($fs-m, $fw-semi-bold, $flh-sm);
+  margin-top: $margin-third;
+  text-align: center;
+  color: $main-text-color;
+}
+.add_img__load_container {
+  padding-top: 120px;
+  padding-bottom: 100px;
+  cursor: pointer;
+}
+.add_img__input {
+  display: none;
+}
+.add_img__image {
+  display: block;
+}
+.error {
+  @include font();
+  margin-top: $margin-second;
+  color: $error-text-color;
+}

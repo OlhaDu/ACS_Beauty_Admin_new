@@ -106,13 +106,25 @@
   opacity: 0.5;
   cursor: not-allowed;
 }
-
+.icon-pointer-fill {
+  cursor: pointer;
+  &:hover circle {
+    fill: $hover-icon-color;
+  }
+}
+.icon-pointer-bgColor {
+  border-radius: 50%;
+  cursor: pointer;
+  &:hover {
+    background-color: $second-color;
+  }
+}
 @mixin borderType($border-radius, $border: $default-border) {
   border: $border;
   border-radius: $border-radius;
 }
 
-@mixin font($size: 16px, $weight: 400, $height: 18.75px) {
+@mixin font($size: $fs-m, $weight: $fw-normal, $height: $flh-sm) {
   font-weight: $weight;
   font-size: $size;
   line-height: $height;

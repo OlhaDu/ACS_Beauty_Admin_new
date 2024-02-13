@@ -3,15 +3,15 @@
 
 .form {
   display: block;
-  margin-top: $margin-main;
   color: $main-text-color;
 }
 .subTitle {
-  @extend .form;
+  margin-top: $margin-main;
   @include font($fs-xl, $fw-bold, $flh-m);
 }
 .label {
-  @extend .form;
+  display: block;
+  margin-top: $margin-main;
   @include font($fs-m, $fw-semi-bold, $flh-sm);
 }
 .field {

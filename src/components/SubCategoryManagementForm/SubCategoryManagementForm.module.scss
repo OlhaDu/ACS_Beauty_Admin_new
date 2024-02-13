@@ -1,0 +1,7 @@
+@import "/src/styles/variables.scss";
+@import "/src/styles/mixins.scss";
+
+textarea.textArea {
+  height: 106px;
+  resize: none;
+}

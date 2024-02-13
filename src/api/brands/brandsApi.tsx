@@ -1,4 +1,4 @@
-import { instance } from "./instance"
+import { instance } from "../instance"
 import { GridRowId } from "@mui/x-data-grid"
 import { IBrand, IResponse } from "src/types/brands"
 

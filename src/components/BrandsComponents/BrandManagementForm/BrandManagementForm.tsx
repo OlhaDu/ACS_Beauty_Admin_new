@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { FormikHelpers } from "formik"
 
-import { useAppDispatch } from "src/redux/store"
+import { useAppDispatch } from "src/redux/hooks"
 import { IBrand, IBrandsInitialValues } from "src/types/brands"
 import { brandManagerSchema } from "src/libs/yup/brandManager.schema"
 import { createNewBrand, patchBrand } from "src/redux/brands/operations"
@@ -75,7 +75,7 @@ const BrandManagementForm: React.FC<IProps> = ({ brand, onClose }) => {
       }
     },
     isToggler: false,
-    btnName: brand && "РЕДАГУВАТИ",
+    btnName: brand ? "РЕДАГУВАТИ" : "ДОДАТИ",
   }
 
   return <FormGenerator<IBrandsInitialValues> {...addCategoryForm} />

@@ -1,7 +1,7 @@
-import { FC } from "react";
-import { IIcon } from "./types";
+import { FC } from "react"
+import { IIcon } from "./types"
 
-const EditIcon: FC<IIcon> = ({ className }) => (
+const EditIcon: FC<IIcon> = ({ className, onClick }) => (
   <svg
     width="52"
     height="52"
@@ -9,6 +9,7 @@ const EditIcon: FC<IIcon> = ({ className }) => (
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
     className={className}
+    onClick={onClick}
   >
     <circle cx="26" cy="26" r="26" fill="#948AD0" />
     <path
@@ -16,6 +17,6 @@ const EditIcon: FC<IIcon> = ({ className }) => (
       fill="white"
     />
   </svg>
-);
+)
 
-export default EditIcon;
+export default EditIcon

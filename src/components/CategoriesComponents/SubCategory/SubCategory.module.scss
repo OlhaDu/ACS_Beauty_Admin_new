@@ -1,0 +1,29 @@
+@import "/src/styles/variables.scss";
+@import "/src/styles/mixins.scss";
+
+.subcategory {
+  display: flex;
+  width: 628px;
+  height: 76px;
+  margin: 0 auto;
+  padding: 0 16px;
+  align-items: center;
+  border: $default-border;
+}
+.subcategory__name {
+  @include font($size: $fs-xl, $height: $flh-m);
+  color: $main-text-color;
+}
+.subcategory__edit_icon {
+  @extend .icon-pointer-fill;
+  margin-left: auto;
+}
+.subcategory__delete_icon {
+  @extend .icon-pointer-fill;
+  margin-left: $margin-second;
+}
+.category__right_arrow {
+  width: 24px;
+  height: 24px;
+  transform: rotate(-90deg);
+}

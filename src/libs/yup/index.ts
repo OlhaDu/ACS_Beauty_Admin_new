@@ -1,2 +1,3 @@
-export { addCategoryFormSchema } from "./addCategoryForm.schema"
+export { categoryFormSchema } from "./categoryFormSchema"
+export { subCategoryFormSchema } from "./subCategoryFormSchema"
 export { brandManagerSchema } from "./brandManager.schema"

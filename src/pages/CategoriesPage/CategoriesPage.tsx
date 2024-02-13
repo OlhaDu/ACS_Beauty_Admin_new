@@ -1,38 +1,32 @@
-import { useState } from "react"
 import AdminLayout from "src/layouts/AdminLayout"
 import VioletButton from "src/components/Buttons/VioletButton"
-import Categories from "src/components/Categories"
-import Category from "src/components/Category"
+import Categories from "src/components/CategoriesComponents/Categories"
 import s from "./Categories.module.scss"
-import AddCategory from "src/components/AddCategory"
-import { useAppSelector } from "src/redux/selectors"
-import { selectActiveCategory } from "src/redux/hooks"
+import { useState } from "react"
+import ModalWindow from "src/components/ModalWindow"
+import CategoryManagementForm from "src/components/CategoriesComponents/CategoryManagementForm"
+import { ToastContainer } from "react-toastify"
+import "react-toastify/dist/ReactToastify.css"
 
 const CategoriesPage = () => {
-  const activeCategory = useAppSelector(selectActiveCategory)
-  const [isAddCategoryActive, setIsAddCategoryActive] = useState<boolean>(false)
+  const [isOpenModal, setIsOpenModal] = useState(false)
 
-  const onAddCategotyClick = () => {
-    setIsAddCategoryActive(true)
-  }
+  const onAdd = () => setIsOpenModal(true)
+  const onCloseModal = () => setIsOpenModal(false)
 
   return (
     <AdminLayout>
-      <div className={s.page}>
-        <div className={s.heading}>
-          <h3>Категорії{isAddCategoryActive && "/Додати категорію"}</h3>
-          {!isAddCategoryActive && (
-            <VioletButton title="ДОДАТИ КАТЕГОРІЮ" onClick={onAddCategotyClick} />
-          )}
+      <div className={s.categories}>
+        <div className={s.categories__head}>
+          <h3 className={s.categories__title}>Категорії</h3>
+          <VioletButton title="ДОДАТИ КАТЕГОРІЮ" onClick={onAdd} />
         </div>
-        {isAddCategoryActive && <AddCategory setIsAddCategoryActive={setIsAddCategoryActive} />}
-        {!activeCategory && !isAddCategoryActive && <Categories />}
-        {activeCategory && !isAddCategoryActive && (
-          <div className={s.categoryWrap}>
-            <Category category={activeCategory} />
-          </div>
-        )}
+        <ModalWindow title="ДОДАТИ КАТЕГОРІЮ" isOpenModal={isOpenModal} onClose={onCloseModal}>
+          <CategoryManagementForm onClose={onCloseModal} />
+        </ModalWindow>
+        <Categories />
       </div>
+      <ToastContainer position="top-center" />
     </AdminLayout>
   )
 }

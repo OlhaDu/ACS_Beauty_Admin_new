@@ -1,19 +1,16 @@
 @import "/src/styles/variables.scss";
 @import "/src/styles/mixins.scss";
 
-.page {
+.categories {
   width: $page-width - $sidebar-width;
   padding: 32px 80px 47px 20px;
   margin-left: $sidebar-width;
 }
-.heading {
+.categories__head {
   display: flex;
   justify-content: space-between;
 }
-h3 {
+.categories__title {
   @extend .Roboto500-24-28;
   color: $main-text-color;
-}
-.categoryWrap {
-  margin-top: 29px;
 }

@@ -1,7 +1,7 @@
 import cn from "classnames"
 import { FC } from "react"
 import s from "./VioletButton.module.scss"
-import { IVioletButtonProps } from "src/types"
+import { IVioletButtonProps } from "src/types/categories"
 
 const Button: FC<IVioletButtonProps> = ({ title, type, disabled, onClick, className }) => {
   const btnClasses = cn(s.button, className)

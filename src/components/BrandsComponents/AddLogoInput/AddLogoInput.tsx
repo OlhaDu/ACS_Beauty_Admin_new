@@ -33,7 +33,7 @@ const AddLogoInput: FC<IAddLogoInput> = ({ brandName, brandLogo }) => {
         <div className={s.brand_form__image_container}>
           <img className={s.brand_form__image} src={image} alt={brandName} />
           <div className={s.brand_form__image_delete_icon} onClick={handleCloseIconClick}>
-            <DeleteIcon fill={"#5C5E60"} />
+            <DeleteIcon />
           </div>
         </div>
       ) : (

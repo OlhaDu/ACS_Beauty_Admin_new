@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import { useAppDispatch } from "src/redux/store"
+import { useAppDispatch } from "src/redux/hooks"
 import { getBrands } from "src/redux/brands/operations"
 
 import s from "./Brands.module.scss"
@@ -27,6 +27,7 @@ const Brands: React.FC = () => {
         page: page + 1,
       })
     )
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page, pageSize, searchName])
 
   return (
