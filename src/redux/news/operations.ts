@@ -2,7 +2,7 @@ import { GridRowId } from "@mui/x-data-grid"
 import { createAsyncThunk } from "@reduxjs/toolkit"
 
 import { newsApi } from "src/api/news/newsApi"
-import { IDeleteNewsResponse, IGetNewsParams, INovelty, IResponse } from "src/types/news"
+import { IGetNewsParams, INovelty, IResponse } from "src/types/news"
 
 export const getNews = createAsyncThunk<IResponse, IGetNewsParams>(
   "news/getNews",
@@ -43,7 +43,7 @@ export const patchNews = createAsyncThunk<INovelty, { id: GridRowId; formData: F
   }
 )
 
-export const deleteNews = createAsyncThunk<IDeleteNewsResponse, GridRowId>(
+export const deleteNews = createAsyncThunk<{ id: GridRowId }, GridRowId>(
   "news/deleteNews",
   async (id, { rejectWithValue }) => {
     try {

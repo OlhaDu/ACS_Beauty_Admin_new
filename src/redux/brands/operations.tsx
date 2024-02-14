@@ -1,7 +1,7 @@
 import { GridRowId } from "@mui/x-data-grid"
 import { createAsyncThunk } from "@reduxjs/toolkit"
 import { brandsApi } from "src/api/brands/brandsApi"
-import { IBrand, IDeleteBrandResponse, IGetBrandsParams, IResponse } from "src/types/brands"
+import { IBrand, IGetBrandsParams, IResponse } from "src/types/brands"
 
 export const getBrands = createAsyncThunk<IResponse, IGetBrandsParams>(
   "brands/getBrands",
@@ -42,7 +42,7 @@ export const patchBrand = createAsyncThunk<IBrand, { id: GridRowId; formData: Fo
   }
 )
 
-export const deleteBrand = createAsyncThunk<IDeleteBrandResponse, GridRowId>(
+export const deleteBrand = createAsyncThunk<{ id: GridRowId }, GridRowId>(
   "brands/deleteBrand",
   async (id, { rejectWithValue }) => {
     try {
