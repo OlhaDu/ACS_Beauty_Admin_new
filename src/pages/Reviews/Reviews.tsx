@@ -16,6 +16,7 @@ const ReviewsList: React.FC = () => {
   const [rating, setRating] = useState("")
 
   const dispatch = useAppDispatch()
+
   useEffect(() => {
     dispatch(
       getReviews({
@@ -26,7 +27,8 @@ const ReviewsList: React.FC = () => {
         rating,
       })
     )
-  }, [dispatch, searchName, pageSize, page, status, rating])
+  }, [searchName, pageSize, page, status, rating])
+
   return (
     <AdminLayout>
       <div className={s.container}>

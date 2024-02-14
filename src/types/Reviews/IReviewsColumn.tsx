@@ -13,8 +13,3 @@
     [key: string]: string | number;
 }
 
-export interface IReviewsColumn {
-    field: string;
-    headerName: string;
-    width: number;
-}

@@ -1,19 +1,13 @@
 import { useSelector } from "react-redux"
-import { useState, useEffect } from "react"
-
+import Switch from "@mui/material/Switch"
 import { columns } from "./columns"
 import { useAppDispatch } from "src/redux/store"
 import { selectReviews, selectCount } from "src/redux/reviews/selectors"
-import { deleteReview } from "src/redux/reviews/operations"
-
+import { deleteReview, patchReviews } from "src/redux/reviews/operations"
 import Box from "@mui/material/Box"
-
-import EditIcon from "@mui/icons-material/Edit"
 import DeleteIcon from "src/images/svg/DeleteIconTS"
-import { DataGrid, GridColDef, GridActionsCellItem, GridRowId } from "@mui/x-data-grid"
-import ModalWindow from "src/components/ModalWindow"
-import ChangeStatus from "src/components/Reviews/Modal/ChangeStatusModal"
-import { columns as columnsAction } from "src/redux/reviews/reviewsSlice"
+import { DataGrid, GridColDef, GridActionsCellItem, GridValueGetterParams } from "@mui/x-data-grid"
+import { Typography } from "@mui/material"
 interface IProps {
   page: number
   pageSize: number
@@ -26,8 +20,10 @@ const ReviewsTable: React.FC<IProps> = ({ page, pageSize, setPage, setPageSize }
   const reviews = useSelector(selectReviews)
   const count = useSelector(selectCount)
 
-  const [isOpenModal, setIsOpenModal] = useState(false)
-  const [selectedReview, setSelectedReview] = useState<GridRowId | null>(null)
+  const handleStatusChange = (id: number, newStatus: "published" | "pending") => {
+    const status = { status: newStatus }
+    dispatch(patchReviews({ id, status }))
+  }
 
   const actionsColumn: GridColDef = {
     field: "actions",
@@ -39,16 +35,6 @@ const ReviewsTable: React.FC<IProps> = ({ page, pageSize, setPage, setPageSize }
     getActions: ({ id }) => {
       return [
         <GridActionsCellItem
-          icon={<EditIcon />}
-          label="Edit"
-          className="textPrimary"
-          color="inherit"
-          onClick={() => {
-            setIsOpenModal(true)
-            setSelectedReview(id)
-          }}
-        />,
-        <GridActionsCellItem
           icon={<DeleteIcon fill={"black"} width={53} height={53} />}
           label="Delete"
           color="inherit"
@@ -59,26 +45,50 @@ const ReviewsTable: React.FC<IProps> = ({ page, pageSize, setPage, setPageSize }
       ]
     },
   }
+
   const reviewsWithAuthor = reviews.map(review => ({
     ...review,
     author: `${review.firstName} ${review.lastName}`,
   }))
 
-  const tableColumns: GridColDef[] = columns.map(col => {
-    if (col.field === "author") {
-      return {
-        ...col,
-        valueGetter: params => params.row.author,
+  const statusColumn: GridColDef = {
+    field: "status",
+    headerName: "Статус",
+    width: 130,
+
+    renderCell: params => (
+      <div style={{ display: "flex", alignItems: "center" }}>
+        <Switch
+          checked={params.row.status === "published"}
+          onChange={event => {
+            const newStatus = event.target.checked ? "published" : "pending"
+            handleStatusChange(params.row.id, newStatus)
+          }}
+          inputProps={{ "aria-label": "controlled" }}
+        />
+        <Typography variant="body1">{params.row.status}</Typography>
+      </div>
+    ),
+    type: "string",
+    align: "center",
+    headerAlign: "center",
+  }
+
+  const tableColumns: GridColDef[] = [
+    ...columns.map(col => {
+      if (col.field === "author") {
+        return {
+          ...col,
+          valueGetter: (params: GridValueGetterParams) => params.row.author,
+        }
       }
-    }
 
-    return col
-  })
+      return col
+    }),
+    statusColumn,
+  ]
+
   tableColumns.push(actionsColumn)
-
-  useEffect(() => {
-    dispatch(columnsAction(reviewsWithAuthor)) // Диспатч экшена для сохранения reviewsWithAuthor в состояние Redux
-  }, [dispatch, reviewsWithAuthor])
 
   return (
     <>
@@ -128,17 +138,6 @@ const ReviewsTable: React.FC<IProps> = ({ page, pageSize, setPage, setPageSize }
           rowHeight={107}
         />
       </Box>
-
-      <ModalWindow
-        title={"ЗМІНИТИ СТАТУС ВІДГУКУ"}
-        onClose={() => setIsOpenModal(false)}
-        isOpenModal={isOpenModal}
-      >
-        <ChangeStatus
-          onClose={() => setIsOpenModal(false)}
-          review={reviews.find(review => review.id === selectedReview)}
-        />
-      </ModalWindow>
     </>
   )
 }

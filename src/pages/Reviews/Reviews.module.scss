@@ -11,9 +11,9 @@
   flex-direction: column;
   flex: 1;
 }
-.text_title { 
+.text_title {
   color: $main-text-color;
-  @extend.Roboto500-24-28;  
+  @extend.Roboto500-24-28;
   margin-bottom: 28px;
 }
 
@@ -24,4 +24,3 @@
   margin-top: 22px;
   flex: 1;
 }
-

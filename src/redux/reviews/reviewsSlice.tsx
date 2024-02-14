@@ -24,22 +24,12 @@ const reviewsSlice = createSlice({
   initialState,
 
   reducers: {
-    columns: (state, action) => {
-      state.columns = action.payload
-    },
-
-    updatedReviews: (state, action) => {
-      const updateReview = action.payload
-      const index = state.reviews.findIndex(review => review.id === updateReview.id)
-
-      if (index === -1) return
-      state.reviews[index] = updateReview
-    },
     deleteReview: (state, action) => {
       state.reviews = state.reviews.filter(review => review.id !== action.payload)
       state.count -= 1
     },
   },
+
   extraReducers: builder => {
     builder
       .addCase(getReviews.pending, handlePending)
@@ -53,7 +43,11 @@ const reviewsSlice = createSlice({
 
       .addCase(patchReviews.pending, handlePending)
       .addCase(patchReviews.fulfilled, (state, action) => {
-        reviewsSlice.caseReducers.updatedReviews(state, action)
+        const updateReview = action.payload
+        const index = state.reviews.findIndex(review => review.id === updateReview.id)
+        if (index !== -1) {
+          state.reviews[index].status = updateReview.status
+        }
         state.isLoading = false
         state.error = null
       })
@@ -68,7 +62,5 @@ const reviewsSlice = createSlice({
       .addCase(deleteReview.rejected, handleRejected)
   },
 })
-
-export const { columns, updatedReviews } = reviewsSlice.actions
 
 export const reviewsReducer = reviewsSlice.reducer

@@ -16,19 +16,19 @@ export const getReviews = createAsyncThunk<IResponse, IGetReviewsParams>(
   }
 )
 
-export const patchReviews = createAsyncThunk<Review, { id: number; status: { status: string } }>(
-  "reviews/patchReviews",
-  async ({ id, status }, { rejectWithValue }) => {
-    console.log("status", status)
-    try {
-      const { data } = await reviewsApi.patchReviews(id, status)
+export const patchReviews = createAsyncThunk<
+  Review,
+  { id: number; status: { status: "published" | "pending" } }
+>("reviews/patchReviews", async ({ id, status }, { rejectWithValue }) => {
+  console.log("status", status)
+  try {
+    const { data } = await reviewsApi.patchReviews(id, status)
 
-      return data
-    } catch (error: unknown) {
-      return rejectWithValue(error)
-    }
+    return data
+  } catch (error: unknown) {
+    return rejectWithValue(error)
   }
-)
+})
 
 export const deleteReview = createAsyncThunk<IDeleteReview, GridRowId>(
   "reviews/deleteReviews",

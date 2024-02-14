@@ -13,7 +13,7 @@ export const reviewsApi = {
   },
 
   //  <---------- patch ---------->
-  patchReviews(id: number, status: { status: string }) {
+  patchReviews(id: number, status: { status: "published" | "pending" }) {
     return instance.patch<Review>(`feedback/${id}`, status)
   },
 

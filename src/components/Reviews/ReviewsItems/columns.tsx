@@ -1,6 +1,7 @@
 import moment from "moment"
 import { GridColDef } from "@mui/x-data-grid"
 import StarIcon from "src/images/svg/StarIcon"
+// import Switch from '@mui/material/Switch';
 
 export const columns: GridColDef[] = [
   {
@@ -60,12 +61,5 @@ export const columns: GridColDef[] = [
     editable: true,
     valueGetter: params => moment(params.row.createdAt).format("DD.MM.YYYY"),
   },
-  {
-    field: "status",
-    headerName: "Статус",
-    width: 100,
-    type: "string",
-    align: "center",
-    headerAlign: "center",
-  },
+  
 ]

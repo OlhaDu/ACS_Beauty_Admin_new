@@ -2,12 +2,12 @@
 @import "/src/styles/mixins.scss";
 
 .sub_menu_list {
-  @include customPosition(45px, 0, 197px); 
+  @include customPosition(45px, 0, 197px);
   padding-left: 18px;
   padding-bottom: 18px;
   color: $main-text-color;
   @extend .Roboto400-16-18;
-  border:$default-border;
+  border: $default-border;
   background-color: $first-icon-color;
 }
 .sub_menu_list > li {
@@ -26,7 +26,7 @@
   @extend .Roboto400-16-18;
   cursor: pointer;
 }
-.sub_sub_menu_list { 
+.sub_sub_menu_list {
   margin-left: 14px;
 }
 .sub_sub_menu_list li {
