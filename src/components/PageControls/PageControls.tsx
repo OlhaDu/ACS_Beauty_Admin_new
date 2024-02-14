@@ -1,6 +1,6 @@
 import React from "react"
 
-import s from "./PageToolsPanel.module.scss"
+import s from "./PageControls.module.scss"
 import Select from "../ToolsPanel/Select/Select"
 import ExportFileIcon from "src/images/svg/ExportFileIcon"
 import SearchInput from "../ToolsPanel/SearchInput/SearchInput"
@@ -12,7 +12,7 @@ interface IProps {
   setIsOpenModal: (value: boolean) => void
 }
 
-const PageToolsPanel: React.FC<IProps> = ({ title, btnTitle, setSearchName, setIsOpenModal }) => {
+const PageControls: React.FC<IProps> = ({ title, btnTitle, setSearchName, setIsOpenModal }) => {
   return (
     <>
       <div className={s.page_tools__title}>
@@ -34,4 +34,4 @@ const PageToolsPanel: React.FC<IProps> = ({ title, btnTitle, setSearchName, setI
   )
 }
 
-export default PageToolsPanel
+export default PageControls

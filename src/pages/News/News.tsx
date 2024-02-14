@@ -6,7 +6,7 @@ import { getNews } from "src/redux/news/operations"
 import s from "./News.module.scss"
 import AdminLayout from "src/layouts/AdminLayout"
 import ModalWindow from "src/components/ModalWindow"
-import PageToolsPanel from "src/components/PageToolsPanel"
+import PageToolsPanel from "src/components/PageControls"
 import NewsTable from "src/components/NewsComponents/NewsTable"
 import NewsManagementForm from "src/components/NewsComponents/NewsManagementForm"
 

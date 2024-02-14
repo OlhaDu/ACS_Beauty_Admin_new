@@ -4,7 +4,7 @@ import { getBrands } from "src/redux/brands/operations"
 
 import s from "./Brands.module.scss"
 import AdminLayout from "src/layouts/AdminLayout"
-import PageToolsPanel from "src/components/PageToolsPanel"
+import PageToolsPanel from "src/components/PageControls"
 import ModalWindow from "src/components/ModalWindow/ModalWindow"
 import BrandsTable from "src/components/BrandsComponents/BrandsTable"
 import BrandManagementForm from "src/components/BrandsComponents/BrandManagementForm"

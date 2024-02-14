@@ -1,7 +1,7 @@
 import * as Yup from "yup"
-import { INewsInitialValues } from "src/types/news"
+import { INoveltyInitialValues } from "src/types/news"
 
-export const newsManagerSchema = Yup.object<INewsInitialValues>({
+export const newsManagerSchema = Yup.object<INoveltyInitialValues>({
   title: Yup.string()
     .required("Обов`язкове поле")
     .min(3, "Заголовок має складатися не менше ніж з 3 символів")

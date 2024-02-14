@@ -1,6 +1,6 @@
 import { instance } from "../instance"
 import { GridRowId } from "@mui/x-data-grid"
-import { INews, IResponse } from "src/types/news"
+import { INovelty, IResponse } from "src/types/news"
 
 export const newsApi = {
   // <---------- get ---------->
@@ -12,12 +12,12 @@ export const newsApi = {
 
   // <---------- post ---------->
   postNews(formData: FormData) {
-    return instance.post<INews>("news/", formData)
+    return instance.post<INovelty>("news/", formData)
   },
 
   // <---------- patch ---------->
   patchNews(id: GridRowId, formData: FormData) {
-    return instance.patch<INews>(`news/${id}`, formData)
+    return instance.patch<INovelty>(`news/${id}`, formData)
   },
 
   // <---------- delete ---------->

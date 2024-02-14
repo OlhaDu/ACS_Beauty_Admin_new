@@ -3,7 +3,7 @@ import { FormikHelpers } from "formik"
 
 import { newsManagerSchema } from "src/libs/yup"
 import { useAppDispatch } from "src/redux/store"
-import { INews, INewsInitialValues } from "src/types/news"
+import { INovelty, INoveltyInitialValues } from "src/types/news"
 import { createNewNews, patchNews } from "src/redux/news/operations"
 
 import s from "./NewsManagementForm.module.scss"
@@ -11,26 +11,26 @@ import AddLogoInput from "src/components/AddLogoInput"
 import FormGenerator from "src/components/FormGenerator"
 
 interface IProps {
-  news?: INews
+  novelty?: INovelty
   onClose: () => void
 }
 
-const NewsManagementForm: React.FC<IProps> = ({ news, onClose }) => {
+const NewsManagementForm: React.FC<IProps> = ({ novelty, onClose }) => {
   const dispatch = useAppDispatch()
-  const [image, setImage] = useState(news?.banner || null)
+  const [image, setImage] = useState(novelty?.banner || null)
 
   const addNewsForm = {
     initialValues: {
       banner: image,
-      title: news?.title || "",
-      text: news?.text || "",
+      title: novelty?.title || "",
+      text: novelty?.text || "",
     },
     validationSchema: newsManagerSchema,
     groups: [
       {
         fields: [
           {
-            component: <AddLogoInput fields="banner" name={news?.title || ""} logo={image} />,
+            component: <AddLogoInput fields="banner" name={novelty?.title || ""} logo={image} />,
           },
         ],
       },
@@ -47,8 +47,8 @@ const NewsManagementForm: React.FC<IProps> = ({ news, onClose }) => {
       },
     ],
     onSubmit: async (
-      value: INewsInitialValues,
-      { resetForm }: FormikHelpers<INewsInitialValues>
+      value: INoveltyInitialValues,
+      { resetForm }: FormikHelpers<INoveltyInitialValues>
     ) => {
       const formData = new FormData()
       const { banner, title, text } = value
@@ -60,8 +60,8 @@ const NewsManagementForm: React.FC<IProps> = ({ news, onClose }) => {
       }
 
       try {
-        if (news) {
-          const { id } = news
+        if (novelty) {
+          const { id } = novelty
           dispatch(patchNews({ id, formData }))
         } else {
           dispatch(createNewNews(formData))
@@ -75,10 +75,10 @@ const NewsManagementForm: React.FC<IProps> = ({ news, onClose }) => {
       }
     },
     isToggler: false,
-    btnName: news && "РЕДАГУВАТИ",
+    btnName: novelty && "РЕДАГУВАТИ",
   }
 
-  return <FormGenerator<INewsInitialValues> {...addNewsForm} />
+  return <FormGenerator<INoveltyInitialValues> {...addNewsForm} />
 }
 
 export default NewsManagementForm

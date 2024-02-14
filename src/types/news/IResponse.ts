@@ -1,6 +1,6 @@
-import { INews } from "./INews"
+import { INovelty } from "./INovelty"
 
 export interface IResponse {
   count: number
-  rows: INews[]
+  rows: INovelty[]
 }

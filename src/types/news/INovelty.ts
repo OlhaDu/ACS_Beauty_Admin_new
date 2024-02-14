@@ -1,4 +1,4 @@
-export interface INews {
+export interface INovelty {
   id: number
   banner: string
   title: string

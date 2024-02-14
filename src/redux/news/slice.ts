@@ -1,10 +1,10 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit"
 import { getNews, createNewNews, patchNews, deleteNews } from "./operations"
-import { INews } from "src/types/news"
+import { INovelty } from "src/types/news"
 
 export interface NewsState {
   count: number
-  news: INews[]
+  news: INovelty[]
   isLoading: boolean
   error: unknown | null
 }
@@ -21,12 +21,12 @@ const newsSlice = createSlice({
   initialState,
 
   reducers: {
-    addNews: (state, action: PayloadAction<INews>) => {
+    addNews: (state, action: PayloadAction<INovelty>) => {
       state.news.push(action.payload)
       state.count += 1
     },
 
-    updateNews: (state, action: PayloadAction<INews>) => {
+    updateNews: (state, action: PayloadAction<INovelty>) => {
       const updatedNews = action.payload
       const index = state.news.findIndex(news => news.id === updatedNews.id)
 

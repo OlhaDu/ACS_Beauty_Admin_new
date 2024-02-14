@@ -1,12 +1,12 @@
 import React, { useState } from "react"
 import { useSelector } from "react-redux"
 import { useAppDispatch } from "src/redux/store"
-import { DataGrid, GridColDef, GridRowId } from "@mui/x-data-grid"
+import { GridColDef, GridRowId } from "@mui/x-data-grid"
 
-import Box from "@mui/material/Box"
 import ModalWindow from "src/components/ModalWindow"
 import NewsManagementForm from "../NewsManagementForm"
 import ActionsColumn from "src/components/ActionsColumn"
+import ActionableTable from "src/components/ActionableTable"
 
 import { columns } from "./columns"
 import { deleteNews } from "src/redux/news/operations"
@@ -21,11 +21,11 @@ interface IProps {
 
 const NewsTable: React.FC<IProps> = ({ page, pageSize, setPage, setPageSize }) => {
   const dispatch = useAppDispatch()
-  const news = useSelector(selectNews)
+  const novelties = useSelector(selectNews)
   const count = useSelector(selectCount)
 
   const [isOpenModal, setIsOpenModal] = useState(false)
-  const [selectedNews, setSelectedNews] = useState<GridRowId | null>(null)
+  const [selectedNews, setSelectedNews] = useState<GridRowId | 0>(0)
 
   const actionsColumn: GridColDef = {
     field: "actions",
@@ -49,55 +49,18 @@ const NewsTable: React.FC<IProps> = ({ page, pageSize, setPage, setPageSize }) =
     },
   }
 
-  const tableColumns: GridColDef[] = columns.map(col =>
-    col.field === "text"
-      ? {
-          ...col,
-          renderCell: ({ value }) => <div style={{ whiteSpace: "normal" }}>{value}</div>,
-        }
-      : col
-  )
-
-  tableColumns.push(actionsColumn)
-
   return (
     <>
-      <Box
-        sx={{
-          ".actions": {
-            color: "text.secondary",
-          },
-          ".textPrimary": {
-            color: "text.primary",
-          },
-          ".MuiDataGrid-columnHeaders": {
-            backgroundColor: "#F8F0FB",
-          },
-          ".MuiDataGrid-cell:focus": {
-            outline: "none !important",
-          },
-        }}
-      >
-        <DataGrid
-          rows={news}
-          columns={tableColumns}
-          checkboxSelection={false}
-          disableRowSelectionOnClick={true}
-          disableColumnMenu={true}
-          isCellEditable={() => false}
-          isRowSelectable={() => false}
-          rowCount={count}
-          paginationMode="server"
-          paginationModel={{ page, pageSize }}
-          onPaginationModelChange={({ page, pageSize }) => {
-            setPage(page)
-            setPageSize(pageSize)
-          }}
-          pageSizeOptions={[10, 25, 50, 100]}
-          columnHeaderHeight={44}
-          rowHeight={107}
-        />
-      </Box>
+      <ActionableTable
+        columns={columns}
+        rows={novelties}
+        page={page}
+        pageSize={pageSize}
+        setPage={setPage}
+        setPageSize={setPageSize}
+        count={count}
+        actionsColumn={actionsColumn}
+      />
 
       <ModalWindow
         title={"РЕДАГУВАТИ НОВИНУ"}
@@ -105,7 +68,7 @@ const NewsTable: React.FC<IProps> = ({ page, pageSize, setPage, setPageSize }) =
         isOpenModal={isOpenModal}
       >
         <NewsManagementForm
-          news={news.find(news => news.id === selectedNews)}
+          novelty={novelties.find(novelties => novelties.id === selectedNews)}
           onClose={() => setIsOpenModal(false)}
         />
       </ModalWindow>
