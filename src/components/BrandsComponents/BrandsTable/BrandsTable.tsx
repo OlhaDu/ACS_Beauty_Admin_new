@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import { useSelector } from "react-redux"
+import { GridRowId } from "@mui/x-data-grid"
 import { useAppDispatch } from "src/redux/store"
-import { GridColDef, GridRowId } from "@mui/x-data-grid"
 
 import ModalWindow from "src/components/ModalWindow"
 import ActionsColumn from "src/components/ActionsColumn"
@@ -27,27 +27,17 @@ const BrandsTable: React.FC<IProps> = ({ page, pageSize, setPage, setPageSize })
   const [isOpenModal, setIsOpenModal] = useState(false)
   const [selectedBrand, setSelectedBrand] = useState<GridRowId | 0>(0)
 
-  const actionsColumn: GridColDef = {
-    field: "actions",
-    type: "actions",
-    headerName: "Дії",
-    width: 100,
-    cellClassName: "actions",
-
-    getActions: ({ id }) => {
-      return [
-        <ActionsColumn
-          onEditClick={() => {
-            setIsOpenModal(true)
-            setSelectedBrand(id)
-          }}
-          onDeleteClick={() => {
-            dispatch(deleteBrand(id))
-          }}
-        />,
-      ]
-    },
-  }
+  const getActions = (id: GridRowId) => [
+    <ActionsColumn
+      onEditClick={() => {
+        setIsOpenModal(true)
+        setSelectedBrand(id)
+      }}
+      onDeleteClick={() => {
+        dispatch(deleteBrand(id))
+      }}
+    />,
+  ]
 
   return (
     <>
@@ -59,7 +49,7 @@ const BrandsTable: React.FC<IProps> = ({ page, pageSize, setPage, setPageSize })
         setPage={setPage}
         setPageSize={setPageSize}
         count={count}
-        actionsColumn={actionsColumn}
+        getActions={getActions}
       />
 
       <ModalWindow

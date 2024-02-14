@@ -1,6 +1,6 @@
-import React from "react"
 import Box from "@mui/material/Box"
-import { DataGrid, GridColDef } from "@mui/x-data-grid"
+import React, { ReactNode } from "react"
+import { GridRowId, DataGrid, GridColDef } from "@mui/x-data-grid"
 
 import { INovelty } from "src/types/news"
 import { IBrand } from "src/types/brands"
@@ -13,7 +13,7 @@ interface IProps {
   setPage: (page: number) => void
   setPageSize: (pageSize: number) => void
   count: number
-  actionsColumn: GridColDef
+  getActions: (id: GridRowId) => ReactNode[]
 }
 
 const ActionableTable: React.FC<IProps> = ({
@@ -24,8 +24,19 @@ const ActionableTable: React.FC<IProps> = ({
   setPage,
   setPageSize,
   count,
-  actionsColumn,
+  getActions,
 }) => {
+  const actionsColumn: GridColDef = {
+    field: "actions",
+    type: "actions",
+    headerName: "Дії",
+    width: 100,
+    cellClassName: "actions",
+
+    getActions: ({ id }) =>
+      getActions(id).map(action => <React.Fragment key={id}>{action}</React.Fragment>),
+  }
+
   const tableColumns: GridColDef[] = columns.map(col =>
     col.field === "text" || col.field === "description"
       ? {

@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import { useSelector } from "react-redux"
+import { GridRowId } from "@mui/x-data-grid"
 import { useAppDispatch } from "src/redux/store"
-import { GridColDef, GridRowId } from "@mui/x-data-grid"
 
 import ModalWindow from "src/components/ModalWindow"
 import NewsManagementForm from "../NewsManagementForm"
@@ -27,27 +27,17 @@ const NewsTable: React.FC<IProps> = ({ page, pageSize, setPage, setPageSize }) =
   const [isOpenModal, setIsOpenModal] = useState(false)
   const [selectedNews, setSelectedNews] = useState<GridRowId | 0>(0)
 
-  const actionsColumn: GridColDef = {
-    field: "actions",
-    type: "actions",
-    headerName: "Дії",
-    width: 100,
-    cellClassName: "actions",
-
-    getActions: ({ id }) => {
-      return [
-        <ActionsColumn
-          onEditClick={() => {
-            setIsOpenModal(true)
-            setSelectedNews(id)
-          }}
-          onDeleteClick={() => {
-            dispatch(deleteNews(id))
-          }}
-        />,
-      ]
-    },
-  }
+  const getActions = (id: GridRowId) => [
+    <ActionsColumn
+      onEditClick={() => {
+        setIsOpenModal(true)
+        setSelectedNews(id)
+      }}
+      onDeleteClick={() => {
+        dispatch(deleteNews(id))
+      }}
+    />,
+  ]
 
   return (
     <>
@@ -59,7 +49,7 @@ const NewsTable: React.FC<IProps> = ({ page, pageSize, setPage, setPageSize }) =
         setPage={setPage}
         setPageSize={setPageSize}
         count={count}
-        actionsColumn={actionsColumn}
+        getActions={getActions}
       />
 
       <ModalWindow
