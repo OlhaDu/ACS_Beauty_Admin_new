@@ -16,6 +16,7 @@ const ExportButton = () => {
       ],
       { skipHeader: true }
     )
+
     const colWidths = columns.map(col => {
       const headerNameLength = col.headerName ? col.headerName.length : 0
       const maxContentLength = Math.max(
@@ -31,6 +32,7 @@ const ExportButton = () => {
 
     XLSX.writeFile(wb, "exported_data.xlsx")
   }
+  
   return (
     <button type="button" className={s.btnExport} onClick={onClick}>
       ЕКСПОРТУВАТИ
