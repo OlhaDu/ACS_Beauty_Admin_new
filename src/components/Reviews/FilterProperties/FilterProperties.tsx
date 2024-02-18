@@ -3,8 +3,9 @@ import s from "./FilterProperties.module.scss"
 import NavigateIcon from "src/images/svg/NavigateIcon"
 import FilterIcon from "src/images/svg/FilterIcon"
 import ArrowIcon from "src/images/svg/ArrowIcon"
-import useFilterOnClickOutside from "src/hooks/useFilterOnClickOutside"
-import { statusOptions, ratingOptions } from "./menuPotions";
+import useOnClickOutside from "src/hooks/useOnClickOutside"
+
+import { statusOptions, ratingOptions } from "./menuPotions"
 interface IProps {
   setStatus: React.Dispatch<React.SetStateAction<string>>
   setRating: React.Dispatch<React.SetStateAction<string>>
@@ -18,8 +19,6 @@ const FilterProperties: React.FC<IProps> = ({ setStatus, setRating }) => {
   const filterRef = useRef<HTMLDivElement>(null)
   const filterButtonRef = useRef<HTMLSpanElement>(null)
 
-  
-
   const toggleStatus = () => {
     setStatusOpen(!statusOpen)
   }
@@ -27,23 +26,23 @@ const FilterProperties: React.FC<IProps> = ({ setStatus, setRating }) => {
   const toggleRating = () => {
     setRatingOpen(prevRatingOpen => !prevRatingOpen)
   }
-
-  const toggleFilter = () => {
-    setFilterOpen(!filterOpen)
+  const hideFilter = () => {
+    setFilterOpen(false)
   }
-console.log("first", filterOpen)
-  useFilterOnClickOutside(filterOpen, filterRef, filterButtonRef, toggleFilter)
+
+  console.log("first", filterOpen)
+  useOnClickOutside(filterRef, hideFilter)
 
   return (
-    <>
-      <div className={s.menu_filter}>
+    <div ref={filterRef}>
+      <div className={s.menu_filter} onClick={() => setFilterOpen(!filterOpen)}>
         <FilterIcon />
         Фільтрувати
-        <span ref={filterButtonRef} className={s.menu_arrow} onClick={toggleFilter}>
+        <span ref={filterButtonRef} className={s.menu_arrow}>
           <ArrowIcon rotated={filterOpen} />
         </span>
       </div>
-      <div ref={filterRef}>
+      <div>
         {filterOpen && (
           <ul className={s.sub_menu_list}>
             <li>
@@ -53,6 +52,7 @@ console.log("first", filterOpen)
                   <NavigateIcon rotated={statusOpen} />
                 </span>
               </p>
+
               {statusOpen && (
                 <ul className={s.sub_sub_menu_list}>
                   {statusOptions.map(option => (
@@ -64,7 +64,6 @@ console.log("first", filterOpen)
                   ))}
                 </ul>
               )}
-
             </li>
             <li>
               <p className={s.sub_menu_link} onClick={toggleRating}>
@@ -84,12 +83,11 @@ console.log("first", filterOpen)
                   ))}
                 </ul>
               )}
-
             </li>
           </ul>
         )}
       </div>
-    </>
+    </div>
   )
 }
 
