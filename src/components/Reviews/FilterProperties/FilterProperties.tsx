@@ -30,7 +30,6 @@ const FilterProperties: React.FC<IProps> = ({ setStatus, setRating }) => {
     setFilterOpen(false)
   }
 
-  console.log("first", filterOpen)
   useOnClickOutside(filterRef, hideFilter)
 
   return (
