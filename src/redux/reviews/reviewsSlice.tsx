@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit"
 import { Review, ReviewRow } from "src/types/Reviews"
-import { getReviews, patchReviews, deleteReview } from "./operations"
+import { getReviews, patchReview, deleteReview } from "./operations"
 import { handlePending, handleRejected } from "src/Utils"
 
 export interface ReviewsState {
@@ -28,6 +28,10 @@ const reviewsSlice = createSlice({
       state.reviews = state.reviews.filter(review => review.id !== action.payload)
       state.count -= 1
     },
+    setColumns: (state, action) => {
+      state.columns =  action.payload
+     
+    },
   },
 
   extraReducers: builder => {
@@ -41,8 +45,8 @@ const reviewsSlice = createSlice({
       })
       .addCase(getReviews.rejected, handleRejected)
 
-      .addCase(patchReviews.pending, handlePending)
-      .addCase(patchReviews.fulfilled, (state, action) => {
+      .addCase(patchReview.pending, handlePending)
+      .addCase(patchReview.fulfilled, (state, action) => {
         const updateReview = action.payload
         const index = state.reviews.findIndex(review => review.id === updateReview.id)
         if (index !== -1) {
@@ -51,7 +55,7 @@ const reviewsSlice = createSlice({
         state.isLoading = false
         state.error = null
       })
-      .addCase(patchReviews.rejected, handleRejected)
+      .addCase(patchReview.rejected, handleRejected)
 
       .addCase(deleteReview.pending, handlePending)
       .addCase(deleteReview.fulfilled, (state, action) => {
@@ -62,5 +66,5 @@ const reviewsSlice = createSlice({
       .addCase(deleteReview.rejected, handleRejected)
   },
 })
-
+export const { setColumns } = reviewsSlice.actions;
 export const reviewsReducer = reviewsSlice.reducer

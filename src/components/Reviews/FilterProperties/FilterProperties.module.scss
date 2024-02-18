@@ -3,8 +3,7 @@
 
 .sub_menu_list {
   @include customPosition(45px, 0, 197px);
-  padding-left: 18px;
-  padding-bottom: 18px;
+  padding: 0px 18px 18px;
   color: $main-text-color;
   @extend .Roboto400-16-18;
   border: $default-border;

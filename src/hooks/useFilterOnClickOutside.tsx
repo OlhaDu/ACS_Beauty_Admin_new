@@ -1,6 +1,6 @@
 import { useEffect } from "react"
 
-const useFilterEffect = (
+const useFilterOnClickOutside = (
   filterOpen: boolean,
   filterRef: React.RefObject<HTMLDivElement>,
   filterButtonRef: React.RefObject<HTMLSpanElement>,
@@ -26,4 +26,4 @@ const useFilterEffect = (
   }, [toggleFilter, filterRef, filterButtonRef, filterOpen])
 }
 
-export default useFilterEffect
+export default useFilterOnClickOutside

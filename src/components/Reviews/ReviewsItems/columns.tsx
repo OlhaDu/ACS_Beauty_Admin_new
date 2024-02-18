@@ -23,7 +23,7 @@ export const columns: GridColDef[] = [
   {
     field: "author",
     headerName: "Автор",
-    width: 160,
+    width: 140,
     type: "string",
     align: "center",
     headerAlign: "center",
@@ -31,7 +31,7 @@ export const columns: GridColDef[] = [
   {
     field: "review",
     headerName: "Відгук",
-    width: 160,
+    width: 140,
     type: "string",
     align: "center",
     headerAlign: "center",

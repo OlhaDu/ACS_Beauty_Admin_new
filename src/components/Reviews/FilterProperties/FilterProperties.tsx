@@ -3,7 +3,7 @@ import s from "./FilterProperties.module.scss"
 import NavigateIcon from "src/images/svg/NavigateIcon"
 import FilterIcon from "src/images/svg/FilterIcon"
 import ArrowIcon from "src/images/svg/ArrowIcon"
-import useFilterEffect from "src/hooks/useFilterOnClickOutside"
+import useFilterOnClickOutside from "src/hooks/useFilterOnClickOutside"
 import { statusOptions, ratingOptions } from "./menuPotions";
 interface IProps {
   setStatus: React.Dispatch<React.SetStateAction<string>>
@@ -31,8 +31,8 @@ const FilterProperties: React.FC<IProps> = ({ setStatus, setRating }) => {
   const toggleFilter = () => {
     setFilterOpen(!filterOpen)
   }
-
-  useFilterEffect(filterOpen, filterRef, filterButtonRef, toggleFilter)
+console.log("first", filterOpen)
+  useFilterOnClickOutside(filterOpen, filterRef, filterButtonRef, toggleFilter)
 
   return (
     <>

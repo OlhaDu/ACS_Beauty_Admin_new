@@ -5,7 +5,7 @@ export interface Review {
     productName: string;
     createdAt: "2024-02-08";
     review: string;
-    status: string;
+    status: "pending" | "published";
     rating: number;
      productId: number;
    userId: number;

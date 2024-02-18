@@ -1,9 +1,12 @@
+import React, { useEffect } from "react"
 import { useSelector } from "react-redux"
 import Switch from "@mui/material/Switch"
 import { columns } from "./columns"
+import s from "./ReviewsTable.module.scss"
 import { useAppDispatch } from "src/redux/store"
 import { selectReviews, selectCount } from "src/redux/reviews/selectors"
-import { deleteReview, patchReviews } from "src/redux/reviews/operations"
+import { deleteReview, patchReview } from "src/redux/reviews/operations"
+import { setColumns } from "src/redux/reviews/reviewsSlice"
 import Box from "@mui/material/Box"
 import DeleteIcon from "src/images/svg/DeleteIconTS"
 import { DataGrid, GridColDef, GridActionsCellItem, GridValueGetterParams } from "@mui/x-data-grid"
@@ -22,7 +25,7 @@ const ReviewsTable: React.FC<IProps> = ({ page, pageSize, setPage, setPageSize }
 
   const handleStatusChange = (id: number, newStatus: "published" | "pending") => {
     const status = { status: newStatus }
-    dispatch(patchReviews({ id, status }))
+    dispatch(patchReview({ id, status }))
   }
 
   const actionsColumn: GridColDef = {
@@ -51,13 +54,17 @@ const ReviewsTable: React.FC<IProps> = ({ page, pageSize, setPage, setPageSize }
     author: `${review.firstName} ${review.lastName}`,
   }))
 
+  useEffect(() => {
+    dispatch(setColumns(reviewsWithAuthor))
+  }, [reviewsWithAuthor])
+
   const statusColumn: GridColDef = {
     field: "status",
     headerName: "Статус",
     width: 130,
 
     renderCell: params => (
-      <div style={{ display: "flex", alignItems: "center" }}>
+      <div className={s.statusStyle}>
         <Switch
           checked={params.row.status === "published"}
           onChange={event => {
@@ -66,7 +73,16 @@ const ReviewsTable: React.FC<IProps> = ({ page, pageSize, setPage, setPageSize }
           }}
           inputProps={{ "aria-label": "controlled" }}
         />
-        <Typography variant="body1">{params.row.status}</Typography>
+        <Typography
+          variant="body1"
+          className={s.typographyStyle}
+          onClick={() => {
+            const newStatus = params.row.status === "published" ? "pending" : "published"
+            handleStatusChange(params.row.id, newStatus)
+          }}
+        >
+          {params.row.status}
+        </Typography>
       </div>
     ),
     type: "string",
@@ -93,9 +109,8 @@ const ReviewsTable: React.FC<IProps> = ({ page, pageSize, setPage, setPageSize }
   return (
     <>
       <Box
+        className={s.container}
         sx={{
-          width: "100%",
-          marginTop: "22px",
           ".MuiDataGrid-columnHeaders": {
             backgroundColor: "#F8F0FB",
             color: " #5c5e60",
