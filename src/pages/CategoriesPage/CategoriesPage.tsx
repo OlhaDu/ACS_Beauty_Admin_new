@@ -26,7 +26,7 @@ const CategoriesPage = () => {
         </ModalWindow>
         <Categories />
       </div>
-      <ToastContainer position="top-center" />
+      <ToastContainer position="top-center" autoClose={2500} />
     </AdminLayout>
   )
 }

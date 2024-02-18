@@ -35,10 +35,9 @@ const CategoryManagementForm: FC<ICategoryManagementForm> = ({ category, onClose
       { resetForm, setFieldError }: FormikHelpers<IInitialValuesCategory>
     ) => {
       const formData = new FormData()
-      const { name, description, image } = values
+      const { name, image } = values
 
       formData.append("name", name)
-      formData.append("description", description)
       image && formData.append("image", image)
 
       try {
