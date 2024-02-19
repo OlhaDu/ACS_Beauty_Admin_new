@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit"
+import { PayloadAction, createSlice } from "@reduxjs/toolkit"
 import { Review, ReviewRow } from "src/types/Reviews"
 import { getReviews, patchReview, deleteReview } from "./operations"
 import { handlePending, handleRejected } from "src/Utils"
@@ -28,9 +28,17 @@ const reviewsSlice = createSlice({
       state.reviews = state.reviews.filter(review => review.id !== action.payload)
       state.count -= 1
     },
+
     setColumns: (state, action) => {
-      state.columns =  action.payload
-     
+      state.columns = action.payload
+    },
+
+    updateReview: (state, action: PayloadAction<Review>) => {
+      const updateReview = action.payload
+      const index = state.reviews.findIndex(review => review.id === updateReview.id)
+      if (index !== -1) {
+        state.reviews[index].status = updateReview.status
+      }
     },
   },
 
@@ -47,11 +55,7 @@ const reviewsSlice = createSlice({
 
       .addCase(patchReview.pending, handlePending)
       .addCase(patchReview.fulfilled, (state, action) => {
-        const updateReview = action.payload
-        const index = state.reviews.findIndex(review => review.id === updateReview.id)
-        if (index !== -1) {
-          state.reviews[index].status = updateReview.status
-        }
+        reviewsSlice.caseReducers.updateReview(state, action)
         state.isLoading = false
         state.error = null
       })
@@ -66,5 +70,5 @@ const reviewsSlice = createSlice({
       .addCase(deleteReview.rejected, handleRejected)
   },
 })
-export const { setColumns } = reviewsSlice.actions;
+export const { setColumns } = reviewsSlice.actions
 export const reviewsReducer = reviewsSlice.reducer

@@ -7,7 +7,6 @@ import * as XLSX from "xlsx"
 
 const ExportButton = () => {
   const reviews = useSelector(selectColumns)
-console.log("reviews", reviews)
   const onClick = () => {
     const ws = XLSX.utils.json_to_sheet(
       [

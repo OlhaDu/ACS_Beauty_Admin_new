@@ -9,11 +9,13 @@ import { statusOptions, ratingOptions } from "./menuPotions"
 interface IProps {
   setStatus: React.Dispatch<React.SetStateAction<string>>
   setRating: React.Dispatch<React.SetStateAction<string>>
+  status: string
+  rating: string
 }
 
-const FilterProperties: React.FC<IProps> = ({ setStatus, setRating }) => {
-  const [statusOpen, setStatusOpen] = useState(false)
-  const [ratingOpen, setRatingOpen] = useState(false)
+const FilterProperties: React.FC<IProps> = ({ setStatus, setRating, status, rating }) => {
+  const [statusOpen, setStatusOpen] = useState(true)
+  const [ratingOpen, setRatingOpen] = useState(true)
   const [filterOpen, setFilterOpen] = useState(false)
 
   const filterRef = useRef<HTMLDivElement>(null)
@@ -30,7 +32,6 @@ const FilterProperties: React.FC<IProps> = ({ setStatus, setRating }) => {
     setFilterOpen(false)
   }
 
-  
   useOnClickOutside(filterRef, hideFilter)
 
   return (
@@ -57,7 +58,12 @@ const FilterProperties: React.FC<IProps> = ({ setStatus, setRating }) => {
                 <ul className={s.sub_sub_menu_list}>
                   {statusOptions.map(option => (
                     <li key={option.value}>
-                      <p className={s.sub_sub_menu_link} onClick={() => setStatus(option.value)}>
+                      <p
+                        className={`${s.sub_sub_menu_link} ${
+                          status === option.value ? s.active : ""
+                        }`}
+                        onClick={() => setStatus(option.value)}
+                      >
                         {option.label}
                       </p>
                     </li>
@@ -76,7 +82,12 @@ const FilterProperties: React.FC<IProps> = ({ setStatus, setRating }) => {
                 <ul className={s.sub_sub_menu_list}>
                   {ratingOptions.map(option => (
                     <li key={option.value}>
-                      <p className={s.sub_sub_menu_link} onClick={() => setRating(option.value)}>
+                      <p
+                        className={`${s.sub_sub_menu_link} ${
+                          rating === option.value ? s.active : ""
+                        }`}
+                        onClick={() => setRating(option.value)}
+                      >
                         {option.label}
                       </p>
                     </li>

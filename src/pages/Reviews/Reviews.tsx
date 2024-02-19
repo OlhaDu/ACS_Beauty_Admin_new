@@ -37,7 +37,12 @@ const ReviewsList: React.FC = () => {
           <SearchInput onChange={setSearchName} />
 
           <div className={s.menu_list}>
-            <FilterProperties setStatus={setStatus} setRating={setRating} />
+            <FilterProperties
+              setStatus={setStatus}
+              setRating={setRating}
+              status={status}
+              rating={rating}
+            />
             <ExportButton />
           </div>
 
