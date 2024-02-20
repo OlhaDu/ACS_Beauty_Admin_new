@@ -33,7 +33,7 @@ const reviewsSlice = createSlice({
       state.columns = action.payload
     },
 
-    updateReview: (state, action: PayloadAction<Review>) => {
+    updateReview: (state, action:  PayloadAction<{ id: number, status: "pending" | "published" }>) => {
       const updateReview = action.payload
       const index = state.reviews.findIndex(review => review.id === updateReview.id)
       if (index !== -1) {
@@ -70,5 +70,5 @@ const reviewsSlice = createSlice({
       .addCase(deleteReview.rejected, handleRejected)
   },
 })
-export const { setColumns } = reviewsSlice.actions
+export const { setColumns, updateReview } = reviewsSlice.actions
 export const reviewsReducer = reviewsSlice.reducer

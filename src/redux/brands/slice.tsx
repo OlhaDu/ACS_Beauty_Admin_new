@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { IBrand } from "src/api/brands/types";
+import { IBrand } from "src/types/brands";
 import {
   getBrands,
   createNewBrand,

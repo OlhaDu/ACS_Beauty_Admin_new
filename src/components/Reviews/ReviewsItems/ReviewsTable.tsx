@@ -5,8 +5,8 @@ import { columns } from "./columns"
 import s from "./ReviewsTable.module.scss"
 import { useAppDispatch } from "src/redux/store"
 import { selectReviews, selectCount } from "src/redux/reviews/selectors"
-import { deleteReview, patchReview } from "src/redux/reviews/operations"
-import { setColumns } from "src/redux/reviews/reviewsSlice"
+import { deleteReview } from "src/redux/reviews/operations"
+import { setColumns, updateReview } from "src/redux/reviews/reviewsSlice"
 import Box from "@mui/material/Box"
 import DeleteIcon from "src/images/svg/DeleteIconTS"
 import { DataGrid, GridColDef, GridActionsCellItem, GridValueGetterParams } from "@mui/x-data-grid"
@@ -24,8 +24,7 @@ const ReviewsTable: React.FC<IProps> = ({ page, pageSize, setPage, setPageSize }
   const count = useSelector(selectCount)
 
   const handleStatusChange = (id: number, newStatus: "published" | "pending") => {
-    const status = { status: newStatus }
-    dispatch(patchReview({ id, status }))
+    dispatch(updateReview({ id, status: newStatus }))
   }
 
   const actionsColumn: GridColDef = {

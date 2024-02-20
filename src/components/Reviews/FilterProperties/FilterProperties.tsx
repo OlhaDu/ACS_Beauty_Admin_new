@@ -4,12 +4,12 @@ import NavigateIcon from "src/images/svg/NavigateIcon"
 import FilterIcon from "src/images/svg/FilterIcon"
 import ArrowIcon from "src/images/svg/ArrowIcon"
 import useOnClickOutside from "src/hooks/useOnClickOutside"
-
+import classNames from "classnames"
 import { statusOptions, ratingOptions } from "./menuPotions"
 interface IProps {
   setStatus: React.Dispatch<React.SetStateAction<string>>
   setRating: React.Dispatch<React.SetStateAction<string>>
-  status: string
+  status: "pending" | "published"
   rating: string
 }
 
@@ -59,9 +59,9 @@ const FilterProperties: React.FC<IProps> = ({ setStatus, setRating, status, rati
                   {statusOptions.map(option => (
                     <li key={option.value}>
                       <p
-                        className={`${s.sub_sub_menu_link} ${
-                          status === option.value ? s.active : ""
-                        }`}
+                        className={classNames(s.sub_sub_menu_link, {
+                          [s.active]: status === option.value,
+                        })}
                         onClick={() => setStatus(option.value)}
                       >
                         {option.label}
@@ -83,9 +83,9 @@ const FilterProperties: React.FC<IProps> = ({ setStatus, setRating, status, rati
                   {ratingOptions.map(option => (
                     <li key={option.value}>
                       <p
-                        className={`${s.sub_sub_menu_link} ${
-                          rating === option.value ? s.active : ""
-                        }`}
+                        className={classNames(s.sub_sub_menu_link, {
+                        [s.active]: rating === option.value 
+                        })}
                         onClick={() => setRating(option.value)}
                       >
                         {option.label}
