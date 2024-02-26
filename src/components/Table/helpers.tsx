@@ -15,6 +15,7 @@ export const handleExternalDataUpdate = async (updatedRowData: IUserData) => {
     const updateUsers = async () => {
       try {
         const response = await api.updateUsers(updatedRowData);
+        return response.data
       } catch (error) {
         console.error("Error fetching data:", error);
       }

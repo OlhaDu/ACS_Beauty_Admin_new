@@ -1,52 +1,52 @@
-// import ProdIcon from "src/images/svg/ProdIcon.svg";
+import React, {useEffect, useState} from "react"
+import DashboardCard from "src/components/Dashboard/DashboardCard"
+import s from "./Dashboard.module.scss"
+import SearchInput from "src/components/ToolsPanel/SearchInput/SearchInput"
 
-import DashboardCard from "src/components/DashboardCard/DashboardCard";
-import styles from "./Dashboard.module.scss";
-import ProductsIcon from "src/images/svg/ProductsIcon";
+import AdminLayout from "src/layouts/AdminLayout"
+import ExportButton from "src/components/Reviews/Export"
+import DashboardTable from "src/components/Dashboard/DashboardTable"
+import { useAppDispatch } from "src/redux/store"
+import { getDashboards } from "src/redux/dashboards/operations"
 
 const Dashboard = () => {
+
+  const [page, setPage] = useState(0)
+  const [pageSize, setPageSize] = useState(10)
+  const [searchName, setSearchName] = useState("")
+
+  const dispatch = useAppDispatch()
+
+  useEffect(() => {
+    dispatch(
+      getDashboards({
+        lookup: searchName,
+        pageSize,
+        page: page + 1,
+      
+      })
+    )
+  }, [searchName, pageSize, page])
+
   return (
-    <div className={styles.container}>
-      <h3>З поверненням, Оля!</h3>
-      <div className={styles.dashboards}>
-        <DashboardCard
-          itemHeading={"Замовлення на місяць"}
-          itemQuantity={"12"}
-          itemIcon={<ProductsIcon color={"#5C5E60"} />}
-          totalItemQuantity={"2356"}
-          itemIncrease={"10"}
-        />
-        {/* <ProdIcon /> */}
-
-        {/* <DashboardCard
-          itemHeading={"Надходження на місяць"}
-          itemQuantity={"12567₴"}
-          itemIcon={<IncomeIcon color={"#5C5E60"} />}
-          totalItemQuantity={"3456890₴"}
-          itemIncrease={"10"}
-        />
-        <DashboardCard
-          itemHeading={"Відвідувачів на місяць"}
-          itemQuantity={"3878"}
-          itemIcon={<LoginIcon color={"#5C5E60"} />}
-          totalItemQuantity={"3456906"}
-          itemIncrease={"10"}
-        />
-        <DashboardCard
-          itemHeading={"Відгуків на місяць"}
-          itemQuantity={"70"}
-          itemIcon={<ReviewsIcon color={"#5C5E60"} />}
-          totalItemQuantity={"1200"}
-          itemIncrease={"10"}
-        /> */}
+    <AdminLayout>
+      <div className={s.container}>
+        <h3>З поверненням, Оля!</h3>        
+          <DashboardCard />
+          <h3>Останні замовлення</h3>
+          <div className={s.inputButton}>
+            <SearchInput onChange={setSearchName}/>
+            <ExportButton/>
+          </div>
+          <DashboardTable
+          page={page}
+          pageSize={pageSize}
+          setPage={setPage}
+          setPageSize={setPageSize}/>
+      
       </div>
-      {/* <div className={styles.orders}>
-        <h4>Останні замовлення</h4>
-        <ToolsPanel />
-        <div className={styles.table}>Тут будет таблица</div>
-      </div> */}
-    </div>
-  );
-};
+    </AdminLayout>
+  )
+}
 
-export default Dashboard;
+export default Dashboard

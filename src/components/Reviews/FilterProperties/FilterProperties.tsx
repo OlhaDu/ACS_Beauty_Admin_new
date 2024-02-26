@@ -7,10 +7,10 @@ import useOnClickOutside from "src/hooks/useOnClickOutside"
 import classNames from "classnames"
 import { statusOptions, ratingOptions } from "./menuPotions"
 interface IProps {
-  setStatus: React.Dispatch<React.SetStateAction<string>>
-  setRating: React.Dispatch<React.SetStateAction<string>>
-  status: "pending" | "published"
-  rating: string
+  setStatus: React.Dispatch<React.SetStateAction<"" | "pending" | "published">>
+  setRating: React.Dispatch<React.SetStateAction<"" | "positive" | "neutral" | "negative">>
+  status: "pending" | "published" | ""
+  rating: "positive" | "neutral" | "negative" | ""
 }
 
 const FilterProperties: React.FC<IProps> = ({ setStatus, setRating, status, rating }) => {
@@ -84,7 +84,7 @@ const FilterProperties: React.FC<IProps> = ({ setStatus, setRating, status, rati
                     <li key={option.value}>
                       <p
                         className={classNames(s.sub_sub_menu_link, {
-                        [s.active]: rating === option.value 
+                          [s.active]: rating === option.value,
                         })}
                         onClick={() => setRating(option.value)}
                       >

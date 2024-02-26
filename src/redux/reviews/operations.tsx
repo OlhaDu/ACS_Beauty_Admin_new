@@ -20,7 +20,6 @@ export const patchReview = createAsyncThunk<
   Review,
   { id: number; status: { status: "published" | "pending" } }
 >("reviews/patchReview", async ({ id, status }, { rejectWithValue }) => {
-  console.log("status", status)
   try {
     const { data } = await reviewsApi.patchReview(id, status)
 

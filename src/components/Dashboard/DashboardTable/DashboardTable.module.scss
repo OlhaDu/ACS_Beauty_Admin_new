@@ -1,0 +1,33 @@
+.container {
+  min-width: 100%;
+  margin-top: 22px;
+}
+
+.new_status {
+  color: black;
+  color: white;
+}
+
+.accepted_status {
+  color: orange;
+}
+
+.paid_status {
+  color: green;
+}
+
+.cancelled_status {
+  color: red;
+}
+.ableCell {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.ableCell:hover {
+  overflow: visible;
+  white-space: normal;
+  word-wrap: break-word;
+  text-overflow: clip;
+  cursor: pointer;
+}

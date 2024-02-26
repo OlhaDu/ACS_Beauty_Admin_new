@@ -2,18 +2,18 @@ import React, { useState, useEffect } from "react"
 import s from "./Reviews.module.scss"
 import SearchInput from "src/components/ToolsPanel/SearchInput/SearchInput"
 import AdminLayout from "src/layouts/AdminLayout"
-import FilterProperties from "../../components/Reviews/FilterProperties/FilterProperties"
+import FilterProperties from "../../components/Reviews/FilterProperties"
 import { getReviews } from "src/redux/reviews/operations"
 import { useAppDispatch } from "src/redux/store"
-import ReviewsTable from "src/components/Reviews/ReviewsItems/ReviewsTable"
-import ExportButton from "src/components/Reviews/Export/ExportButton"
+import ReviewsTable from "src/components/Reviews/ReviewsItems"
+import ExportButton from "src/components/Reviews/Export"
 
 const ReviewsList: React.FC = () => {
   const [page, setPage] = useState(0)
   const [pageSize, setPageSize] = useState(10)
   const [searchName, setSearchName] = useState("")
-  const [status, setStatus] = useState("")
-  const [rating, setRating] = useState("")
+  const [status, setStatus] = useState<"" | "pending" | "published">("");
+  const [rating, setRating] = useState<"" | "positive" | "neutral" | "negative">("");
 
   const dispatch = useAppDispatch()
 

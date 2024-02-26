@@ -60,7 +60,7 @@ const ReviewsTable: React.FC<IProps> = ({ page, pageSize, setPage, setPageSize }
   const statusColumn: GridColDef = {
     field: "status",
     headerName: "Статус",
-    width: 130,
+    width: 140,
 
     renderCell: params => (
       <div className={s.statusStyle}>

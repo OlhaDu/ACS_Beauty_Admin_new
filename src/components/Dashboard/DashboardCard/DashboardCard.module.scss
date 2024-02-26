@@ -1,0 +1,17 @@
+@import "/src/styles/variables.scss";
+@import "/src/styles/mixins.scss";
+
+.card {
+  padding: 24px;
+  border-radius: 4px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+
+  box-shadow: 4px 4px 4px 0px rgba(255, 255, 255, 0.25);
+}
+.card_text {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: $main-text-color;
+  font-size: $fs-xl;
+}

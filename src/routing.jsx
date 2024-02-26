@@ -19,7 +19,7 @@ export const router = createBrowserRouter([
     element: <Reviews/>
   },
   {
-    path: "/",
+    path: "/dashboard",
     element: <Dashboard />,
   },
   

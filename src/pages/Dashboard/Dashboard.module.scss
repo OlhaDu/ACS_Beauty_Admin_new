@@ -2,32 +2,39 @@
 @import "/src/styles/mixins.scss";
 
 .container {
-  height: inherit;
-  margin: auto 80px 40px 20px;
-  padding-top: 28px;
+  padding-top: 32px;
+  padding-left: 20px;
+  width:  calc(#{$page-width} - #{$sidebar-width});
+  margin-left: $sidebar-width;
+  background-color: $second-text-color;
   h3 {
-    @extend .Roboto500-24-28;
-    margin-bottom: 34px;
+    @extend .Roboto500-24-28;    
+    margin: 32px 0 28px ;
   }
-  .dashboards {
-    width: 1064px;
-    height: 428px;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-content: space-between;
-    margin-bottom: 32px;
-  }
-  .orders {
-    h4 {
-      @extend .Roboto500-24-28;
-      margin-bottom: 16px;
-    }
-    .table {
-      width: 1064px;
-      height: 417px;
-      background-color: rgb(253, 227, 232);
-      margin-top: 36px;
-    }
-  }
+  // .dashboards {
+  //   width: 1064px;
+  //   height: 428px;
+  //   display: flex;
+  //   flex-wrap: wrap;
+  //   justify-content: space-between;
+  //   align-content: space-between;
+  //   margin-bottom: 32px;
+  // }
+  // .orders {
+  //   h4 {
+  //     @extend .Roboto500-24-28;
+  //     margin-bottom: 16px;
+  //   }
+  //   .table {
+  //     width: 1064px;
+  //     height: 417px;
+  //     background-color: rgb(253, 227, 232);
+  //     margin-top: 36px;
+  //   }
+  // }
+}
+.inputButton {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
 }

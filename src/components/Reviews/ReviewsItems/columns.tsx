@@ -7,7 +7,7 @@ export const columns: GridColDef[] = [
   {
     field: "id",
     headerName: "id",
-    width: 40,
+    width: 60,
     type: "number",
     align: "center",
     headerAlign: "center",
@@ -15,7 +15,7 @@ export const columns: GridColDef[] = [
   {
     field: "productName",
     headerName: "Назва товару",
-    width: 110,
+    width: 180,
     type: "string",
     align: "center",
     headerAlign: "center",
@@ -23,7 +23,7 @@ export const columns: GridColDef[] = [
   {
     field: "author",
     headerName: "Автор",
-    width: 140,
+    width: 180,
     type: "string",
     align: "center",
     headerAlign: "center",
@@ -31,7 +31,7 @@ export const columns: GridColDef[] = [
   {
     field: "review",
     headerName: "Відгук",
-    width: 140,
+    width: 200,
     type: "string",
     align: "center",
     headerAlign: "center",
@@ -39,7 +39,7 @@ export const columns: GridColDef[] = [
   {
     field: "rating",
     headerName: "Рейтинг",
-    width: 105,
+    width: 130,
     type: "string",
     renderCell: params => (
       <>
@@ -57,7 +57,7 @@ export const columns: GridColDef[] = [
     field: "formData",
     headerName: "Створено",
     type: "string",
-    width: 102,
+    width: 112,
     editable: true,
     valueGetter: params => moment(params.row.createdAt).format("DD.MM.YYYY"),
   },
