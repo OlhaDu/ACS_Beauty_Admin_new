@@ -1,0 +1,6 @@
+export type { ISlide } from "./ISlide.ts"
+export type { IResponse } from "./IResponse.ts"
+export type { IAddBannerInput } from "./IAdBannerInput.ts"
+export type { IGetSlidesParams } from "./IGetSlidesParams.ts"
+export type { ISlidesInitialValues } from "./ISlidesInitialValues.ts"
+export type { IDeleteSlideResponse } from "./IDeleteSlideResponse.ts"

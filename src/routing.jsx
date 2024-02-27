@@ -4,6 +4,7 @@ import CategoriesPage from "./pages/CategoriesPage"
 import Dashboard from "./pages/Dashboard/Dashboard"
 import Brands from "./pages/Brands/Brands"
 import Orders from "./pages/Orders/Orders.tsx"
+import Slides from "./pages/Slides/Slides.tsx"
 
 export const router = createBrowserRouter([
   {
@@ -25,5 +26,9 @@ export const router = createBrowserRouter([
   {
     path: "/orders",
     element: <Orders />,
+  },
+  {
+    path: "/slides",
+    element: <Slides />,
   },
 ])

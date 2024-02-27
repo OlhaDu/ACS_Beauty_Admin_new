@@ -1,0 +1,35 @@
+@import "/src/styles/mixins.scss";
+@import "/src/styles/variables.scss";
+
+.slide {
+  display: flex;
+  padding: 32px 80px 26px 20px;
+  margin-left: 276px;
+}
+
+.slide__section {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.slide__button {
+  @extend .Violet-button-styles;
+}
+
+.slide__title {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 28px;
+}
+
+.slide__title_text {
+  @include text($font-size: 24px, $font-weight: 500);
+}
+
+.tools {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}

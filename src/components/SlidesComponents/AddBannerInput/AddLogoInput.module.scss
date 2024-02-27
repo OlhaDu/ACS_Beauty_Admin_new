@@ -1,0 +1,66 @@
+@import "/src/styles/variables.scss";
+@import "/src/styles/mixins.scss";
+
+.slide_form__image {
+  width: 581px;
+  height: 175px;
+  object-fit: contain;
+  background-position: center;
+  @include border($border: $dashed-border);
+}
+
+.slide_form__image_container {
+  position: relative;
+}
+
+.slide_form__image_delete_icon {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  top: 8px;
+  right: 8px;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  transition: background-color $transition;
+  circle {
+    fill: none;
+  }
+  path {
+    fill: $second-icon-color;
+  }
+
+  &:hover {
+    background-color: $second-color;
+  }
+}
+
+.slide_form__download_container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  width: 581px;
+  height: 175px;
+  margin-bottom: 12px;
+  @include border($border: $dashed-border);
+  cursor: pointer;
+}
+
+.slide_form__download_text {
+  @include text($font-weight: 500);
+}
+
+.slide_form__image_input {
+  display: none;
+}
+
+.error {
+  @include font();
+  margin-top: $margin-second;
+  color: $error-text-color;
+}
