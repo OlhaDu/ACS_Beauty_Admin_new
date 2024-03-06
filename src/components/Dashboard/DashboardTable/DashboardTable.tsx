@@ -3,12 +3,15 @@ import { useSelector } from "react-redux"
 import { useAppDispatch } from "src/redux/store"
 import { selectDashboards } from "src/redux/dashboards/selectors"
 import { DataGrid, GridColDef, GridActionsCellItem } from "@mui/x-data-grid"
+import { Switch, Typography } from "@mui/material"
+
 import { columns } from "./columns"
 import DeleteIcon from "src/images/svg/DeleteIconTS"
 import Box from "@mui/material/Box"
 import s from "./DashboardTable.module.scss"
-import EditIcon from "src/images/svg/EditIcon"
+import EditTableIcon from "src/images/svg/EditTableIcon"
 import { deleteDashboard } from "src/redux/dashboards/operations"
+import { updateDashboard } from "src/redux/dashboards/dashboardSlice"
 
 interface IProps {
   page: number
@@ -17,10 +20,18 @@ interface IProps {
   setPageSize: (pageSize: number) => void
 }
 
+const statusColors: { [key: string]: string } = {
+  Оплачено: s.paid_status,
+  Виконано: s.accepted_status,
+}
+
 const DashboardTable: React.FC<IProps> = ({ page, pageSize, setPage, setPageSize }) => {
   const dispatch = useAppDispatch()
   const dashboards = useSelector(selectDashboards) // const count = useSelector(selectCount)
 
+  const handleStatusChange = (id: number, newStatus: "Оплачено" | "Виконано") => {
+    dispatch(updateDashboard({ id, status: newStatus }))
+  }
   const actionsColumn: GridColDef = {
     field: "actions",
     type: "actions",
@@ -31,7 +42,7 @@ const DashboardTable: React.FC<IProps> = ({ page, pageSize, setPage, setPageSize
     getActions: ({ id }) => {
       return [
         <GridActionsCellItem
-          icon={<EditIcon />}
+          icon={<EditTableIcon fill={"black"}/>}
           label="Edit"
           className="textPrimary"
           color="inherit"
@@ -49,6 +60,38 @@ const DashboardTable: React.FC<IProps> = ({ page, pageSize, setPage, setPageSize
     },
   }
 
+  const statusColumn: GridColDef = {
+    field: "status",
+    headerName: "Статус",
+    align: "center",
+    width: 110,
+
+    renderCell: params => (
+      <div className={s.statusStyle}>
+        <Switch
+          checked={params.row.status === "Виконано"}
+          onChange={event => {
+            const newStatus = event.target.checked ? "Виконано" : "Оплачено"
+            handleStatusChange(params.row.id, newStatus)
+          }}
+          inputProps={{ "aria-label": "controlled" }}
+        />
+        <Typography
+          variant="body1"
+          className={statusColors[params.row.status]}
+          onClick={() => {
+            const newStatus = params.row.status === "Виконано" ? "Оплачено" : "Виконано"
+            handleStatusChange(params.row.id, newStatus)
+          }}
+        >
+          {params.row.status}
+        </Typography>
+      </div>
+    ),
+    type: "string",
+    headerAlign: "center",
+  }
+
   const tableColumns: GridColDef[] = columns.map(col =>
     col.field === "description"
       ? {
@@ -57,7 +100,7 @@ const DashboardTable: React.FC<IProps> = ({ page, pageSize, setPage, setPageSize
         }
       : col
   )
-
+  tableColumns.push(statusColumn);
   tableColumns.push(actionsColumn)
 
   return (

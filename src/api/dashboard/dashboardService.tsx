@@ -37,7 +37,7 @@ export const fetchDashboardsFromBackend = async ({page = 1, pageSize = 10, looku
                     id: 34563,
                     customer: "Кузьменко М.",
                     total: "1256грн",
-                    status: "Скасовано",
+                    status: "Оплачено",
                     deliveryMethod: "Нова пошта",
                     waybill: "2045678567890",
                     comments: "Будь-ласка відправте",

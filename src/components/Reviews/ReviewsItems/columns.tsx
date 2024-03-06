@@ -1,7 +1,6 @@
 import moment from "moment"
 import { GridColDef } from "@mui/x-data-grid"
 import StarIcon from "src/images/svg/StarIcon"
-// import Switch from '@mui/material/Switch';
 
 export const columns: GridColDef[] = [
   {

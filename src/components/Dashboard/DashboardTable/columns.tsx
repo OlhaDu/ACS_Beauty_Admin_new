@@ -2,13 +2,13 @@ import moment from "moment"
 import { GridColDef } from "@mui/x-data-grid"
 import s from "./DashboardTable.module.scss"
 
-const statusColors: { [key: string]: string } = {
-  Hoве: s.new_status,
-  Прийнято: s.accepted_status,
-  Оплачено: s.paid_status,
-  Виконано: s.paid_status,
-  Скасовано: s.cancelled_status,
-}
+// const statusColumn: GridColDef = {
+//   field: "status",
+//   headerName: "Статус",
+//   width: 120,
+//   type: "string",
+//   align: "center",
+// }
 
 export const columns: GridColDef[] = [
   {
@@ -38,20 +38,8 @@ export const columns: GridColDef[] = [
     align: "center",
     headerAlign: "center",
   },
-  {
-    field: "status",
-    headerName: "Статус",
-    width: 120,
-    type: "string",
-    align: "center",
-    headerAlign: "center",
-    renderCell: params => {
-      const status = params.value as string
-      const className = statusColors[status] || s.new_status
-      return <div className={className}>{status}</div>
-    },
-  },
 
+  // statusColumn,
   {
     field: "deliveryMethod",
     headerName: "Спосіб доставки",
