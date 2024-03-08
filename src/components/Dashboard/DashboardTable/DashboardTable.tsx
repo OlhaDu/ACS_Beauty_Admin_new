@@ -27,7 +27,7 @@ const statusColors: { [key: string]: string } = {
 
 const DashboardTable: React.FC<IProps> = ({ page, pageSize, setPage, setPageSize }) => {
   const dispatch = useAppDispatch()
-  const dashboards = useSelector(selectDashboards) // const count = useSelector(selectCount)
+  const dashboards = useSelector(selectDashboards)
 
   const handleStatusChange = (id: number, newStatus: "Оплачено" | "Виконано") => {
     dispatch(updateDashboard({ id, status: newStatus }))
@@ -42,7 +42,7 @@ const DashboardTable: React.FC<IProps> = ({ page, pageSize, setPage, setPageSize
     getActions: ({ id }) => {
       return [
         <GridActionsCellItem
-          icon={<EditTableIcon fill={"black"}/>}
+          icon={<EditTableIcon fill={"black"} />}
           label="Edit"
           className="textPrimary"
           color="inherit"
@@ -100,7 +100,7 @@ const DashboardTable: React.FC<IProps> = ({ page, pageSize, setPage, setPageSize
         }
       : col
   )
-  tableColumns.push(statusColumn);
+  tableColumns.push(statusColumn)
   tableColumns.push(actionsColumn)
 
   return (

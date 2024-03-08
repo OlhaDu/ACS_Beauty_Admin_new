@@ -2,14 +2,6 @@ import moment from "moment"
 import { GridColDef } from "@mui/x-data-grid"
 import s from "./DashboardTable.module.scss"
 
-// const statusColumn: GridColDef = {
-//   field: "status",
-//   headerName: "Статус",
-//   width: 120,
-//   type: "string",
-//   align: "center",
-// }
-
 export const columns: GridColDef[] = [
   {
     field: "id",
@@ -38,8 +30,6 @@ export const columns: GridColDef[] = [
     align: "center",
     headerAlign: "center",
   },
-
-  // statusColumn,
   {
     field: "deliveryMethod",
     headerName: "Спосіб доставки",
